@@ -134,7 +134,7 @@ which is \cite[\S4, Thm.~3]{kourbatov2015bounds}. Thus $\Fb$ is trapped between 
 $\log^2$-scale gap bounds differing by an additive $0.17$.
 
 That sandwich is the source of the difficulty. The best \emph{unconditional} prime-gap bound
-available is $g_n \ll p_n^{0.525}$ \cite{baker2001difference}; under the Riemann Hypothesis
+available is $g_n = O\bigl(p_n^{0.525}\bigr)$ \cite{baker2001difference}; under the Riemann Hypothesis
 the state of the art is $g_n \le \tfrac{22}{25}\sqrt{p_n}\,\log p_n$ for $p_n > 3$
 \cite[\S1.2, Thm.~5]{carneiro2019fourier}. Both are \emph{powers} of $p_n$; $\Fb$ needs a
 \emph{polylogarithmic} bound. The distance is square-root scale against log scale, and no
@@ -597,7 +597,7 @@ the entire drift that makes $T$ coarsely increase.
 \begin{proposition}[Obstruction; $\cP$]
 \label{prop:obstruction}
 Closing the residual window of Theorem~\ref{thm:C} requires an unconditional upper bound on
-the number of primes in an interval of length $y \asymp x/\log x$ that is within a factor
+the number of primes in an interval of length $y$ of order $x/\log x$ that is within a factor
 $1 + 2/L$ of the truth. The unconditionally available bound of Brun--Titchmarsh type gives
 only a factor of about $2$.
 \end{proposition}
@@ -1031,8 +1031,8 @@ the unconditional implication \eqref{eq:necessary}.
 The ratio of the best published RH-conditional bound to the bound Theorem~\ref{thm:D} would
 deliver is
 \[
-\frac{\tfrac{22}{25}\sqrt{p_n}L_n}{L_n^2 - L_n - 1} \;\asymp\; \frac{22}{25}\cdot
-\frac{\sqrt{p_n}}{L_n} \;\longrightarrow\; \infty ,
+\frac{\tfrac{22}{25}\sqrt{p_n}\,L_n}{L_n^2 - L_n - 1} \;\longrightarrow\; \infty ,
+\qquad\text{the ratio growing like } \frac{22}{25}\cdot\frac{\sqrt{p_n}}{L_n} ,
 \]
 with value $8.72\cdot10^7$ at $p = 2^{64}$ and unbounded thereafter.
 \end{corollary}
@@ -1187,7 +1187,7 @@ large enough.}
 Write $\psi(x) := \log(x\log x)/x$. Then
 $x^2\psi'(x) = \bigl(1 + 1/\log x\bigr) - \log(x\log x)$. The bracket
 $1 + 1/\log x$ decreases and $\log(x\log x)$ increases, so $\psi'$ has at most one sign
-change; evaluating, the bracket at $x=5$ is $1.6213$ while $\log(5\log 5) = 2.0873$, so
+change; evaluating, the bracket at $x=5$ is $1.6213$ while $\log(5\log 5) = 2.0853$, so
 $\psi'(5) < 0$, and $\psi' < 0$ for all $x \ge 5$. Hence $\psi$, and therefore
 $(x\log x)^{1/x} = e^{\psi(x)}$, is strictly decreasing on $[5,\infty)$.
 \end{proof}
@@ -1476,7 +1476,7 @@ is exactly the paper that gets over-quoted downstream.
 
 The load-bearing obstruction is unchanged by anything above: \textbf{any proof of $\Fb$
 yields $g_n = O(\log^2 p_n)$ unconditionally}, via \eqref{eq:necessary}. The best known
-unconditional gap bound is $g_n \ll p_n^{0.525}$ \cite{baker2001difference}; under RH it
+unconditional gap bound is $g_n = O\bigl(p_n^{0.525}\bigr)$ \cite{baker2001difference}; under RH it
 improves only to $\approx\sqrt{p_n}\log p_n$ \cite{carneiro2019fourier}. Both are powers of
 $p_n$; $\Fb$ needs polylogarithmic. Any proposal of a ``direct proof'' must say how it clears
 this, or it is proposing something already beyond the field.
@@ -1575,9 +1575,9 @@ internal constant were quoted, which it is not.
 
 \subsection{Scale, stated plainly}
 
-The in-run exhaustive sweep reached $p < 10^{11}$, which is $8.27$ decades short of $2^{64}$
-and about $12.8$ decades short of it from the $3\cdot10^6$ scale at which several of the
-lemma verifications were performed. \textbf{These sweeps verify the lemmas, not the range.}
+The in-run exhaustive sweep reached $p < 10^{11}$, which is $8.27$ decades short of $2^{64}$.
+Several of the lemma verifications were run at the smaller scale $3\cdot10^6$, which is
+$12.8$ decades short of $2^{64}$. \textbf{Both sweeps verify the lemmas, not the range.}
 They must never be cited as a verification of $\Fb$. The distance between what this study owns
 and the published frontier is now exactly one external table and one inequality to check
 against it: for every even $g$ occurring as a prime gap in $[10^{11}, 2^{64}]$, is

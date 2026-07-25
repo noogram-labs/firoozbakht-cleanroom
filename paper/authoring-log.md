@@ -35,7 +35,7 @@ $ latexmk -xelatex -interaction=nonstopmode paper.tex
 |---|---|
 | `latexmk -xelatex` exit status | **0** |
 | pages produced | **25** |
-| `paper.pdf` size | 239242 bytes |
+| `paper.pdf` size | 239093 bytes |
 | unresolved `\ref` | **0** |
 | unresolved `\cite` | **0** |
 | `biber` warnings / errors | **0** |
@@ -96,7 +96,7 @@ carried verbatim into the conclusion.
 | LaTeX, never markdown-only | `paper/paper.tex` | done |
 | `\documentclass{article}` | l.1 | done |
 | `amsmath` + `amsthm` + `hyperref` | preamble | done |
-| theorem / lemma / definition / proof environments | preamble + throughout | done — 23 numbered results |
+| theorem / lemma / definition / proof environments | preamble + throughout | done — 31 numbered theorem-like results (definitions, lemmas, propositions, theorems, corollaries) plus 19 numbered remarks and caveats |
 | every proof opens with an italic *Idea:* line | `\idea{}` macro | done — 23 proofs, 23 `\idea` lines, mechanically checked |
 | `biblatex` over `paper/references.bib` | preamble, `\printbibliography` | done (backend `biber`) |
 | every `\cite{}` traces to a source-ledger row | §10.3 + `references.bib` header | done, with two pending rows flagged (see §3 above) |
@@ -106,7 +106,7 @@ carried verbatim into the conclusion.
 | main results | §3 (monotone bar), §4 (finite range), §5 (RH route), §6 (smooth model) | done |
 | computational evidence | §7 | done |
 | honest limitations | §9 (tension) + §10 (what remains open / what is not established) | done |
-| references | `\printbibliography` | done — 22 entries |
+| references | `\printbibliography` | done — 22 entries, 22 distinct labels in the rendered list |
 | compile with `latexmk -xelatex`, deliver `paper.pdf` | §2 above | done |
 | toolchain + compile summary in `authoring-log.md` | this file | done |
 | delivery posture: staged | §10.2, §10.3, Acknowledgements | done, stated three times |
@@ -195,10 +195,38 @@ symbols needed disambiguation and were given distinct names rather than being ov
 declared in its statement — noted, judged acceptable, not repaired, because renaming it would
 break the correspondence with the source artifact.
 
-*Fixes applied during the pass:* the two tables that overflowed the text block were given
-explicit `p{}` column widths; a long inline display (the Ford–Green–Konyagin–Tao bound) was
-promoted to a display; the Mathlib revision hash was given explicit break points. No
-mathematical content changed.
+*Fixes applied during the pass, in the order found:*
+
+1. **Two dangling cross-references, and they were real.** The verification list of §7.3 uses
+   manual item tags (`\item[V1]`, `\item[V2]`, `\item[V6]`). A manual optional tag does
+   **not** set LaTeX's `\@currentlabel`, so the three `\label`s attached to those items
+   silently resolved to the enclosing *subsection* number. Three proofs (Theorem 3.6,
+   Theorem 3.10, Proposition 4.8) were therefore citing "item V7.3" instead of "item V2",
+   "item V1", "item V6". Caught by dumping `paper.aux` and comparing every label to its
+   rendered number rather than by trusting that a compile without "undefined reference"
+   warnings means the references are right — an unresolved reference warns, a *wrongly*
+   resolved one does not. Fixed by dropping the labels and writing the item tags literally.
+2. **Two symbols that do not survive extraction from the PDF.** `\ll` and `\asymp` produce
+   glyphs that are absent from the extracted text layer, while every other operator (`≤`,
+   `≥`, `⇒`, `∼`) extracts correctly — so a reader copying a formula out of the PDF would
+   lose exactly the relation symbol and read `g_n  p^{0.525}` as an equation. Replaced:
+   `g_n \ll p_n^{0.525}` by `g_n = O(p_n^{0.525})` (twice), `y \asymp x/\log x` by "of
+   order", and Corollary 5.10's `\asymp` display by an arrow plus a prose clause.
+3. **An arithmetic slip in the proof of Proposition 6.1.** `log(5 log 5)` was stated as
+   `2.0873`; recomputed it is `2.0853229…`. The conclusion is unaffected (the bracket at
+   `x = 5` is `1.6213`, so the sign is negative either way, by a margin of `0.464`), but the
+   printed digit was wrong. Corrected.
+4. **A garbled scale sentence in §10.4.** "8.27 decades short of 2⁶⁴ and about 12.8 decades
+   short of it from the 3·10⁶ scale" conflated two measurements against two different
+   baselines in one clause. Split into two sentences, each naming its own scale.
+5. Typographic: the two tables that overflowed the text block were given explicit `p{}`
+   column widths; a long inline display (the Ford–Green–Konyagin–Tao bound) was promoted to
+   a display; the Mathlib revision hash was given explicit break points. Final state: **0
+   overfull boxes**, 1 underfull (a table cell of typewriter tokens that cannot hyphenate).
+
+Items 1–4 are corrections of substance, not polish, and are listed so the downstream verdict
+node can see what the self-review actually caught. No mathematical *content* changed: no
+theorem statement, no constant other than the corrected `2.0853`, and no claim about `F`.
 
 **Completeness.** Every brief requirement has a section — see §5 above, all rows "done".
 

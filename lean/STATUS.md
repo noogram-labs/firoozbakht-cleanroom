@@ -41,6 +41,7 @@ verbatim:
 | `p_pow_ne`, `strict_iff_nonstrict` | no |
 | `F3_one`, `F3_four`, `firoozbakht_le_four` | no |
 | `p_pos_real`, `n_pos_real` | no |
+| `g_one`, `T_one` | no |
 | `F3_iff_F2`, `F1_iff_F3`, `F2_iff_F1'`, `F1'_iff_F4` | **no** — discharged by the probe |
 | `F1_iff_F2`, `F1_iff_F1'`, `F1_iff_F4`, `F3_iff_F4` | **no** — were contaminated, now clean |
 | `conjecture_iff_real`, `conjecture_iff_gap` | **no** — idem |
@@ -60,7 +61,7 @@ non-internal declaration under `Firoozbakht`, and reports those depending on
 
 ```
 $ lake env lean audit_exhaustive.lean
-declarations scanned: 59
+declarations scanned: 60
 depending on sorryAx: [Firoozbakht.firoozbakht]
 ```
 
@@ -68,7 +69,7 @@ depending on sorryAx: [Firoozbakht.firoozbakht]
 is the open conjecture.
 
 The detector itself was tested against a planted `sorry` in the namespace, which
-it reported alongside `firoozbakht` (scanned 60, two names) before being deleted
+it reported alongside `firoozbakht` (scanned 61, two names) before being deleted
 — an audit that cannot fail is worth nothing.
 
 ## The one remaining `sorry`

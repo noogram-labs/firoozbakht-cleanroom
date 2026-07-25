@@ -35,8 +35,13 @@ namespace Firoozbakht
 /-! ## Positivity — the side conditions every step below needs
 
 `Real.log` is only monotone on the positives, and `1/n` is only invertible for
-`n ≥ 1`. These three lemmas carry those facts so that the proofs read as
-algebra. -/
+`n ≥ 1`. These two lemmas carry those facts so that the proofs below read as
+algebra rather than as bookkeeping.
+
+Note that `positivity` is *not* usable for `p_pos_real`: it sees only a ℕ-cast
+and so yields `0 ≤ (p n : ℝ)`, not `0 <` (it says so — "failed to prove strict
+positivity, but it would be possible to prove nonnegativity"). The strict bound
+has to be routed through `two_le_p` by hand. -/
 
 /-- `0 < p n` as a real. Follows from `2 ≤ p n` (`Statement.two_le_p`). -/
 theorem p_pos_real (n : ℕ) : (0 : ℝ) < (p n : ℝ) := by
@@ -46,11 +51,6 @@ theorem p_pos_real (n : ℕ) : (0 : ℝ) < (p n : ℝ) := by
 /-- `0 < n` as a real, from `1 ≤ n`. -/
 theorem n_pos_real {n : ℕ} (hn : 1 ≤ n) : (0 : ℝ) < (n : ℝ) := by
   exact_mod_cast hn
-
-/-- `1 < p n` as a real; used to know `log (p n) > 0` is available if needed. -/
-theorem one_lt_p_real (n : ℕ) : (1 : ℝ) < (p n : ℝ) := by
-  have : 1 < p n := lt_of_lt_of_le (by norm_num) (two_le_p n)
-  exact_mod_cast this
 
 /-- `F3 ↔ F2`: take logarithms. Both sides are positive since `p n ≥ 2`, so
 `Real.log_lt_log_iff` applies; `Real.log_pow` turns each ℕ-power into a product.

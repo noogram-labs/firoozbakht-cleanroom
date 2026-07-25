@@ -29,10 +29,14 @@ $ lake env lean audit_exhaustive.lean   # list-free: every sorryAx in the namesp
 Observed, verbatim:
 
 ```
-⚠ [1980/1984] Replayed Firoozbakht.Statement
+⚠ [1979/1984] Replayed Firoozbakht.Statement
 warning: Firoozbakht/Statement.lean:185:8: declaration uses `sorry`
 Build completed successfully (1984 jobs).
 ```
+
+(The bracketed job index varies with what the build cache replays; the three
+lines that matter — one warning, the line it points at, `Build completed
+successfully` — do not.)
 
 | gate | result |
 |---|---|
@@ -40,9 +44,9 @@ Build completed successfully (1984 jobs).
 | build warnings | **1** — `Statement.lean:185`, the open target, and nothing else |
 | `lake env lean audit.lean` exit code | **0** |
 | `lake env lean audit_exhaustive.lean` exit code | **0** |
-| declarations scanned by the exhaustive audit | **59** |
+| declarations scanned by the exhaustive audit | **60** |
 | declarations depending on `sorryAx` | **1** — `Firoozbakht.firoozbakht` |
-| `sorry` in `.lean` sources (outside prose) | **1** — `Statement.lean:185` |
+| live `sorry` tokens in `.lean` sources | **1** — `Statement.lean:186`, the tactic block of the `theorem` on line 185 |
 | `native_decide` / `axiom` / `@[implemented_by]` / `unsafe` in sources | **none** (grep-clean) |
 
 - Toolchain: `leanprover/lean4:v4.29.0` (`lean-toolchain`).
@@ -58,7 +62,7 @@ the environment, keeps every non-internal declaration under `Firoozbakht`, and
 reports the ones depending on `sorryAx`:
 
 ```
-declarations scanned: 59
+declarations scanned: 60
 depending on sorryAx: [Firoozbakht.firoozbakht]
 ```
 
@@ -67,7 +71,7 @@ cannot fail is worth nothing. Adding one `theorem planted_sorry_selftest : (1:Na
 to the `Firoozbakht` namespace and re-running gives:
 
 ```
-declarations scanned: 60
+declarations scanned: 61
 depending on sorryAx: [Firoozbakht.firoozbakht, Firoozbakht.planted_sorry_selftest]
 ```
 
@@ -121,10 +125,13 @@ bijection on the positives (`Real.log_lt_log_iff`). So every step is: cast into
 | `F2 ↔ F1'` | `log_rpow`, rewrite `(1 + 1/n)·log p_n` as `((n+1)·log p_n)/n` by `field_simp`, then `lt_div_iff₀ (n > 0)` |
 | `F1' ↔ F4` | one `rw`: `cast_g` turns `(g n : ℝ)` into `p_{n+1} - p_n`, then `sub_lt_sub_iff_right` cancels the shared `- p_n`. No `rpow` lemma at all — `p_n^(1+1/n)` is carried through opaquely. |
 
-Three positivity helpers were added (`p_pos_real`, `n_pos_real`,
-`one_lt_p_real`), all proven from the skeleton's `two_le_p`. `positivity` cannot
-be used on `(p n : ℝ)` directly: it only sees a ℕ-cast and so yields `0 ≤`, not
-`0 <`. That is why the strict bound is routed through `two_le_p` by hand.
+Two positivity helpers were added, `p_pos_real` and `n_pos_real`, both proven
+from the skeleton's `two_le_p`. `positivity` cannot be used on `(p n : ℝ)`
+directly — it sees only a ℕ-cast, so it yields `0 ≤`, not `0 <`. That claim was
+checked rather than assumed; Lean's exact words on
+`example (n : ℕ) : (0:ℝ) < (p n : ℝ) := by positivity` are *"failed to prove
+strict positivity, but it would be possible to prove nonnegativity if desired"*.
+Hence the strict bound is routed through `two_le_p` by hand.
 
 The high-risk node the skeleton flagged (`F1' ↔ F4`, card `T4` node N5 — the one
 that re-imports `rpow` *and* ℕ-subtraction) turned out to be the **cheapest** of
@@ -144,16 +151,26 @@ theorems in `FiniteCheck.lean` close that hole by pushing content through it:
   through the chain. No new arithmetic.
 
 The input is true, so the outputs are true statements about `Real.rpow` and about
-`g n` — objects the ℕ form never mentions. All three are `sorry`-free in the
-audit. Hand cross-check of the gap form at `n = 1`: `g_1 = 3 - 2 = 1` and
-`T_1 = 2^(1+1/1) - 2 = 4 - 2 = 2`, so `1 < 2`. ✓
+`g n` — objects the ℕ form never mentions. All three are `sorry`-free in the audit.
+
+That still leaves one gap, and it is the one the skeleton's own verification pass
+got caught by: a true-but-uninformative inequality hides a wrong definition.
+`F4_le_four` is only as meaningful as `g` and `T` are. So both are pinned to
+numerals, in the tree, by rewriting only:
+
+- `g_one : g 1 = 1` — i.e. `p_2 - p_1 = 3 - 2`.
+- `T_one : T 1 = (2:ℝ) ^ (2:ℝ) - 2` — the exponent is a **real** exponent, which
+  is the point of writing it `(2:ℝ)`.
+
+So `F4 1` is `1 < 2^2 - 2`, i.e. `1 < 2`. A wrong `g` or a wrong `T` now fails to
+compile instead of passing quietly.
 
 ## Changed files
 
 | File | Change |
 |---|---|
-| `lean/Firoozbakht/Equivalence.lean` | four `sorry`s → proof terms; three positivity helpers; `cast_g` moved above its first use |
-| `lean/Firoozbakht/FiniteCheck.lean` | imports `Equivalence`; three non-vacuity transfer theorems |
+| `lean/Firoozbakht/Equivalence.lean` | four `sorry`s → proof terms; two positivity helpers; `cast_g` moved above its first use |
+| `lean/Firoozbakht/FiniteCheck.lean` | imports `Equivalence`; three non-vacuity transfer theorems; `g_one` / `T_one` pinning the gap form to numerals |
 | `lean/Firoozbakht/Statement.lean` | **docstring only** — the header claimed *every* target theorem is `sorry`-ed, which is no longer true. No definition was touched. |
 | `lean/audit.lean` | audits every declaration the leg touched, plus the transfers |
 | `lean/audit_exhaustive.lean` | **new** — list-free audit: enumerates the namespace, reports every `sorryAx` dependency |
@@ -184,8 +201,10 @@ prose block in the module docstring changed.
 **reordering** (`cast_g` moved above `F1'_iff_F4`, which now uses it), and one
 binder rename, stated plainly because it *is* a signature change: `F3_iff_F2`'s
 hypothesis `(hn : 1 ≤ n)` became `(_hn : 1 ≤ n)`. The proposition is identical;
-the underscore records that the proof never uses it, which is true — `F3 ↔ F2`
-holds at every `n`, `n = 0` included. Nothing calls it by named argument.
+the underscore records that the proof never uses it, which was verified by
+re-running the same script with no hypothesis (see the verification pass, item 2)
+— `F3 ↔ F2` holds at every `n`, `n = 0` included. Nothing calls it by named
+argument.
 
 ## What this leg did *not* do
 
@@ -202,6 +221,53 @@ holds at every `n`, `n = 0` included. Nothing calls it by named argument.
 - **Did not touch the refutation branch.** `Refuted` stays a `def` plus the
   proven `refuted_of_witness`; two contradictory `sorry`-ed theorems in one
   namespace would let any later file prove anything.
+
+## Verification pass (step 2) — what it checked and changed
+
+The artifact was re-audited against its own brief. Four claims in the first draft
+were load-bearing and unverified; each was turned into a test.
+
+**1. "`positivity` cannot get a strict bound on a ℕ-cast."** Asserted from
+memory. **Checked** — `example (n : ℕ) : (0:ℝ) < (p n : ℝ) := by positivity`
+fails with *"failed to prove strict positivity, but it would be possible to prove
+nonnegativity if desired"*. Claim stands, now with Lean's own words behind it.
+
+**2. "`F3_iff_F2` does not need `1 ≤ n`."** Asserted from reading the proof —
+which is exactly the kind of reading that is wrong. **Checked** by re-running the
+identical tactic script on `theorem (n : ℕ) : F3 n ↔ F2 n` with no hypothesis at
+all: compiles. So the `_hn` underscore in the signature is accurate, not a
+guess.
+
+**3. "The transfers are real terms."** An `Iff` chain can be green and the
+transferred instances can still fail to elaborate. **Checked** — `F1 1`, `F1' 1`,
+`F4 1` and `F4 4` were each exhibited as closed terms built only from
+`F*_le_four`.
+
+**4. The gap form was un-pinned.** `F4_le_four` was reported as evidence that the
+chain carries content, but nothing tied `g` or `T` to a number, and the skeleton's
+own step-2 pass had already been burned once by exactly this (a `simp` that closed
+`F3 1 ↔ 3 < 4` *and* `F3 1 ↔ 999999 < 1000000`). **Fixed** — `g_one` and `T_one`
+are now in `FiniteCheck.lean`, so `F4 1` is visibly `1 < 2^2 - 2`.
+
+Two smaller corrections, stated because they were in the first draft:
+
+- `one_lt_p_real` was added and never used. **Removed** rather than left as dead
+  code with a note. Two positivity helpers remain and both are used.
+- The exhaustive-audit count was reported as 59, taken from a run made before
+  `g_one`/`T_one` existed. It is **60**. The table above is the corrected figure,
+  and the numbers in this report were re-read against a final run rather than
+  carried forward.
+
+### Gaps left open, named
+
+- **The four equivalence proofs are believed correct because the kernel accepted
+  them; they were not independently re-derived on paper in this leg.** The paper
+  proof lives in card `L1` and was corroborated at two L0 locators by an earlier
+  leg. The kernel check and the paper proof are two independent witnesses; neither
+  was produced by the other.
+- **No claim is made about `n > 4`.** See the non-deliveries below.
+- **The `sorry` count went 5 → 1, not 5 → 0, and cannot go to 0.** That is the
+  honest state of an open problem.
 
 ## Honest reading of the gain
 

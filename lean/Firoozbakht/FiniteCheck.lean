@@ -139,4 +139,21 @@ theorem F4_le_four : ∀ n : ℕ, 1 ≤ n → n ≤ 4 → F4 n :=
 theorem F1'_le_four : ∀ n : ℕ, 1 ≤ n → n ≤ 4 → F1' n :=
   fun n h1 h4 => (F2_iff_F1' n h1).mp ((F3_iff_F2 n h1).mp (firoozbakht_le_four n h1 h4))
 
+/-! ### The gap form pinned to numerals
+
+`F4_le_four` above is only as meaningful as `g` and `T` are. The same discipline
+as Job 1a applies: pin them to numerals so that a wrong `g` or a wrong `T` is
+*visible* rather than hidden behind a true-but-uninformative inequality. At
+`n = 1`, `F4 1` unfolds to `1 < 2^2 - 2`, i.e. `1 < 2`. -/
+
+/-- `g 1 = p_2 - p_1 = 3 - 2 = 1`. -/
+theorem g_one : g 1 = 1 := by
+  simp [g, show (1 : ℕ) + 1 = 2 from rfl]
+
+/-- `T 1 = p_1 ^ (1 + 1/1) - p_1 = 2 ^ 2 - 2`. The exponent is a **real**
+exponent (`Real.rpow`), which is why it is written `(2 : ℝ) ^ (2 : ℝ)`. -/
+theorem T_one : T 1 = (2 : ℝ) ^ (2 : ℝ) - 2 := by
+  simp only [T, p_one]
+  norm_num
+
 end Firoozbakht

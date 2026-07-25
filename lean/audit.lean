@@ -23,8 +23,8 @@ open Firoozbakht
 #print axioms Firoozbakht.F3_four
 #print axioms Firoozbakht.firoozbakht_le_four
 
--- Discharged by the `lean-probe` leg (these five were `sorry`-free helpers or
--- `sorry` stubs in the skeleton; all must now be clean):
+-- Discharged by the `lean-probe` leg (helpers it added, plus the four `sorry`
+-- stubs the skeleton left; all must now be clean):
 #print axioms Firoozbakht.p_pos_real
 #print axioms Firoozbakht.n_pos_real
 #print axioms Firoozbakht.F3_iff_F2
@@ -40,6 +40,8 @@ open Firoozbakht
 #print axioms Firoozbakht.F1_le_four
 #print axioms Firoozbakht.F4_le_four
 #print axioms Firoozbakht.F1'_le_four
+#print axioms Firoozbakht.g_one
+#print axioms Firoozbakht.T_one
 
 -- Declared open — the target of the attack. This one, and only this one, must
 -- show `sorryAx`:

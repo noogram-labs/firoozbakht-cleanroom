@@ -1,0 +1,31 @@
+id	kind	expected	observed	status	detail
+Analytic	refutation	compiles	compiles	PASS	no sorry, no error
+Refutations	refutation	compiles	compiles	PASS	no sorry, no error
+F01	attempt	rejected	rejected	PASS	error: unsolved goals
+F02	attempt	rejected	rejected	PASS	error: unsolved goals
+F03	attempt	rejected	rejected	PASS	error: omega could not prove the goal:
+F04	attempt	rejected	rejected	PASS	error: omega could not prove the goal:
+F05	attempt	rejected	rejected	PASS	error: omega could not prove the goal:
+F06	attempt	rejected	rejected	PASS	error: omega could not prove the goal:
+F07	attempt	rejected	rejected	PASS	error: unsolved goals
+F08	attempt	rejected	rejected	PASS	error: omega could not prove the goal:
+F09	attempt	rejected	rejected	PASS	error: unsolved goals
+F10	attempt	rejected	rejected	PASS	error: unsolved goals
+F11	attempt	rejected	rejected	PASS	error: omega could not prove the goal:
+F12	attempt	rejected	rejected	PASS	error: unsolved goals
+F13	attempt	rejected	rejected	PASS	error: unsolved goals
+F14	attempt	rejected	rejected	PASS	error: unsolved goals
+F15	attempt	rejected	rejected	PASS	error: unsolved goals
+F16	attempt	rejected	rejected	PASS	error: unsolved goals
+F17	attempt	rejected	rejected	PASS	error(lean.synthInstanceFailed): failed to synthesize instance of type class
+F18	attempt	rejected	rejected	PASS	error: unsolved goals
+F19	attempt	rejected	rejected	PASS	error: omega could not prove the goal:
+F20	attempt	rejected	rejected	PASS	error: Type mismatch
+F21	attempt	rejected	rejected	PASS	error: unsolved goals
+F22	attempt	rejected	rejected	PASS	error: failed to synthesize
+F23	attempt	rejected	rejected	PASS	error: failed to synthesize
+V01_axiom_smuggle	audit-evasion	compiles+flagged	compiles+flagged	PASS	audit sees: Firoozbakht.RedTeamAudit.firoozbakht_axiom 
+V02_sorry	audit-evasion	compiles+flagged	compiles+flagged	PASS	audit sees: sorryAx 
+V03_contradictory_sorries	audit-evasion	compiles+flagged	compiles+flagged	PASS	audit sees: sorryAx 
+WhyNotInCorpus	rejected-candidate	compiles	compiles	PASS	proofs about near-misses that could not be entries
+V04_silent_coercion	undetected	compiles+clean-audit	compiles+clean-audit	PASS	no gate in this run fires; hazard is documented in the file

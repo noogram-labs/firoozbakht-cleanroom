@@ -1,0 +1,41 @@
+{
+  "verdict": "BLOCKED",
+  "rounds_run": 0,
+  "rounds_target": 1,
+  "exit_reason": "rounds-exhausted",
+  "final_round": {
+    "round": 1,
+    "kernel": "UNPROVABLE_IN_BUDGET",
+    "skeptic": "blockers",
+    "artifacts": {
+      "faults": ".cosmon/state/spore-runs/germ-20260725-791a7c45/skeptic/faults.md",
+      "unproved": ".cosmon/state/spore-runs/germ-20260725-791a7c45/lean-probe/lean-probe-report.md",
+      "attempts": [
+        ".cosmon/state/spore-runs/germ-20260725-791a7c45/proof-attempt__0/proof-attempt-0.md",
+        ".cosmon/state/spore-runs/germ-20260725-791a7c45/proof-attempt__1/proof-attempt-1.md",
+        ".cosmon/state/spore-runs/germ-20260725-791a7c45/proof-attempt__2/proof-attempt-2.md"
+      ]
+    }
+  },
+  "history": [
+    {
+      "round": 1,
+      "kernel": "UNPROVABLE_IN_BUDGET",
+      "skeptic": "blockers",
+      "blocker_count": 2,
+      "unproved_count": 1
+    }
+  ],
+  "escalation": {
+    "rounds_at_cap": true,
+    "reason": "rounds=1 means round 1 (the spore's pinned v3.x single shot) IS the whole attack by design; no re-attack round was ever going to be nucleated for this run. The molecule collapses honestly to BLOCKED because the strict stop condition (kernel PROVED AND skeptic clean, same round) does not hold in round 1.",
+    "findings_never_converged": [
+      "F1 (BLOCKER): m(n)/\"governing record index\" carries 3 inequivalent definitions across notebook-0, notebook-2, and card L15 — repairable vocabulary collision, does not touch the conjecture F.",
+      "F2 (BLOCKER): proof-attempt-0.md Theorem C(b)'s cited bound (A-high) does not follow from its stated justification; as printed the theorem is false by a factor ~38 over part of its range. The theorem's conclusion is independently confirmed true under the corrected (tight) bound, but the derivation as written is defective."
+    ],
+    "theorems_still_sorry": [
+      "Firoozbakht.firoozbakht : Conjecture (Statement.lean:186) — the conjecture itself, correctly never attempted; this is the open mathematical problem, not a proof gap introduced by this run."
+    ],
+    "recommendation": "Re-germinate with rounds>=2 (subject to the sealed max_instances ceiling) so a re-attack round can apply the two named repairs (F1: name the three m(n) predicates explicitly; F2: restate (A-high) as v(1+v/x) with v:=ell^2-ell-1-1/ell) before the skeptic re-runs. The conjecture F itself remains OPEN — neither proved nor refuted by this run."
+  }
+}

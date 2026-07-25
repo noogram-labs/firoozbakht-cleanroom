@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: "firoozbakht-cleanroom: a full-lane cosmon-fleet attack on Firoozbakht's conjecture"
+message: "If you refer to this attack — the record, the trace, or the bundled spore — please cite it as below."
+type: dataset
+authors:
+  - name: "Noogram"
+    website: "https://noogram.org"
+abstract: >-
+  A dedicated agent-fleet attack on Firoozbakht's conjecture
+  (p(n+1)^(1/(n+1)) < p(n)^(1/n) for all n >= 1, an open problem on the primes),
+  run as the full lane of the math-attack cosmon spore: a Lean lake-build firewall
+  that authors every verdict, a citation audit, an adversarial skeptic that
+  independently recomputes claims, and a red-team. Nothing here claims to settle
+  the conjecture; the record documents an honest attack, benchmarked against a
+  single strong model run solo on the same mission.
+keywords:
+  - cosmon
+  - spore
+  - agent fleet
+  - math-attack
+  - Firoozbakht's conjecture
+  - prime numbers
+  - Lean 4
+  - formal verification
+license: CC-BY-4.0
+repository-code: "https://github.com/noogram-labs/firoozbakht-cleanroom"

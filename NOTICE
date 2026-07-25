@@ -1,0 +1,26 @@
+firoozbakht — a full-lane cosmon-fleet attack on Firoozbakht's conjecture
+Copyright (c) 2026 Noogram
+
+This repository records an agent-fleet attack on an open mathematical conjecture,
+produced by germinating a cosmon "spore", and bundles the spore that was run.
+
+--------------------------------------------------------------------------------
+cosmon
+--------------------------------------------------------------------------------
+The spore format, the `cs spore` tooling, and the formulas bundled under
+`spores/math-attack/formulas/` originate in cosmon.
+  https://github.com/noogram/cosmon
+
+--------------------------------------------------------------------------------
+math-attack spore
+--------------------------------------------------------------------------------
+The bundled spore under `spores/math-attack/` is a copy of the published spore:
+  https://github.com/noogram/sporarium  (spores/math-attack)
+
+--------------------------------------------------------------------------------
+Lean / Mathlib
+--------------------------------------------------------------------------------
+The full lane's Lean firewall builds against Mathlib (Apache-2.0,
+Copyright (c) The Mathlib Community, https://github.com/leanprover-community/mathlib4).
+Lean artifacts and their pinned toolchain are added under the run directory as the
+Lean nodes complete.

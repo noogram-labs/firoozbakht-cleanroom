@@ -16,6 +16,6 @@ for l in [x/20 for x in range(288, 4000)]:
     d=(0.17-1/l+eps)/(2*l-1)
     if d>worst: worst=d; wl=l
 print(f"  max required d = {worst:.6f} at l={wl:.3f}  -> window {1-math.exp(-worst):.4%}")
-for l in (math.log(2**64), 50., 100., 1000.):
+for l in (math.log(2**64), 50., 100., 200.):
     p=math.exp(l); eps=(l*l)**2/p; d=(0.17-1/l+eps)/(2*l-1)
     print(f"  l={l:8.3f}: d={d:.6g}  window={1-math.exp(-d):.5%}   0.085/l={0.085/l:.6g}")

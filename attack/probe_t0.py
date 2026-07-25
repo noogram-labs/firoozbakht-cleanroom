@@ -83,3 +83,13 @@ for lam in (math.log(2**64), 50.0, 100.0):
     W = x*(1-math.exp(-d))
     expected = (W/lam)*math.exp(-(lam*lam-lam-1.17)/lam)
     print(f"L={lam:.4f}: window length {W:.4g}, expected competing gaps {expected:.4g}, 0.085/L^2={0.085/lam**2:.4g}")
+
+# ---- (8) non-monotonicity of T  (recomputed here, not quoted)
+dec = sum(1 for i in range(9, NP-1) if T[i] < T[i-1])
+tot = (NP-1) - 9
+print(f"T_(n+1) < T_n for n>=10: {dec}/{tot} = {dec/tot:.4%}")
+
+# ---- (9) the L-2 threshold rule (recomputed; upstream D5 hazard 3 / synthesis D2)
+for thr in (0.0, 1.0, 2.0, 3.0):
+    bad = sum(1 for i in range(9, NP-1) if (g[i-1] > L[i-1]-thr) != (T[i] > T[i-1]))
+    print(f"  threshold L-{thr:.0f}: misclassification {bad}/{tot} = {bad/tot:.4%}")

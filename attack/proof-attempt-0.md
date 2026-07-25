@@ -85,7 +85,7 @@ it needs**, and that is the first substantive finding of this leg (§4).
 | **(M3)** = P6′ as stated in **L15** | **NOT PROVED here, and shown to be the wrong obligation** (§5, §7) |
 | **(M1)** in full | **NOT PROVED.** Explicit obstruction isolated (§7) |
 | **(M1)** restricted to `p_m ≤ 0.939·p_{n₀}` | **PROVED** unconditionally, Dusart only (§6, Thm C-a) |
-| **(M1)** restricted to `p_m ≤ p_{n₀}·e^{−0.0045}` | **PROVED**, modulo the unopened Axler source (§6, Thm C-b) |
+| **(M1)** restricted to `p_m ≤ p_{n₀}·e^{−0.004479}` (or `e^{−0.006992}`, sweep-free) | **PROVED**, modulo the unopened Axler source (§6, Thm C-b) |
 | **Monotone-bar principle** (Lemma M) | **PROVED**, elementary, unconditional (§3) |
 | **Record-scan completeness** (Thm A) | **PROVED**, elementary, unconditional (§4) |
 | **The search-pruning that (M3) was wanted for** | **DISCHARGED** unconditionally by Thm A + Thm B (§4) |
@@ -169,13 +169,20 @@ S(x)  :=  log²x − log x − 1.17.
 > it is the range doing its job.]`**
 
 > **Theorem B (the maximal-gap reduction, repaired and unconditional).**
-> Let `N₂` be any index with `p_{N₂} ≥ p_{N₁} ≥ 2 634 800 823`, `N₁ ≥ 10`. Suppose
-> `g_m < S(p_m)` for every maximal-gap index `m ∈ [N₁, N₂]`, and
-> `max{g_j : j < N₁} < S(p_{N₁})`. Then `F` holds at every `k ∈ [N₁, N₂]`.
+> Let `N₂ ≥ 10`. Suppose `g_m < S(p_m)` for every maximal-gap index `m ∈ [10, N₂]`.
+> Then `g_k < S(p_k)` for every `k ∈ [10, N₂]`, and consequently **`F` holds at every
+> `k ∈ [10, N₂]` with `p_k ≥ 2 634 800 823`.**
 >
-> *Proof.* Lemma M′ with `B = S` (nondecreasing by S1) gives `g_k < S(p_k)` for all
-> `k ∈ [N₁,N₂]`. Fact S2 gives `S(p_k) < T_k` in that range. So `g_k < T_k`, which is `F` at `k`
-> (**L1**). ∎
+> *Proof.* Lemma M′ with `B = S` (nondecreasing by S1), `N₁ = 10`, `N₂` as given: hypothesis (i)
+> is the assumption, and hypothesis (ii) is the finite fact
+> `max{g_j : j ≤ 9} = 6 < 6.80139 = S(29) = S(p_10)`, verified in §9. So `g_k < S(p_k)`
+> throughout `[10, N₂]`. Fact S2 gives `S(p_k) < T_k` wherever `p_k ≥ 2 634 800 823`, whence
+> `g_k < T_k`, which is `F` at `k` (**L1**). ∎
+>
+> *Range note, stated because it is exactly the kind of hypothesis that gets dropped.* The
+> theorem does **not** deliver `F` below `p_k = 2 634 800 823`: there Fact S2 is unavailable, and
+> in fact false (§9 item 10). That segment is covered by direct computation — which is what
+> **L6** is — and the two must be joined explicitly, never assumed to overlap.
 
 **This discharges, unconditionally, the entire practical content of L15/P6′.** The run's ranked
 "open obligation #1" — *"Discharge P6′. Bound `T`'s oscillation below its coarse trend with
@@ -191,7 +198,8 @@ card set contained **L4** (the bar `S`), the monotonicity of `S` (unstated but i
 **L15** (the open obligation) — and never joined the first two, so the third stayed open. The
 join is Theorem A. `[This is a correction to the run's own priority ordering; see §11.]`
 
-**Small-index bookkeeping, verified in-run.** For `N₁ = 10`: `max{g_j : j ≤ 9} = 6` and
+**Small-index bookkeeping, verified in-run** (this is Theorem B's hypothesis (ii), and it is why
+Lemma M′ rather than Lemma M is the form that gets used). For `N₁ = 10`: `max{g_j : j ≤ 9} = 6` and
 `S(p_10) = S(29) = 6.8014 > 6`, so M′(ii) holds at `N₁ = 10`. This is exactly where Kourbatov's
 "`k > 9`, `p_k ≥ 29`" hypothesis (**L4**) comes from. In-run, the `S`-breaches over
 `1 ≤ k ≤ 216 815` are exactly `k ∈ {1, 2, 3, 4, 6, 9}` — all with `k ≤ 9`, none a record index
@@ -204,8 +212,10 @@ Lemma M's sharpness remark (iii) made concrete: only the *first* breach is force
 
 Apply Lemma M with `B = T`. The hypothesis fails: **`T` is not nondecreasing.**
 
-`T_{n+1} < T_n` at **121 238 of 216 805** steps with `n ≥ 10` (55.92 %), sieve to `3·10⁶`,
-recomputed in this leg (**D5** fact 2, **L15**). The mechanism is discreteness: `p` jumps by
+`T_{n+1} < T_n` at **121 238 of 216 806** steps with `n ≥ 10` (55.920 %), sieve to `3·10⁶`,
+recomputed in this leg (§9 item 18). Upstream (**D5** fact 2, **L15**) reports the same numerator
+over a denominator of `216 805`; the one-step difference is a range convention, and the numerator
+— which is what the argument uses — agrees exactly. The mechanism is discreteness: `p` jumps by
 `g_n` while `n` increments by 1, and `T_n` is *decreasing* in `n` at fixed `p` (**D5** fact 1).
 So the exact bar rises when a gap is large and falls when a gap is small — a bar that moves with
 the very quantity it is supposed to bound.
@@ -224,9 +234,12 @@ Everything in §6–§7 is an attempt to buy back enough monotonicity.
 
 The strategy: sandwich `T` between two *monotone* bars and pay the band width in separation.
 
-> **Lemma W (sandwich).** Suppose `A(x) ≤ T_n ≤ C(x)` at `x = p_n` for all `n` with `p_n ≥ X₀`,
-> with `A, C` nondecreasing. Let `n₀` be the least failure of `F`. Then for every `m < n₀` with
+> **Lemma W (sandwich).** Suppose `A(x) ≤ T_n ≤ C(x)` at `x = p_n` for all `n` with `p_n ≥ X₀`.
+> Let `n₀` be the least failure of `F`. Then for every `m < n₀` with
 > `p_m ≥ X₀` and `C(p_m) ≤ A(p_{n₀})`, one has `g_m < g_{n₀}`.
+>
+> *(No monotonicity of `A` or `C` is required — unlike Lemma M. Monotonicity re-enters only when
+> the hypothesis `C(p_m) ≤ A(p_{n₀})` is converted into a uniform separation `d ≥ d*`, §6.2.)*
 >
 > *Proof.* `T_m ≤ C(p_m) ≤ A(p_{n₀}) ≤ T_{n₀}`. Since `m < n₀` and `n₀` is the least failure,
 > `g_m < T_m`. Therefore `g_m < T_m ≤ T_{n₀} ≤ g_{n₀}`, the last step because `n₀` *is* a
@@ -262,8 +275,9 @@ Axler Cor. 3.6 (**T1**): `π(x) > x/(ℓ − 1 − 1/ℓ − 1/ℓ²)`. Hence
 `u < ℓ(ℓ − 1 − 1/ℓ − 1/ℓ²)/x = (ℓ² − ℓ − 1 − 1/ℓ)/x =: v/x`, and `T_n ≤ v(1 + v/x) ≤ v(1 + ℓ⁴/x)`
 using `v < ℓ²`. ∎ `[Axler, unopened.]`
 
-All four bars are increasing in `x` on the ranges quoted (each is a polynomial in `ℓ` with
-positive derivative there; checked in §9). In-run, over `p < 3·10⁶`, **(D-low)** and **(D-high)**
+Lemma W does not require these bars to be monotone, so no monotonicity is claimed for them; what
+§6.2 needs instead is that the *required separation* `d*(ℓ)` be decreasing, which is proved there
+directly. In-run, over `p < 3·10⁶`, **(D-low)** and **(D-high)**
 have **zero** failures inside their stated ranges (§9), and the two Axler-based bars fail exactly
 *below* their stated ranges and nowhere above — a corroboration of the ranges, not of the bounds.
 
@@ -290,16 +304,39 @@ while `g_{n₀} ≥ T_{n₀} > 1919`, so `g_m < g_{n₀}` outright. Otherwise `p
 2ℓd + d² − 1.1 d − 0.1 ℓ  ≥  ε .
 ```
 
-The left side is increasing in `d`, so it suffices that `d ≥ (0.1ℓ + ε)/(2ℓ − 1.1)`. Since
-`p_m ≥ max(e^ℓ, 60 184)`, the right side is maximised at `ℓ = 11.005` where it equals
-`0.062251`; it decreases in `ℓ` thereafter (verified over `ℓ ∈ [11, 400]`, §9). Hence
+The left side is increasing in `d ≥ 0`, so it suffices that `d ≥ d*(ℓ) := (0.1ℓ + ε)/(2ℓ − 1.1)`.
+Now `p_m ≥ max(e^ℓ, 60 184) = e^ℓ` for `ℓ ≥ ℓ₀ := log 60 184 = 11.00516`, so
+`ε(ℓ) = (ℓ² − ℓ)² e^{−ℓ}` there, and
+
+```
+(d/dℓ) log ε(ℓ)  =  2(2ℓ − 1)/(ℓ² − ℓ)  −  1 ,   which at ℓ = ℓ₀ equals −0.618 < 0,
+```
+
+and `2(2ℓ − 1)/(ℓ² − ℓ)` is decreasing in `ℓ` (it is `∼ 4/ℓ`), so the derivative stays negative
+and `ε` is decreasing on `[ℓ₀, ∞)`; hence
+`ε(ℓ) ≤ ε(ℓ₀) = 0.20145`. Therefore `d*(ℓ) ≤ (0.1ℓ + 0.20145)/(2ℓ − 1.1)`, and this majorant is
+decreasing in `ℓ` — its numerator's derivative test is `0.1(2ℓ − 1.1) − 2(0.1ℓ + 0.20145) =
+−0.11 − 0.4029 < 0` — so it is maximised at `ℓ = ℓ₀`, where it equals `0.062264`. Hence
 `d ≥ 0.0623` suffices for every admissible `ℓ`. ∎
+*(No numerical sweep is used; §9 items 14–15 merely corroborate the closed-form bound.)*
 
 *Proof of (b).* Identical with (A-high) at `m` and (A-low) at `n₀`. If `p_m < 1 772 201` then
-`g_m ≤ 132` (in-run) `< 1919 < g_{n₀}`. Otherwise the requirement is
-`(ℓ² − ℓ − 1 − 1/ℓ)(1 + ℓ⁴/p_m) ≤ λ² − λ − 1.17`, i.e. `d(2ℓ − 1) + d² ≥ 0.17 − 1/ℓ + ℓ⁴/p_m`,
-for which `d ≥ (0.17 − 1/ℓ + ℓ⁴/p_m)/(2ℓ − 1)` suffices. With `p_m ≥ max(e^ℓ, 1 772 201)` this is
-maximised at `ℓ = 14.400` (`= log 1 772 201`), where it equals `0.004479`. ∎
+`g_m ≤ 132` (in-run, §9 item 13) `< 1919 < g_{n₀}`. Otherwise `ℓ ≥ ℓ₁ := log 1 772 201 = 14.3877`
+and the requirement is `(ℓ² − ℓ − 1 − 1/ℓ)(1 + ℓ⁴/p_m) ≤ λ² − λ − 1.17`, i.e.
+`d(2ℓ − 1) + d² ≥ 0.17 − 1/ℓ + ℓ⁴/p_m`, for which
+
+```
+d  ≥  d*(ℓ)  :=  ( 0.17 − 1/ℓ + ℓ⁴/p_m ) / (2ℓ − 1)
+```
+
+suffices. Two bounds on `d*`, the first analytic and the second sharp:
+
+- **Monotonicity-free.** `−1/ℓ < 0` and `ℓ⁴/p_m ≤ ℓ⁴ e^{−ℓ} ≤ ℓ₁⁴ e^{−ℓ₁} = 0.02418` for
+  `ℓ ≥ ℓ₁` (the map `ℓ ↦ ℓ⁴e^{−ℓ}` is decreasing for `ℓ > 4`), so
+  `d*(ℓ) ≤ 0.19418/(2ℓ − 1) ≤ 0.19418/(2ℓ₁ − 1) = 0.006992`. Hence `d ≥ 0.006992`, i.e.
+  `p_m ≤ 0.99303·p_{n₀}`, suffices with no computation beyond two evaluations.
+- **Sharp.** Evaluating `d*` over `ℓ ∈ [ℓ₁, 200]` gives `max d* = 0.004479` at `ℓ = ℓ₁`
+  (§9 item 15), which is the constant quoted in the theorem; and `d*(ℓ) ~ 0.085/ℓ` as `ℓ → ∞`. ∎
 
 **Reading of Theorem C.** *If Firoozbakht first fails at `n₀`, then `g_{n₀}` exceeds every gap
 between any two primes below `0.9396·p_{n₀}` — unconditionally — and below `0.99553·p_{n₀}` if
@@ -349,8 +386,10 @@ required bound `y/(L−2)` sits a relative `≈ 2/L` **above** the PNT-expected 
 
 *(This also settles, in passing, the `L`-versus-`L−1`-versus-`L−2` dispute recorded in
 `synthesis.md` D2 and **D5** hazard 3: `L − 2` is the correct single-step threshold, and it is
-correct because `π(x)/x ≈ 1/(L−1)` rather than `1/L`. The in-run misclassification rates —
-7.07 % at `L`, 2.79 % at `L−1`, **0.295 % at `L−2`** — are the measurement of exactly this.)*
+correct because `π(x)/x ≈ 1/(L−1)` rather than `1/L`. The misclassification rates, recomputed in
+this leg (§9 item 19) and reproducing the upstream figures to four digits — 7.0745 % at `L`,
+2.7942 % at `L−1`, **0.2947 % at `L−2`**, 7.1875 % at `L−3` — are the measurement of exactly
+this.)*
 
 ### 7.2 Why the window resists
 
@@ -407,7 +446,9 @@ primes, so the expected number of competing indices is
 (W/L) · e^{−(L² − L − 1.17)/L}  ≈  0.085 · e / L²  ≈  0.231 / L² .
 ```
 
-Computed: `1.06·10⁻⁴` at `L = 44.36`, `8.4·10⁻⁵` at `L = 50`, `2.2·10⁻⁵` at `L = 100` (§9).
+The closed form uses the idealisation `d* → 0.085/L`; evaluated instead with the exact `d*` of
+Theorem C(b) it gives `1.06·10⁻⁴` at `L = 44.36`, `8.4·10⁻⁵` at `L = 50`, `2.2·10⁻⁵` at
+`L = 100` (§9 item 17). The two agree to within 10 %, which is all a heuristic supports.
 
 > **Heuristic reading.** Under the Cramér model the residual window is empty with probability
 > `1 − O(1/log²p_{n₀})`. So (M1) is heuristically true, and *the part of it this leg failed to
@@ -443,10 +484,12 @@ without being recomputed here.
 | 11 | Largest `n` with `T_n ≥ L² − L − 1` | `n = 52 370`, `p = 644 117` — **below** Axler Cor. 3.6's range `1 772 201`, so (A-high) is not contradicted |
 | 12 | First-order criterion §7.1 vs exact `T_m ≤ T_n` | **19 980 / 19 980 = 100.00 %** agreement |
 | 13 | Max gap below `60 184` / below `1 772 201` | `72` / `132` (used in Thm C) |
-| 14 | Uniform Dusart constant `d*` | `max = 0.062251` at `ℓ = 11.005`; `d = 0.0623` valid for all `ℓ ∈ [11, 400]` |
-| 15 | Uniform Axler constant `d*` | `max = 0.004479` at `ℓ = 14.400`; `→ 0.085/ℓ` asymptotically |
+| 14 | Uniform Dusart constant `d*` (corroborates the closed-form proof of Thm C-a) | `max = 0.06226` at `ℓ = 11.005`; `d = 0.0623` valid for all `ℓ ∈ [11, 400]` |
+| 15 | Uniform Axler constant `d*` (the *sharp* branch of Thm C-b; the monotonicity-free branch `0.006992` needs no sweep) | `max = 0.004479` at `ℓ = 14.388`; `→ 0.085/ℓ` asymptotically |
 | 16 | Brun–Titchmarsh shortfall in the window | ratio `2.231 → 2.060` for `L = 44.36 → 200` |
 | 17 | Cramér residual `0.231/L²` | `1.06·10⁻⁴` at `L = 44.36` |
+| 18 | `T_{n+1} < T_n` for `n ≥ 10` (the non-monotonicity of §5) | **121 238 / 216 806 = 55.920 %** |
+| 19 | Misclassification of the `T`-increase rule at thresholds `L−t` | `t=0`: 7.0745 %; `t=1`: 2.7942 %; **`t=2`: 0.2947 %**; `t=3`: 7.1875 % — reproduces upstream to 4 digits |
 
 **Scale disclaimer, repeated because it is easy to lose.** `3·10⁶` is ≈12.8 orders of magnitude
 below the published frontier `2⁶⁴` (**L6**). Items 1–13 are sanity probes on the *statements*;

@@ -124,7 +124,8 @@ this section removes.
 > critical value.**
 
 > **(1d) The material implication.** *`RH ⟹ F`.* A statement about two open arithmetic
-> propositions. **Not decidable here**, and §8 says precisely why, plus what its proof would cost.
+> propositions. **Not decidable here**, and §8 says precisely why, plus how strong the theorem
+> such a proof would yield must be.
 
 > **(1e) Hypothesis-class sufficiency.** *Does the natural candidate hypothesis — Cramér's
 > `limsup g_n/L_n² ≤ 1` — **entail** `F` at the level of sequences, i.e. for every strictly
@@ -165,7 +166,9 @@ at the locator.
   | **§1.2, Theorem 5** | "Assume the Riemann hypothesis. Then, for `x ≥ 4`, there is always a prime number in the interval `[x, x + (22/25)√x log x]`." |
   | **§1.2, (1.10)** | Cramér's classical RH bound `limsup (p_{n+1}−p_n)/(√p_n log p_n) ≤ c`, `c` a universal constant; "the current best form of this bound is due to Dudek [19, Theorem 1.3], who obtained (1.10) with constant `c = 1`." |
   | **§1.2, Corollary 4, (1.14)** | Assume RH. Then `limsup (p_{n+1}−p_n)/(√p_n log p_n) ≤ 1/C⁺(B) < 21/25`. |
-  | **§1.1, (1.8)** | `C(A) ≤ C⁺(A) ≤ min{…, 2}` — hence `1/C⁺(B) ≥ 1/2`, the floor of the method. |
+  | **§1.1, (1.8)** | `C(A) ≤ C⁺(A) ≤ min{…, 2}` for `1 < A < ∞`. |
+  | **§1.2**, immediately after (1.14) | "We note from (1.12) and Theorem 2 (b) that the limit of this method would yield a constant `1/2` on the right-hand side of (1.14)." |
+  | **§1.2**, immediately after (1.14) | "On the other hand, under stronger assumptions, namely the Riemann hypothesis and Montgomery's pair correlation conjecture, **it is known** that the limit supremum in (1.14) is actually zero (see, for instance, [26, 27, 35])." — **CMS do not prove this and it is not their theorem;** they attribute it to three works this run did not open. Tier **L2_weak** (see §4 note below). |
   | **§1.2**, after Theorem 5 | "It has been verified by Oliveira e Silva, Herzog, and Pardi [37, §2.2] that `p_{n+1} − p_n < log²p_n` for all primes `11 ≤ p_n ≤ 4·10¹⁸`." |
 
 **`visser2018andrica` — tier L0** *(proposed ledger addition; a **second** Visser paper, distinct
@@ -215,12 +218,12 @@ B_n  :=  (22/25) · √p_n · L_n .
 
 By `carneiro2019fourier` §1.2, **RH implies `g_n ≤ B_n` for every `n ≥ 3`.**
 
-Say the envelope **certifies `F` at `n`** when `B_n ≤ T_n`  — the non-strict form is the honest
-one, since `B_n ≤ T_n` is what RH's `g_n ≤ B_n` can be chained with — i.e. when RH alone, through this
-bound, forces `g_n < T_n` and hence the Firoozbakht inequality at that index. (Strictness: `g_n ≤
-B_n ≤ T_n` gives `g_n ≤ T_n`; `g_n = T_n` is impossible because `T_n` is irrational for `n ≥ 2` —
-`p_n^{1/n}` is irrational by unique factorisation — so `g_n < T_n` follows. Flagged as a one-line
-step, justified here, not imported.)
+Say the envelope **certifies `F` at `n`** when `B_n ≤ T_n`. The non-strict form is the right one:
+`B_n ≤ T_n` is exactly what RH's `g_n ≤ B_n` can be chained with, giving `g_n ≤ T_n`. That this
+upgrades to the strict `g_n < T_n` demanded by Fact 0 is a one-line step, justified here rather
+than imported: `g_n` is an integer and `T_n = p_n(p_n^{1/n} − 1)` is irrational for `n ≥ 2`, since
+`p_n^{1/n}` rational would force it to be an integer and `p_n` to be a perfect `n`-th power, which
+unique factorisation forbids for a prime. So `g_n ≠ T_n`, and `g_n ≤ T_n` gives `g_n < T_n`.
 
 > ### Theorem A
 > Let `S := { n ≥ 3 : B_n ≤ T_n }` be the set of indices at which the CMS envelope certifies `F`.
@@ -331,17 +334,17 @@ conditional — lives in this class:
 | Bound | Shape | `θ` | Certifies `F` beyond finitely many `n`? |
 |---|---|---:|:---:|
 | Baker–Harman–Pintz, unconditional (card **L11**, `baker2001difference` L1) | `g_n ≪ p_n^{0.525}` | 0.525 | **no** |
-| Cramér 1919 under RH (`visser2018andrica` Thm 4) | `g_n = O(√p_n log p_n)` † | 0.5 | **no** |
-| Goldston 1982 under RH (`visser2018andrica` Thm 5) | `g_n ≤ 4√p_n log p_n`, `n` large | 0.5 | **no** |
-| Dudek under RH (`carneiro2019fourier` §1.2) | `c = 1` in (1.10) † | 0.5 | **no** |
-| CMS under RH, explicit (`carneiro2019fourier` §1.2) | `g_n ≤ (22/25)√p_n log p_n`, `p_n > 3` | 0.5 | **no** (Thm A: one index) |
-| CMS under RH, asymptotic (`carneiro2019fourier` Cor. 4) | `limsup ≤ 1/C⁺(B) < 21/25` † | 0.5 | **no** |
-| RH **+ Montgomery pair correlation** (`carneiro2019fourier` §1.2, after (1.14)) | `limsup = 0`, i.e. `g_n = o(√p_n log p_n)` † | 0.5 | **no** — see Cor. C.1 |
-| **What certifies `F`** (**Fact 3**, card **L4**; `k > 9`, `p_k ≥ 29`) | `g_k < L_k² − L_k − 1.17` | **0** | *this is the bar* |
-| *(the necessary side, for contrast — **Fact 2**, card **L3**; do not read as an equivalence)* | `g_k < L_k² − L_k − 1` | **0** | — |
+| Cramér 1919 under RH (`visser2018andrica` Thm 4, **L0**) | `g_n = O(√p_n log p_n)` † | 0.5 | **no** |
+| Goldston 1982 under RH (`visser2018andrica` Thm 5, **L0**) | `g_n ≤ 4√p_n log p_n`, `n` large | 0.5 | **no** |
+| Dudek under RH (`carneiro2019fourier` §1.2, **L1**) | `c = 1` in (1.10) † | 0.5 | **no** |
+| CMS under RH, explicit (`carneiro2019fourier` §1.2, **L1**) | `g_n ≤ (22/25)√p_n log p_n`, `p_n > 3` | 0.5 | **no** (Thm A: one index) |
+| CMS under RH, asymptotic (`carneiro2019fourier` Cor. 4, **L1**) | `limsup ≤ 1/C⁺(B) < 21/25` † | 0.5 | **no** |
+| RH **+ Montgomery pair correlation** (`carneiro2019fourier` §1.2 after (1.14), **L2_weak** — CMS report it, do not prove it) | `limsup = 0`, i.e. `g_n = o(√p_n log p_n)` † | 0.5 | **no** — see Cor. C.1 |
+| **What certifies `F`** (**Fact 3**, card **L4**, `kourbatov2015bounds` **L0**; `k > 9`, `p_k ≥ 29`) | `g_k < L_k² − L_k − 1.17` | **0** | *this is the bar* |
+| *(the necessary side, for contrast — **Fact 2**, card **L3**, `kourbatov2015bounds` **L0**; do not read as an equivalence)* | `g_k < L_k² − L_k − 1` | **0** | — |
 
-**†** These rows are an `O`-statement and two `limsup` statements, not literally envelopes of the
-form Theorem B quantifies over. Each *implies* such an envelope for every `C` above the stated
+**†** These four rows are one `O`-statement and three `limsup` statements, not literally envelopes
+of the form Theorem B quantifies over. Each *implies* such an envelope for every `C` above the stated
 constant, from some index on, which is how the verdict column is scored; the strongest of them —
 `limsup = 0` — is handled separately by Corollary C.1 §7, because "for every `C`, beyond an
 uncontrolled threshold" is a weaker input than "for one `C`, from index 3 on".
@@ -378,8 +381,9 @@ settles this exactly.
 **Proof.** `E_C(x) ≤ (log x)² ⟺ C ≤ log(x)/√x` for `x > 1`. The function `φ(x) := log(x)/√x` has
 `φ′(x) = (2 − log x)/(2x^{3/2})`, so it increases on `(0, e²)`, decreases on `(e², ∞)`, and attains
 its maximum `φ(e²) = 2/e² · e = 2/e` at `x = e² = 7.389056…`. Hence the sublevel set is non-empty
-iff `C ≤ 2/e`, and since `φ(x) → 0` as `x → ∞` and as `x → 1⁺`, the set `{φ ≥ C}` is a compact
-interval. Solving `C√x = log x` by the substitution `t = log x` gives `t·e^{−t/2} = C`, i.e.
+iff `C ≤ 2/e`, and since `φ` is unimodal on `(1,∞)` with `φ(x) → 0` at both ends, `{x > 1 : φ(x) ≥ C}`
+is a compact interval — note it is the **super**level set `{x : φ(x) ≥ C}`, not a sublevel set of `E_C`.
+Solving `C√x = log x` by the substitution `t = log x` gives `t·e^{−t/2} = C`, i.e.
 `(−t/2)e^{−t/2} = −C/2`, i.e. `−t/2 = W(−C/2)`, whence the stated endpoints; two real branches
 exist iff `−C/2 ≥ −1/e`, i.e. `C ≤ 2/e`, consistently. Finally the set is bounded, so it contains
 finitely many primes; away from it `E_C(x) > (log x)² > T_n` by **Fact 1**. ∎
@@ -408,20 +412,36 @@ produce** buys a bounded initial segment and then stops. Driving `C → 0` pushe
 of the `√p` scale.
 
 **Corollary C.1 (even `limsup = 0` does not help).** CMS record (§1.2, after (1.14)) that under RH
-*and* Montgomery's pair correlation conjecture the limsup in (1.14) is **zero**, i.e.
-`g_n = o(√p_n log p_n)`. This certifies `F` at no index, for two independent reasons.
+*and* Montgomery's pair correlation conjecture the limsup in (1.14) is **known to be zero**, i.e.
+`g_n = o(√p_n log p_n)`. **Provenance, stated because it matters:** CMS do not prove this and do not
+claim it — they write "it is known … (see, for instance, [26, 27, 35])", attributing it to three
+works **this run did not open**. Under the ledger's scheme (`source-ledger.md` §1) that is
+**tier L2_weak**, and the rule there requires it be attributed as second-hand in the text, which is
+what this sentence does. It is flagged to the citation gate. **The corollary below does not depend
+on the statement being true** — it says that *even if* it holds, nothing is certified — so the weak
+tier does not propagate into the verdict.
+
+This certifies `F` at no index, for two independent reasons.
 
 *First, and decisively: `o(√p log p)` is still enormously weaker than `O(log²p)`.* The hypothesis
 is compatible with gaps far above the threshold — a sequence with
 `g_n = √p_n·L_n/log log p_n` satisfies `g_n/(√p_n L_n) → 0` while
-`g_n/L_n² = √p_n/(L_n·log log p_n) → ∞`. Killing the constant does not change the *scale*, and
-scale is what Theorem B shows to be the whole obstruction. *Second, even setting that aside, the
-`o(·)` form gives no usable index:* it supplies, for each `C > 0`, a threshold `N(C)` beyond which
-`g_n ≤ C√p_n L_n`, with **no control on `N(C)`** — while certification at `n` additionally forces
+`g_n/L_n² = √p_n/(L_n·log log p_n) → ∞` — so `o(√p log p)` does not even imply `g_n < L_n²`, let
+alone `g_n < T_n`. (The witness is a growth rate, not a constructed sequence; it is used only to
+exhibit that the two conditions are compatible, which is a statement about the rates.) Killing the
+constant does not change the *scale*, and scale is what Theorem B shows to be the whole
+obstruction. ∎
+
+*A second, weaker observation — epistemic, not part of the proof.* Even setting the scale aside,
+the `o(·)` form gives no usable index: it supplies, for each `C > 0`, a threshold `N(C)` beyond
+which `g_n ≤ C√p_n L_n`, with no control on `N(C)`, while certification at `n` additionally forces
 `C ≤ T_n/(√p_n L_n) ≈ L_n/√p_n → 0`. The required constant shrinks with `n` while the index from
-which the bound becomes available is uncontrolled; the two conditions are never known to hold
-together. ∎ **The strongest conditional gap statement in the literature is therefore also
-insufficient**, and for a reason Theorem C and Theorem B make structural rather than accidental.
+which the bound becomes available is uncontrolled, so the two conditions are never *known* to hold
+together. That is a claim about present knowledge, and it is marked as one; Corollary C.1 rests on
+the first argument alone.
+
+**The strongest conditional gap statement in the literature is therefore also insufficient**, and
+for a reason Theorem C and Theorem B make structural rather than accidental.
 
 > **Verdict on (1c): REFUTED.** The critical constant is `2/e ≈ 0.7358`; the published constants
 > `22/25` and `21/25` are both above it; constants far below it clear the `L²` bar only on a
@@ -429,7 +449,7 @@ insufficient**, and for a reason Theorem C and Theorem B make structural rather 
 
 ---
 
-## 8. Theorem D — the material implication `RH ⟹ F`, and what proving it would cost
+## 8. Theorem D — the material implication `RH ⟹ F`, and how strong a proof's output must be
 
 Theorems A–C refute the *route*. They say nothing about the *proposition* `RH ⟹ F`. This section
 states exactly what can and cannot be said about it, because conflating the two is the failure mode
@@ -496,8 +516,12 @@ H   ⟹   [ ∀k>9 : g_k < L_k² − L_k − 1 ] .
 **So every sufficient hypothesis is at least as strong as the necessary condition** — it must
 deliver the full `log²`-scale uniform bound, whether or not it is stated as one. And the left-hand
 implication shows that a hypothesis only an additive `0.17` stronger than that bound *already*
-suffices. **The band in which a candidate hypothesis could sit — strong enough to give `F`, weak
-enough not to be `F` restated — is squeezed to the interval between `L²−L−1` and `L²−L−1.17`.**
+suffices. **The band in which a candidate gap-bound hypothesis could sit is squeezed to the interval between
+`L²−L−1` and `L²−L−1.17`** — where "the band" means, precisely: the set of gap bounds that are
+*strong enough* to be implied by a sufficient hypothesis (everything at or below `L²−L−1`, by the
+display above) and *weak enough* not to already be sufficient on their own (everything strictly
+above `L²−L−1.17`, by Fact 3). Outside that interval a candidate is either too weak to give `F` or
+is itself a sufficient condition, i.e. `F` with a constant changed.
 Naming an `H` in that band and calling it "a hypothesis stronger than RH" does not produce a
 conditional proof of `F`; it produces `F` with a different constant. **This is the precise,
 quantitative form of the circularity objection, and it discharges `decompose` §3.2's obligation.**
@@ -612,11 +636,20 @@ each `J_k ≤ (log q_{n_k})² + 1 ≤ (log q_n)² + 1 = O((log n)²)`. Hence
 Write `D(n) := q_n − p_n = O((log n)² log log n)`, and let `Δ(x) := max{D(n) : p_n ≤ x}`; since
 `n ≍ x/log x`, `Δ(x) = O((log x)² log log x)`. Terms are spaced `≈ log x` apart near `x`, so
 displacing each term by at most `Δ(x)` moves the counting function by
-`|π_q(x) − π(x)| ≤ Δ(x)/log x · (1+o(1)) = O(log x · log log x)`. Compare: Dusart's Theorem 6.9 (`dusart2010estimates` L0) brackets `π(x)` only to
-width `≈ 0.2762·x/log²x`, and even an RH-strength error term is `≍ √x log x`. Both exceed
-`log x · log log x` by an unbounded factor, so **no `π(x)` estimate at any presently available
-strength — conditional or not — separates `q` from the primes.** In-run `[C7]`: at the sieve edge
-`p = 2 999 957` the term drift is `248`, i.e. a counting-function displacement of about 17.)*
+`|π_q(x) − π(x)| ≤ Δ(x)/log x · (1+o(1)) = O(log x · log log x)`. Compare this with the two-sided bracket of Dusart's Theorem 6.9 (`dusart2010estimates` L0,
+eq. (6.5)): `(x/log x)(1 + 1/log x) ≤ π(x)` for `x ≥ 599` and `π(x) ≤ (x/log x)(1 + 1.2762/log x)`
+for `x > 1`. **Subtracting the two halves is a step taken here, not a statement Dusart makes**, and
+the lower half carries `x ≥ 599`: for `x ≥ 599` the bracket has width `0.2762·x/log²x`. That
+exceeds `log x · log log x` by an unbounded factor, so **no unconditional `π(x)` estimate in the
+run's toolbox (card **T1**) separates `q` from the primes.**
+
+*Conditionally the same conclusion is expected but this run cannot assert it:* the RH-strength
+error term for `π(x)` is of order `√x · log x`, which would also dwarf `log x · log log x` — but
+**[GAP: unsourced. No card, no ledger row; the run's `notebook-1` leg flags the same bound as "not
+sourced here". Do not propagate the words "conditional or not" without fetching a Schoenfeld-type
+statement first.]** Nothing in Theorem E depends on the conditional case. In-run `[C7]` prints the term drift at the sieve edge
+`p = 2 999 957`: `248`. Dividing by `log 2 999 957 = 14.914` gives a counting-function displacement
+of `≈ 16.6` — **that division is done here by hand; the script does not compute it.**)*
 
 *Claim 3 — the `limsup` (2).* At `n = n_k`: `q_{n_k+1} − q_{n_k} = g_{n_k} + J_k = ⌈(log q_{n_k})²⌉`
 by construction, so the ratio is `⌈(log q_{n_k})²⌉/(log q_{n_k})² → 1`. At `n ∉ {n_k}`:
@@ -756,7 +789,15 @@ Stated so no downstream leg mistakes silence for coverage.
 11. **The computation is not proof-grade.** `mpmath` at 60 digits is arbitrary-precision floating
    point, not interval arithmetic (§10). The margins are large enough that this is not a live risk,
    and §12 states how the six rows of Theorem A would be discharged rigorously in Lean.
-12. **The exception set `{1..7,10}` above `p = 3·10⁶`** is card **L13**'s claim, resting on
+12. **The RH-strength `π(x)` error term (`≍ √x log x`) is unsourced** — no card, no ledger row.
+   §9 Claim 2 therefore states its conclusion for *unconditional* `π(x)` estimates only, and marks
+   the conditional case as a gap. A Schoenfeld-type statement must be fetched before any leg writes
+   "conditional or not".
+13. **The `limsup = 0` result under RH + Montgomery pair correlation is tier L2_weak** — CMS report
+   it ("it is known … see, for instance, [26, 27, 35]") without proving it, and this run opened none
+   of the three works. It is attributed as second-hand in §7 and flagged here. Corollary C.1 is
+   written so that its conclusion does not depend on the statement being true.
+14. **The exception set `{1..7,10}` above `p = 3·10⁶`** is card **L13**'s claim, resting on
    `dusart2010estimates` (L0) plus L13's own asymptotics. This leg re-verified it only inside the
    sieve. Theorem A's completion step uses it for all `n`; if L13's asymptotic half were wrong,
    Theorem A would need the direct comparison `B_n > T_n` instead — which Lemma A.1 plus
@@ -790,11 +831,12 @@ want them as warm-up theorems that are actually provable.
   (`B_4 = 4.5306 > T_4 = 4.3860`). A Lean file that discharges the `F3` form here proves a true
   statement that is not the one Theorem A needs. Discharge the six rows with `norm_num` on rational
   enclosures of `√p`, `log p` and `p^{1/n}` instead — each row has margin `≥ 3.3 %` (`[C4]`), so
-  low-precision enclosures suffice.
+  low-precision enclosures suffice. (Tightest row: `n = 4`, margin `(B−T)/T = 3.2957 %`.)
 - **Theorem C** needs the Lambert `W` only for the *endpoint formula*; the qualitative statement
   (`{x : C√x log x ≤ log²x} ≠ ∅ ⟺ C ≤ 2/e`) is again single-variable calculus.
 - **Theorem E is not a formalization target.** It quantifies over sequences and its content is
-  meta-mathematical (what a class of derivations cannot do). Formalizing the *construction* is
+  a counter-model over sequences, not a statement about the primes (and emphatically *not* the
+  informal gloss about derivation classes — §11 item 9). Formalizing the *construction* is
   possible but buys nothing the kernel leg needs.
 - **Do not formalize the CMS bound.** It is an imported hypothesis (`RH → g_n ≤ (22/25)√p_n log p_n`),
   and in Lean it should appear as an explicit hypothesis variable, never as an axiom. An `axiom`
@@ -804,30 +846,36 @@ want them as warm-up theorems that are actually provable.
 
 ## 13. Summary
 
-**Target #1 `RH-conditional-bound` is REFUTED in every reading that is decidable, and bounded below
-in the one that is not.**
+**Target #1 `RH-conditional-bound` is REFUTED in every reading that is decidable. In the one that
+is not — the material implication `RH ⟹ F` — what is bounded below is the *strength of the theorem
+a proof would yield*, never the difficulty of finding one.**
 
 The Riemann Hypothesis, routed through the sharpest published conditional prime-gap bound,
 certifies Firoozbakht's inequality at the single index `n = 3` — the prime 5 — and at no other. The
 failure is not a matter of constants: the critical constant is `2/e`, published constants sit above
 it, and constants below it clear the `L²` bar only on a bounded initial segment — even the
-`limsup = 0` available under RH plus pair correlation certifies nothing (Cor. C.1). It is not a
+`limsup = 0` reported (second-hand, tier L2_weak) under RH plus pair correlation would certify
+nothing (Cor. C.1). It is not a
 matter of exponents either: every envelope `C·p^θ(log p)^A` with `θ > 0` fails beyond finitely many
 indices, because the bar sits at `θ = 0`. Retreating to a stronger hypothesis does not escape:
 composing with Kourbatov's necessary condition, **any** hypothesis sufficient for `F` must itself
 deliver the full `log²`-scale uniform bound, while a hypothesis only `0.17` stronger than that bound
-already suffices — the candidate band is squeezed shut. And Cramér's `limsup` hypothesis — the
+already suffices — the band left for a candidate gap bound is squeezed to width `0.17`. (That is a
+statement about the *band of gap bounds*, not about the class of sufficient hypotheses: a
+sufficient `H` may of course be far stronger. §8 D.2 states the distinction.) And Cramér's `limsup` hypothesis — the
 natural occupant of that band — does not entail `F` over integer sequences at all: a sequence
-displaced from the primes by `O(log²n · loglog n)`, invisible to every `π(x)` estimate of presently
-available strength, satisfies it and violates `F` infinitely often.
+displaced from the primes by `O(log²n · loglog n)` — invisible to every *unconditional* `π(x)`
+estimate in the run's toolbox — satisfies it and violates `F` infinitely often.
 
 What survives is a precise obstruction, and it is the one to hand to the `re-attack` leg:
 
 > Any conditional proof of `F` must produce a **uniform** gap bound at `log²`-scale with leading
 > constant `1` and the second-order term `−L − 1` pinned, from a hypothesis that is not itself that
-> bound. Nothing in the RH-conditional literature is within an unbounded factor of that; the
-> candidate-hypothesis band is squeezed to width `0.17`; and the two natural weaker hypotheses
-> (`(Cr)`, and any power-type bound) are proved here to be insufficient.
+> bound. Nothing in the RH-conditional literature is within an unbounded factor of that; the band
+> of gap bounds left for a candidate — strong enough to be forced by sufficiency, weak enough not
+> to be sufficient already — has width `0.17` (§8 D.2, *including its "what this does not say"*);
+> and the two natural weaker hypotheses (`(Cr)`, and any power-type bound) are proved here to be
+> insufficient. Carried alone, this block still means: a *route* is closed, not a problem ranked.
 
 **Three boundaries this document draws around its own verdict, restated so they travel with it.**
 It refutes *certification by a bound*, never the material implication `RH ⟹ F` — that stays

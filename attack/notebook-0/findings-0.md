@@ -1,9 +1,9 @@
 # findings-0 — computational stress of **first-failure-maximality** (target #0)
 
 **Leg:** `notebooks__0` (crew role: coder) · molecule `task-20260725-9727`
-**Artifacts:** `notebook-0.ipynb` (executed, 34 cells, all outputs live), `ffm_lab.py`,
+**Artifacts:** `notebook-0.ipynb` (executed, 36 cells, all outputs live), `ffm_lab.py`,
 `deep_run.py`, `deep_run_1e11.json`, `build_notebook.py`
-**Runtime:** notebook re-executes in ≈25 s; the headline sweep (`deep_run.py 1e11`) took 633 s.
+**Runtime:** notebook re-executes in ≈30 s; the headline sweep (`deep_run.py 1e11`) took 633 s.
 
 ---
 
@@ -32,9 +32,15 @@ notebook removes the vacuity by sharpening the governing index. Let
 m(n) := min{ m : g_m ≥ g_n }        (always a record index, by construction)
 ```
 
-Then the standard argument goes through **iff** `T_{m(n)} ≤ T_n`, so:
+The standard argument goes through precisely when `T_{m(n)} ≤ T_n`, so:
 
-> **FFM holds on [1,N] ⟺ `T_{m(n)} ≤ T_n` for every n ≤ N.**
+> **If `T_{m(n)} ≤ T_n` for every `n ≤ N`, then FFM holds on `[1,N]`.**
+
+The converse is false, and trivially so: F holds throughout the swept range, so FFM is
+vacuously true there whatever the predicate does. That asymmetry is the point. FFM speaks
+of a first failure that may not exist and is unfalsifiable by any sweep; the predicate is a
+statement about every index and is checkable at each one. **Everything below measures the
+predicate.** Claims about FFM are inferences from it in one direction only.
 
 This is sharper than the upstream statement of P6′ ("`T_m ≤ T_n` whenever `m < n` and
 `p_m, p_n` straddle a record gap"), which quantifies over pairs and does not say *which* `m`
@@ -48,12 +54,12 @@ was measured.
 | # | Finding | Scale |
 |---|---|---|
 | 1 | **F unrefuted.** No index with `g_n ≥ T_n`; none within `10⁻⁶` of the boundary either. | `p ≤ 10¹¹`, **4 118 054 812** indices |
-| 2 | **FFM predicate: zero exceptions.** `T_{m(n)} ≤ T_n` at every index. | same — vs `n ≤ 216 815` upstream |
+| 2 | **Predicate: zero exceptions.** `T_{m(n)} ≤ T_n` at every index. It *implies* FFM and is what the standard argument consumes; FFM itself is vacuous here. | same — vs `n ≤ 216 815` upstream |
 | 3 | **The margin does not decay.** `min(T_n − T_{m(n)})` per decade: `0.485` at `10⁴`, then `1.68, 3.81, 1.70, 3.89, 2.37, 16.53` through `10¹⁰`. The global minimum is at `n = 1879` and is never approached again. | 11 decades |
-| 4 | **The threat decays.** Max dip of `T` below its running max: `0.549` at `10³` → `5.0·10⁻⁵` at `10¹⁰`, a factor ≈4 per decade. | 11 decades |
-| 5 | **The tolerance obeys a law.** P6′ at `n` ⟺ `π(p_n) ≤ log p_n / log(1 + T_m/p_n)`. Expressed relatively, the window `(p_m, p_n]` may hold at most `(1 + c/log p_n)×` its expected count, with **c ≈ 2.2 flat across five decades** (2.85, 2.28, 2.34, 2.43, 2.25). | `p ≤ 10⁸` |
+| 4 | **The threat decays.** Max dip of `T` below its running max: `0.549` at `10³` → `5.0·10⁻⁵` at `10¹⁰`; the per-decade ratio is 2.2–2.5 up to `10⁵` and 4.4–5.2 thereafter. | 11 decades |
+| 5 | **The tolerance obeys a law.** P6′ at `n` ⟺ `π(p_n) ≤ log p_n / log(1 + T_m/p_n)`. Expressed relatively, the window `(p_m, p_n]` may hold at most `(1 + c/log p_n)×` its expected count, with **c ≈ 2.2–2.9 across five decades** (2.85, 2.28, 2.34, 2.43, 2.25) — flat to within 30 %, and with no trend after the first entry. | `p ≤ 10⁸` |
 | 6 | **Brun–Titchmarsh settles 99.861 %** of governed indices unconditionally, coverage improving monotonically (92.6 % at `10³` → 99.907 % at `10⁷`). | `p ≤ 10⁸` |
-| 7 | **Mechanism identified.** The worst cases from `10⁵` up sit `10⁴`–`10⁹` primes past their governor, with safety factors 76–250 or infinite (window *poorer* than li). Near-record gaps are rare, recur late, and sit in locally sparse stretches — exactly where `T` runs above trend. | 11 decades |
+| 7 | **Mechanism identified.** The worst cases from `10⁵` up sit `2·10³`–`3.7·10⁸` primes past their governor, with safety factors 76–250, or infinite where the window is *poorer* in primes than li predicts. Even the global minimum (`n=1879`, window 458) has a safety factor of 16.6. Near-record gaps are rare, recur late, and sit in locally sparse stretches — exactly where `T` runs above trend. | 11 decades |
 
 Finding 5 is the one to carry forward: it turns P6′ from a qualitative worry into a single
 number that a theorem must beat.
@@ -78,8 +84,8 @@ input, and a weak one suffices *for this mechanism*.
 **R2 — the independent two-sided π-bound route to P6′ cannot work.** Bounding `T_m` from
 above and `T_n` from below with explicit `π(x)` estimates at the two endpoints separately
 requires a record gap `G` of at least `5.3·10⁴` at `p=10⁶` (Dusart) or `3.7·10³` (Axler),
-against actual records of size `≈ log²p ≈ 176`; past `≈10¹¹` the criterion is unsatisfiable
-at any `G`. The bound spread (`≈0.1·L` for Dusart, `≈0.17` for Axler) dwarfs the quantity
+against actual records of size `≈ log²p ≈ 176`; past `≈10¹⁰` (Dusart) and `≈10¹¹·³` (Axler) the criterion is
+unsatisfiable at any `G` whatsoever. The bound spread (`≈0.1·L` for Dusart, `≈0.17` for Axler) dwarfs the quantity
 being resolved. **No sharpening of constants rescues this route.**
 
 **R3 — "P6′ is a Dusart lookup, not a research leg" is half wrong.** Card **L15** records
@@ -113,7 +119,8 @@ that no lookup reaches.
 ## 4. Directive for the downstream legs
 
 **For `proof-attempt__0` / `lean-skeleton`.** Do not attack P6′ by bounding `π` at both
-endpoints (R2 — unsatisfiable at every scale). Write `n = m + k` with `k = π(p_n) − π(p_m)`
+endpoints (R2 — it demands record gaps orders of magnitude larger than reality at every
+scale, and is unsatisfiable at any `G` past `≈10¹⁰`). Write `n = m + k` with `k = π(p_n) − π(p_m)`
 the exact local count and bound the **single** index `m`; the π-uncertainty then cancels
 between the two sides. In that form the worst case (`k = 1`, empty window, `p_n = p_m + G`)
 reduces to `G ≳ log p_m − 2`, which record gaps clear by a factor 11–41, and the general
@@ -146,8 +153,18 @@ Dusart row (L0) carries the same verdict.
 | `jupyter nbconvert --execute --inplace notebook-0.ipynb` | **exit 0 — zero cell errors**, all outputs in the committed file |
 | exact-integer check of F, `n = 1..4000` | 0 failures; 0 disagreements between the `g<T` form and the integer form |
 | stable vs naive margin, vs 80-digit reference | naive error `1.8·10⁻⁸` at `n≈2.3·10⁷`; stable error `8.9·10⁻¹⁶` |
-| cross-check against upstream at `3·10⁶` | 21 record gaps, max `T`-dip `0.5487`, 55.92 % down-steps — **all three reproduced** |
+| cross-check against upstream at `3·10⁶` | 21 record gaps, max `T`-dip `0.5487`, 55.92 % down-steps — **all three reproduced**, printed by the notebook |
+| independent reimplementation | a no-numpy, no-searchsorted, `O(n²)` reference of the entire pipeline agrees **exactly** with the vectorised sweep to `5·10⁵` on records, exceptions, min margin, min slack and argmin |
+| independent sieve validation | `π(10⁹) = 50 847 534` and `π(10¹¹) = 4 118 054 813` — both match the standard values; the 40 record gaps found match the recollected A005250 prefix exactly (`[needs-anchor]`: recollected, so a consistency check, not a citation) |
 | `deep_run.py 1e11` | 633 s, `n_last = 4 118 054 812`, 40 record gaps, 0 violations, 0 FFM exceptions |
+
+**One error found and fixed during verification.** The first draft of §5 and of this note
+stated the reduction as a biconditional ("FFM holds on `[1,N]` **iff** the predicate holds").
+That is false: F holds throughout the swept range, so FFM is vacuous there regardless of the
+predicate. The implication runs one way only. Corrected in the notebook, in this note, and
+in `ffm_lab.py`'s module docstring. No numerical result depended on it — the sweep always
+measured the predicate — but every FFM claim above is now explicitly an inference from the
+predicate rather than a restatement of it.
 
 **Not done / out of scope.** No search above `10¹¹`. No symbolic or interval-arithmetic
 version of the §8/§10 criteria. No attempt to verify the published `4·10¹⁸` verification

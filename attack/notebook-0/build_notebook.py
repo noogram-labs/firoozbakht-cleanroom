@@ -147,6 +147,62 @@ if deep:
           f"n_last = {deep['n_last']:,}, {deep['elapsed_s']:.0f}s")
 """)
 
+code(r"""
+# Independent validation of the sieve: two quantities with values fixed outside this run.
+print("pi(x) from the sweep vs the standard values:")
+print(f"  pi(1e9)  = {S.n_last + 1:,}    (standard value 50,847,534)")
+if deep:
+    print(f"  pi(1e11) = {deep['n_last'] + 1:,}  (standard value 4,118,054,813)")
+
+# Maximal prime gaps, OEIS A005250. Quoted from recollection -- [needs-anchor], so this is
+# a self-consistency check on the sieve, NOT a citation.
+A005250 = [1, 2, 4, 6, 8, 14, 18, 20, 22, 34, 36, 44, 52, 72, 86, 96, 112, 114, 118, 132,
+           148, 154, 180, 210, 220, 222, 234, 248, 250, 282, 288, 292, 320, 336, 354, 382,
+           384, 394, 456, 464]
+found = [r[2] for r in (deep["records"] if deep else S.records)]
+print(f"\nrecord gaps found: {len(found)}")
+print(f"  agrees with the recollected A005250 prefix: {found == A005250[:len(found)]}")
+print(f"  {found}")
+""")
+
+code(r"""
+# Second validation: a deliberately dumb reference implementation of the whole pipeline --
+# no numpy, no searchsorted, m(n) found by linear scan from the front -- must agree exactly
+# with the vectorised sweep on every statistic it computes.
+LIM = 500_000
+pl = list(sympy.primerange(2, LIM))
+gl = [pl[i + 1] - pl[i] for i in range(len(pl) - 1)]
+Tl = [pl[i] * math.expm1(math.log(pl[i]) / (i + 1)) for i in range(len(pl) - 1)]
+recs, best = [], 0
+for i, gi in enumerate(gl):
+    if gi > best:
+        best = gi; recs.append((i + 1, pl[i], gi))
+exc, minmarg, argmin, minslack = [], math.inf, None, math.inf
+for i, gi in enumerate(gl):
+    m = next(k for k in range(len(gl)) if gl[k] >= gi)     # brute force, O(n^2)
+    if m == i:
+        continue
+    marg = Tl[i] - Tl[m]
+    if marg < 0:
+        exc.append(i + 1)
+    if marg < minmarg:
+        minmarg, argmin = marg, (i + 1, pl[i], gi)
+    minslack = min(minslack, math.log(pl[i]) / math.log1p(Tl[m] / pl[i]) - (i + 1))
+
+Sr = fl.run_sweep(LIM, block=1 << 20)
+same_rec = [(r[0], r[1], r[2]) for r in Sr.records] == recs
+print(f"{'quantity':>18} {'naive':>22} {'vectorised':>22} {'agree':>7}")
+print(f"{'records':>18} {len(recs):>22} {len(Sr.records):>22} {str(same_rec):>7}")
+print(f"{'ffm exceptions':>18} {len(exc):>22} {len(Sr.ffm_exceptions):>22} "
+      f"{str(len(exc)==len(Sr.ffm_exceptions)):>7}")
+print(f"{'min margin':>18} {minmarg:>22.12f} {Sr.ffm_min_margin:>22.12f} "
+      f"{str(abs(minmarg-Sr.ffm_min_margin)<1e-12):>7}")
+print(f"{'min slack':>18} {minslack:>22.9f} {Sr.slack_min:>22.9f} "
+      f"{str(abs(minslack-Sr.slack_min)<1e-9):>7}")
+print(f"{'argmin index':>18} {str(argmin):>22} {str(Sr.ffm_argmin[:3]):>22} "
+      f"{str(argmin==Sr.ffm_argmin[:3]):>7}")
+""")
+
 md(r"""
 ---
 ## 4. Does $F$ survive? — the exhaustive part
@@ -205,11 +261,15 @@ $$T_{n^\*} \;\le\; g_{n^\*} \;\le\; g_m \;<\; T_m .$$
 
 That is a contradiction **iff** $T_m \le T_{n^\*}$. So:
 
-> **FFM holds on $[1,N]$ if and only if $T_{m(n)} \le T_n$ for every $n \le N$.**
+> **If $T_{m(n)} \le T_n$ for every $n \le N$, then FFM holds on $[1,N]$.**
 
-This is the reduction that matters. It removes the vacuity problem — FFM itself is a
-statement about a first failure that may not exist, so it cannot be checked directly, while
-$T_{m(n)} \le T_n$ can be checked at every single index. It is exactly the obligation
+The converse is *false*, and trivially so: $F$ holds throughout the swept range, so FFM is
+vacuously true there whatever the predicate does. That asymmetry is the whole reason to work
+with the predicate rather than with FFM. FFM speaks about a first failure that may not
+exist and is therefore unfalsifiable by any sweep; $T_{m(n)} \le T_n$ is a statement about
+every index, checkable at each one, and it is exactly what the argument consumes. What
+follows measures the predicate. Claims about FFM are inferences from it in one direction
+only. It is exactly the obligation
 `decompose.md` calls **P6′**, sharpened: the relevant $m$ is not "any $m<n$ straddling a
 record" but the *earliest index attaining a gap $\ge g_n$*.
 
@@ -228,6 +288,8 @@ Sup = fl.run_sweep(3_000_000, block=1 << 22, compute_slack=False)   # the upstre
 print(f"[at the upstream bound p <= 3e6]")
 print(f"  T_(n+1) < T_n at {Sup.t_down_steps:,} of {Sup.t_steps:,} steps "
       f"({100*Sup.t_down_steps/Sup.t_steps:.2f}%)   <- upstream reports 55.92%: reproduced")
+print(f"  record gaps: {len(Sup.records)}   <- upstream reports 21")
+print(f"  max T-dip  : {Sup.t_dip_max:.4f}   <- upstream reports 0.5487")
 print(f"\n[live to {S.p_last:,}]")
 print(f"  T_(n+1) < T_n at {S.t_down_steps:,} of {S.t_steps:,} steps "
       f"({100*S.t_down_steps/S.t_steps:.2f}%)   <- the SAME statistic, three decades further")
@@ -539,10 +601,11 @@ for e in [6, 8, 10, 12, 15, 18]:
     pm_ = 10.0**e; L = math.log(pm_)
     print(f"{'1e'+str(e):>8} {L:>7.2f} {fl.G_min(pm_,'dusart'):>16.4g} "
           f"{fl.G_min(pm_,'axler'):>16.4g} {L*L-L-1:>26.1f}")
-print("\nThe required G exceeds any conceivable record gap, and becomes infinite past ~1e11:")
+print("\nThe required G exceeds any conceivable record gap by orders of magnitude at every")
+print("scale, and becomes infinite -- no G works at all -- past ~1e10 (Dusart), ~1e11.3 (Axler):")
 print("the spread between the upper and lower pi-bounds (~0.1*L for Dusart, ~0.17 for Axler)")
-print("dwarfs the quantity being resolved. THE INDEPENDENT ROUTE CANNOT WORK, at any scale,")
-print("with bounds of this strength.")
+print("dwarfs the quantity being resolved. THE INDEPENDENT ROUTE CANNOT WORK with bounds of")
+print("this strength -- and no sharpening of constants rescues it, since the shortfall grows.")
 """)
 
 code(r"""
@@ -604,17 +667,20 @@ md(r"""
 
 1. $F$ is unrefuted over the swept range: no index with $g_n\ge T_n$, and no index within
    $10^{-6}$ of the boundary. Bounds where a counterexample can live; proves nothing.
-2. The FFM predicate $T_{m(n)}\le T_n$ has **zero exceptions** over the same range, three
-   orders of magnitude beyond the upstream check.
+2. The predicate $T_{m(n)}\le T_n$ — which *implies* FFM, and which is what the standard
+   argument actually consumes — has **zero exceptions** over the same range, four decades
+   beyond the upstream check. FFM itself is vacuous there and cannot be tested directly.
 3. The minimum margin does **not** decay with scale — it is attained at $n=1879$ and every
    later decade is more comfortable — while the quantity that threatens it, the dip of $T$
-   below its running maximum, decays by $\approx4\times$ per decade.
+   below its running maximum, decays by $2.2$–$2.5\times$ per decade up to $10^5$ and
+   $4.4$–$5.2\times$ thereafter.
 4. The mechanism is an anticorrelation: near-record gaps recur only after long intervals,
    and they sit in locally sparse stretches, exactly where $T$ runs above trend.
 5. Brun–Titchmarsh alone settles $99.86\%$ of governed indices, unconditionally, with
    coverage improving monotonically at scale. The residue is diffuse, not structured.
 6. The tolerance obeys a clean law: the window may hold at most $1+c/\log p_n$ times its
-   expected number of primes, with $c\approx2.2$ flat over five decades (§7).
+   expected number of primes, with $c$ measured at $2.85, 2.28, 2.34, 2.43, 2.25$ over five
+   decades — flat to within $30\%$ and trendless after the first entry (§7).
 
 **Refuted.**
 
@@ -622,8 +688,9 @@ md(r"""
    sequence, verified in exact integer arithmetic, whose first failure is at a non-record gap.
    Any proof that does not consume an arithmetic density input is wrong.
 8. **The independent two-sided $\pi$-bound route to P6′ cannot work** — not with Dusart's
-   constants, not with Axler's, at no scale. The criterion is unsatisfiable, and becomes
-   *more* so as $p$ grows (§10).
+   constants, not with Axler's. It demands record gaps orders of magnitude larger than
+   reality at every scale, and past $\approx10^{10}$ (Dusart) / $10^{11.3}$ (Axler) no $G$
+   satisfies it at all. The shortfall *grows* with $p$, so no sharpening rescues it (§10).
 9. **"P6′ is a Dusart lookup, not a research leg" is half wrong.** A lookup settles
    $99.86\%$ of indices. It does not settle the worst case, which needs a short-interval
    count sharp to $1+2.2/\log p$ — of Cramér strength, unavailable even under RH (§7–§8).
@@ -642,6 +709,11 @@ md(r"""
 * The Axler constants used in §10 come from card **T1**, which flags them as **L2_strong and
   unopened**. The Dusart constants are L0. No conclusion above depends on Axler except the
   comparison in §10, whose Dusart row carries the same verdict.
+* The record-gap list is cross-checked against A005250 **quoted from recollection**, so that
+  cell is a self-consistency check on the sieve, not a citation. The $\pi(10^9)$ and
+  $\pi(10^{11})$ comparisons carry the same caveat.
+* The rows at $10^{12}$ and beyond in §9–§10 use record gap sizes that are plausible but
+  unverified at that scale. They illustrate a trend; they are not data.
 * Any later leg reporting a "verification height" from a record-pruned search must state that
   P6′ is assumed. It is not proved by this notebook and was not proved upstream
   (card **L15** hazard 2).

@@ -12,8 +12,9 @@ is not a record.  Then some m < n* has g_m >= g_{n*}.  F holds at m (minimality)
 
 which is a contradiction *provided* T_m <= T_{n*}.  The whole content of FFM is therefore
 the inequality T_m <= T_n for the *governing* index m = m(n) := min{ m : g_m >= g_n }.
-That index is always a record index, so FFM is equivalent to a finite, checkable predicate
-on every n -- and that predicate, not the conjecture, is what this module measures.
+That index is always a record index, so FFM is *implied by* a finite, checkable predicate
+on every n.  The converse fails -- FFM is vacuous wherever F holds -- so the predicate, not
+FFM and not the conjecture, is what this module measures.
 
 Everything here is exact-integer or numerically stable float; see `margin_F` for the
 cancellation-free form of the Firoozbakht test.  No claim in this module is a proof.

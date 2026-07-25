@@ -435,19 +435,21 @@ Theorems A–C refute the *route*. They say nothing about the *proposition* `RH 
 states exactly what can and cannot be said about it, because conflating the two is the failure mode
 this leg most needs to avoid.
 
-**D.0 — Why (1d) is not decidable here, stated plainly.** `RH` and `F` are both open statements
-about the standard model of arithmetic, each expressible in Π₁ form. *(For `F` this is card
-**L16** — itself flagged there as resting on no ledger row. For `RH` the Π₁ arithmetization is a
-real theorem with a real citation and **this run has neither**: no card, no ledger row.
-**[GAP: unsourced. The argument below does not depend on the complexity classification — only on
-both statements being open — so nothing here rests on it.]*)* To *refute* `RH ⟹ F` one must establish `RH ∧ ¬F`: prove
+**D.0 — Why (1d) is not decidable here, stated plainly.** `RH` and `F` are both **open** statements
+about the standard model of arithmetic. To *refute* `RH ⟹ F` one must establish `RH ∧ ¬F`: prove
 the Riemann Hypothesis *and* exhibit a counterexample to `F`. To *prove* it one must derive `F`
 from `RH`. Neither is available, and no computation bears on either: `¬F` is `Σ₁` and finitely
 certifiable in principle (card **L16**), but the certificate must certify the *rank* `n`, not
 merely the two primes, and no search has reached beyond `2⁶⁴` (**Fact 4**). **(1d) is UNDECIDED and
 this leg does not pretend otherwise.**
 
-What *can* be proved is a lower bound on the work any proof of (1d) would have to do.
+*(Both statements are also expressible in Π₁ form. For `F` that is card **L16**, itself flagged
+there as resting on no ledger row; for `RH` the Π₁ arithmetization is a real theorem with a real
+citation and **this run has neither card nor row**. **[GAP: unsourced.]** Nothing above or below
+uses the classification — only that both statements are open — so nothing rests on it.)*
+
+What *can* be proved is a lower bound on the **strength of the theorem** any proof of (1d) would
+yield.
 
 > ### Theorem D
 > Suppose `RH ⟹ F` were proved. Then, as an immediate corollary, one would have proved
@@ -550,7 +552,7 @@ statement:
 (Cr)      limsup_{n→∞}  g_n / L_n²  ≤  1 .
 ```
 
-Does `(Cr) ⟹ F`? Theorem E says: not by any argument that sees only the sequence's distribution.
+Does `(Cr)` entail `F`? Theorem E answers **no**, by exhibiting a counter-model.
 
 **Lemma E.1.** For every `δ > 0` there are infinitely many `n` with `g_n < (1+δ)·L_n`.
 
@@ -561,23 +563,24 @@ contradicting `p_N ~ N log N` for `N` large. ∎
 *(Uses only PNT; the `p_n ~ n log n` form is standard and is the same input card **T1** makes
 effective. No new source needed.)*
 
-> ### Theorem E (relative independence)
+> ### Theorem E (counter-model)
 > Assume `(Cr)`. Then there exists a strictly increasing sequence of positive integers `(q_n)_{n≥1}`
 > such that
-> 1. `q_n = p_n + O((log n)² · log log n)` — so `q` and the primes agree far inside the error term
->    of every effective `π(x)` estimate in the run's toolbox (card **T1**);
-> 2. `limsup_{n→∞} (q_{n+1} − q_n)/(log q_n)² = 1` — so `q` satisfies `(Cr)` in the same form the
->    primes do;
+> 1. `q_n = p_n + O((log n)² · log log n)`;
+> 2. `limsup_{n→∞} (q_{n+1} − q_n)/(log q_n)² = 1` — so `q` satisfies `(Cr)`;
 > 3. `q_{n+1}^{1/(n+1)} ≥ q_n^{1/n}` for **infinitely many** `n` — so `q` violates the Firoozbakht
 >    inequality infinitely often.
 >
-> Hence **`(Cr)` does not imply `F` in the theory of strictly increasing sequences of positive
+> Hence **`(Cr)` does not entail `F` in the theory of strictly increasing sequences of positive
 > integers**: `q` is a counter-model, satisfying the hypothesis and violating the conclusion.
->
-> *(What this theorem is, exactly: a counter-model statement. The informal reading — "no derivation
-> of `F` from `(Cr)` that sees only growth and distribution can succeed" — is a **gloss**, not a
-> corollary: no proof system is fixed here and "gap statistics" is not formalized. The gloss is
-> argued, not proved, in the remark following the proof, and it is flagged there.)*
+
+That is the whole theorem, and it is stated with no reference to what any argument can or cannot
+see. What makes the counter-model *interesting* rather than merely formal is item 1 — the drift is
+so small that no `π(x)` estimate of presently available strength separates `q` from the primes
+(quantified in Claim 2). That observation supports a **gloss** — "no derivation of `F` from `(Cr)`
+that sees only growth and distribution can succeed" — which is argued after the proof and is
+**not** a corollary: no proof system is fixed here, and the class of estimates it names is
+contingent on what this run fetched. Theorem E is the box; the gloss is flagged separately.
 
 **Proof.** *Construction.* By Lemma E.1 with `δ = 1`, for each `k ≥ 1` let
 
@@ -606,9 +609,10 @@ Since `n_k ≥ 2^{2^k}`, the number of terms with `n_k < n` is at most `log_2 lo
 each `J_k ≤ (log q_{n_k})² + 1 ≤ (log q_n)² + 1 = O((log n)²)`. Hence
 `q_n − p_n = O((log n)² log log n)`. ✔
 *(What the drift does to the **counting function** — the object `π(x)` estimates actually bound.
-Shifting the `n`-th term by `D(n) := q_n − p_n` displaces the counting function by
-`|π_q(x) − π(x)| ≈ D(x)/g ≈ D(x)/log x = O(log x · log log x)`, since the terms are spaced
-`≈ log x` apart. Compare: Dusart's Theorem 6.9 (`dusart2010estimates` L0) brackets `π(x)` only to
+Write `D(n) := q_n − p_n = O((log n)² log log n)`, and let `Δ(x) := max{D(n) : p_n ≤ x}`; since
+`n ≍ x/log x`, `Δ(x) = O((log x)² log log x)`. Terms are spaced `≈ log x` apart near `x`, so
+displacing each term by at most `Δ(x)` moves the counting function by
+`|π_q(x) − π(x)| ≤ Δ(x)/log x · (1+o(1)) = O(log x · log log x)`. Compare: Dusart's Theorem 6.9 (`dusart2010estimates` L0) brackets `π(x)` only to
 width `≈ 0.2762·x/log²x`, and even an RH-strength error term is `≍ √x log x`. Both exceed
 `log x · log log x` by an unbounded factor, so **no `π(x)` estimate at any presently available
 strength — conditional or not — separates `q` from the primes.** In-run `[C7]`: at the sieve edge
@@ -621,9 +625,13 @@ by `(Cr)`. Hence `limsup = 1` exactly. ✔
 
 *Claim 4 — the violations (3).* Write `T_n^{(q)} := q_n(q_n^{1/n} − 1)`; Fact 0's derivation is
 purely formal and applies verbatim to any strictly increasing positive sequence, so the Firoozbakht
-inequality fails at `n` iff `q_{n+1} − q_n ≥ T_n^{(q)}`. By Claim 2, `q_n = p_n(1 + o(1))` with an
-error far below every term in the expansion of card **L2**, so `T_n^{(q)} = L_n² − L_n − 1 + o(1)`,
-in particular `T_n^{(q)} < (log q_n)²` for `n` large. At `n = n_k` the gap is `⌈(log q_{n_k})²⌉ ≥
+inequality fails at `n` iff `q_{n+1} − q_n ≥ T_n^{(q)}`. The index `n` is unchanged by the
+construction, and `q_n = p_n(1 + ε_n)` with `ε_n = D(n)/p_n = O((log n)² log log n / p_n)`, which
+tends to 0 faster than any negative power of `log p_n`. Since
+`T_n = p_n(e^{L_n/n} − 1)` is smooth in the value with `∂T_n/∂p_n = O(L_n²/p_n)`, the perturbation
+moves `T_n` by `O(ε_n L_n²) = o(1)`. Card **L2** gives `T_n = L_n² − L_n − 1 + o(1)` for the primes,
+hence `T_n^{(q)} = L_n² − L_n − 1 + o(1)` too, and in particular `T_n^{(q)} < (log q_n)²` for `n`
+large. At `n = n_k` the gap is `⌈(log q_{n_k})²⌉ ≥
 (log q_{n_k})² > T_{n_k}^{(q)}`. So `F` fails at every sufficiently large `n_k` — infinitely many
 indices. ✔ ∎
 
@@ -655,8 +663,7 @@ sufficiently large `k`".)*
   theorem cannot have such a hypothesis, which is precisely why the gloss is not the theorem.
 - It **does not** prove `(Cr) ⇏ F` as a material implication about the primes. `p` is one fixed
   sequence; if both `(Cr)` and `F` happen to be true, the implication is vacuously true. Theorem E
-  is a statement about **derivability from a class of premises**, and it is stated that way on
-  purpose.
+  quantifies over **sequences**, not over the primes, and it is stated that way on purpose.
 - It **does** explain, structurally, why the `0.17` of Corollary D.2 is not a technicality:
   `(Cr)` controls a `limsup`, `F` needs a **uniform** bound at *every* index with the second-order
   term pinned. The distance between "asymptotically at most 1" and "below `L²−L−1` always" is

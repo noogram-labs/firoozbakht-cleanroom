@@ -1,7 +1,12 @@
-# Lean skeleton — status
+# Lean development — status
 
-Leg: `lean-skeleton` (kernel-engineer), molecule `task-20260725-5fd9`,
-germ `germ-20260725-791a7c45`. Backend: **lean** (not skipped).
+Leg: `lean-skeleton` (kernel-engineer, molecule `task-20260725-5fd9`), then
+`lean-probe` (probe-engineer, molecule `task-20260725-9975`), germ
+`germ-20260725-791a7c45`. Backend: **lean** (not skipped).
+
+**Post-probe state: exactly one `sorry` remains, and it is Firoozbakht's
+conjecture.** The four `L1` equivalence stubs the skeleton left open now carry
+real proof terms. See `attack/lean-probe-report.md` for the probe's own report.
 
 ## Build
 
@@ -13,8 +18,8 @@ Build completed successfully (1984 jobs).
 - Toolchain: `leanprover/lean4:v4.29.0` (pinned in `lean-toolchain`).
 - Mathlib: `leanprover-community/mathlib4` tag `v4.29.0`,
   rev `8a178386ffc0f5fef0b77738bb5449d50efeea95` (pinned in `lake-manifest.json`).
-- The build is **green with warnings only** — the warnings are the five declared
-  `sorry`s listed below and nothing else.
+- The build is **green with one warning** — `Statement.lean:185`, the open
+  target, and nothing else. (The skeleton had five such warnings.)
 
 This closes card `T4` hazard 1, which flagged that the run's Lean facts were
 documentation snapshots rather than a pinned-toolchain check. They are now a
@@ -35,25 +40,59 @@ verbatim:
 | `cast_g` | no |
 | `p_pow_ne`, `strict_iff_nonstrict` | no |
 | `F3_one`, `F3_four`, `firoozbakht_le_four` | no |
-| `firoozbakht` | **yes** — the open target |
-| `F3_iff_F2`, `F1_iff_F3`, `F2_iff_F1'`, `F1'_iff_F4` | **yes** — L1 steps, skeleton |
-| `conjecture_iff_real`, `conjecture_iff_gap` | **yes** — inherited from the four above |
+| `p_pos_real`, `n_pos_real` | no |
+| `F3_iff_F2`, `F1_iff_F3`, `F2_iff_F1'`, `F1'_iff_F4` | **no** — discharged by the probe |
+| `F1_iff_F2`, `F1_iff_F1'`, `F1_iff_F4`, `F3_iff_F4` | **no** — were contaminated, now clean |
+| `conjecture_iff_real`, `conjecture_iff_gap` | **no** — idem |
+| `F1_le_four`, `F1'_le_four`, `F4_le_four` | no |
+| `firoozbakht` | **yes** — the open target, and the only one |
 
-Everything else is `[propext, Classical.choice, Quot.sound]` only.
+Every other declaration is `[propext, Classical.choice, Quot.sound]` only.
 
-## The five `sorry`s, and why each is there
+### The exhaustive audit — `audit_exhaustive.lean`
+
+The table above, and `audit.lean` which produces it, rest on a **hand-maintained
+list** of declaration names. That is a hazard dressed as a check: a `sorry` in a
+declaration nobody remembered to list is invisible to it.
+`audit_exhaustive.lean` removes the list. It walks the environment, keeps every
+non-internal declaration under `Firoozbakht`, and reports those depending on
+`sorryAx`:
+
+```
+$ lake env lean audit_exhaustive.lean
+declarations scanned: 59
+depending on sorryAx: [Firoozbakht.firoozbakht]
+```
+
+**That two-line output is the invariant of this development.** One name, and it
+is the open conjecture.
+
+The detector itself was tested against a planted `sorry` in the namespace, which
+it reported alongside `firoozbakht` (scanned 60, two names) before being deleted
+— an audit that cannot fail is worth nothing.
+
+## The one remaining `sorry`
 
 | # | Declaration | File:line | Status |
 |---|---|---|---|
-| 1 | `firoozbakht : Conjecture` | `Statement.lean:182` | **Open problem.** This is the point. Never to be discharged by anything but mathematics. |
-| 2 | `F3_iff_F2` | `Equivalence.lean:28` | Card `L1`, PROVEN on paper; Lean proof is `Real.log` API work, budgeted to the proof leg (card `T4`, node N2). |
-| 3 | `F1_iff_F3` | `Equivalence.lean:33` | idem, `Real.rpow` monotonicity. |
-| 4 | `F2_iff_F1'` | `Equivalence.lean:37` | idem. |
-| 5 | `F1'_iff_F4` | `Equivalence.lean:47` | idem — and card `T4` names this the **highest-risk node** (N5): it re-imports `rpow` and ℕ-subtraction into a statement the anchor keeps in ℕ. Its one ℕ-subtraction step, `cast_g`, is proven. |
+| 1 | `firoozbakht : Conjecture` | `Statement.lean:185` | **Open problem.** This is the point. Never to be discharged by anything but mathematics. |
 
-Sorries 2–5 correspond to a card (`L1`) whose paper proof is complete and
-corroborated at two L0 locators. They are *unformalized*, not *unproven*. Sorry 1
-is genuinely unproven by anybody.
+The skeleton had four more, all of them card `L1` equivalence steps. The
+`lean-probe` leg discharged all four; they were `Real.log` / `Real.rpow` API work,
+exactly as budgeted (card `T4`, node N2):
+
+| Declaration | How |
+|---|---|
+| `F3_iff_F2` | cast to ℝ, `Real.log_lt_log_iff`, `Real.log_pow` twice |
+| `F1_iff_F3` | via `F3_iff_F2`, then `Real.log_rpow` twice and `div_lt_div_iff₀` |
+| `F2_iff_F1'` | `Real.log_rpow`, `field_simp` on `1 + 1/n`, `lt_div_iff₀` |
+| `F1'_iff_F4` | one `rw`: `cast_g` then `sub_lt_sub_iff_right` |
+
+Card `T4` named `F1'_iff_F4` the highest-risk node (N5) because it re-imports
+`rpow` *and* ℕ-subtraction into a statement the anchor keeps in ℕ. It turned out
+the cheapest of the four — the skeleton had already isolated its one hazardous
+step into `cast_g`. Right about where the danger was, wrong about how much
+survived the isolation.
 
 ## What is actually proven here (no `sorry`)
 
@@ -68,6 +107,17 @@ is genuinely unproven by anybody.
 - `cast_g : 1 ≤ n → (g n : ℝ) = p (n+1) - p n` — truncated subtraction is genuine.
 - `refuted_of_witness` — the `Σ₁` refutation shape (card `L16`).
 - `firoozbakht_le_four` — the conjecture holds for `1 ≤ n ≤ 4`.
+- **the whole `L1` chain** — `F1 ↔ F1' ↔ F2 ↔ F3 ↔ F4` at every `n ≥ 1`, and
+  hence `Conjecture ↔ ConjectureReal ↔ (∀ n ≥ 1, g_n < T_n)`. Added by the probe
+  leg. This is the run's load-bearing reduction: it is what makes Firoozbakht a
+  *prime-gap bound* and the analytic gap literature admissible. It is now
+  kernel-checked rather than asserted from the cards.
+- `F1_le_four`, `F1'_le_four`, `F4_le_four` — the real-analytic, Kourbatov and
+  gap forms at `1 ≤ n ≤ 4`, obtained purely by transferring
+  `firoozbakht_le_four` through that chain. Their job is to show the chain is not
+  vacuous: an `Iff` between two *false* propositions is also provable, so four
+  green `Iff`s prove nothing on their own. Pushing a true ℕ-statement through and
+  landing on true `rpow`/gap statements does.
 
 ## Deliberate non-deliveries, stated plainly
 
@@ -90,9 +140,11 @@ effective `π(x)` bounds (card `T1`) which are not assumed present in Mathlib
 **`Nat.bertrand` was neither used nor confirmed.** Card `L17` establishes it is
 useless for `F` anyway.
 
-## Verification pass (step 2) — what it found and changed
+## Verification pass — skeleton leg (`task-20260725-5fd9`, step 2)
 
-The artifact was re-audited against its own brief. Four findings, all fixed.
+The skeleton artifact was re-audited against its own brief. Four findings, all
+fixed. Kept verbatim below because the traps it documents are the reason the
+fidelity checks in `FiniteCheck.lean` look the way they do.
 
 **1. The original fidelity checks were vacuous.** They were written as
 `example : F3 1 ↔ (3:ℕ)^1 < 2^2 := by simp [F3]`. `simp` closes that by

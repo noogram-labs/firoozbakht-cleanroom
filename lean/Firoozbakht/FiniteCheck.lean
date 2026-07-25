@@ -42,6 +42,7 @@ The check that does work has two halves:
 -/
 
 import Firoozbakht.Statement
+import Firoozbakht.Equivalence
 import Mathlib.Tactic.IntervalCases
 
 namespace Firoozbakht
@@ -108,5 +109,34 @@ theorem firoozbakht_le_four : ∀ n : ℕ, 1 ≤ n → n ≤ 4 → F3 n := by
       | exact F3_two
       | exact F3_three
       | exact F3_four
+
+/-! ## Job 3 — the equivalences are not vacuous
+
+An `Iff` is cheap: `A ↔ B` is provable whenever `A` and `B` are both false, so a
+green `F1 ↔ F3` on its own is not evidence that the equivalence *carries* content.
+The check below is the cheap way to see that it does. `firoozbakht_le_four` is a
+statement about ℕ-powers proven by `norm_num` on four numerals; pushing it
+through the `L1` chain produces the *real-analytic* and *gap* forms at the same
+four indices, with no further arithmetic. If any step of the chain were an
+equivalence between two false propositions, these would not typecheck — the
+input is true, so the output is a true `F1 n` / `F4 n`, and those are statements
+about `Real.rpow` and about `g n`, which the ℕ form never mentions.
+
+This is a fidelity check on the *chain*, not new evidence about the conjecture.
+The range is still `4`. -/
+
+/-- The originally-posed real form `p_{n+1}^(1/(n+1)) < p_n^(1/n)` holds for
+`1 ≤ n ≤ 4` — obtained from the ℕ form through `L1`, not re-proven. -/
+theorem F1_le_four : ∀ n : ℕ, 1 ≤ n → n ≤ 4 → F1 n :=
+  fun n h1 h4 => (F1_iff_F3 n h1).mpr (firoozbakht_le_four n h1 h4)
+
+/-- The gap form `g_n < T_n` holds for `1 ≤ n ≤ 4` — likewise transferred, not
+re-proven. At `n = 1` it says `g_1 = 1 < 2 = 2^2 - 2 = T_1`. -/
+theorem F4_le_four : ∀ n : ℕ, 1 ≤ n → n ≤ 4 → F4 n :=
+  fun n h1 h4 => (F3_iff_F4 n h1).mp (firoozbakht_le_four n h1 h4)
+
+/-- Kourbatov's form `p_{k+1} < p_k^(1+1/k)` for `1 ≤ n ≤ 4`, same transfer. -/
+theorem F1'_le_four : ∀ n : ℕ, 1 ≤ n → n ≤ 4 → F1' n :=
+  fun n h1 h4 => (F2_iff_F1' n h1).mp ((F3_iff_F2 n h1).mp (firoozbakht_le_four n h1 h4))
 
 end Firoozbakht

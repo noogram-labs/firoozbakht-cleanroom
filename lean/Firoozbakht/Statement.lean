@@ -16,9 +16,12 @@ is **strictly decreasing**, i.e.
 
     p_{n+1} ^ (1/(n+1))  <  p_n ^ (1/n)      for all n ≥ 1.
 
-It is **OPEN**: not proven, not refuted. Every target theorem in this
-development is therefore `sorry`-ed and explicitly tagged, and no file in this
-project may ever discharge `firoozbakht` by any means other than a real proof.
+It is **OPEN**: not proven, not refuted. `firoozbakht` below is therefore
+`sorry`-ed and explicitly tagged, and no file in this project may ever discharge
+it by any means other than a real proof. As of the `lean-probe` leg it is the
+**only** `sorry` in the development: the four `L1` equivalence steps, which the
+skeleton left as stubs, now carry real proof terms (`Equivalence.lean`), so the
+single remaining `sorryAx` in the axiom audit is exactly the open problem.
 
 ## Indexing — the highest-severity hazard in this attack (card `D1`)
 

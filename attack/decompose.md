@@ -34,10 +34,11 @@ mathematical file, note, or draft in the tree. No obligation below is built on
 any pre-existing tree content.
 
 **Computational evidence generated in this run:** a sieve to `3·10⁶`
-(216 815 prime indices) executed locally; its outputs are reported in §5.1 and
-are reproducible from the script description given there. This is *own* evidence,
-tier L1 (verified in-run), and is the only empirical claim in this document that
-does not need the citation gate.
+(216 816 primes, 216 815 consecutive pairs checked) executed locally. Outputs are
+reported in §5.1 and reproduced by the two scripts committed alongside this file
+(`attack/probe.py`, `attack/probe2.py`). This is *own* evidence, tier L1
+(verified in-run), and is the only empirical claim in this document that does not
+need the citation gate.
 
 ---
 
@@ -47,7 +48,9 @@ does not need the citation gate.
 
 `p_n` = the n-th prime, `p_1 = 2`. `L_n := log p_n` (natural log).
 `g_n := p_{n+1} − p_n` (the n-th prime gap). `π(x)` = prime-counting function;
-note `π(p_n) = n` exactly, a fact this problem uses in an essential way (§3.4).
+note `π(p_n) = n` exactly — the threshold couples the gap at `p_n` to the *count*
+below it, which is what makes the problem harder than a pure gap bound
+(used essentially in §1.3 and §3.9).
 
 ### 1.2 The conjecture, four equivalent forms
 
@@ -246,6 +249,19 @@ a dead end.
 
 ## 3. Candidate strategies
 
+### 3.0 Coverage against the standard proof taxonomy
+
+The brief names five archetypes. Mapping, so no archetype is silently skipped:
+
+| Archetype | Strategies below | Verdict |
+|---|---|---|
+| Direct | S1, S2, S6 | S1/S2 blocked by P3; **S6 viable** |
+| Contrapositive | **S8** (necessary conditions on any counterexample) | **viable — and it prunes S4** |
+| Contradiction | S3, S5 | S3 blocked; S5 heuristic only, not a proof |
+| Construction | **S9** (build a counterexample) | blocked — constructions fall short of `log²` |
+| Counterexample search | S4 | viable, not expected to be decisive |
+| *(weakening)* | S7 | viable — most likely source of an actual theorem |
+
 ### 3.1 S1 — Direct proof (unconditional)
 **Route.** Prove `g_n < T_n` for all `n` from prime-distribution estimates.
 **Blocked by.** P3. Requires `g_n = O(log² p_n)` unconditionally.
@@ -342,6 +358,39 @@ non-vacuity — a weakening that follows from PNT alone with no gap input is a
 restatement of S6, not a new result. **Obligation for any leg pursuing S7:
 state the weakening and prove it is not implied by the smooth model alone.**
 
+### 3.8 S8 — Contrapositive: constrain any counterexample before hunting it
+**Route.** Do not try to prove or refute F. Instead assume a minimal
+counterexample `n₀` exists and derive necessary structural conditions on it.
+**What is already forced** `[self-contained, from §1.3 + §5.1]`:
+- `g_{n₀} ≥ T_{n₀} = L² − L − 1 + O(1/L)` — so `n₀` sits at a gap of
+  Cramér scale, i.e. `ρ_{n₀} ≥ 1` where the observed maximum below `3·10⁶` is
+  `0.7605` and the recalled record over all known primes is `≈ 0.92` (A10).
+- The interval `(p_{n₀}, p_{n₀}+T_{n₀})` is prime-free, so the residues of
+  `p_{n₀}+1, …` must cover every small prime modulus — a Jacobsthal-function
+  condition. This is a strong sieve-theoretic constraint, not a mild one.
+- By §5.1, empirically every tight case sits **at a record gap**; if P6′ is
+  discharged this becomes a proof that `n₀` is a record index.
+**Verdict: viable, and the highest-leverage item on the refutation side that is
+actually actionable now.** It produces no theorem by itself, but it converts S4
+from a blind sweep into a targeted search and it is the natural bridge between
+the analytic and computational legs. **Recommended as a `proof-attempt` target
+alongside L4.**
+
+### 3.9 S9 — Construction of an explicit counterexample
+**Route.** Build, rather than find, a long prime-free interval: CRT/Jacobsthal
+constructions choose residues to sieve out an interval near a primorial,
+guaranteeing a gap of prescribed length.
+**Blocked by.** The same wall as S3, from the other side: the best known
+constructions (the FGKMT lineage, §7 A7) certify prime-free intervals of length
+`≍ log n · log log n · log log log log n / log log log n` — an iterated-log
+factor above `log n`, but **a full power of `log` below** the `log² n` a
+counterexample needs. Worse, these constructions place the gap at an
+*unspecified* location and give no control over the index `n`, whereas F needs
+the gap and the count `π(p_n) = n` at the *same* point (§1.1).
+**Verdict: not viable.** Recorded because "just construct a big gap" is the
+obvious first idea and it fails for two independent reasons — magnitude and
+localization — both worth knowing before a leg spends effort on it.
+
 ---
 
 ## 4. Falsifiability tests
@@ -365,16 +414,28 @@ error bounds (the naive integer powers are astronomically large — see §5.2).
 Equivalent to T1 by §1.2 (F4) but numerically stable and the right form for a
 search. **Status: max `ρ` observed in-run = 0.7605 at `p = 1327`.**
 
-### 4.3 T3 — Cramér–Shanks–Granville ratio breach `[decidable, weaker]`
+### 4.3 T3 — Cramér–Shanks–Granville ratio breach `[decidable, sufficient]`
 > Find `n` with `g_n/log² p_n ≥ 1`.
 
-Strictly *weaker* than T2 for large `n` (since `T_n < L²`), so a T3 breach does
-not by itself refute F — but it would put the conjecture within `O(L)` of
-failure and is the standard tracked statistic. Max observed in-run for `n ≥ 10`:
-`0.70` at `p = 2 010 733`. Recollection places the record for known primes near
-`0.92` `[needs-anchor, §7 A10]` — *if that figure is confirmed, the conjecture
-survives with a margin of only a few percent, which is the strongest available
-empirical argument that it is fragile.*
+**Direction, stated carefully** (this is easy to get backwards, and an earlier
+draft of this document did): since `T_n = L² − L − 1 + O(1/L) < L²` for all large
+`n` — verified in-run to hold at every `n ≥ 11` up to `216 815` — a T3 breach
+gives `g_n ≥ L² > T_n`, i.e. it **implies** a T2 breach and
+therefore **does refute F**. So T3 is *stronger* (harder to satisfy) than T2, not
+weaker — it is a **sufficient but not necessary** refutation criterion, and a
+conservative one: F can fail without T3 ever being breached, because the true bar
+is `T_n`, which sits `≈ L + 1` *below* `L²`.
+
+Consequence for a search leg: **track `ρ_n = g_n/T_n`, not `g_n/L²`.** Using the
+CSG ratio as the objective would set the bar too high by `O(L)` and could step
+straight over a genuine counterexample.
+
+Calibration. Max `g_n/L²` observed in-run for `n ≥ 10`: `0.70` at
+`p = 2 010 733`. Recollection places the record over all known primes near `0.92`
+`[needs-anchor, §7 A10]`. The T2 bar expressed in the same units is
+`1 − 1/L − 1/L²`, which at `L ≈ 35` is `≈ 0.971`. *If the 0.92 figure is
+confirmed, the conjecture survives with a margin of roughly 5%, which is the
+strongest available empirical argument that it is fragile.*
 
 ### 4.4 T4 — Asymptotic breach `[not decidable, requires a theorem]`
 > Prove `limsup g_n/log² p_n > 1`.
@@ -422,6 +483,9 @@ in double precision, and on `ρ_n = g_n/T_n`.
 | max `g_n/log²p_n` (`n ≥ 10`) | `0.703` at `p_n = 2 010 733` |
 | record (maximal) gaps in range | 21 |
 | steps where `T` **decreases** (`n ≥ 10`) | **121 238 / 216 805 = 55.9%** |
+| (F3) checked as *exact integer* arithmetic | holds for `n = 1 … 59` |
+| six tightest `ρ` cases (`p_n` = 113, 1327, 31397, 370261, 492113, 2010733) | **all six verified to be record gaps** |
+| `T_n < L_n²` (used in §4.3) | holds at every `n ≥ 11` in range |
 
 Convergence of Claim A, `T_n` vs `L² − L − 1`:
 
@@ -440,11 +504,21 @@ Convergence of Claim A, `T_n` vs `L² − L − 1`:
 
 ### 5.2 Numerical hazard for the Lean/verification legs
 
-Form (F3) `p_{n+1}^n < p_n^{n+1}` is the clean *statement*, but it is a terrible
-*computation*: at `n = 10⁵` both sides have `> 6·10⁵` digits. Verification must
-use (F2) with certified interval arithmetic on logarithms, or exact rational
-bounds on `log`. Any leg that tries to `decide` (F3) beyond `n ≈ 50` will hang.
-**Flagged explicitly because the elegance of (F3) invites exactly this mistake.**
+Form (F3) `p_{n+1}^n < p_n^{n+1}` is the clean *statement*, but a poor *bulk
+computation*: at `n = 10⁵` both sides carry `> 6·10⁵` decimal digits. Large-scale
+verification must instead use (F2) with certified interval arithmetic on
+logarithms, or exact rational bounds on `log`.
+
+**Correction to an easy over-statement** (caught in this run's verification pass):
+the integer form is *not* the binding constraint at small `n`. Checked in-run,
+(F3) holds as an exact integer comparison for `n = 1 … 59`, and `p_51^52` has
+only 124 digits — trivial for bignum arithmetic. For the Lean legs the real
+obstacle is different and must not be confused with size: **`Nat.nth Nat.Prime n`
+is not efficiently kernel-reducible**, so `decide` stalls on *producing `p_n`*,
+not on comparing the powers. The workaround is to supply the primes as literals
+with `Nat.Prime` certificates and an explicit "no prime strictly between" lemma,
+then let `norm_num` do the comparison. Sizing the feasible `N` in L3 is a job for
+the `lean-probe` leg against the pinned toolchain, not a number to guess here.
 
 ---
 
@@ -464,8 +538,10 @@ Formalization targets, in dependency order:
   *Effort: low. This is the anchor object every other leg must import.*
 - **L2 — Equivalence (F3) ⟺ (F2) ⟺ (F1).** Via `Real.rpow` monotonicity and
   `Real.log` strict monotonicity. *Effort: low-medium. Pure API work.*
-- **L3 — Finite verification.** `∀ n, 1 ≤ n → n ≤ N → …` by `decide`/`norm_num`
-  for small `N` only (§5.2). *Effort: low for `N ≈ 30`; do not oversell.*
+- **L3 — Finite verification.** `∀ n, 1 ≤ n → n ≤ N → …` for small `N`, via
+  prime literals + `Nat.Prime` certificates + `norm_num` (see the §5.2
+  correction — the blocker is reducing `Nat.nth`, not the integer sizes).
+  *Effort: low. `N` to be sized by `lean-probe`; do not oversell the reach.*
 - **L4 — The smooth model (S6).** Formalize: `x ↦ (log x + log log x)/x` is
   strictly decreasing on `[5,∞)`. Real analysis, fully within Mathlib's reach.
   *Effort: medium. **This is the only node here that is a genuine theorem
@@ -524,11 +600,18 @@ Stated so no downstream leg mistakes silence for coverage.
    only the asymptotic form is.
 5. **A11's strengthenings are omitted rather than guessed.** A decomposition that
    guessed them would look more complete and be less true.
-6. **The in-run sieve reaches only `3·10⁶`** — six orders of magnitude short of
-   the recalled published frontier. It is a sanity probe, not a verification.
+6. **The in-run sieve reaches only `3·10⁶`** — about *twelve* orders of magnitude
+   short of the recalled published frontier (`4·10¹⁸`, A2). It is a sanity probe,
+   not a verification, and must never be cited as one.
 7. **No claim is made about which way the conjecture resolves.** The heuristic
    evidence (S5) points to false; the numerical evidence points to true; both are
    reported, neither is adopted.
+8. **Two sign/direction errors were caught by this document's own verification
+   pass and are recorded rather than hidden:** the T3-vs-T2 implication direction
+   (§4.3 — T3 is *sufficient*, not weaker) and the domain of the smooth-model
+   derivative (§3.6 — `x ≥ 5`, not `x ≥ 4`). Both are the kind of slip that
+   survives review because it reads plausibly. Downstream legs should re-derive
+   rather than trust §1.3, §3.6 and §4.3 on sight.
 
 ---
 
@@ -539,7 +622,7 @@ Stated so no downstream leg mistakes silence for coverage.
 | `source-ledger` / `citation-gate` | Resolve §7, **A9 first**, then A2/A3/A10 | S5 and the verified-range claim rest on them |
 | `lean-skeleton` | L1, L2, L3 | Pins the statement so no leg drifts |
 | `lean-probe` | Confirm Mathlib API names on the pinned toolchain | §6 names are unverified |
-| `proof-attempt` | **L4 (smooth model)** and S7(c) | The only nodes with a realistic theorem at the end |
+| `proof-attempt` | **L4 (smooth model)**, S7(c), and **S8 (constrain any counterexample)** | The only nodes with a realistic result at the end |
 | `notebooks` | Extend the `ρ_n` record table past `3·10⁶`; test P6′ empirically at scale | Directly attacks the two live obligations |
 | `skeptic` / `red-team-corpus` | Attack S5's framing and P6′ | The two places this decomposition is most likely wrong |
 | `synthesize` | Must preserve the P3 gate and the S5-is-not-a-proof distinction | The two claims most likely to be lost in compression |

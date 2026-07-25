@@ -16,7 +16,7 @@ it, and nothing below refutes it.
 | **(1b)** *Some* bound of the form `g_n ≤ C·p_n^θ(log p_n)^A`, `θ>0`, implies `F` beyond finitely many `n` | **REFUTED** | Thm B §6 |
 | **(1c)** *Some* envelope `C√p log p` (any `C>0`) implies `F` beyond finitely many `n` | **REFUTED** | Thm C §7 |
 | **(1d)** `RH ⟹ F` as a material implication | **UNDECIDED** — with the *strength of what a proof would yield* bounded below | Thm D §8 |
-| **(1e)** Cramér's `limsup ≤ 1` hypothesis implies `F` by sequence-level reasoning | **REFUTED** (relative independence) | Thm E §9 |
+| **(1e)** Cramér's `limsup ≤ 1` hypothesis entails `F` over integer sequences | **REFUTED** (explicit counter-model) | Thm E §9 |
 | **`F` itself** | **OPEN.** Untouched by this leg. | — |
 
 **Headline, in one sentence.** Under the Riemann Hypothesis the sharpest published prime-gap
@@ -52,7 +52,7 @@ mathematical claim below is (i) an imported card with its ledger row and tier, (
 read by this leg at a locator in a source it fetched, or (iii) derived here and marked as such.
 
 **On the target's name.** The brief names target #1 by the slug `RH-conditional-bound` and does
-not define it. §3 states the four inequivalent propositions that slug can denote, and each is
+not define it. §3 states the five inequivalent propositions that slug can denote, and each is
 attacked separately. Conflating them is the principal hazard of this leg; §3 exists so that the
 verdict cannot be misread.
 
@@ -101,9 +101,9 @@ by an additive `0.17`. This is the single most important structural fact for tar
 
 ---
 
-## 3. What target #1 actually asserts — four inequivalent readings
+## 3. What target #1 actually asserts — five inequivalent readings
 
-The slug `RH-conditional-bound` admits at least four readings. They are **not** equivalent, and
+The slug `RH-conditional-bound` admits at least five readings. They are **not** equivalent, and
 the literature's habit of writing "RH does not help" without saying which is meant is exactly what
 this section removes.
 
@@ -126,12 +126,13 @@ this section removes.
 > **(1d) The material implication.** *`RH ⟹ F`.* A statement about two open arithmetic
 > propositions. **Not decidable here**, and §8 says precisely why, plus what its proof would cost.
 
-> **(1e) Hypothesis-class sufficiency.** *A hypothesis strong enough to imply `F` — e.g. Cramér's
-> `limsup g_n/L_n² ≤ 1` — does so by reasoning available at the level of sequences.* This is the
-> "name a hypothesis that is not a disguised restatement of the target" obligation that
-> `decompose` §3.2 places on any S2 proposal. **Decidable, negatively.**
+> **(1e) Hypothesis-class sufficiency.** *Does the natural candidate hypothesis — Cramér's
+> `limsup g_n/L_n² ≤ 1` — **entail** `F` at the level of sequences, i.e. for every strictly
+> increasing integer sequence satisfying it?* This is the entailment question, decidable by
+> exhibiting a counter-model, and it is the operative form of `decompose` §3.2's obligation to
+> "name a hypothesis that is not a disguised restatement of the target". **Decidable, negatively.**
 
-The rest of the document proves (1a), (1b), (1c), (1e) and bounds (1d).
+The rest of the document settles (1a), (1b), (1c), (1e) and bounds (1d).
 
 ---
 
@@ -408,13 +409,19 @@ of the `√p` scale.
 
 **Corollary C.1 (even `limsup = 0` does not help).** CMS record (§1.2, after (1.14)) that under RH
 *and* Montgomery's pair correlation conjecture the limsup in (1.14) is **zero**, i.e.
-`g_n = o(√p_n log p_n)`. This does not certify `F` at any index. *Proof.* `o(·)` supplies, for each
-`C > 0`, some threshold `N(C)` beyond which `g_n ≤ C√p_n L_n` — with **no control on `N(C)`**. To
-certify at `n` one needs both `n ≥ N(C)` and `C√p_n L_n ≤ T_n`, and the second forces
-`C ≤ T_n/(√p_n L_n) ≈ L_n/√p_n → 0`. So the required `C` shrinks with `n` while the index from
-which the bound is available is uncontrolled; the two conditions are never known to hold together.
-∎ **The strongest conditional gap statement in the literature is therefore also insufficient**, and
-for a reason Theorem C makes structural rather than accidental.
+`g_n = o(√p_n log p_n)`. This certifies `F` at no index, for two independent reasons.
+
+*First, and decisively: `o(√p log p)` is still enormously weaker than `O(log²p)`.* The hypothesis
+is compatible with gaps far above the threshold — a sequence with
+`g_n = √p_n·L_n/log log p_n` satisfies `g_n/(√p_n L_n) → 0` while
+`g_n/L_n² = √p_n/(L_n·log log p_n) → ∞`. Killing the constant does not change the *scale*, and
+scale is what Theorem B shows to be the whole obstruction. *Second, even setting that aside, the
+`o(·)` form gives no usable index:* it supplies, for each `C > 0`, a threshold `N(C)` beyond which
+`g_n ≤ C√p_n L_n`, with **no control on `N(C)`** — while certification at `n` additionally forces
+`C ≤ T_n/(√p_n L_n) ≈ L_n/√p_n → 0`. The required constant shrinks with `n` while the index from
+which the bound becomes available is uncontrolled; the two conditions are never known to hold
+together. ∎ **The strongest conditional gap statement in the literature is therefore also
+insufficient**, and for a reason Theorem C and Theorem B make structural rather than accidental.
 
 > **Verdict on (1c): REFUTED.** The critical constant is `2/e ≈ 0.7358`; the published constants
 > `22/25` and `21/25` are both above it; constants far below it clear the `L²` bar only on a
@@ -532,7 +539,7 @@ evidence, not as a theorem.]**
 
 ---
 
-## 9. Theorem E — Cramér's `limsup` hypothesis does not formally suffice
+## 9. Theorem E — Cramér's `limsup` hypothesis does not entail `F` over integer sequences
 
 The last escape from §8 is: *"Then assume Cramér's conjecture instead of RH."* Card **L9** records
 what Cramér actually proved (`limsup = 1` **for his urn model**, `cramer1936order` L0 p. 27) and
@@ -655,8 +662,10 @@ sufficiently large `k`".)*
   term pinned. The distance between "asymptotically at most 1" and "below `L²−L−1` always" is
   precisely the room Theorem E's construction lives in.
 
-> **Verdict on (1e): REFUTED.** Cramér's `limsup` hypothesis does not formally suffice; the gap
-> between it and `F` is exactly the uniformity plus second-order term that Facts 2/3 sandwich.
+> **Verdict on (1e): REFUTED.** Cramér's `limsup` hypothesis does not entail `F` over strictly
+> increasing integer sequences — an explicit counter-model separates them. The gap between the two
+> is exactly the uniformity plus the pinned second-order term that Facts 2/3 sandwich. *Not
+> claimed:* a proved bar on any class of derivations (that reading is a flagged gloss, §11 item 9).
 
 ---
 
@@ -719,9 +728,11 @@ Stated so no downstream leg mistakes silence for coverage.
 5. **The `≤` vs `<` discrepancy** between CMS §1.2 (`≤`, `p_n > 3`) and Visser Theorem 1 (`<`,
    `n ≥ 3, p_n ≥ 5`) is recorded (§4) and inert for every argument here, because the bound is used
    only as an upper envelope. It must be resolved before the paper states either form.
-6. **Theorem E is about a class of derivations, not about the primes.** §9's closing bullets state
-   the limit explicitly. A reader who takes Theorem E as "Cramér does not imply Firoozbakht" has
-   over-read it.
+6. **Theorem E is a counter-model result over integer sequences, not a statement about the
+   primes.** `p` is one fixed sequence; if `(Cr)` and `F` are both true the material implication is
+   vacuously true, and §9's closing bullets say so. A reader who takes Theorem E as "Cramér does
+   not imply Firoozbakht (for the primes)" has over-read it in one direction; a reader who takes it
+   as a proved bar on derivations has over-read it in the other (item 9).
 7. **No claim about the *optimality* of the `√p` scale under RH.** Whether RH-conditional methods
    are intrinsically confined to `x^{1/2}`-length intervals is a methodological claim this run has
    not sourced. **[GAP: no ledger row.]** Theorems B and C are written so that the verdict does not

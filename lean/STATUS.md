@@ -90,6 +90,73 @@ effective `π(x)` bounds (card `T1`) which are not assumed present in Mathlib
 **`Nat.bertrand` was neither used nor confirmed.** Card `L17` establishes it is
 useless for `F` anyway.
 
+## Verification pass (step 2) — what it found and changed
+
+The artifact was re-audited against its own brief. Four findings, all fixed.
+
+**1. The original fidelity checks were vacuous.** They were written as
+`example : F3 1 ↔ (3:ℕ)^1 < 2^2 := by simp [F3]`. `simp` closes that by
+evaluating *both sides to `True`* — and it closes
+`F3 1 ↔ (999999:ℕ) < 1000000` just as happily (checked). An `Iff` between two
+true propositions says nothing about which primes the statement names, so the
+central claim of this leg was resting on a check that could not fail.
+**Fixed:** the positive checks are now propositional *equalities* discharged by
+`simp only [F3, p_one, p_two]` — rewriting only, no `decide`, no `norm_num`. The
+goal closes because `p 2` rewrites to `3`; under the 0-indexed reading it would
+rewrite to `5` and the goal would not close.
+
+**2. A negative control cannot live at the level of propositions at all.** The
+first draft's `¬ (F3 1 = (5^1 < 3^2))` is *false* — `propext` identifies any two
+true propositions. Lean says so. **Fixed:** the negative control moved to the
+level of natural numbers, where `propext` has no purchase:
+`p_ne_nth_same_index : p 1 ≠ Nat.nth Nat.Prime 1` (i.e. `2 ≠ 3`), plus
+`nth_eq_p_succ : Nat.nth Nat.Prime k = p (k+1)`, which states the off-by-one as
+an identity.
+
+**3. One `sorry` was avoidable and was removed.** `strict_iff_nonstrict` (card
+`D4` hazard 1 — Visser's `≤` versus Kourbatov's `<`) was `sorry`-ed on the
+grounds of being off the critical path. It is now proven, via
+`p_pow_ne : p_{n+1}^n ≠ p_n^{n+1}` (if they were equal then
+`p_{n+1} ∣ p_n^{n+1}`, so `p_{n+1} = p_n`, contradicting `p_n < p_{n+1}`).
+The sorry count went 6 → 5.
+
+**4. A numeric claim in a docstring was wrong.** `n = 4` was called "the
+tightest of the small cases" on the strength of its absolute margin `2166`.
+By ratio it is the *loosest* of the four: `16807/14641 = 1.15` against
+`27/25 = 1.08` at `n = 2`. **Fixed** — `n = 2` is now named as the tightest in
+range, with both ratios stated.
+
+### Independent cross-check (outside Lean)
+
+The transcribed statement was evaluated in Python over the first `25996`
+primes, in log form (`n·log p_{n+1} < (n+1)·log p_n`): **zero** violations,
+tightest margin `0.0770` nats at `n = 2` (primes `3, 5`) — consistent with the
+Lean range and with the literature's picture. The `n = 1..4` cases were also
+checked in exact integer arithmetic and agree with the four numerals in
+`FiniteCheck.lean`. This is a cross-check of the transcription, **not** evidence
+about the conjecture: the conjecture is verified far past `2.6·10⁴` in the
+literature, and no finite range bears on a `Π₁` sentence.
+
+The "strictly weaker" claim about the 0-indexed variant (card `D1`) was also
+re-derived by hand rather than taken on trust. With `a = p_m`, `b = p_{m+1}`,
+the true form is `b^(1/(m+1)) < a^(1/m)` and the mis-transcription is
+`b^(1/m) < a^(1/(m-1))`. From the former, `b^(1/m) < a^((m+1)/m²)`, and
+`(m+1)/m² ≤ 1/(m-1)` since `(m+1)(m-1) = m²-1 ≤ m²`. So the true statement
+implies the mis-transcription and not conversely: **strictly weaker**, as
+claimed.
+
+### Checked and clean
+
+- No `native_decide`, no `axiom`, no `@[implemented_by]`, no `unsafe` anywhere.
+- `Real.rpow` really is what `F1`, `F1'` and `T` use (confirmed by `rfl` against
+  `Real.rpow` explicitly, not by reading the pretty-printer).
+- Every definition re-read against its card: `F1`/`F1'` vs `D4`+Kourbatov §1
+  eq. (1); `F2` vs `D4` F2; `F3` vs `D4` F3; `T` vs `D5`; `F4` vs `D5`/`L1` F4;
+  `g`, `L` vs `D2`. All match.
+- `L n = Real.log (p n)` is defined but currently unused. Kept because `D2`
+  defines it and the asymptotic cards (`L2`, `L3`, `L4`) are stated in terms of
+  it; flagged here so it is not mistaken for dead code left by accident.
+
 ## The refutation branch is not a second `sorry`
 
 Two contradictory `sorry`-ed theorems (`firoozbakht` and `not_firoozbakht`) in

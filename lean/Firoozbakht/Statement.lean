@@ -32,7 +32,7 @@ draft of the attack plan did — yields `p_{m+1}^{m-1} < p_m^{m}`, which is a
 *strictly weaker* statement (exponent ratio `1 + 1/(m-1)` instead of `1 + 1/m`)
 and additionally drops the case `m = 1`. A development could go fully green
 having formalized a different conjecture. The offset is corrected **once**,
-here, in `Nat.p`, and nowhere else.
+here, in the definition of `p`, and nowhere else.
 -/
 
 import Mathlib.Data.Nat.Prime.Nth

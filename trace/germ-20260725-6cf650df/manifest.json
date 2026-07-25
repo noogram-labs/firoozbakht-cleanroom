@@ -1,0 +1,33 @@
+{
+  "collector": "tools/trace_collector.py",
+  "sweeps": [
+    {
+      "sweep": 1,
+      "at": "2026-07-25T08:59:05.439156+00:00",
+      "run_dir": "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/spore-runs/germ-20260725-6cf650df",
+      "state_root": "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state",
+      "nodes": 22,
+      "events_seen": 92,
+      "events_appended_per_dest": {
+        "/Users/eserie/galaxies/firoozbakht-cleanroom/.worktrees/task-20260725-9243/trace/germ-20260725-6cf650df": 92,
+        "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/spore-runs/germ-20260725-6cf650df/trace": 92
+      },
+      "artifacts_hashed": 92,
+      "artifact_bytes": 141700
+    }
+  ],
+  "latest": {
+    "sweep": 1,
+    "at": "2026-07-25T08:59:05.439156+00:00",
+    "run_dir": "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/spore-runs/germ-20260725-6cf650df",
+    "state_root": "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state",
+    "nodes": 22,
+    "events_seen": 92,
+    "events_appended_per_dest": {
+      "/Users/eserie/galaxies/firoozbakht-cleanroom/.worktrees/task-20260725-9243/trace/germ-20260725-6cf650df": 92,
+      "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/spore-runs/germ-20260725-6cf650df/trace": 92
+    },
+    "artifacts_hashed": 92,
+    "artifact_bytes": 141700
+  }
+}

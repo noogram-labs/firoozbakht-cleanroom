@@ -1,0 +1,20 @@
+{
+  "target": "RH-conditional-bound",
+  "sieve_limit": 10000000,
+  "primes": 664579,
+  "pairs_checked": 664578,
+  "counterexamples_found": 0,
+  "max_rho": 0.7604708659164422,
+  "max_rho_at_p": 1327,
+  "max_rho_gap": 34,
+  "max_csg": 0.7025656074174531,
+  "max_csg_at_p": 2010733,
+  "min_relative_margin_dps50": 6.342262321149653e-07,
+  "exact_integer_checked_upto_n": 10000,
+  "record_gaps_in_range": 22,
+  "T_descent_fraction": 0.5635005544947176,
+  "certified_range_C1": null,
+  "C_required_for_1e7": 0.004761142189302036,
+  "C_required_for_4e18": 2.09047397275023e-08,
+  "B1_over_T_at_1e7": 210.15575151043248
+}

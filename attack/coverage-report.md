@@ -185,11 +185,57 @@ Stated plainly, so nothing here is mistaken for more than it is.
    catches a silently-coerced true-but-wrong statement. The mitigation offered
    in §4 is a reading discipline, not a gate.
 
-## 7. Reproduction
+## 7. Verification pass (step 2) — one real gap found and closed
+
+The corpus was re-audited against its own brief. `corpus/verify_corpus.py`
+now checks the claims the corpus makes *about itself*: **109/109 green.**
+
+**The gap that mattered — refutations were never audited for axioms.** Every
+file in `refutations/` imports `Statement.lean`, which contains the `sorry`-ed
+open target `firoozbakht`. A refutation that leaned on it — directly, or through
+any lemma that did — would prove **nothing about anything**, and would still
+compile silently. That is entry `V02`'s attack, aimed at the corpus itself, and
+nothing in the first pass would have caught it.
+
+`#print axioms` now runs on all 24 theorems in `refutations/` and
+`rejected-candidates/`. Result: **every one depends on nothing beyond
+`[propext, Classical.choice, Quot.sound]`** — `F17_refuted` on no axioms at all.
+No refutation is tainted. The corpus's own headline claim now rests on the same
+gate it recommends to everyone else in §4, which is the only consistent place
+for it to rest.
+
+| check | what it asserts | result |
+|---|---|---|
+| **V1/V3** | every manifest entry names files that exist, one attempt file per entry | 27/27 |
+| **V2** | every `refuted` entry has a theorem `<id>_refuted` really present | 20/20 |
+| **V4** | every refutation theorem is axiom-clean | 24/24 + 3 file-level counts |
+| **V5** | manifest `observed` agrees with `results.tsv` | 27/27 |
+| **V6** | no `sorry` in `refutations/` or `rejected-candidates/` | 3/3 files |
+
+**Two smaller findings, both checked:**
+
+- *No rejection is spurious.* An attempt file that failed on a typo or an
+  unknown name would be a fake test. All 23 logs were swept for
+  `unknownIdentifier` / `unknown constant` / `unexpected token`: **none**. Every
+  rejection is on the mathematical goal — `unsolved goals` (16),
+  `omega could not prove the goal` (5), `failed to synthesize` (3),
+  `Type mismatch` (1).
+- *Every provenance citation was re-read at its source, not recalled.*
+  `L16`(c) and `D5` hazard 1 both state the monotonicity of `T_n` as "at fixed
+  `p_n`" (verbatim), which is what `F18` attacks; `L2` gives
+  `T_n = L² − L − 1 + o(1)`, which is what makes `F12`'s linear bound absurd;
+  `L12` gives the unconditional large-gap record, which is what `F11` violates.
+
+The anchor was re-built after the corpus was written: `lake build` in `lean/`,
+**green, 1984 jobs, warnings are the five declared `sorry`s and nothing else** —
+the corpus adds no files to the `Firoozbakht` library and changes none.
+
+## 8. Reproduction
 
 ```bash
 cd lean && lake exe cache get && lake build     # the anchor, green
 cd .. && bash corpus/run_corpus.sh              # the corpus, 30 files
+python3 corpus/verify_corpus.py                 # the corpus's claims about itself
 cat corpus/results.tsv
 ```
 

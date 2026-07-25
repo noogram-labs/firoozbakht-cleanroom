@@ -7,6 +7,10 @@
 `(p_n)^{1/n}` is strictly decreasing. **Status: OPEN.** Neither assumed true nor assumed false.
 **Seed anchors supplied:** none. This ledger was built from scratch.
 
+**Ledger size: 20 rows** — 11 at tier **L0**, 3 at **L1**, 4 at **L2_strong**, 2 at **L2_weak**,
+**0 at L3**. Every row has a BibTeX entry in §8 and a locator table or locator statement in §2.
+Seven source PDFs were fetched and read in full; their MD5s are recorded per row.
+
 ---
 
 ## 0. Perimeter (v5.1 clause) — what may and may not enter this ledger
@@ -106,7 +110,7 @@ be upgraded before the citation gate.
   |---|---|
   | §1, eq. (1) | Firoozbakht's conjecture ⟺ `p_{k+1} < (p_k)^{1+1/k}` for all `k ≥ 1`. |
   | §2, **Theorem 1** | "If conjecture (1) is true, then `p_{k+1} − p_k < log² p_k − log p_k − 1` for all `k > 9`." |
-  | §4, **Theorem 3** | (B) with `b = 1.17` implies (A): i.e. `g_k < log²p_k − log p_k − 1.17` for all `k` **implies** Firoozbakht. |
+  | §4, **Theorem 3** | "If `p_{k+1} − p_k < log²p_k − log p_k − 1.17` for all `k > 9` (`p_k ≥ 29`), then Firoozbakht's conjecture (1) is true." — i.e. (B) with `b = 1.17` implies (A). **The `k > 9` threshold is part of the hypothesis; do not drop it.** |
   | §4, **Theorem 4** | Three further sufficient conditions with `b → 1`, e.g. `g_k < log²p_k − log p_k − 1 − 3.83/log p_k`, each assumed for all `p_k > 4·10¹⁸`. |
   | §5 Appendix, **Theorem 5** | `f_k := p_k^{1+1/k} − p_k = log² p_k − log p_k − 1 + o(1)` as `k → ∞`. |
   | §3, discussion + Table 1 | The gap bound (2)/(3) is a *corollary* of (1), so (2) may hold while (1) fails. Worked counter-illustration at `p_k = 2010733` (line 7 of Table 1), where a prime `q = 2010929` lies in `[p_k+f_k, p_k+ℓ_k]`. |
@@ -328,15 +332,15 @@ be upgraded before the citation gate.
   | Locator | Exact statement |
   |---|---|
   | §1 | "In 1982 the Iranian mathematician Farideh Firoozbakht, from the University of Isfahan, conjectured the following: Let `{p_n}` be the sequence of prime numbers. Then the sequence `{ⁿ√p_n}` is strictly decreasing." |
-  | **Theorem 2.2** | If Firoozbakht is true, then `g_n < ln²(p_n) − ln(p_n) − 1` (the Kourbatov direction, reproved). |
-  | **Theorem 2.3** | If `g_n < ln²(p_n) − ln(p_n) − 1.17` for all `n ≥ 10`, then Firoozbakht is true. |
+  | **Theorem 2.2** | "If the Firoozbakht's conjecture is true, then `g_n < ln²(p_n) − ln(p_n) − 1, ∀ n ≥ 10`. In particular, `g_n < ln²(p_n) − ln(p_n), ∀ n ≥ 5`, and `limsup_{n→∞} g_n/ln²(p_n) ≤ 1`." — **the last clause is exactly decompose's Corollary A1, and it is published.** Proof is marked "(Following [15])" = Kourbatov; the underlying `π(x)` input is Axler Corollary 3.6. |
+  | **Theorem 2.3** | "If `g_n < ln²(p_n) − ln(p_n) − 1,17, ∀ n ≥ 10`, then the Firoozbakht's conjecture is true." — **stated without proof**, "we refer the reader to [15]" = Kourbatov Thm 3. Not an independent derivation. |
   | **Theorem 3.1** (attributed) | Baker–Harman–Pintz: `g_n ≤ p_n^{0.525}` for `n ≫ 0`. "It is easy to see that Firoozbakht's conjecture improves the Baker-Harman-Pintz's bound significantly." |
   | **Lemma 3.2** | If Firoozbakht is true, then `g_n < √n` for all `n ≥ 3645`. |
   | **Consequence 3.3** (Sierpiński) | Firoozbakht ⟹ every row of the `n × n` array of `1…n²` contains at least one prime (and, for each `k`, at least `k` primes for `n ≥ n₀(k)`). |
   | **Theorem 4.4** | `p_n > n ln n` for all `n` (Rosser); and `ln n + ln ln n − 1 < p_n/n < ln n + ln ln n` for `n ≥ 6`. |
   | **Theorem 4.5** | "**Farhadian ⟹ Nicholson ⟹ Firoozbakht ⟹ Forgues.**" With proof. |
-  | **Theorem 5.1** (attributed) | Zhang: `liminf g_n < ∞`. |
-  | **Theorem 5.2** | "**There are infinitely many `n ∈ N` such that `ⁿ√p_n > ⁿ⁺¹√p_{n+1}`.**" — i.e. Firoozbakht's inequality holds infinitely often, **unconditionally**, as a consequence of bounded gaps. |
+  | **Theorem 5.1** (attributed) | Zhang: `liminf g_n < ∞`. Ref. [20] = Y. Zhang, "Bounded gaps between primes", *Ann. of Math.* **179** (2014), no. 3, 1121–1174. |
+  | **Theorem 5.2** | "**There are infinitely many `n ∈ N` such that `ⁿ√p_n > ⁿ⁺¹√p_{n+1}`.**" — i.e. Firoozbakht's inequality holds infinitely often, **unconditionally**, as a consequence of bounded gaps. Proof given in full, "(Following [12])" = Ferreira's own 2016 USP PhD thesis. |
 
 - **Why this row matters most after Kourbatov and Granville:** **Theorem 5.2 is the only
   unconditional theorem in this ledger that says something positive about the conjecture itself.**
@@ -569,8 +573,15 @@ Stated plainly, because a ledger that quietly agrees with the document it audits
    effective") is already closed in the literature.** Do not re-derive; cite.
 
 4. **A4 is no longer an open hole.** The decomposition marked converse-direction criteria "do not
-   build on until sourced". They are sourced (Kourbatov Thms 3–4, reproved independently by
-   Ferreira–Mariano Thm 2.3). A sufficient condition for Firoozbakht exists and is explicit.
+   build on until sourced". They are sourced: **Kourbatov Theorem 3** — `g_k < log²p_k − log p_k −
+   1.17` for all `k > 9` **implies** Firoozbakht — plus the `b → 1` family of Theorem 4. A
+   sufficient condition exists and is explicit.
+   **Caveat, and it matters for the citation gate:** Ferreira–Mariano Theorem 2.3 restates this but
+   is *not* an independent confirmation — it carries no proof, only "we refer the reader to [15]"
+   (= Kourbatov). Likewise their Theorem 2.2 is proved "(Following [15])". **The entire
+   sufficient-condition result rests on a single author and, beneath him, on Axler's Corollary 3.5 —
+   the corollary whose range of validity Axler himself had to correct.** Treat this chain as
+   single-threaded, not corroborated.
 
 5. **There is an unconditional theorem the decomposition did not have.** Ferreira–Mariano
    **Theorem 5.2**: Firoozbakht's inequality holds for **infinitely many `n`**, unconditionally, via

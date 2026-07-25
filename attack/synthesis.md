@@ -335,14 +335,28 @@ a materially different statement, and the one a reader needs. The correct form i
 index in the range where the CMS bound is available.* This also dissolves an apparent conflict
 with `notebook-1`, which reported three certified primes: both were right, the words were not.
 
-**`55.92 %` — one statistic, three fractions.** The most-quoted number in the corpus circulates as
-`121 238/216 805` (card `L15` — correct, for `n ≥ 10`), `121 239/216 814` (`notebook-0` — the
-all-`n` count, described as an "exact" reproduction of a *different* numerator over a *different*
-denominator), and `121 238/216 806` (`proof-attempt-0` — an off-by-one denominator matching
-neither convention). The skeptic's recomputation settles it: **`121 238/216 805 = 55.9203 %` for
-`n ≥ 10`, `121 239/216 814 = 55.9184 %` over all `n`.** The figure is also range-dependent —
-**57.88 % at `10⁹`** — and must never be quoted without its bound. It remains uninformative about
-P6′.
+**`55.92 %` — one statistic, four fractions, and a convention nobody stated.** The most-quoted
+number in the corpus circulates as `121 238/216 805` (card `L15`), `121 239/216 814`
+(`notebook-0`, the all-`n` count, described as an "exact" reproduction of a *different* numerator
+over a *different* denominator), and `121 238/216 806` (`proof-attempt-0`, which the skeptic leg
+called an off-by-one matching neither convention).
+
+**This leg recomputed it independently** (fresh `sympy` sieve to `3·10⁶`, written from the
+statement, script `verify_syn.py`) and gets **`121 238/216 806 = 55.9200 %` for `n ≥ 10`** and
+**`121 239/216 815 = 55.9182 %` over all `n`** — i.e. the two *numerators* are stable and
+reproduce everywhere, but this leg's denominators are one **higher** than the skeptic's in both
+conventions, and the `n ≥ 10` denominator matches `proof-attempt-0`'s exactly.
+
+The correct reading is therefore *not* that one leg made an arithmetic error. There are 216 816
+primes below `3·10⁶`, hence 216 815 comparisons `T_{n+1}` vs `T_n` available, of which 216 806
+have `n ≥ 10`. Whether the **final** comparison is counted is a convention that **no leg states**,
+and it moves every denominator by exactly one. That — not an off-by-one in any single document —
+is the real defect: three legs and this verification produce four fractions for one statistic
+because the counting convention was never written down. All four agree to four significant
+figures.
+
+The figure is also range-dependent — **57.88 % at `10⁹`** — and must never be quoted without its
+bound. It remains uninformative about P6′.
 
 **`p*(C)`'s definition.** `notebook-1`'s stated lower endpoint (`10 ≤ p ≤ P`) makes its own table
 vacuous, since the reported values are all below 10. The values are right under the reading
@@ -431,7 +445,51 @@ evidence about which way to bet and nothing more.
 
 ---
 
-## 8. Sources folded
+## 8. Verification of this document
+
+This leg emitted no notebook and no Lean, so there is no build to report. Instead, the synthesis
+was checked against its brief in two ways.
+
+**(a) Independent recomputation of every headline number this document states as a figure.** A
+fresh sieve to `3·10⁶` (`sympy`, no upstream code path, written from the *statements* rather than
+from any leg's source) — script `synthesize/verify_syn.py`, exit 0:
+
+| Quantity as stated here | This leg's independent value | Verdict |
+|---|---|---|
+| primes below `3·10⁶` | 216 816 | ✓ |
+| violations of `F` below `3·10⁶` | **0** | ✓ |
+| max `ρ` (`n ≥ 10`) `= 0.7604709` at `n = 217`, `p = 1327`, `g = 34` | `0.7604708659…`, same index | ✓ |
+| max `ρ` over all `n` `= 0.911985` at `n = 4` | `0.9119852327…` | ✓ |
+| `L(L−1.1)` at `2⁶⁴` `= 1919.1379834975…` | `1919.1379834975328` | ✓ exact |
+| `S(29) = 6.80139 > 6 = max{g_j : j ≤ 9}` | `6.8013853766…`, max gap `6` | ✓ (Theorem B's hypothesis (ii)) |
+| CMS envelope clears the bar at `n = 1, 2, 3` but not `n = 4` | `B/T` = 0.863/2.000, 1.675/2.196, 3.167/3.550, **4.531/4.386** | ✓ — confirms §5's correction *and* `proof-attempt-1` Theorem A's `S = {3}` |
+| smooth-model bracket changes sign just above `x = 4` | `+0.0084` at 4, `−0.0193` at 4.05, `−0.464` at 5 | ✓ (`x ≥ 5` is the safe range, not `x ≥ 4`) |
+| `55.92 %` | see §5 — numerators reproduce, denominators disagree by one | **discrepancy, reported rather than smoothed** |
+
+The last row is the one finding of this verification pass that changed the document. The first
+draft of §5 asserted the skeptic's fractions as settled; the recomputation showed the skeptic's
+denominators are one lower than this leg's in *both* conventions, and that `proof-attempt-0`'s
+disputed `216 806` is the one this leg reproduces exactly. §5 was rewritten to state the real
+defect — an unstated counting convention, not an arithmetic error in any one document. **This is
+a correction to the skeptic leg's F5, made against the skeptic leg's own standard: a check
+written from the derivation cannot catch an error in the derivation.**
+
+**(b) Consistency against the brief.** Each required element is present and locatable: what was
+proved (§2, with confidence codes), what was refuted (§3), what remains open (§4), the
+evidence-gate status stated honestly as **BLOCKED** with the failing leg named (§6), the rounds
+trajectory with the shrink-vs-churn question answered plainly rather than dressed up (§1), and an
+explicit statement that the citation audit has not run and no clearance is claimed (§0, §6). No
+claim in §2–§4 rests on the two BLOCKERs: the F2 constant `0.004479` is never quoted here as a
+derived result, and the mis-scoped P6′ inferences are corrected in §5 rather than repeated.
+
+**Not done.** This leg did not re-run the Lean build, the `10¹¹` sweeps, or the red-team corpus —
+those are reported at the exit statuses their own legs recorded, which are quoted here rather than
+re-derived. It did not repair the upstream artifacts (§6 says so), and it did not open any source
+(§6's citation status).
+
+---
+
+## 9. Sources folded
 
 All under `/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/spore-runs/germ-20260725-791a7c45/`,
 mirrored at `attack/` in the repository. Round 1 is the only round; every path below is round 1's.

@@ -1,0 +1,60 @@
+mpmath dps = 60, sieve limit = 3000000
+primes = 216816, largest = 2999999
+
+[C1] h(x) = sqrt(x) - (25/22) ln x
+     stationary point x* = 5.1652892562
+     h(x*)              = 0.406862381659   (must be > 0)
+     verdict: PASS
+
+[C2] {n : T_n >= L_n^2} within sieve range
+     = [1, 2, 3, 4, 5, 6, 7, 10]
+     expected {1,...,7,10} -> PASS
+
+[C3] S = {n >= 3 : B_n < T_n}  (indices the RH bound certifies)
+     n=  3  p=  5  B_n=3.166955068  T_n=3.549879733
+     |S| = 1  -> PASS (S = {3})
+
+[C3-table] small-index detail (n=3..12)
+      n     p_n         T_n            B_n         B_n<T_n ?
+      3       5      3.549879733    3.166955068   True
+      4       7      4.386035932    4.530587009   False
+      5      11      6.769336928    6.998568638   False
+      6      13      6.934281081    8.138289656   False
+      7      17      8.481637825    10.27984133   False
+      8      19      8.453505139    11.29437052   False
+      9      23      9.585990676    13.23282576   False
+     10      29      11.61044961    15.95742984   False
+     11      31      11.35844706    16.82527579   False
+     12      37      12.99023762    19.32863344   False
+
+[C4] min over n>=4 of B_n/T_n inside the sieve
+     min = 1.032957112 at n=4, p=7
+     at the sieve edge n=216815, p=2999957: B/T = 110.1538156
+
+     at p = 2^64: L = 44.36141956
+       T ~ L^2-L-1     = 1922.574125
+       B = (22/25)*sqrt(p)*L = 1.676671447e+11
+       overshoot B/T   = 87209716.62  (~10^7.94056)
+
+[C5] violations of F in the sieved range
+     0 found -> PASS (none)
+
+[C6] generic envelope C*sqrt(p)*ln p vs L^2
+     max_x ln(x)/sqrt(x) = 2/e = 0.735758882343 at x = e^2 = 7.389056099
+     CMS constant 22/25 = 0.88  -> ABOVE critical: envelope > L^2 everywhere
+     C=   0.88: {p : C*sqrt(p)*ln p < L^2} is EMPTY
+     C= 0.7357: nonempty only on p in (7.205201686, 7.57921929) -- a bounded interval
+     C=    0.5: nonempty only on p in (2.043789969, 74.18668809) -- a bounded interval
+     C=    0.1: nonempty only on p in (1.111168281, 8099.119063) -- a bounded interval
+     C=   0.01: nonempty only on p in (1.010101053, 2122264.571) -- a bounded interval
+
+[C7] Theorem-E counter-model  q_n = p_n + step
+     insertion indices n_k below the sieve edge: [5, 16, 256, 65536]
+       n_k        q_{n_k}      J_k    gap_q      T^q_{n_k}     (ln q)^2   violates F?
+          5            11        4        6     6.7693369   5.7499017   False
+         16            57       11       17     16.386645   16.346264   True
+        256          1634       53       55     47.914126   54.742038   True
+      65536        821709      180      186     170.77841   185.48102   True
+     all n_k >= 11 violate F -> PASS   (n_k <= 10 excluded: L13 exception set)
+     total drift q_n - p_n at the sieve edge = 248 (vs p = 2999957, relative 8.267e-05)
+     (q_{n+1}-q_n)/(ln q_n)^2 at the n_k: 1.0435, 1.03999, 1.00471, 1.0028

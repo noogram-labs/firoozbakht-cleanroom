@@ -16,13 +16,14 @@ Computation corroborates or refutes; it never constitutes the proof.
 | `test_fb_core.py` | every claim the notebook makes, as a headless assertion |
 | `deep_run.py` | records the large-scale runs into `deep-runs.json` |
 | `deep-runs.json` | results at 1e7 … 1e11 (the notebook reads this; it does not re-run them) |
+| `notebook-2.ipynb` outputs | produced with `N_NOTEBOOK = 1e8`; the deep scales come from `deep-runs.json` |
 | `build_notebook.py` | regenerates `notebook-2.ipynb` from source |
 
 ## Run it
 
 ```sh
-python3 test_fb_core.py                                     # ~40 s, exits non-zero on failure
-python3 deep_run.py 10                                      # ~70 s   (add `11` for ~13 min more)
+python3 test_fb_core.py                                     # ~2 s, exits non-zero on failure
+python3 deep_run.py 10                                      # ~2 min  (pass `11` for ~15 min more)
 python3 build_notebook.py
 jupyter nbconvert --to notebook --execute --inplace notebook-2.ipynb
 ```

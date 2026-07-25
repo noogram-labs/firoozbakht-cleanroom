@@ -132,12 +132,25 @@ Applied to the in-run table, complete for every gap size occurring below `10¹¹
 `safe_bound_S` rounds **up** and `gap_needed` rounds **down**, so every "safe"
 verdict is conservative in the direction that matters.
 
-**The finding a null result cannot give you:** the safety factor is neither flat
-nor shrinking — it grows roughly linearly in `g` across the whole range, and its
-minimum sits at the *small* end (`g = 112`), not at the frontier. Over
-`[60184, 10¹¹]`, route (b) gets **easier** as the range extends. That is the
-empirical shape of the Cramér-side expectation (**L9**) rather than the
-Granville-side one (**L10**) — *over this range and no further*; see §4.
+**The finding a null result cannot give you.** The safety factor scatters widely
+(5.3 to 203.9) and its correlation with `g` is only **0.221** — there is no
+usable trend in gap size, and an earlier draft of this note claimed one. What is
+stable is the quantity route (b) actually depends on, the **minimum**:
+
+| `X` | gap sizes tested | min `P₁(g)/S(g)` | at `g` |
+|---|---|---|---|
+| `10⁷` | 20 | 5.3371 | 112 |
+| `10⁸` | 42 | 5.3371 | 112 |
+| `10⁹` | 75 | 5.3371 | 112 |
+| `10¹⁰` | 112 | 5.3371 | 112 |
+| `10¹¹` | 154 | 5.3371 | 112 |
+
+Four decades of new data, 134 new gap sizes, and **nothing tighter than a case
+already visible in the first decade** (`g = 112`, first occurring at
+`p = 370 261`). Route (b) neither tightens nor loosens as the range extends.
+
+This is **not** evidence in the Cramér/Granville dispute (**L9**/**L10**) in
+either direction; that disagreement lives at scales beyond every sieve.
 
 ### 1.5 The certificate that scales
 
@@ -208,7 +221,7 @@ the pruning rule that produced it.
 
 ### 2.3 More sieve is not more evidence — with one exception
 
-Three decades of extra sieving (`10⁸ → 10¹⁰`, 5.8 M pairs to 455 M) produced **no
+Two decades of extra sieving (`10⁸ → 10¹⁰`, 5.8 M pairs to 455 M) produced **no
 new near-miss**: the record `ρ` sat at `0.7896` (`g = 210`, `p = 20 831 323`)
 throughout. It moved exactly once, at `10¹¹`, and it moved *at the next maximal
 gap* (`g = 456`, `p = 25 056 082 087`, `ρ = 0.8318`). Sieving buys the next
@@ -315,10 +328,10 @@ in seconds.**
    `2⁶⁴`) appears in §7 of the notebook as a *pointer for the citation gate*,
    recalled and not read. **It is not an input to any computation.** Do not let
    it become one without a ledger row.
-4. **The safety-factor trend of §1.4 and the P6′ decay fit of §3 describe this
-   range only.** Neither is evidence about the Cramér/Granville tension
+4. **The safety-factor statistics of §1.4 and the P6′ decay fit of §3 describe
+   this range only.** Neither is evidence about the Cramér/Granville tension
    (**L9**/**L10**), whose disagreement lives far above any sieve, and neither may
-   be cited as such.
+   be cited as such. The P6′ fit in particular is five points and an extrapolation.
 5. **The `Decimal` certified path assumes `Decimal.ln()` is correctly rounded**
    to the working precision — documented CPython behaviour, cross-validated here
    against exact integer arithmetic for `n ≤ 5000`, but *assumed* above that. The
@@ -342,7 +355,7 @@ $ python3 test_fb_core.py
 all checks passed                                        # exit 0
 
 $ python3 build_notebook.py
-wrote notebook-2.ipynb with 36 cells                     # exit 0
+wrote notebook-2.ipynb with 38 cells                     # exit 0
 
 $ jupyter nbconvert --to notebook --execute --inplace notebook-2.ipynb
 [NbConvertApp] Writing … bytes to notebook-2.ipynb       # exit 0, no cell raised
@@ -350,7 +363,7 @@ $ jupyter nbconvert --to notebook --execute --inplace notebook-2.ipynb
 
 The notebook executes end to end with `N_NOTEBOOK = 10⁸` (seconds) and reads the
 recorded `10⁷ … 10¹¹` runs from `deep-runs.json`, produced by `deep_run.py`
-through the **same** `fb_core.scan` code path (`10¹¹` takes ~13 min). Both are
+through the **same** `fb_core.scan` code path (`10¹¹` takes ~15 min). Both are
 re-runnable from this directory with no network access and no data files.
 
 One bug was found and fixed during the leg, and it is worth recording because it

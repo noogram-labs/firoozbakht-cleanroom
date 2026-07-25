@@ -412,21 +412,43 @@ plt.tight_layout(); plt.show()
 """)
 
 md(r"""
-The right-hand panel is the finding that a null result cannot give you.
-The safety factor is **not** flat and **not** shrinking: it grows roughly
-linearly in $g$ over the whole range. Verification gets *easier*, not harder,
-as the range extends — which is the empirical shape of the Cramér-side
-expectation (card **L9**) rather than the Granville-side one (card **L10**),
-over this range and no further. The minimum sits at the *small* end, at
-$g=112$, not at the frontier.
+The right-hand panel invites a story about a rising trend. Resist it and measure
+instead — the scatter is wide (5.3 to 204) and the correlation with $g$ is weak.
+The quantity that *is* stable is the one route (b) depends on: the **minimum**.
+""")
+
+code(r"""
+gg = np.array([r["g"] for r in cert["rows"] if r["ratio"] is not None])
+rr = np.array([r["ratio"] for r in cert["rows"] if r["ratio"] is not None])
+sl, ic = np.polyfit(gg, rr, 1)
+print(f"safety factor vs g : correlation {np.corrcoef(gg, rr)[0,1]:.3f}, "
+      f"linear fit {sl:.4f}*g + {ic:.1f}, residual sd {(rr-(sl*gg+ic)).std():.1f}")
+print("  -> no usable trend in g: the spread swamps the slope.\n")
+
+print("minimum safety factor as the range extends:")
+print(f"  {'X':>16} {'gap sizes tested':>17} {'min P1(g)/S(g)':>16} {'at g':>6}")
+for k in sorted(DEEP, key=int):
+    fo_k = {int(a): tuple(v) for a, v in DEEP[k]["first_occ"].items()}
+    c_k = fb.lemma_A_certificate(fo_k, int(k))
+    print(f"  {int(k):>16,} {c_k['n_live']:>17} {c_k['min_ratio']:>16.4f} "
+          f"{c_k['min_ratio_gap']:>6}")
+""")
+
+md(r"""
+**That is the finding.** Between $10^7$ and $10^{11}$ the certificate absorbed
+134 new gap sizes and the minimum safety factor did not move: still $5.3371$, at
+$g=112$, first occurring at $p=370\,261$. Four decades of new data introduced
+nothing tighter than a case already visible in the first.
 
 Two disciplines this does **not** discharge:
 
-1. It is a statement about first occurrences below $10^{11}$. It says nothing
-   about a gap size that first occurs above $10^{11}$.
-2. The trend is 130-odd points over three decades of $p$. Card **L10** is a
-   heuristic prediction of failure at scales beyond every sieve; a growing
-   safety factor over $[60184, 10^{11}]$ does not bear on it.
+1. It is a statement about first occurrences below $10^{11}$, and says nothing
+   about a gap size that first occurs above it.
+2. A stable minimum over $[60184, 10^{11}]$ is not evidence in the
+   Cramér/Granville dispute (cards **L9**/**L10**) in either direction. That
+   disagreement lives at scales beyond every sieve, and no statistic computed
+   here bears on it. (An earlier draft of this notebook read a rising trend as
+   Cramér-side support; the cell above is what retired that reading.)
 """)
 
 # ==========================================================================
@@ -688,13 +710,15 @@ md(r"""
    $x = e^{10} = 22026$, and clears Dusart's threshold by only $\approx 0.10$.
 3. **Corollary A2** reduces the verification of an unbounded range to a finite
    first-occurrence table; every gap size occurring below $10^{11}$ clears it, with
-   **minimum safety factor 5.34** (at $g=112$) rising roughly linearly in $g$.
+   **minimum safety factor 5.3371** at $g=112$ — a minimum that does not move
+   between $10^7$ and $10^{11}$ though 134 new gap sizes enter the test.
 4. **The "$g<1920$" constant attached to the $2^{64}$ frontier is reproduced
    independently**: $L(L-1.1)$ at $2^{64}$ is $1919.1380$ — with the caveat of §7,
    that Lemma A gives the *local* statement and not the global one.
 5. **The F2-margin statistic is an artefact**, demonstrated against a synthetic
-   gap-2 control that scores $0.99999\ldots$ while its $\rho$ is $\approx 0.003$.
-6. **P6′ (card L15) has zero exceptions over four billion pairs** — 4.3 decades
+   gap-2 control that scores $0.99999991$ at $n=10^7$ — indistinguishable from the
+   figure quoted as evidence — while its $\rho$ there is $0.059$.
+6. **P6′ (card L15) has zero exceptions over four billion pairs** — 4.5 decades
    beyond its previous empirical base — **but its minimum margin shrinks like
    $p^{-1}$** and passes below float64 resolution well before the published
    frontier (§6b). The computational route to P6′ is losing resolution, not
@@ -716,7 +740,7 @@ evidence*:
   validated on data we own.
 * Dusart Thm 6.9 eq. (6.6) is consumed as an input. Card **T1** has it at L0, read.
   Nothing else external is consumed anywhere in this notebook.
-* The safety-factor trend of §5 and the P6′ decay fit of §6b describe *this range*.
+* The safety-factor statistics of §5 and the P6′ decay fit of §6b describe *this range*.
   Neither is evidence about the Cramér/Granville tension (cards **L9**/**L10**),
   whose disagreement lives far above any sieve.
 * The Decimal path assumes `Decimal.ln()` is correctly rounded — documented CPython

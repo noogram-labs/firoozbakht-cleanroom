@@ -91,6 +91,14 @@ than asserted.
 
 ## How it was built
 
+A comparative study of this run against the same problem handed to a single
+strong model working alone —
+[*Firoozbakht: a solo strong model against a clean-room fleet*](https://github.com/noogram/sporarium/blob/main/docs/reports/2026-07-25-firoozbakht-codex-cleanroom-comparison.md)
+— audits the artifacts below and reaches the honest conclusion: both recovered
+the same mathematical core independently, and what the fleet added was not
+insight but **cumulability** — formal equivalences, reproducible computation,
+dead routes with obituaries, an audited bibliography, standing objections.
+
 The [`math-attack` spore](https://github.com/noogram/sporarium) from sporarium,
 germinated with `cs spore run` and drained by a resident cosmon runtime. The
 spore's README documents the recipient flow, the clean-room discipline, and the

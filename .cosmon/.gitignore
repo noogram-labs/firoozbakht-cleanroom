@@ -1,0 +1,11 @@
+# Cosmon runtime — ephemeral state is ignored in bulk; the archive subtree
+# (durable, human-readable proof-of-work snapshots) is re-included via
+# negation. See ADR: ARCHIVE M1 (task-20260413).
+state/
+!state/archive/
+!state/archive/**
+registry.sqlite
+registry.sqlite-journal
+registry.sqlite-wal
+*.lock
+*.tmp

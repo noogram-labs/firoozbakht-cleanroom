@@ -1,0 +1,6 @@
+# Cosmon project configuration — firoozbakht clean-room run (math-attack v5.1).
+[project]
+project_id = "firoozbakht-cleanroom"
+
+[adapters]
+default = "claude"

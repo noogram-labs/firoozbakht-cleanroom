@@ -87,9 +87,10 @@ step is reversible. `log` is strictly increasing, so this is `n·log p_{n+1} < (
 `p_n + g_n < p_n + p_n(e^{L_n/n} − 1)`. ∎
 
 This is card **L1**, re-derived here rather than imported. It is used with the *strict* inequality
-throughout. (Visser's Conjecture 3 as quoted on **D5** writes `g_n ≤ p_n(p_n^{1/n} − 1)`; the two
-agree because `g_n` is an integer and `T_n` is irrational for `n ≥ 2`, but this document does not
-rely on that and uses strict `<` on both sides.)
+throughout. (Visser's Conjecture 3 as quoted on **D5** writes the non-strict `g_n ≤ p_n(p_n^{1/n}
+− 1)`. The two forms coincide iff `T_n` is never an integer — plausible but **not proved here**;
+see gap **G7**. This document therefore never converts between them: it proves and uses strict
+`<` on both sides.)
 
 ### 2.3 Lemma 2 (the analytic input) — CITED, tier L0 via the run's ledger
 
@@ -197,17 +198,30 @@ opened** (**L6** hazard 3; ledger §6.2; citation-gate priority 4).
 
 Applying Theorem 2 with `X = 2⁶⁴`:
 
-- The largest gap value `g` for which `S(g) ≤ 2⁶⁴` is **`g = 1918`** (§4, V5b).
-- Hence, *given a complete first-occurrence table below `2⁶⁴`*, every gap of size `≤ 1918`
-  occurring at a prime `≥ max(S(g), 60 184)` is safe, and only the finitely many first
-  occurrences sitting below their `S(g)` need direct inspection.
+- Every gap `g` occurring at a prime `p ≥ max(S(g), 60 184)` is safe (§2.6). Since `S` is
+  increasing, the gap sizes whose *entire* safe region already begins below the frontier are those
+  with `S(g) ≤ 2⁶⁴`; the largest such **even** value is **`g = 1918`**
+  (`S(1918) = 1.8209·10¹⁹ ≤ 2⁶⁴ = 1.8447·10¹⁹ < S(1920) = 1.8629·10¹⁹`; §4, V5b).
+- Hence, *given a complete first-occurrence table below `2⁶⁴`*, only the finitely many first
+  occurrences sitting below their own `S(g)` need direct inspection — 31 of them below `2·10⁷`,
+  all at `p ≤ 44 293` (§4, V4).
 
 Kourbatov's own 2023 endnote states, verbatim on card **L6**: *"prime gaps of size `g < 1920`
-cannot violate (1)"*. **This leg's independently derived constant is `1918`** — two below, exactly
-as expected from having used Dusart's `x/(log x − 1.1)` where Kourbatov used the sharper Axler
-route. The agreement of two independently derived thresholds to `0.1 %` is the strongest available
-evidence that neither derivation carries a sign or transcription error. It is corroboration, not a
-second proof: both rest on the same style of `π(x)` bound.
+cannot violate (1)"*. Every prime gap after `g_1 = 1` is even, so **`g < 1920` means exactly
+`g ≤ 1918`** — which is this leg's independently derived threshold, on the nose.
+
+**This agreement is corroboration, and it is worth exactly what it is worth.** Two caveats, both
+stated rather than glossed:
+
+1. The two derivations are *not* independent in their analytic ingredient — both replace `n` by an
+   explicit upper bound on `π(p_n)`. They differ in *which* bound: Dusart eq. (6.6) here,
+   the Axler-based `L² − L − 1.17` there.
+2. Under Kourbatov's sharper constant the same computation gives `g ≤ 1922`, not `1918` (§4, V5c).
+   His published `g < 1920` is therefore **conservative relative to his own criterion**, and the
+   exact coincidence with `1918` is partly arithmetic luck at even-gap granularity.
+
+What the agreement *does* establish is that no sign error, no inverted inequality and no
+transcription slip separates the two chains — the failure mode card **T1** hazard 1 warns about.
 
 **What Corollary 2.1 is and is not.** It is *not* an independent verification to `2⁶⁴`. This leg
 enumerated primes to `2·10⁷`, twelve orders of magnitude short. It is a **reconstruction of the
@@ -254,7 +268,7 @@ Lemma 1. ∎
 
 ### 3.3 Proposition 4 (the window closes, permanently) — PROVED, as an obstruction
 
-> For `p > 777 601`, Dusart Prop. 6.8 does **not** imply `F`, and the shortfall grows without
+> For `p > p* = 777 600.744…`, Dusart Prop. 6.8 does **not** imply `F`, and the shortfall grows without
 > bound: `p/(25L²) ÷ (L² − 1.1L) → ∞`.
 
 *Proof.* Immediate from §3.2: the ratio is `p / (25L³(L−1.1)) → ∞` since `p` grows faster than any
@@ -289,7 +303,7 @@ here; none was copied from an upstream card.
 
 | ID | Check | Result |
 |---|---|---|
-| V1a | exact **integer** arithmetic `p_{n+1}^n < p_n^{n+1}`, all `n` with `p_n < 60 184` (6 076 indices) | **no violations** |
+| V1a / V7b | exact **integer** arithmetic `p_{n+1}^n < p_n^{n+1}`, all `n` with `p_n < 60 184` (6 076 indices — this is hypothesis (H1) of Theorem 2, discharged) | **no violations** |
 | V1b | `g_n < T_n` in floating point, `n ≤ 1 270 606` | **no violations** |
 | V1c | `max ρ_n = g_n/T_n` (`n ≥ 10`) | `0.7604709` at `n = 217`, `p = 1327`, `g = 34` |
 | V2 | **Lemma 3**: `T_n > B(p_n)` for all `p_n ∈ [60 184, 2·10⁷]` | **0 failures**; tightest slack `+0.079891` at `p = 155 893` |
@@ -298,7 +312,8 @@ here; none was copied from an upstream card.
 | V4 | distinct gap values below `2·10⁷` | 80; **31** have first occurrence below `max(S(g), 60 184)`, all at `p ≤ 44 293 < X₀` |
 | V4b | consistency: `p ≥ max(S(g), X₀) ⟹ g ≤ B(p)`, all sieve indices | **0 violations** |
 | V5 | criterion at the published record CSG point `p = 1 693 182 318 746 371`, `g = 1132` (**L7**, OEIS A111943 at tier L0) | `B(p) = 1191.009` — **safe, margin 4.955 %** |
-| V5b | largest `g` with `S(g) ≤ 2⁶⁴` | **1918** (Kourbatov's endnote: `g < 1920`) |
+| V5b | largest even `g` with `S(g) ≤ 2⁶⁴` | **1918**; `S(1918) = 1.8209·10¹⁹ ≤ 2⁶⁴ < S(1920) = 1.8629·10¹⁹` (Kourbatov's endnote: `g < 1920`, i.e. `g ≤ 1918`) |
+| V5c | same computation under Kourbatov's sharper constant `L² − L − 1.17` | **1922** — his published `g < 1920` is conservative relative to his own criterion (§2.7 caveat 2) |
 | V6 | cost of using Dusart rather than Axler: `B(p)` vs Kourbatov's `L²−L−1.17` | deficit `0.193 %` at `p = 2·10⁷`, `0.196 %` at `p = 1.69·10¹⁵` |
 | V7 | `max{ g_k : p_k < 60 184 }` (used in Theorem 2, case 2) | **72**, at `p = 31 397`; `B(60 184) = 109.008 > 72` |
 | V8 | sign change of `h(p) = p − 25(log p)³(log p − 1.1)` | `p* = 777 600.744…` |
@@ -306,6 +321,11 @@ here; none was copied from an upstream card.
 **Sample values of `S(g)`** (§2.6): `S(100) = 3.88·10⁴`, `S(300) = 5.82·10⁷`,
 `S(1000) = 9.43·10¹³`, `S(1132) = 7.12·10¹⁴`, `S(1476) = 8.43·10¹⁶`, `S(1550) = 2.18·10¹⁷`,
 `S(1920) = 1.86·10¹⁹`.
+
+**Two prints the script makes that no claim above uses.** `verify-pa2.py` also evaluates the
+criterion at the first occurrence of gap `1476` and at maximal gap `1550`. Both prime locations
+are **recall, tier L3, unsourced in this run** — they are printed as a smell test, and no statement
+in this document depends on them.
 
 **Scale disclaimer.** `2·10⁷` is **≈11.96 orders of magnitude** below `2⁶⁴`. This sieve verifies
 the *lemmas*, not the *range*. It must never be cited as a verification of `F`.
@@ -348,11 +368,11 @@ gets over-quoted downstream.
 
 | # | Gap | Severity | Where it bites |
 |---|---|---|---|
-| G1 | **Lemma 2 (Dusart Thm 6.9 eq. 6.6) was not read from the source by this leg.** It is taken at tier L0 from card **T1** / the ledger, and re-verified numerically on `[60 184, 2·10⁷]` only. If the constant `1.1` or the range `x ≥ 60 184` is mis-transcribed upstream, Lemma 3 and everything above it moves. | **MAJOR** — but the numerical check at 1.27 M primes would have caught a wrong constant, and the independent agreement `1918` vs Kourbatov's `1920` (§2.7) would have caught a wrong range. | §2.3, §2.4 |
+| G1 | **Lemma 2 (Dusart Thm 6.9 eq. 6.6) was not read from the source by this leg.** It is taken at tier L0 from card **T1** / the ledger, and re-verified numerically on `[60 184, 2·10⁷]` only. If the constant `1.1` or the range `x ≥ 60 184` is mis-transcribed upstream, Lemma 3 and everything above it moves. | **MAJOR** — mitigated twice: the numerical check at 1.27 M primes (V2b, 0 failures) would expose a wrong constant, and the threshold agreement with Kourbatov's independently published `g < 1920` (§2.7) would expose a wrong range. Neither mitigation is a substitute for opening the paper. | §2.3, §2.4 |
 | G2 | **(H2) — the first-occurrence gap table below `2⁶⁴` — is not verified in this run.** `oliveira2014goldbach` unopened. | **BLOCKER for Corollary 2.1** (not for Theorem 2, which is an implication). | §2.7, §5.3 |
 | G3 | **Dusart Prop. 6.8 was likewise not read from the source** (tier L0 via **T1**). Proposition 3's window depends on the constant `25` and the range `x ≥ 396 738`. | MINOR — Proposition 3 is a curiosity, not load-bearing; Proposition 4 (the obstruction) survives any constant. | §3 |
 | G4 | **`h' > 0` on `[4·10⁵, ∞)` in Proposition 3 is asserted with a one-line derivative computation, not a formal proof of the uniqueness of the sign change.** The bisection in §4 V8 assumes unimodality. | MINOR — the interval endpoints are what matter and both are checked directly. | §3.2 |
-| G5 | **Theorem 2 case 2 uses `max{g_k : p_k < 60 184} = 52`, a sieve fact of this leg.** It is exact integer arithmetic over 6 076 gaps and independently re-derivable in seconds, but it is a computation inside the *statement's proof*, not inside its hypotheses. A Lean formalization must carry it as a lemma. | MINOR | §2.6 |
+| G5 | **Theorem 2 case 2 uses `G₀ = max{g_k : p_k < 60 184} = 72`, a sieve fact of this leg.** It is exact integer arithmetic over 6 076 gaps and independently re-derivable in seconds, but it is a computation inside the *statement's proof*, not inside its hypotheses. A Lean formalization must carry it as a lemma. | MINOR | §2.6 |
 | G6 | **The floating-point checks V1b/V2 are double precision.** V1a (the base case) is exact integer arithmetic; V2's tightest slack is `+0.08`, which is `~10¹²` ulps clear of zero at that magnitude, so no result here is precision-limited — but the sieve is not interval arithmetic and does not claim to be (card **T2**). | MINOR | §4 |
 | G7 | **Strict vs non-strict in Lemma 1** is handled by using `<` throughout rather than by proving `T_n ∉ ℤ`. If a downstream leg needs `g_n ≤ T_n ⟹ g_n < T_n`, that irrationality argument is **not** supplied here. | MINOR | §2.2 |
 
@@ -361,7 +381,10 @@ gets over-quoted downstream.
 ## 7. Lean 4 / Mathlib facing statement
 
 Offered for the `lean-skeleton` / `lean-probe` legs; **not compiled by this leg** (no Lean
-toolchain was invoked). Indexing follows card **D1** correction #1: Mathlib's `Nat.nth` is
+toolchain was invoked). It is a *sketch of the obligation shape*, not working code: `firstOccurrence`
+is not defined below, the `Nat.primeCounting` spelling is unchecked against the pinned toolchain
+(card **T1** hazard: Mathlib names drift), and every proof is `sorry`. Read it for the hypothesis
+structure, not for the syntax. Indexing follows card **D1** correction #1: Mathlib's `Nat.nth` is
 **0-indexed**, so `p n` below is `Nat.nth Nat.Prime (n-1)` for the run's 1-indexed `p_n`, and the
 statement must quantify from `n = 1`.
 
@@ -393,6 +416,11 @@ theorem verified_range
     : ∀ n, 1 ≤ n → p n ≤ X → (p (n+1))^n < (p n)^(n+1) := sorry
 ```
 
+**Fidelity warning.** `H3` above is *not* a faithful transcription of Theorem 2's (H3): it
+quantifies over indices rather than over gap values, and it silently merges the two cases of the
+proof. A faithful version needs `firstOccurrence` defined and the `G₀ = 72` bound of case 2 as a
+separate lemma. Transcribe from §2.6, not from this block.
+
 **Effort assessment, honestly.** `lemma4` is a two-line `Mathlib` derivative argument. `lemma3` is
 an easy consequence *once* Dusart is available as a hypothesis — and Dusart is **not** in Mathlib,
 so it must be axiomatized and **declared as an axiom in any paper that quotes the result**.
@@ -415,7 +443,7 @@ target #2**, and it is engineering, not mathematics.
 | Item | Verdict |
 |---|---|
 | **Target #2, Reading (A)** — an unconditional theorem taking a finite gap table to `F` on `[1, X]` | **PROVED** (Theorem 2, §2.6), constants explicit, one cited inequality, independent of P6′ |
-| **Target #2, Reading (B)** — a range with no computational input | **PROVED for `396 738 ≤ p ≤ 777 600`; PROVED IMPOSSIBLE beyond** (Props 3 and 4, §3) |
+| **Target #2, Reading (B)** — a range with no computational input | **PROVED for `396 738 ≤ p ≤ 777 600`** (Prop. 3). Beyond `p* = 777 600.744`: **proved** that Dusart Prop. 6.8 cannot extend it (Prop. 4), and **argued from the state of the literature** — not proved — that no known unconditional gap bound can (§3.3). |
 | **`F` at the published frontier `2⁶⁴`** | **CONDITIONAL** on an unopened gap table (G2). Not established by this run. |
 | **`F` itself** | **OPEN.** Untouched. Not proved, not refuted, and §3.3 explains why this line of attack cannot touch it. |
 

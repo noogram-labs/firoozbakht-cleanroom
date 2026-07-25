@@ -167,3 +167,12 @@ print(f"V8 sign change of h(p) = p - 25 log^3 p (log p - 1.1): p* = {lo:.3f}")
 print(f"   h(396738) = {h(396738):.1f} (<0, window open); h(1e6) = {h(1e6):.1f} (>0, closed)")
 hprime = lambda p: 1 - (25 / p) * (4 * math.log(p) ** 3 - 3.3 * math.log(p) ** 2)
 print(f"   h'(4e5) = {hprime(4e5):.4f} > 0 (h increasing on [4e5, inf))")
+
+# ---------------------------------------------------------------- V5c
+# Kourbatov's sharper constant, same computation: L^2 - L - 1.17
+SK = lambda g: math.exp((1 + math.sqrt(1 + 4 * (g + 1.17))) / 2)
+print(f"V5c largest EVEN g with S(g) <= 2^64, this leg's B (L^2-1.1L): "
+      f"{max(g for g in range(2, 4000, 2) if S(g) <= 2**64)}")
+print(f"    largest EVEN g with S_K(g) <= 2^64, Kourbatov (L^2-L-1.17): "
+      f"{max(g for g in range(2, 4000, 2) if SK(g) <= 2**64)}")
+print(f"    S(1918)={S(1918):.4e}  2^64={2.0**64:.4e}  S(1920)={S(1920):.4e}")

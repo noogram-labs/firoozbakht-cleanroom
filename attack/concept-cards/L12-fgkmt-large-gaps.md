@@ -52,7 +52,7 @@ The verdicts on the refutation-side strategies; **T5**.
    reasons — magnitude and *localization* (that constructions give no control over the index `n`).
    **Magnitude is fatal; localization is not.** `T_n` depends on the index only through `L/n`,
    which is pinned by `x` to within precisely the error that `decompose` §4.6 itself computes and
-   dismisses as negligible (**L19**). The document's own anti-test dissolves its own second
+   dismisses as negligible (**L18**). The document's own anti-test dissolves its own second
    blocking reason. Three panelists reached this independently (`synthesis.md` §2 C11).
    *Consequence:* `L11` and `L12` are **the same wall seen from two sides**, so a strategy table
    that lists "construction" and "large-gap theorem" as two covered archetypes is showing two

@@ -1,0 +1,12 @@
+# LaTeX build intermediates. paper.pdf is a deliverable and IS tracked.
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.toc
+*.xdv

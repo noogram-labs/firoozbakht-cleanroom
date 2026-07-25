@@ -157,8 +157,8 @@ the true minimal separation `d = L_{n₀} − L_m` at each `ℓ = L_m` (this leg
 | 44.36 | `1.84·10¹⁹` | 0.001681 | 0.0016810 |
 
 The claimed uniform constant `d ≥ 0.004479` becomes valid only for `p_m ≳ 1.33·10⁹`. At the
-bottom of (A-high)'s *own* stated validity range the required `d` is **0.1693**, i.e.
-`p_m ≤ 0.8443·p_{n₀}` — **worse than Theorem C(a)'s Dusart-only `0.9396`**, inverting the
+bottom of (A-high)'s *own* stated validity range the required `d` is **0.16934**, i.e.
+`p_m ≤ 0.8442·p_{n₀}` — **worse than Theorem C(a)'s Dusart-only `0.9396`**, inverting the
 document's headline that Axler buys `0.99553`.
 
 **(c) The quoted constant does not match the document's own displayed criterion.** §6.2 displays
@@ -396,7 +396,7 @@ recomputed or re-derived by this leg and **survives**.
 | 3 | **PA-0 §9 items 2–5, 13** | Reproduced exactly: `S`-breaches `= {1,2,3,4,6,9}`; of these `{1,2,4,9}` are records and `{3,6}` are not; max gap below `60 184` `= 72` at `p = 31 397`; max gap below `1 772 201` `= 132` at `p = 1 357 201`. |
 | 4 | **PA-1 Lemma A.1** (`√x > (25/22) log x`) | **CORRECT.** Stationary point `x* = 625/121 = 5.16529`, `h(x*) = 0.406862 > 0`. Reproduced at 40 digits. |
 | 5 | **PA-1 Theorem A's six-row table** | **CORRECT** to every digit quoted (`n = 3,4,5,6,7,10`), all comparisons strict. Only the `n ≥ 3` framing is at fault (F4). |
-| 6 | **PA-1 Theorem C** (critical constant `2/e`) | **CORRECT.** `max_x log x/√x = 2/e = 0.7357589` at `x = e²`; Lambert-`W` endpoints correct; the table rows `C = 0.5, 0.1, 0.01` reproduce (`x⁺ = 74.19`, `8099`, `2 122 265` — 20 / ~1018 / ~157 000 primes). |
+| 6 | **PA-1 Theorem C** (critical constant `2/e`) | **CORRECT.** `max_x log x/√x = 2/e = 0.7357589` at `x = e²`; Lambert-`W` endpoints correct; the table rows `C = 0.5, 0.1, 0.01` reproduce exactly, including the prime counts (`x⁺ = 74.19 / 8099 / 2 122 265` → **20 / 1018 / 157 340** primes, matching PA-1's table digit for digit). |
 | 7 | **PA-1 Theorem D / Cor. D.1** (`8.72·10⁷` at `2⁶⁴`) | **CORRECT.** `(22/25)√p·L/(L²−L−1) = 8.722·10⁷` at `p = 2⁶⁴`. The `C ≤ 1.009·10⁻⁸` figure also reproduces. |
 | 8 | **PA-1 Theorem E** (counter-model to `(Cr) ⟹ F`) | **CORRECT.** Construction re-derived; `J_k ≥ 0` restriction is genuinely load-bearing and correctly flagged; Claims 1–4 go through; the `n_k ∈ {5,16,256,65536}` table reproduces exactly (`q = 11, 57, 1634, 821 709`; `J = 4, 11, 53, 180`; `T^{(q)} = 6.769, 16.387, 47.914, 170.778`). The `n_k = 5` non-violation is correctly attributed to the `L13` exception set, not to a defect. |
 | 9 | **PA-2 Lemmas 1–4 and Theorem 2** | **CORRECT.** Lemma 3's derivation (`e^t − 1 > t` + Dusart upper bound on `π` → lower bound on `T`) is right, and the direction (upper bound on the *rank* yields a lower bound on the *bar*) is the correct one. Lemma 4's monotonicity is right. Theorem 2's two-case split is exhaustive and case 2's `G₀ = 72 < B(60 184) = 109.008` is reproduced. |

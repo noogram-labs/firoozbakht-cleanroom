@@ -12,12 +12,16 @@ Objects (notation of concept-cards D2/D5, 1-indexed, p_1 = 2):
     g_n = p_{n+1} - p_n
     T_n = p_n * (p_n^(1/n) - 1)                      Firoozbakht threshold (D5)
     B_n = (22/25) * sqrt(p_n) * ln p_n               CMS RH-conditional envelope
-                                                     (Visser 2018 Thm 1, valid n>=3, p_n>=5)
+                                                     (Carneiro-Milinovich-Soundararajan, via
+                                                     arXiv:1708.04122v2 §1.2; restated as
+                                                     arXiv:1804.02500v3 Thm 1; valid n>=3, p_n>=5)
 
 Claims checked:
   C1  sqrt(x) > (25/22) ln x for all x > 0            [=> B_n > L_n^2 for every prime]
   C2  {n : T_n >= L_n^2} = {1..7, 10}                 [card L13, re-verified here]
-  C3  S := {n >= 3 : B_n < T_n} = {3}                 [the sharp statement of Theorem A]
+  C3  S := {n >= 3 : B_n < T_n} = {3}                 [the sharp statement of Theorem A;
+                                                       the write-up states S with `<=` -- both
+                                                       give {3}, every comparison being strict]
   C4  B_n / T_n is unbounded; report its value at the sieve edge and at p = 2^64
   C5  no violation of F in the sieved range (sanity)
 """
@@ -158,9 +162,14 @@ def main():
               f"({mp.nstr(lo.real, 10)}, {mp.nstr(hi.real, 10)}) -- a bounded interval")
 
     # ---- C7: the Theorem-E counter-model --------------------------------------
-    # q_n := p_n + sum_{k : n_k < n} J_k,  n_k = 2^(2^k),  J_k = ceil((ln q_{n_k})^2).
+    # q_n := p_n + sum_{k : n_k < n} J_k, where
+    #   n_k := least n >= 2^(2^k) with g_n <= 2 ln p_n      (NOT 2^(2^k) itself)
+    #   J_k := ceil((ln q_{n_k})^2) - g_{n_k}               (a TOP-UP, not the whole gap)
+    # so that the gap at n_k becomes exactly ceil((ln q_{n_k})^2).
     # Claim: q is strictly increasing, agrees with p to within O(log^2 n loglog n),
-    # has limsup (q_{n+1}-q_n)/(ln q_n)^2 = 1, and violates Firoozbakht at every n_k.
+    # has limsup (q_{n+1}-q_n)/(ln q_n)^2 = 1, and violates Firoozbakht at every large n_k.
+    # NOTE: the loop below can only reach three usable n_k (16, 256, 65536) -- 2^(2^5)
+    # exceeds the sieve.  The INFINITARY claim is analytic (Claim 4), not computational.
     print("\n[C7] Theorem-E counter-model  q_n = p_n + step")
     # n_k := least n >= 2^(2^k) with g_n <= 2 ln p_n  (such n exist infinitely often;
     # see Lemma E.1 in the write-up).  J_k tops the gap up to exactly ceil((ln q)^2).

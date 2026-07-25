@@ -125,7 +125,7 @@ Source: `.cosmon/state/fleets/default/molecules/<id>/state.json` (`variables.top
 
 - **formula:** `task-work-mechanical`
 - **crew_role:** `collector`
-- **status (at collection time):** `pending`
+- **status (at collection time):** `running`
 - **topic:**
 
   MATH-ATTACK Firoozbakht's conjecture — TRACE SIDECAR (always-on). Open an append-only trace under trace/ the instant this polymer germinates, INDEPENDENT of whether the scientific DAG completes. Capture, as they happen: the raw cosmon events (nucleation / tackle / evolve / complete / collapse) for THIS polymer, each node's germinated brief (topic + formula + crew_role), and a content hash + byte count for every artifact any node writes. READ-ONLY on .cosmon/state/ — these are cosmon runtime state files, written by the cs runtime; their schema is defined by cosmon itself, the columns used here are the ones described inline, and the leg must degrade gracefully if a file or field is absent. Copy into trace/, never mutate. Emit trace/events.jsonl, trace/briefs.md and trace/hashes.tsv. This is the consolation artifact: even if the attack stalls or a worker dies, trace/ must let a third party reconstruct what ran, on what model, producing what bytes. Charts are OPTIONAL (the observability chain); this raw capture is NOT. DELIVERY (v5): trace/ lives in YOUR WORKTREE (git-tracked; commit it — never write into the shared main checkout), not only under .cosmon/state/.

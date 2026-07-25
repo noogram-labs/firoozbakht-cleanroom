@@ -51,11 +51,11 @@ task-20260725-5fd9	fleets/default/molecules/task-20260725-5fd9/briefing.md	644	s
 task-20260725-5fd9	fleets/default/molecules/task-20260725-5fd9/log.md	111	sha256:ffd4e0381410148903421d9bd46b7bc65daec27d7ba26ccc0b5280a3e70c94ea
 task-20260725-5fd9	fleets/default/molecules/task-20260725-5fd9/prompt.md	2319	sha256:6bf81dd0de6a7991ed958dec24f35d7c50d009574ad2af23ddb6d4ca722128d3
 task-20260725-5fd9	fleets/default/molecules/task-20260725-5fd9/state.json	2096	sha256:7ea4be2737f23d681ba3900e7ac1c055ff2f950c36152ca9efcc968c7be9fa5e
-task-20260725-6fc6	fleets/default/molecules/task-20260725-6fc6/briefing.md	632	sha256:20873176be36d22987a70aefda153115be622a8bda9b8c18636d19b6879c1d49
-task-20260725-6fc6	fleets/default/molecules/task-20260725-6fc6/log.md	116	sha256:f4fd313d85fd90582242010b157fc623ad504084bad7741bfd4675a7783f7bbe
+task-20260725-6fc6	fleets/default/molecules/task-20260725-6fc6/briefing.md	445	sha256:a7a21e535a137e850261126f8e0ac593f23eaa51b5750c33e8ca380ff8d4adf7
+task-20260725-6fc6	fleets/default/molecules/task-20260725-6fc6/log.md	432	sha256:a804a657b7308bc7f4769d4406cb208d110003a0999f071580aa5e2534360a73
 task-20260725-6fc6	fleets/default/molecules/task-20260725-6fc6/model-selection.json	172	sha256:148a0fe4a6ea9ecc83e0bc7c2403cd78e0a06b233864d4e2418deaa981bcc655
 task-20260725-6fc6	fleets/default/molecules/task-20260725-6fc6/prompt.md	3049	sha256:3ea04e78e8a66fd81462102ffdf08e217039a531df98b68f476294fb4c5bd112
-task-20260725-6fc6	fleets/default/molecules/task-20260725-6fc6/state.json	2215	sha256:879bbdff5a35e3dc93f3c0725aaf5ef205fe87d3a0aa663c4c024fca4bfc2580
+task-20260725-6fc6	fleets/default/molecules/task-20260725-6fc6/state.json	3754	sha256:8500f6efa686245b40e58ff20a9c0f85b0b8f2ffe724d1642342ba42ad144bf8
 task-20260725-6fc6	fleets/default/molecules/task-20260725-6fc6/worker.stderr	0	sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 task-20260725-909e	fleets/default/molecules/task-20260725-909e/briefing.md	610	sha256:564d78d01348a17187113af1b0dbb6337f652f69c5993852a1cf91ab6320ed94
 task-20260725-909e	fleets/default/molecules/task-20260725-909e/log.md	115	sha256:e47f7ede7eafaef92ef75536006c4dad07b53ed824b32fcd955e1a3c106c7612
@@ -75,8 +75,10 @@ task-20260725-a1cd	fleets/default/molecules/task-20260725-a1cd/prompt.md	2219	sh
 task-20260725-a1cd	fleets/default/molecules/task-20260725-a1cd/state.json	1973	sha256:4a4f53507f7c67e4b41c30c7e3c9ff4a6133089123665a8725c9a4dd6950abdc
 task-20260725-c062	fleets/default/molecules/task-20260725-c062/briefing.md	610	sha256:adcc584229ca4e8ca92af7dc59a4b36cbb9384437efb1f8afb67c2a37a82bcf0
 task-20260725-c062	fleets/default/molecules/task-20260725-c062/log.md	115	sha256:9227fac59a4ebc01c3711790a629fafc1da208c528d3c9c59f77fcdf7c0aca25
+task-20260725-c062	fleets/default/molecules/task-20260725-c062/model-selection.json	168	sha256:1046a9683c76ddf0760fc30d766070cee8b359e2cb598eebf28fa770ae6a7b51
 task-20260725-c062	fleets/default/molecules/task-20260725-c062/prompt.md	3011	sha256:e3c0a99230a2dd0fc772a2c274c7815eb0ad83bacb89e01720fb1f0e84717463
 task-20260725-c062	fleets/default/molecules/task-20260725-c062/state.json	2293	sha256:8c347d9b19cf4776decfecc92efd09c2cc9d6466c848fb7278d21d187c4c9329
+task-20260725-c062	fleets/default/molecules/task-20260725-c062/worker.stderr	0	sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 task-20260725-c885	fleets/default/molecules/task-20260725-c885/briefing.md	644	sha256:4eb390b6dd2ef06818ec23653350933cf5bf3a2b6d0227d423e487e2efa8e184
 task-20260725-c885	fleets/default/molecules/task-20260725-c885/log.md	111	sha256:83cd64e5ac5491b39b05fb0fcfd200a99609d9cb07bc4f3feed1d970f488f3ef
 task-20260725-c885	fleets/default/molecules/task-20260725-c885/prompt.md	2169	sha256:d40183311738a704b8bc5934750f00115c9b8c68c44856a1f5eb3f5069eedf6e

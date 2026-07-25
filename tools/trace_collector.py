@@ -146,16 +146,23 @@ def render_briefs(run_dir, mols, events):
     return "\n".join(lines) + "\n"
 
 
-def collect_hashes(mols):
+def collect_hashes(mols, exclude_dirs=()):
+    """Hash every file under each node's output_dir, excluding the collector's
+    own destination directories — a node whose output_dir IS one of the
+    directories this sweep is about to (re)write would otherwise hash its own
+    trace files, which then go stale the instant the sweep updates them
+    (self-reference: the trace can't include a stable hash of itself)."""
+    exclude_dirs = [Path(p).resolve() for p in exclude_dirs]
     rows = []
     seen = set()
     for mol_id in sorted(mols):
         d = mols[mol_id]
         output_dir = d.get("variables", {}).get("output_dir")
-        mol_state_dir = None
-        # also hash the molecule's own runtime-state directory (briefing/prompt/log/state.json)
         candidates = []
         if output_dir:
+            resolved = Path(output_dir).resolve()
+            if resolved in exclude_dirs:
+                continue
             candidates.append((f"molecule:{mol_id}", Path(output_dir)))
         rows_for_mol = []
         for origin_prefix, root in candidates:
@@ -244,7 +251,7 @@ def main():
     events = collect_events(state_root, set(mols.keys()))
     swept_at = now_iso()
     briefs_text = render_briefs(run_dir, mols, events)
-    hash_rows = collect_molecule_runtime_hashes(state_root, mols) + collect_hashes(mols)
+    hash_rows = collect_molecule_runtime_hashes(state_root, mols) + collect_hashes(mols, exclude_dirs=dests)
     hashes_text = render_hashes(hash_rows, swept_at)
 
     events_appended_per_dest = {}

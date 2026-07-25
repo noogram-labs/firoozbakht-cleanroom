@@ -1,5 +1,5 @@
-# trace sidecar — artifact hashes, swept 2026-07-25T08:59:05.439156+00:00
-# files=92 bytes=141700
+# trace sidecar — artifact hashes, swept 2026-07-25T09:00:41.646342+00:00
+# files=92 bytes=143043
 # CAVEAT: a sweep is a snapshot. A file written and deleted between
 # two sweeps is not counted here; byte totals are a lower bound.
 origin	path	sha256	bytes	mtime_utc
@@ -61,11 +61,11 @@ molecule:task-20260725-7eec	/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon
 molecule:task-20260725-7eec	/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/fleets/default/molecules/task-20260725-7eec/log.md	5fb5bbe8c97084dde1922865d4bda7052d34f068fe22f25e16548b210c7092fb	115	2026-07-25T08:54:17.085150+00:00
 molecule:task-20260725-7eec	/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/fleets/default/molecules/task-20260725-7eec/prompt.md	f111c91ca169cfb2065107559cc4d8828a1eed21ed3c2372ffccbf4400a40bf0	2219	2026-07-25T08:54:17.085105+00:00
 molecule:task-20260725-7eec	/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/fleets/default/molecules/task-20260725-7eec/state.json	a1ac4f357c56ba93ea6c8853c5044ab55687039c28657f447d711a614ac1c689	1973	2026-07-25T08:54:17.148051+00:00
-molecule:task-20260725-9243	/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/fleets/default/molecules/task-20260725-9243/briefing.md	6e21ddb51c9b029bc77bc34b0cf3436126da8ea15a4eca5ec912967948988555	632	2026-07-25T08:54:17.043085+00:00
-molecule:task-20260725-9243	/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/fleets/default/molecules/task-20260725-9243/log.md	71d69ff770634da1a2f058bcd2cccbfb4c3b6263e81188aa0e7965a9364c3401	116	2026-07-25T08:54:17.043196+00:00
+molecule:task-20260725-9243	/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/fleets/default/molecules/task-20260725-9243/briefing.md	a7a21e535a137e850261126f8e0ac593f23eaa51b5750c33e8ca380ff8d4adf7	445	2026-07-25T08:59:51.086902+00:00
+molecule:task-20260725-9243	/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/fleets/default/molecules/task-20260725-9243/log.md	d1e3831f60de034c4ffa724b4e0a80efe5f94ccb7d3785064a86b61104e82fac	526	2026-07-25T08:59:51.086840+00:00
 molecule:task-20260725-9243	/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/fleets/default/molecules/task-20260725-9243/model-selection.json	148a0fe4a6ea9ecc83e0bc7c2403cd78e0a06b233864d4e2418deaa981bcc655	172	2026-07-25T08:56:20.609159+00:00
 molecule:task-20260725-9243	/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/fleets/default/molecules/task-20260725-9243/prompt.md	bd5da23bb92b60c0bccbf51f208fbbb3f34ed0c6d4074ac9f89b97b1960eabc7	2939	2026-07-25T08:54:17.043150+00:00
-molecule:task-20260725-9243	/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/fleets/default/molecules/task-20260725-9243/state.json	82ae47001a3b10630df021b844865883024bd02302c32d19162dcfe1cb51ec7c	2579	2026-07-25T08:57:53.371742+00:00
+molecule:task-20260725-9243	/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/fleets/default/molecules/task-20260725-9243/state.json	4fac83687660752151f1ca84b4917fbcfdaf02ea599295048520fc0e3f7bc902	3699	2026-07-25T08:59:51.108784+00:00
 molecule:task-20260725-9243	/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/fleets/default/molecules/task-20260725-9243/worker.stderr	e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855	0	2026-07-25T08:56:20.638816+00:00
 molecule:task-20260725-a321	/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/fleets/default/molecules/task-20260725-a321/briefing.md	f2b7f8e94cc174fae7d8054fe76c0207bb2f118a3d2eb79a28c28c257fe65bff	644	2026-07-25T08:54:17.064088+00:00
 molecule:task-20260725-a321	/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/fleets/default/molecules/task-20260725-a321/log.md	59dd498b9f077c38c103a2bd598334f294a1bfbeba85031d9871e11c09fa2c6f	111	2026-07-25T08:54:17.064174+00:00

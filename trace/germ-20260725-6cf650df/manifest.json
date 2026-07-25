@@ -14,20 +14,48 @@
       },
       "artifacts_hashed": 92,
       "artifact_bytes": 141700
+    },
+    {
+      "sweep": 2,
+      "at": "2026-07-25T08:59:55.779006+00:00",
+      "run_dir": "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/spore-runs/germ-20260725-6cf650df",
+      "state_root": "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state",
+      "nodes": 22,
+      "events_seen": 113,
+      "events_appended_per_dest": {
+        "/Users/eserie/galaxies/firoozbakht-cleanroom/.worktrees/task-20260725-9243/trace/germ-20260725-6cf650df": 21,
+        "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/spore-runs/germ-20260725-6cf650df/trace": 21
+      },
+      "artifacts_hashed": 97,
+      "artifact_bytes": 233859
+    },
+    {
+      "sweep": 3,
+      "at": "2026-07-25T09:00:41.646342+00:00",
+      "run_dir": "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/spore-runs/germ-20260725-6cf650df",
+      "state_root": "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state",
+      "nodes": 22,
+      "events_seen": 127,
+      "events_appended_per_dest": {
+        "/Users/eserie/galaxies/firoozbakht-cleanroom/.worktrees/task-20260725-9243/trace/germ-20260725-6cf650df": 14,
+        "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/spore-runs/germ-20260725-6cf650df/trace": 14
+      },
+      "artifacts_hashed": 92,
+      "artifact_bytes": 143043
     }
   ],
   "latest": {
-    "sweep": 1,
-    "at": "2026-07-25T08:59:05.439156+00:00",
+    "sweep": 3,
+    "at": "2026-07-25T09:00:41.646342+00:00",
     "run_dir": "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/spore-runs/germ-20260725-6cf650df",
     "state_root": "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state",
     "nodes": 22,
-    "events_seen": 92,
+    "events_seen": 127,
     "events_appended_per_dest": {
-      "/Users/eserie/galaxies/firoozbakht-cleanroom/.worktrees/task-20260725-9243/trace/germ-20260725-6cf650df": 92,
-      "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/spore-runs/germ-20260725-6cf650df/trace": 92
+      "/Users/eserie/galaxies/firoozbakht-cleanroom/.worktrees/task-20260725-9243/trace/germ-20260725-6cf650df": 14,
+      "/Users/eserie/galaxies/firoozbakht-cleanroom/.cosmon/state/spore-runs/germ-20260725-6cf650df/trace": 14
     },
     "artifacts_hashed": 92,
-    "artifact_bytes": 141700
+    "artifact_bytes": 143043
   }
 }

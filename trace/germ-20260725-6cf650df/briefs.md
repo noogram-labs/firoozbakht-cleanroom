@@ -1,7 +1,7 @@
 # Node briefs
 
 Run: `germ-20260725-6cf650df`  
-Collected: 2026-07-25T08:59:05.439165+00:00  
+Collected: 2026-07-25T09:00:41.646351+00:00  
 Nodes germinated: 22
 
 Each section is one node of the polymer, as recorded by the cosmon
@@ -223,7 +223,7 @@ adapter's own default applied, which the trace cannot name.
 
 - **formula**: `task-work-mechanical`
 - **crew_role**: `collector`
-- **status**: running (step 0/2)
+- **status**: running (step 1/2)
 - **created_at**: 2026-07-25T08:54:17.042423Z
 - **adapter**: claude
 - **model**: claude-sonnet-5

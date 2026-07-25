@@ -200,7 +200,7 @@ cd attack/notebook-1
 jupyter nbconvert --to notebook --execute --inplace notebook-1.ipynb
 ```
 
-Runtime ≈ 70 s on an M-series laptop (sieve 0.03 s; 50-digit pass 13 s; exact integers 51 s).
+Runtime ≈ 55–70 s on an M-series laptop (sieve 0.03 s; 50-digit pass ≈13 s; exact integers ≈51 s).
 Dependencies: `numpy`, `mpmath`, `matplotlib`, `nbformat`/`jupyter`. The notebook is self-contained —
 no network, no data files, no state carried in from other legs. It writes `summary.json` and
 `figure-1-rh-vs-bar.png` next to itself; both are committed alongside, and `summary.json` is the

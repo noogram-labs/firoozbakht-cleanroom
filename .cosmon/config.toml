@@ -4,3 +4,9 @@ project_id = "firoozbakht-cleanroom"
 
 [adapters]
 default = "claude"
+
+# Floor only. The spore's formula-step pins rank ABOVE this and keep the
+# mechanical legs on sonnet-5; anything unpinned lands on opus-5 rather than on
+# the adapter's silent default.
+[adapters.claude]
+default_model = "claude-opus-5"

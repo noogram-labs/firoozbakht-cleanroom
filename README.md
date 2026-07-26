@@ -1,6 +1,6 @@
 # firoozbakht-cleanroom — an agent fleet attacking an open conjecture, published exactly as it was generated
 
-This repository **is** the working directory the fleet ran in. Nothing was copied here, nothing was staged, nothing was scrubbed. The agents wrote into this tree, committed on their own branches, and `cs done` merged them — 75 commits, 22 nodes, zero collapses. Publishing it was one `git push`.
+This repository **is** the working directory the fleet ran in. Nothing was copied here, nothing was staged, nothing was scrubbed. The agents wrote into this tree, committed on their own branches, and `cs done` merged them — 100 commits across two rounds, 34 nodes, zero collapses. Publishing it was one `git push`.
 
 That is the claim being demonstrated, and it is worth stating plainly because [the first run of this same spore could not make it](https://github.com/noogram-labs/firoozbakht): there, every deliverable landed in a git-ignored state directory, so the galaxy's tree stayed empty and publication needed a hand-built copy with a scrubbing pass. Here the deliverables are tracked artifacts of the run itself.
 
@@ -12,21 +12,33 @@ That is the claim being demonstrated, and it is worth stating plainly because [t
 
 ## The result, stated the way the run stated it
 
-| Gate | Verdict |
-|---|---|
-| Evidence gate (kernel + skeptic + corpus, pre-synthesis) | **BLOCKED** — skeptic leg: two residual objections, repairs proposed but not applied |
-| Citation gate (post-write audit against the source ledger) | **BLOCKED** — two citekeys unresolved |
-| Editorial verdict (independent reviewer, fail-closed) | **REWRITE** |
+**This galaxy has run two rounds.** Round 1 attacked the conjecture; its loop refused to pass and named two repairable defects. Round 2 was then run **on this same galaxy, resuming from round 1's own artifacts** — nothing was re-germinated, nothing was copied. Everything below is the round-2 state, which supersedes round 1 in place.
 
-Three of the four evidence legs pass. The Lean kernel builds clean — the single remaining `sorry` is the declared open target, not a gap this run introduced. The adversarial corpus is substantive, with 109/109 verification checks green. The exhaustive computational sweep to `10^11` — 4 118 054 812 consecutive-prime pairs, zero violations, `max ρ = 0.8318` — is confirmed along two independent code paths.
+| Gate | Round 1 | Round 2 |
+|---|---|---|
+| Evidence gate (kernel + skeptic + corpus) | **BLOCKED** — 2 skeptic blockers | **BLOCKED** — 3 *new* skeptic blockers |
+| Citation gate (audit against the source ledger) | **BLOCKED** — 2 citekeys | **PASS** — 22 citekeys, zero L3, zero fabricated |
+| Editorial verdict (independent reviewer) | **REWRITE** | **REWRITE** — one of round 1's three reasons lifted |
 
-A blocked run is the honest outcome on an open conjecture. The gates exist to refuse, and here they refused.
+**What round 2 established.** Both of round 1's blockers are confirmed **fixed** — by independent re-derivation, not by re-assertion. `m(n)`'s three inequivalent definitions are named apart; Theorem C(b)'s printed bound, which was false by a factor ~38 over part of its range, is restated correctly (its conclusion was independently true all along — the derivation was the defect). The citation gate flipped from BLOCKED to PASS.
+
+**What round 2 also established, and this matters more.** Three *new* blockers appeared, of a different kind: two round-2 legs repaired the same theorem into two incompatible statements, assigned contradictory bibliographic tiers to the same source on the same day, and — caught by a byte-level PDF fetch with an MD5 pin — cited a corollary that exists **only in the preprint edition** and is absent from the published one.
+
+So the blocker count went 2 → 3. **The list did not shrink; it churned.** That is the honest signal, and the loop says so rather than presenting motion as progress: it explicitly recommends *against* another fan-out round, and names what is actually missing — a single reconciliation leg, keeping Theorem C-b' (whose Axler row is present in both editions) and retiring its rival.
+
+The conjecture is neither proved nor refuted, across both rounds.
 
 ### The reviewer caught the paper misreporting itself
 
 The most useful thing in this repository is a failure. The paper stated, in its abstract and in §10.3, that *"the citation audit for this paper has not been run, and no citation clearance is claimed."* The audit **had** run, and had returned BLOCKED, naming two citekeys. A different model, on a different formula, compared the prose against the verdict that actually existed on disk and filed it as an overclaim.
 
 That is what author-≠-scorer separation is for. A lone model grading its own write-up has no way to catch this, because the sentence is locally plausible and only wrong relative to an artifact the author did not re-read.
+
+## Resuming a run from its own traces
+
+Round 2 was not a new run. It was started **on this galaxy, months of context later, with no re-germination and no hand-carried state** — a fresh set of workers picked up where the previous ones stopped, because everything they needed was already on disk and tracked: round 1's faults, its Lean probe report, its proof attempts, its loop verdict naming exactly what to repair.
+
+That is the practical meaning of tracked delivery. A run whose deliverables live only in a scratch directory can be *finished* but not *continued*: the next worker has nothing to read. Here the loop nucleated five round-2 legs forward, each tagged `reattack-round:2`, wrote them under `attack-round-2/`, and left the round-1 fidelity anchor frozen so the Lean statement could not drift between rounds. Every artifact remains attributable to the round that produced it.
 
 ## Clean room
 

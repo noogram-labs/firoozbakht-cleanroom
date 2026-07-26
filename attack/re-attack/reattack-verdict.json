@@ -1,19 +1,19 @@
 {
   "verdict": "BLOCKED",
-  "rounds_run": 0,
-  "rounds_target": 1,
+  "rounds_run": 2,
+  "rounds_target": 2,
   "exit_reason": "rounds-exhausted",
   "final_round": {
-    "round": 1,
+    "round": 2,
     "kernel": "UNPROVABLE_IN_BUDGET",
     "skeptic": "blockers",
     "artifacts": {
-      "faults": ".cosmon/state/spore-runs/germ-20260725-791a7c45/skeptic/faults.md",
-      "unproved": ".cosmon/state/spore-runs/germ-20260725-791a7c45/lean-probe/lean-probe-report.md",
+      "faults": "attack-round-2/faults.md",
+      "unproved": "attack-round-2/unproved.md",
       "attempts": [
-        ".cosmon/state/spore-runs/germ-20260725-791a7c45/proof-attempt__0/proof-attempt-0.md",
-        ".cosmon/state/spore-runs/germ-20260725-791a7c45/proof-attempt__1/proof-attempt-1.md",
-        ".cosmon/state/spore-runs/germ-20260725-791a7c45/proof-attempt__2/proof-attempt-2.md"
+        "attack-round-2/proof-attempt-first-failure-maximality.md",
+        "attack-round-2/proof-attempt-RH-conditional-bound.md",
+        "attack-round-2/proof-attempt-unconditional-verified-range.md"
       ]
     }
   },
@@ -24,18 +24,29 @@
       "skeptic": "blockers",
       "blocker_count": 2,
       "unproved_count": 1
+    },
+    {
+      "round": 2,
+      "kernel": "UNPROVABLE_IN_BUDGET",
+      "skeptic": "blockers",
+      "blocker_count": 3,
+      "unproved_count": 1
     }
   ],
   "escalation": {
     "rounds_at_cap": true,
-    "reason": "rounds=1 means round 1 (the spore's pinned v3.x single shot) IS the whole attack by design; no re-attack round was ever going to be nucleated for this run. The molecule collapses honestly to BLOCKED because the strict stop condition (kernel PROVED AND skeptic clean, same round) does not hold in round 1.",
+    "reason": "The loop's strict stop condition (kernel PROVED AND skeptic clean, same round) never held in either round. Round 1 (upstream, pinned) closed with 2 BLOCKERs (F1: three-way m(n) definition collision; F2: Theorem C(b)'s printed bound off by a factor ~38, though its conclusion is independently true under a corrected bound). Round 2 (nucleated by this loop) confirms BOTH round-1 BLOCKERs mathematically FIXED by independent re-derivation, not re-assertion -- but introduces 3 NEW BLOCKERs of a different species: reconciliation failures across a widened fan-out (two legs repaired the same fault into two incompatible theorems; two legs assigned the same source contradictory bibliographic tiers while the ledger amendment one of them claimed was never actually landed; one repair's Axler citation was independently shown to be edition-fragile, present only in the arXiv preprint and absent from the published journal version). None of the three round-2 BLOCKERs is a mathematical error and none touches the conjecture F -- all are cross-artifact seams that a fan-out-only architecture (proof-attempt x N, no reconciliation leg) cannot close. rounds_target=2 is exhausted at round 2; the loop's own recommendation (round-2 skeptic, faults.md section 7) is that round 3 -- were it funded -- must be a reconciliation leg (pick one repaired Theorem C(b), pick one Axler tier, land the ledger amendment, recount the disputed 55.92% statistic from the raw statement, cross-cite the four round-2 artifacts), not another proof-attempt fan-out. This loop's rounds=2 cap does not fund that leg.",
     "findings_never_converged": [
-      "F1 (BLOCKER): m(n)/\"governing record index\" carries 3 inequivalent definitions across notebook-0, notebook-2, and card L15 — repairable vocabulary collision, does not touch the conjecture F.",
-      "F2 (BLOCKER): proof-attempt-0.md Theorem C(b)'s cited bound (A-high) does not follow from its stated justification; as printed the theorem is false by a factor ~38 over part of its range. The theorem's conclusion is independently confirmed true under the corrected (tight) bound, but the derivation as written is defective."
+      "R2-B1 (BLOCKER): proof-attempt-unconditional-verified-range.md and proof-attempt-first-failure-maximality.md both repaired round-1 F2, but into two different theorems (Theorem C(b*) vs Theorem C-b'), different Axler rows, different uniform constants (0.0043636 vs 0.0017569), different headlines (p_m <= 0.99565*p_n0 vs p_m <= 0.998244*p_n0), and neither leg cites the other. Both theorems are independently verified correct; the corpus has no rule for choosing between them.",
+      "R2-B2 (BLOCKER): the two round-2 legs assign contradictory bibliographic tiers to the same source (axler2014newbounds: L0/opened vs L2_strong/NOT-OPENED) on the same day; the ledger amendment one leg reports as landed (source-ledger.md tier promotion) was checked directly by the skeptic and was never made -- the ledger and concept card still carry the old tier.",
+      "R2-B3 (BLOCKER): the L0-tier repair's citation (Axler arXiv v3 Corollary 3.6, row x0=1772201) was independently verified via byte-level PDF fetch (MD5-pinned) to exist only in the preprint edition and be absent from the published Integers 16 (2016) #A22 (and its corrigendum) -- an edition-fragile citation, unflagged in the artifact that depends on it.",
+      "R2-M1 (MAJOR, not a BLOCKER but unresolved): the round-2 skeptic's own adjudication of the inherited three-fractions dispute (the 55.92% statistic) is itself inverted -- recomputed from the raw statement, the round-2 skeptic's denominators are each off by one, and it endorsed the wrong side of round-1's F5.",
+      "R2-M2 (MAJOR, not a BLOCKER but unresolved): round-1 F3's exact pattern (an 'unconditional' discharge label resting on a source not fully opened) reappears in Theorem C-a', a branch round 1 had passed clean.",
+      "R2-M3 (MAJOR, not a BLOCKER but unresolved): the first-failure-maximality attempt's own Proposition 4 proves P6'-gov and P6'-min are formally incomparable, yet its prose calls P6'-min strictly weaker and drops P6'-gov from card L15's obligation list on the strength of an ordering the same document just disproved."
     ],
     "theorems_still_sorry": [
-      "Firoozbakht.firoozbakht : Conjecture (Statement.lean:186) — the conjecture itself, correctly never attempted; this is the open mathematical problem, not a proof gap introduced by this run."
+      "Firoozbakht.firoozbakht : Conjecture (Statement.lean:186) -- the conjecture itself. Attempted this round (unlike round 1, which correctly declined) via exact?/aesop/decide (all fail as expected on an open Pi_1 problem), and via a formalized Bertrand's-postulate route, which is now PROVEN insufficient (new sorry-free theorem bertrand_ceiling_above_threshold: Bertrand's ceiling p_{n+1} <= 2 p_n sits strictly above the Firoozbakht threshold p_n^(1+1/n) at every n>=2 -- the route is provably closed, not merely hard). This is not a proof gap introduced by any leg; it is the open mathematical problem, correctly reported as UNPROVABLE_IN_BUDGET rather than conflated with FALSE."
     ],
-    "recommendation": "Re-germinate with rounds>=2 (subject to the sealed max_instances ceiling) so a re-attack round can apply the two named repairs (F1: name the three m(n) predicates explicitly; F2: restate (A-high) as v(1+v/x) with v:=ell^2-ell-1-1/ell) before the skeptic re-runs. The conjecture F itself remains OPEN — neither proved nor refuted by this run."
+    "recommendation": "The conjecture F remains OPEN -- neither proved nor refuted across both rounds of this run. Do NOT re-germinate another fan-out-shaped re-attack round; per the round-2 skeptic's explicit structural recommendation (faults.md section 7), what is missing is a single reconciliation leg (not a proof-attempt fan-out): designate one repaired Theorem C(b) (the round-2 skeptic's own mathematics favors keeping Theorem C-b' at 0.998244, whose Axler row 6690557 is present in BOTH editions, and retiring Theorem C(b*)'s edition-fragile 1772201 row to a remark), land the axler2014newbounds tier amendment in source-ledger.md and concept-cards/T1 exactly once, recount the 55.92% three-fractions statistic from the raw statement (this leg's own skeptic disputes round 2's own count), and cross-cite the four round-2 artifacts against each other. If a round 3 is funded, it should be a single reconciliation-and-synthesis molecule, not another --var subquestions fan-out."
   }
 }

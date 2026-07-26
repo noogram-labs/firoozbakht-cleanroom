@@ -1,0 +1,17 @@
+check 1 + 2 — T_n vs (log p_n)^2, and the three slacks
+
+       n        p_n         T_n   (log p)^2       need        BHP         RH
+      10         29      11.610      11.339   0.400360   0.202004   0.625291
+     100        541      35.142      39.607   0.064957   0.050319   0.270575
+     245       1553      47.282      53.992   0.030446   0.030493   0.186458
+    1000       7919      71.409      80.587   0.009017   0.014065   0.100878
+   10000     104729     121.128     133.614   0.001157   0.004125   0.035718
+  100000    1299709     182.981     198.180   0.000141   0.001247   0.012348
+
+crossovers (first n where the supplied slack exceeds what is needed):
+  BHP  p^-0.475        first n =   245  (p_n = 1553, need = 0.030446 < 0.030493)
+  RH   log p/sqrt p    first n =     3  (p_n = 5, need = 0.709976 < 0.719763)
+
+Reading: both envelopes overtake the needed slack and stay above it, 
+i.e. both are insufficient for all large n — which is the tail, 
+which is where a proof of Firoozbakht would have to live.

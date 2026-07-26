@@ -76,7 +76,7 @@ $ latexmk -C && latexmk -xelatex -interaction=nonstopmode paper.tex
 |---|---|
 | `latexmk -xelatex` exit status | **0** |
 | pages produced | **38** (round 1: 25) |
-| `paper.pdf` size | 340 994 bytes |
+| `paper.pdf` size | 341 645 bytes |
 | unresolved `\ref` | **0** |
 | unresolved `\cite` | **0** |
 | multiply-defined labels | **0** |
@@ -359,6 +359,41 @@ reading. That is exactly why the re-audit obligation stands and is written into 
 8. **Section cross-references in this log were checked against `paper.toc`, not against memory,**
    after the fact — five were off by one subsection (the round-2 paper gained §1.4, which shifted
    §1.5 and §1.6, and §6 gained a subsection). Corrected mechanically.
+9. **The verification-list subsection was titled for §5–§6 while carrying items for §3 and §7.**
+   Retitled, and the item ranges are now stated explicitly (V1–V9, V10–V11, V12, V13) so a reader
+   can find the item a proof cites without scanning. All five `item V…` references in proofs were
+   checked against the thirteen defined tags: all resolve.
+10. **The factor-38 denominator ambiguity**, and it is the one substantive arithmetic correction
+    this pass made. See the recomputation table above.
+
+**Independent recomputation of the two places where this paper contradicts an upstream document.**
+A paper that reverses two of its own sources should not do so on a third party's word, so both were
+recomputed from the statements in a fresh script (own sieve to `3·10⁶`, `mpmath` at 60 decimal
+digits, no upstream code path):
+
+| Claim, as printed in the paper | This leg's independent value | Verdict |
+|---|---|---|
+| `π(3·10⁶) = 216 816` | `216 816` | ✓ |
+| `121 239 / 216 815` (all `n`) `= 55.9182 %` | `121 239 / 216 815 = 55.91817909…` | ✓ — **the adjudication holds** |
+| `121 238 / 216 806` (`n ≥ 10`) `= 55.9200 %` | `121 238 / 216 806 = 55.92003911…` | ✓ — the denominators reported one lower upstream are wrong |
+| W1: `p_1823 = 15 641`, `p_1831 = 15 683` (`g = 44`), `p_1832 = 15 727`, `p_1847 = 15 823` | all four | ✓ |
+| `T_1823 = 83.0807167192698…`, `T_1847 = 83.0521061144139…` | both, to every digit printed | ✓ |
+| W1 margin `T_m − T_n = +0.02861060485582…` | `+0.028610604855820881…` | ✓ — **`P6′-pair` is false, confirmed independently** |
+| `max{g_k : p_k < 60 184} = 72` at `p = 31 397`, over `6 076` gaps | `72` at `31 397`, over `6 076` gaps | ✓ (the count is `6 076` under the paper's own indexing — the `n` with `p_n < X₀`, whose last gap crosses `X₀`; a reader counting gaps *within* the set would get `6 075`) |
+
+Every other numeric constant in §6.5, §6.3, §7 and §9.4 was likewise recomputed at 30–60 digits
+(`e^{−0.0516}`, `e^{−0.0017569}`, `e^{−0.0043636}`, `log 2⁶⁴`, `L(L−1.1)` at `2⁶⁴`, `2/e`,
+`log 10⁸`, `log 6 690 557`, Lemma A.1's `h(x*)`, `S(29)`, `B(60 184)`, `log(5 log 5)`), and all
+matched what is printed.
+
+**One substantive correction this recomputation forced.** The factor by which the round-1 bound is
+wrong was printed upstream, and initially here, as `38.8137…` *against the printed `0.004479`* —
+but `0.169339812744 / 0.004479 = 37.807504…`, so a reader checking the arithmetic would find a
+mismatch. The factor's true denominator is the separation required under the bound's **tight**
+form, `0.004362882388…`, and `0.169339812744 / 0.004362882388 = 38.813747…`. The caveat and item
+V11 now name all three numbers and say which quotient is which, including the wrong quotient a
+reader might otherwise compute. Nothing downstream of that factor changes — it quantifies a defect
+in a bound the paper does not use.
 
 *Issues found and deliberately NOT repaired, with justification:*
 

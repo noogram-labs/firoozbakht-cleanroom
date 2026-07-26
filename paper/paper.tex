@@ -1266,9 +1266,13 @@ $T_n \le (\ell^2 - \ell - 1 - 1/\ell)(1 + \ell^4/x)$, justified as
 ``$T_n \le v(1+v/x) \le v(1 + \ell^4/x)$ using $v < \ell^2$''. The step
 $v(1+v/x) \le v(1+\ell^4/x)$ is true but weakens the bound by an additive
 $v(\ell^4 - v)/x \approx \ell^6/x$, not the $v^2/x$ that the algebra consuming it silently
-assumed. \textbf{As printed the bound does not follow from its stated justification, and the
-requirement it induces is false by a factor $38.8137468954\ldots$ at the bottom of its range}:
-the true required separation there is $0.169339812744\ldots$, not the $0.004479$ printed. The
+assumed. \textbf{As printed, the bound does not follow from its stated justification, and the requirement
+it induces is wrong by a factor $38.813747\ldots$ at the bottom of its range.} Spelling that
+factor out, since three numbers are in play: at $\ell_1 = 14.3877$ the separation actually
+required by the \emph{printed} lemma is $0.169339812744\ldots$, while the separation required by
+its \emph{tight} form is $0.004362882388\ldots$ --- and the quotient of those two is the factor
+just quoted. The document printed $0.004479$, which is neither of them, and which the tight form
+shows to be sufficient (\S\ref{sec:computation}, item V11). The
 in-run numerical check reproduced the error rather than catching it, which is the general
 lesson --- \emph{a check written from a derivation cannot catch an error in the derivation}.
 The repair is not to re-insert $\ell^4$ correctly; it is never to introduce $\ell^4$ at all,
@@ -2030,10 +2034,13 @@ Whichever convention is used, the statistic is \textbf{not diagnostic} for any o
 predicates of Definition~\ref{def:predicates}: it measures single steps, while every predicate
 compares an index to a governor many steps back.
 
-\subsection{Verification of the lemmas of \S\ref{sec:monotone}--\S\ref{sec:range}}
+\subsection{Verification of the lemmas and constants used above}
+\label{sec:vitems}
 
-The following items are cited by number from the proofs above. All were recomputed
-independently of the code paths that produced the sweep.
+The following items are cited by number from the proofs above --- items V1--V9 support
+\S\ref{sec:monotone}--\S\ref{sec:range}, V10--V11 the near-record theorems of
+\S\ref{sec:nearrecord}, V12 the barrier of \S\ref{sec:barrier} and V13 the constants of
+\S\ref{sec:rh}. All were recomputed independently of the code paths that produced the sweep.
 
 \begin{enumerate}
 \item[V1] $\max\{g_k : p_k < 60\,184\} = 72$, attained at $p = 31\,397$, by
@@ -2073,8 +2080,11 @@ independently of the code paths that produced the sweep.
   $e^{-0.0017569} = 0.998244642445\ldots$; $e^{-0.0043636} = 0.995645906670\ldots$;
   the majorant maxima $0.051599027$ and $0.0017568759$; the exact (non-majorised) requirements
   $0.051493457$ and $0.0017560603$; and the round-1 defect of Caveat~\ref{haz:F2}: required
-  separation $0.169339812744\ldots$ under the printed lemma against $0.004363567696\ldots$
-  under its tight form, ratio $38.8137468954\ldots$
+  separation $0.169339812744\ldots$ under the printed lemma; $0.004362882388\ldots$ exactly
+  required under its tight form and $0.004363567696\ldots$ proved sufficient there by the
+  majorant argument; and the quotient of the first two, $38.813747\ldots$, which is the factor
+  by which the printed lemma is wrong (\emph{not} its quotient with the printed $0.004479$,
+  which is $37.807504\ldots$).
 \item[V12] The barrier of Theorem~\ref{thm:barrier}, checked numerically as a sanity companion
   to the kernel proof: $p_n^{1+1/n} < 2p_n$ at every $2 \le n \le 2\cdot10^4$ and $p_n < 2^n$
   at every $2 \le n \le 216\,816$ in exact integer arithmetic, zero failures each; and Bertrand

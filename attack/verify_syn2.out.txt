@@ -1,0 +1,68 @@
+primes below 3000000: 216816
+[OK ] pi(3e6): got 216816  want 216816
+
+--- R2-M1: the three-fractions statistic, recounted from the statement ---
+[OK ] steps, all n, at 3e6: got 216815  want 216815
+[OK ] steps, n>=10, at 3e6: got 216806  want 216806
+[OK ] decreasing steps, all n: got 121239  want 121239
+[OK ] decreasing steps, n>=10: got 121238  want 121238
+      => n>=10 fraction = 55.9200391133086722692176415781851055782589042738669594014926 %
+      => all-n fraction = 55.9181790927749463828609644166685884279224223416276549131748 %
+[OK ] violations of F below 3e6 (gap form g_n < T_n): got 0  want 0
+[OK ] violations of F, EXACT integers, n <= 3000: got 0  want 0
+[OK ] gap form vs exact integers: disagreements on n <= 3000: got 0  want 0
+
+--- FFM Theorem 1 (P6'-pair is FALSE): witness W1 ---
+[OK ] p_1823: got 15641  want 15641
+[OK ] p_1831 (record, g=44): got 15683  want 15683
+[OK ] g_1831: got 44  want 44
+[OK ] p_1847: got 15823  want 15823
+[OK ] T_1823 - T_1847: got 0.0286106048558208814007389184279545271379236615617272961610009  want 0.028610605
+      T_1823 = 83.0807167192698018485743642254187095381787966936723346336492
+      T_1847 = 83.0521061144139809671736253069907550110408730321106073374882
+
+--- the three predicates, this leg's own sweep to 3e6 ---
+[OK ] P6'-gov exceptions below 3e6: got 0  want 0
+[OK ] P6'-min exceptions below 3e6: got 0  want 0
+[OK ] P6'-gov min margin at 3e6: got 0.0104641539561833537108313448711927092679352361367849385858202  want 1.046415e-2
+[OK ] P6'-min global min margin: got 0.48452773339831603405599693031039053105052322885219545083061  want 0.4845277
+[OK ] P6'-min argmin index: got 1879  want 1879
+[OK ] mu(1879): got 1831  want 1831
+      P6'-pair: exception indices n below 3e6 (local m-window): [1836, 1837, 1840, 1844, 1845, 1846, 1847]
+[OK ] 1847 is a P6'-pair exception: got True  want True
+
+--- FFM Proposition 4: gov and min are formally INCOMPARABLE ---
+[OK ] gov =/=> min  (T=(0,10,1,5)): got True  want True
+[OK ] min =/=> gov  (T=(0,1,10,5)): got True  want True
+
+--- Theorem C(b*) [UVR] and Theorem C-b' [FFM]: the two repairs ---
+[OK ] ell_1 = log 1772201: got 14.3877328348655782586587186232776785946740036151094187585391  want 14.3877328349
+[OK ] UVR d*(ell_1), sufficient condition [Prop. R1]: got 0.00436356769583802878217940734932934211166811789010197343902781  want 0.004363567696
+[OK ] UVR sweep-free constant 0.17/(2*ell_1-1): got 0.00612050944604902672997263715250524859039369968672725101818618  want 0.0061205094
+[OK ] PA-0's displayed criterion at ell_1 (F2(c): > 0.004479): got 0.00448872246263315422140001340831108283266658748800074353705286  want 0.0044887225
+[OK ] PA-0's displayed criterion exceeds its own reported sweep 0.004479: got True  want True
+[OK ] true required d, tight lemma (A-high*): got 0.00436288238805747316925058730868011332944249091818022133486715  want 0.0043628824
+[OK ] true required d, round-1 PRINTED lemma (A-high): got 0.169339812744365556200845690096554799499672844709704604967303  want 0.16933981
+[OK ] F2 factor (printed / tight): got 38.8137468953781036822847690870229851785695264746882401731216  want 38.8137
+[OK ] UVR headline exp(-0.0043636): got 0.995645906669685279699439015163995781432842058523416670722019  want 0.9956459
+[OK ] FFM C-b' headline exp(-0.0017569), TRUE value: got 0.998244642445365342968152576557714563950073454639653721083075  want 0.9982446424
+[OK ] FFM's printed expansion 0.99824467 is NOT the true value: got True  want True
+[OK ] FFM C-a' headline exp(-0.0516): got 0.949708674346063273082305009067780391424745119457434289308068  want 0.94970867
+[OK ] d* maximised at ell_1 over [ell_1, ell_1+200]: got 0  want 0
+
+--- the 2^64 frontier ---
+[OK ] log 2^64: got 44.3614195558364998027028557733233003568320085990563362637235  want 44.3614195558
+[OK ] L(L-1.1) at 2^64: got 1919.13798349753288565347880648336409381582968027229675391658  want 1919.1379834975
+
+--- RH leg, Theorem C: the critical constant is 2/e ---
+[OK ] max_x log x / sqrt x: got 0.735758882342884643191047540322921734891622262063535669015674  want 0.735758882342884643191047540322921734891622262063535669015674
+[OK ] 2/e: got 0.735758882342884643191047540322921734891622262063535669015674  want 0.735758882342885
+
+--- Barrier.lean: bertrand_ceiling_above_threshold, numerically ---
+[OK ] p_n^(1+1/n) < 2 p_n for 2<=n<=2e4: got 0  want 0
+[OK ] p_n < 2^n for 2<=n<=216816 (exact, bit_length): got 0  want 0
+[OK ] Bertrand certifies F only at n=1 (n=1: 2^2=4 > 2*2=4 is FALSE): got True  want True
+
+======================================================================
+all checks passed
+EXIT=0

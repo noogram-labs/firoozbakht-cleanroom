@@ -43,6 +43,11 @@ open Firoozbakht
 #print axioms Firoozbakht.g_one
 #print axioms Firoozbakht.T_one
 
+-- The round-2 lean-probe leg's barrier module (must be clean):
+#print axioms Firoozbakht.bertrand_gap
+#print axioms Firoozbakht.p_lt_two_pow
+#print axioms Firoozbakht.bertrand_ceiling_above_threshold
+
 -- Declared open — the target of the attack. This one, and only this one, must
 -- show `sorryAx`:
 #print axioms Firoozbakht.firoozbakht

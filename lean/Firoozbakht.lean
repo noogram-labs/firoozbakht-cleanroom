@@ -9,3 +9,4 @@ machine-checkable with `lake env lean --run` / `#print axioms`.
 import Firoozbakht.Statement
 import Firoozbakht.Equivalence
 import Firoozbakht.FiniteCheck
+import Firoozbakht.Barrier

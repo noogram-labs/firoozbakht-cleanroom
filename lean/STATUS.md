@@ -1,18 +1,28 @@
 # Lean development — status
 
 Leg: `lean-skeleton` (kernel-engineer, molecule `task-20260725-5fd9`), then
-`lean-probe` (probe-engineer, molecule `task-20260725-9975`), germ
+`lean-probe` (probe-engineer, molecule `task-20260725-9975`), then
+`lean-probe` **round 2** (molecule `task-20260726-8ba0`), germ
 `germ-20260725-791a7c45`. Backend: **lean** (not skipped).
 
 **Post-probe state: exactly one `sorry` remains, and it is Firoozbakht's
 conjecture.** The four `L1` equivalence stubs the skeleton left open now carry
 real proof terms. See `attack/lean-probe-report.md` for the probe's own report.
 
+**Round 2 attempted the remaining `sorry` and did not discharge it —
+`UNPROVABLE_IN_BUDGET`.** It added `Firoozbakht/Barrier.lean`, which proves
+*why* the substrate cannot reach the target: Mathlib's strongest prime-gap
+result (Bertrand, `p_{n+1} ≤ 2 p_n`) has a ceiling that sits strictly **above**
+the Firoozbakht threshold `p_n ^ (1+1/n)` at every `n ≥ 2`. The barrier module is
+`sorry`-free. `Statement.lean` is byte-identical to the skeleton's (SHA-256
+`6528868823c0637dd182c914e2ef43a7455f851335cafaba6cee934802e004c1`). See
+the round-2 molecule's `attack-round-2/lean-probe-report.md`.
+
 ## Build
 
 ```
 $ lake build
-Build completed successfully (1984 jobs).
+Build completed successfully (2208 jobs).      # round 2, with Barrier.lean
 ```
 
 - Toolchain: `leanprover/lean4:v4.29.0` (pinned in `lean-toolchain`).
@@ -46,6 +56,7 @@ verbatim:
 | `F1_iff_F2`, `F1_iff_F1'`, `F1_iff_F4`, `F3_iff_F4` | **no** — were contaminated, now clean |
 | `conjecture_iff_real`, `conjecture_iff_gap` | **no** — idem |
 | `F1_le_four`, `F1'_le_four`, `F4_le_four` | no |
+| `bertrand_gap`, `p_lt_two_pow`, `bertrand_ceiling_above_threshold` | no — round 2's barrier module |
 | `firoozbakht` | **yes** — the open target, and the only one |
 
 Every other declaration is `[propext, Classical.choice, Quot.sound]` only.
@@ -61,7 +72,7 @@ non-internal declaration under `Firoozbakht`, and reports those depending on
 
 ```
 $ lake env lean audit_exhaustive.lean
-declarations scanned: 60
+declarations scanned: 63
 depending on sorryAx: [Firoozbakht.firoozbakht]
 ```
 
@@ -70,7 +81,9 @@ is the open conjecture.
 
 The detector itself was tested against a planted `sorry` in the namespace, which
 it reported alongside `firoozbakht` (scanned 61, two names) before being deleted
-— an audit that cannot fail is worth nothing.
+— an audit that cannot fail is worth nothing. Round 2 re-ran the same self-test
+against the enlarged tree: scanned 64, two names, then the plant was deleted and
+the count returned to 63 with one name.
 
 ## The one remaining `sorry`
 

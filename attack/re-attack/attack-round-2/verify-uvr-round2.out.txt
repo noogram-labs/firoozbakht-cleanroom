@@ -1,0 +1,99 @@
+==============================================================================
+PART 1 — the F2 repair:  (A-high) as printed vs (A-high*) repaired
+==============================================================================
+l1 = log 1772201 = 14.38773283
+v(l1) = 191.5496196 ,  v(l1)^2/p_m = 0.0207037784 ,  l1^4/p_m = 0.02418001033
+  -> the printed factor is larger by  l1^4/v(l1)^2 = 1.1679033
+
+required separation d (solved from Lemma W's hypothesis):
+  l            p_m              d, AS PRINTED    d, REPAIRED     
+  14.38773     1.7722e+6        0.16934          0.00436288      
+  16.0         8.88611e+6       0.0601957        0.00367456      
+  18.0         6.566e+7         0.0171911        0.00330999      
+  20.0         4.85165e+8       0.00628032       0.00308427      
+  44.36        1.84206e+19      0.00168097       0.00168097      
+  100.0        2.68812e+43      0.000804017      0.000804017     
+
+  max required d, AS PRINTED  = 0.16933981 at l = 14.387733   (<= 0.004479? False)
+  max required d, REPAIRED    = 0.0043628824 at l = 14.387733   (<= 0.004479? True)
+  max PA-0 displayed criterion = 0.0044887225 at l = 14.387733   (<= 0.004479? False)
+  max REPAIRED criterion d*    = 0.0043635677 at l = 14.387733   (<= 0.004479? True)
+  factor by which the printed lemma inflates the requirement at l1: 38.8137
+
+  closed-form majorant phi:
+    phi(l1)      = 0.004363567696
+    d*_rep(l1)   = 0.004363567696   (equal by construction)
+    max phi on [l1, 4000] = 0.004363567696 at l = 14.387733
+    phi decreasing on the grid: True
+    monotonicity certificate  4/l - 1/l^2 < 0.381406  at l=l1: 0.27318386 < 0.381406 -> True
+    E(l) = v^2 e^-l decreasing certificate  v - 2v' > 0 at l=l1: 135.98903
+
+  sweep-free branch (drop -1/l, bound E by E(l1)):
+    repaired : 0.17/(2*l1-1)          = 0.0061205094
+    PA-0     : (0.17+l1^4 e^-l1)/(2*l1-1) = 0.0069910623
+
+  the three bars at l = l1 (p_m = 1 772 201), decomposed:
+    v                          = 191.549619639
+    v + v^2/x   (A-high*)      = 191.570323417
+    v + l^4/x   (honest weak.) = 191.573799649
+    v(1 + l^4/x)  (as printed) = 196.18129142
+    printed error term / corrected error term = 223.71143
+
+==============================================================================
+PART 2 — what the printed lemma would have cost (closes F13)
+==============================================================================
+  sieve self-test  max gap below 2e6: plain=(132 at 1357201) segmented=(132 at 1357201)  agree=True
+  required_d_printed(l) = 0.004479 at l = 21.00996466, i.e. p_m = 1.332023e+9
+  PA-0 displayed criterion = 0.004479 at l = 14.40028546, i.e. p_m = 1794587.0
+  max prime gap below 1 772 201            = 132 at p = 1357201
+  max prime gap below 1332022974 = 288 at p = 1294268491
+  (T_{n0} > 1919 must dominate it: 1919 > 288 ? True)
+
+==============================================================================
+PART 3 — Theorem C(a) is untouched by the repair
+==============================================================================
+  max required d for C(a) = 0.062079811 at l = 11.005162  (PA-0 quotes 0.0623: covers? True)
+  (D-high) bar is v(1+v/x) with v = l^2-l  -> already tight, no l^4 anywhere
+  epsilon(l0) = (l0^2-l0)^2 e^{-l0} = 0.20144665  (PA-0 quotes 0.20145)
+
+==============================================================================
+PART 4 — the unconditional verified-range chain (Dusart only)
+==============================================================================
+  Lemma 3  min (T_n - B(p_n)) on [60184, 2e6] = 0.079891473 at p = 155893
+  (H1) exact integer p_{n+1}^n < p_n^{n+1} for all p_n < 60184: violations = 0
+  G0 = max gap below 60184 = 72 at p = 31397 ;  B(60184) = 109.00791
+  B monotone (dB/dL = 2L-1.1 > 0 for L > 0.55; e^0.55 = 1.73325 < 2)
+  largest even g with S(g) <= 2^64 : 1918   (S(1918) = 1.8208685e+19, S(1920) = 1.8629095e+19, 2^64 = 1.8446744e+19)
+  Lemma 2 (Dusart eq. 6.6 upper) at every prime in [60184, 2e6]: failures = 0
+
+==============================================================================
+PART 5 — Reading (B) window, Kourbatov's bar, and pi(60184)
+==============================================================================
+  h(396738)  = -234735.02
+  h(777600)  = -0.51996212   h(777601) = 0.17863233
+  sign change p* = 777600.7443
+  min h' on a grid over [4e5, 1e7] = 0.49774303
+  largest even g with S_K(g) <= 2^64 (Kourbatov's bar) : 1922  (S_K(1922)=1.8361954e+19, S_K(1924)=1.8785332e+19)
+  pi(60184) = 6076   -> base-case indices n with p_n < 60184 : 6076
+
+==============================================================================
+PART 6 — the four bars named (A-high), and what each one costs
+==============================================================================
+  bar                                                  err at l1      max req d      <=0.004479
+  0  v(1+v/x)      TIGHT (A-high*)                     0.0207037784   0.00436288239  True    
+  1  v(1+l^2/x)    6.1's stated justification          0.0223744849   0.00442301381  True    
+  2  v + l^4/x     additive weakening (= 6.2's criterion) 0.0241800103   0.00448799729  False   
+  3  v(1+l^4/x)    6.1 AS PRINTED                      4.63167178     0.169339813    False   
+  (every max above is attained at l = l1 = 14.38773283)
+
+==============================================================================
+PART 7 — Corollary R1.1 constants
+==============================================================================
+  psi(l1) = l1^5 e^-l1              = 0.3478955285   (< 1 ? True)
+  true    l1*E(l1)                  = 0.2978804323
+  majorant cost psi(l1)/(l1 E(l1))  = 1.1679
+  0.17/(2*l1-1)                     = 0.006120509446
+  denominator of Axler Cor. 3.6 at l1: l1-1-1/l1-1/l1^2 = 13.313398
+  lambda lower bound: log(2^64) = 44.36141956 ; lam^2-1.1*lam = 1919.137983  (> 1919 ? True)
+  e^-0.0043635677 = 0.99564594  -> sliver 0.435406 %
+  e^-0.004479 = 0.99553102  -> sliver 0.446898 %

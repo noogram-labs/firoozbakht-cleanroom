@@ -1,0 +1,3 @@
+base primes: 3961 37409
+max prime gap with p < 1.4e9 : (288, 1294268491)  (UVR claims 288 at 1294268491 below 1.332e9)
+max prime gap with p < 1 332 022 974 : (288, 1294268491)

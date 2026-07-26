@@ -1,0 +1,24 @@
+pi(3e8)= 16252325
+violating n below 3e8: 17 [1836, 1837, 1840, 1844, 1845, 1846, 1847, 10655562, 10655563, 10655564, 10655566, 10655587, 10655589, 10655590, 10655592, 10655593, 10655594]
+   n= 1836 admissible m up to 1831 violating m count = 1
+   n= 1837 admissible m up to 1831 violating m count = 1
+   n= 1840 admissible m up to 1831 violating m count = 1
+   n= 1844 admissible m up to 1831 violating m count = 1
+   n= 1845 admissible m up to 1831 violating m count = 1
+   n= 1846 admissible m up to 1831 violating m count = 1
+   n= 1847 admissible m up to 1831 violating m count = 2
+   n= 10655562 admissible m up to 10655462 violating m count = 1
+   n= 10655563 admissible m up to 10655462 violating m count = 1
+   n= 10655564 admissible m up to 10655462 violating m count = 2
+   n= 10655566 admissible m up to 10655462 violating m count = 1
+   n= 10655587 admissible m up to 10655462 violating m count = 1
+   n= 10655589 admissible m up to 10655462 violating m count = 1
+   n= 10655590 admissible m up to 10655462 violating m count = 2
+   n= 10655592 admissible m up to 10655462 violating m count = 1
+   n= 10655593 admissible m up to 10655462 violating m count = 1
+   n= 10655594 admissible m up to 10655462 violating m count = 1
+TOTAL violating (m,n) PAIRS below 3e8: 20
+n with T_n >= L_n^2 (p<3e8): [1, 2, 3, 4, 5, 6, 7, 10] count 8
+N=3000000: pi=216816 steps(all n)=216815 dec=121239; steps(n>=10)=216806 dec=121238
+N=10000000: pi=664579 steps(all n)=664578 dec=374486; steps(n>=10)=664569 dec=374485
+N=100000000: pi=5761455 steps(all n)=5761454 dec=3280064; steps(n>=10)=5761445 dec=3280063

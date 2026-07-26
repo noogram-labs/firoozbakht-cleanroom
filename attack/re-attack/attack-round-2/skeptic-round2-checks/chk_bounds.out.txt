@@ -1,0 +1,13 @@
+pi(1e8)= 5761455  pi(60184)= 6076
+Axler-upper counterexamples at x=p_n below 1e8: 4987069 smallest p= 2 n= 1 largest p= 99999989
+  all below 2634800823? True
+  Axler lower (a=1, x0=1772201): failures = 0
+  Axler lower (a=2.1, x0=6690557): failures = 0
+  Axler lower (a=0, x0=468049): failures = 0
+  (D-low) failures: 0
+  (D-high) failures: 0
+  (A-high') failures: 0
+  (A-high*) failures: 0
+  min T-B on [60184,2e6] = 0.079891473 at p= 155893
+  Dusart 6.6 upper failures: 0
+  G0 = max gap p<60184: 72 at p= 31397

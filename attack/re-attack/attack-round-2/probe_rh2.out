@@ -1,0 +1,44 @@
+sieve limit 3000000: 216816 primes, largest 2999999, 216815 consecutive pairs
+[R1] x* = 5.1652892561983471074380165289256198347107438016529  h(x*) = sqrt(x*)-(25/22)ln x* = 0.4068623816594768065009657079835318653875094213645   >0 : True
+[R2] {n : T_n >= L_n^2} in sieve = [1, 2, 3, 4, 5, 6, 7, 10]
+[R3] n, p_n, T_n, B_n, B_n<T_n
+       1    2  T=2.0  B=0.86262716625  B<T: True
+       2    3  T=2.1961524227  B=1.6745100256  B<T: True
+       3    5  T=3.5498797334  B=3.1669550684  B<T: True
+       4    7  T=4.3860359319  B=4.5305870087  B<T: False
+       5   11  T=6.7693369282  B=6.9985686377  B<T: False
+       6   13  T=6.9342810812  B=8.138289656  B<T: False
+       7   17  T=8.4816378252  B=10.279841332  B<T: False
+       8   19  T=8.4535051388  B=11.294370521  B<T: False
+       9   23  T=9.5859906759  B=13.232825762  B<T: False
+      10   29  T=11.610449607  B=15.957429839  B<T: False
+[R4] S_all = {n>=1 : B_n <  T_n} = [1, 2, 3]
+[R4] S_3   = {n>=3 : B_n <  T_n} = [3]
+[R4] with <= instead of < : [1, 2, 3]   (identical => all comparisons strict)
+[R5] min_{n>=4} B_n/T_n = 1.032957111858666789067719544930089373674359088915 at n=4, p=7
+[R5] B/T at sieve edge n=216816, p=2999999: 110.15355255526119009540214114709505234486541853672
+[R5] B/T at p=2^64 with T ~ L^2-L-1 surrogate (card L2): 87209716.615405990861475441357395448009764037619923
+[R6] max_x ln x/sqrt(x) = 0.73575888234288464319104754032292173489162226206354 at x=e^2=7.3890560989306502272304274605750078131803155705518 ; 2/e=0.73575888234288464319104754032292173489162226206354
+[R6] C=0.88: no real branch -> empty
+[R6] C=0.84: no real branch -> empty
+[R6] C=0.5: x in (2.04378996939513274108292886635063114467478931594, 74.186688085375017757823637350079306185906748921624) -> 20 primes below sieve limit
+[R6] C=0.1: x in (1.1111682808543496731129914155206113919107728425201, 8099.1190626380378242731326512815702177360765807331) -> 1018 primes below sieve limit
+[R6] C=0.01: x in (1.0101010530431576440456651789794209624483524243775, 2122264.5705652651635902324322139467345914553292577) -> 157340 primes below sieve limit
+[R7] p*(C) = largest P such that B_C(p) < T(p) for ALL primes 2 <= p <= P (notebook-1 F2, read with the corrected lower endpoint -- faults.md F6)
+      C=1        p*(C)=3   (2 certified primes, i.e. indices 1..2)
+      C=22/25    p*(C)=5   (3 certified primes, i.e. indices 1..3)
+      C=4/pi     p*(C)=2   (1 certified primes, i.e. indices 1..1)
+      C=1/(8pi)  p*(C)=62869   (6307 certified primes, i.e. indices 1..6307)
+      C=1e-2     p*(C)=1772591   (133145 certified primes, i.e. indices 1..133145)
+[R8] 2^64 = 18446744073709551616.0; Visser sec.7 unconditional range 18360000000000000000.0; shortfall 86744073709551616.0 = 0.47024056583069295811583288013935089111328125% ; ~1955394452613700.3806298141571942296210975011556402 primes in the shortfall window
+[R9] x=1.0e+6: Dusart(6.5) width~1447.07  (6.6) width=613.663  log x*loglog x=36.2767  ratio (6.6)/drift=16.9162
+[R9] x=1.0e+12: Dusart(6.5) width~3.61768e+8  (6.6) width=1.41533e+8  log x*loglog x=91.7057  ratio (6.6)/drift=1.54334e+6
+[R9] x=1.845e+19: Dusart(6.5) width~2.589e+15  (6.6) width=9.83367e+14  log x*loglog x=168.235  ratio (6.6)/drift=5.8452e+12
+[R10] counter-model rows (n_k, q, J_k, gap, T^{(q)}, (ln q)^2, violates F?)
+      n_k=      2 q=        3 J=    0 gap=    2 T^q=2.19615242 (ln q)^2=1.20694896 violates=False
+      n_k=      5 q=       11 J=    4 gap=    6 T^q=6.76933693 (ln q)^2=5.74990174 violates=False
+      n_k=     16 q=       57 J=   11 gap=   17 T^q=16.3866451 (ln q)^2=16.3462636 violates=True
+      n_k=    256 q=     1634 J=   53 gap=   55 T^q=47.9141256 (ln q)^2=54.7420383 violates=True
+      n_k=  65536 q=   821709 J=  180 gap=  186 T^q=170.778414 (ln q)^2=185.481018 violates=True
+[R10] total drift q_n - p_n at sieve edge = 248
+[R11] exact-integer violations of p_{n+1}^n < p_n^{n+1} over n<=10000 plus the 40 largest-rho indices (10027 indices): 0

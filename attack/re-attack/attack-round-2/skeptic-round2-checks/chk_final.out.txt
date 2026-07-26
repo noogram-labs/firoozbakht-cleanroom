@@ -1,0 +1,9 @@
+per-decade min of P6'-min margin (non-trivial only):
+   [2,1000) min=1.35373 at p=5
+   [1000,10000) min=3.04863 at p=1669
+   [10000,100000) min=0.484528 at p=16141
+   [100000,1000000) min=1.67502 at p=396733
+   [1000000,10000000) min=3.81457 at p=1561919
+   [10000000,100000000) min=1.69779 at p=17983717
+Axler-upper CE with x>=5.43 below 1e8: 4987066  smallest p= 59753 n= 6041
+record #: 191912783 is number 28 of 28

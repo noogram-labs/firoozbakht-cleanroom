@@ -7,8 +7,9 @@
 `(p_n)^{1/n}` is strictly decreasing. **Status: OPEN.** Neither assumed true nor assumed false.
 **Seed anchors supplied:** none. This ledger was built from scratch.
 
-**Ledger size: 20 rows** — 11 at tier **L0**, 3 at **L1**, 4 at **L2_strong**, 2 at **L2_weak**,
-**0 at L3**. Every row has a BibTeX entry in §8 and a locator table or locator statement in §2.
+**Ledger size: 20 rows** — **12** at tier **L0**, 3 at **L1**, **3** at **L2_strong**, 2 at
+**L2_weak**, **0 at L3**. *(Amended 2026-07-26: `axler2014newbounds` promoted L2_strong → L0 by the
+re-attack leg `task-20260726-56a7`; bounded refresh, one row, no other row reopened.)* Every row has a BibTeX entry in §8 and a locator table or locator statement in §2.
 Seven source PDFs were fetched and read in full; their MD5s are recorded per row.
 
 ---
@@ -403,21 +404,57 @@ be upgraded before the citation gate.
 
 ---
 
-**`axler2014newbounds`** — tier **L2_strong**
+**`axler2014newbounds`** — tier **L0** *(promoted from L2_strong on 2026-07-26 by the re-attack leg
+`task-20260726-56a7`, subquestion `first-failure-maximality`; bounded refresh authorised by
+`faults.md` F3)*
 
 - **Citation:** Christian Axler, "New bounds for the prime counting function `π(x)`",
-  arXiv:1409.1780 (2014); with Corrigendum, *Integers* **16** (2016), A22, 15 pp.
-- **Not fetched.**
-- **Statements it is cited for, at the locators Kourbatov records:**
-  - **Corollary 3.6:** `x/(log x − 1 − 1/log x − 1/log²x) < π(x)` for `x ≥ 1772201`.
-  - **Corollary 3.5:** `log x − 1 − 1.17/log x < x/π(x)` for `x ≥ 2634800823` (this range is the
-    subject of the Corrigendum); plus a family of upper bounds
-    `π(x) < x/(log x − 1 − 1/log x − 3.83/log²x)` for `x ≥ 9.25`, etc.
-- **Evidence:** `kourbatov2015bounds` quotes these at exactly these corollary numbers in the proofs
-  of its Theorems 1, 3, 4 and 5, and its §7 Corrigendum cites Axler's own *Integers* corrigendum.
+  arXiv:1409.1780 (2014); published as *Integers* **16** (2016), Paper No. A22, 15 pp.; with
+  Corrigendum dated 18 Jan 2018.
+- **Fetched (2026-07-26), three documents, all read at the locator:**
+
+  | document | URL retrieved | MD5 |
+  |---|---|---|
+  | preprint, **arXiv:1409.1780v3** (17 Mar 2015) | `https://arxiv.org/pdf/1409.1780v3` | `f4cde1df54cf3d6987c1ece2f7b0ebeb` |
+  | published, *Integers* **16** (2016) A22 | `https://math.colgate.edu/~integers/cgi-bin/get.cgi` (POST `q22=pdf`) | `29a92c5e7cacb5269e4d7be68ac939bf` |
+  | Corrigendum | same endpoint (POST `q22=errata`) | `4817ba687df1c16d163c94e29b55d1c4` |
+
+- **⚠ The corollary numbering differs between the two editions.** This was not known when the row
+  was written, and the run's existing locators are the **preprint's**:
+
+  | statement | arXiv v3 | *Integers* 16 (2016) A22 |
+  |---|---|---|
+  | upper bounds on `π(x)` | **Corollary 3.5** | **Corollary 3.4** (p. 8) |
+  | lower-bound `(a,b,c,d,x₀)` table | **Corollary 3.6** | **Corollary 3.5** |
+
+  The Corrigendum reads, in full: *"In Corollary 3.4 on page 8, replace «If `x ≥ 5.43`» by «If
+  `x ≥ 2 634 800 823`»."* — i.e. it uses the **journal** numbering while cards **T1**/**L2**/**L4**
+  use the **preprint's**. Both point at the same inequality, so **no mathematical error
+  propagated**, but every Axler locator must be qualified by edition before publication.
+
+- **Statements read at the locator:**
+  - **arXiv Cor. 3.5 = *Integers* Cor. 3.4, last clause**, post-Corrigendum:
+    `π(x) < x/(log x − 1 − 1.17/log x)`, equivalently `log x − 1 − 1.17/log x < x/π(x)`, for
+    **`x ≥ 2 634 800 823`**. *(The pre-Corrigendum `x ≥ 5.43` is not merely unproved but false:
+    4 987 066 counterexamples below `10⁸`, smallest at `p = 59 753`; all lie below the corrected
+    range, which is therefore not contradicted. Recomputed 2026-07-26.)*
+  - **arXiv Cor. 3.6 = *Integers* Cor. 3.5**, a table of rows
+    `π(x) > x/(log x − 1 − 1/log x − a/log²x − b/log³x − c/log⁴x − d/log⁵x)` valid for `x ≥ x₀`.
+    Rows relevant to this run: `(a,b,c,d) = (2.1,0,0,0)`, `x₀ = 6 690 557`; `(0,0,0,0)`,
+    `x₀ = 468 049`; and `(1,0,0,0)`, `x₀ = 1 772 201`.
+- **⚠ The `(1,0,0,0) / x₀ = 1 772 201` row exists in the preprint only.** The arXiv table has 14
+  columns; the published table has 12 and drops both `(1,0,0,0)/1 772 201` and
+  `(2.65,11.6,0,0)/166 219 973`. `proof-attempt-0.md` §6.1's `(A-high)` consumes exactly the
+  preprint-only row. **Downstream rule:** do not quote `x ≥ 1 772 201` against the journal
+  citation. The `(2.1,0,0,0)/6 690 557` row is present in **both** editions and is strictly
+  stronger; use it. *(This is what round 2's Theorem C-b′ does — see
+  `attack-round-2/proof-attempt-first-failure-maximality.md` §7.)*
+- **Evidence (retained):** `kourbatov2015bounds` quotes these in the proofs of its Theorems 1, 3, 4
+  and 5, and its §7 Corrigendum cites Axler's own corrigendum. The quoted statements now match what
+  was read.
 - **Downstream rule:** these are the effective `π(x)` bounds that make Kourbatov's Theorems 1/3/5
-  *rigorous*. If the final paper reproves anything in that chain, Axler must be fetched to L0
-  first. **Flagged to the citation gate.**
+  rigorous. They are now L0. Two residual obligations, both editorial, not mathematical: fix the
+  edition of every locator, and never cite the preprint-only row against the journal.
 
 ---
 
@@ -639,10 +676,13 @@ Stated so no downstream leg mistakes silence for coverage.
    the origin at L0, fetch the book.
 2. **Oliveira e Silva–Herzog–Pardi was not opened** (AMS returned 403). It is the only row whose text
    I never saw. Everything it supports is mediated through Kourbatov.
-3. **Axler was not opened.** Corollaries 3.5 and 3.6 are quoted through Kourbatov's proofs. Since
-   Kourbatov's Theorems 1, 3 and 5 *depend* on them, and since Axler's own corrigendum materially
-   changed the range of validity of Corollary 3.5 (from `x ≥ 5.43` to `x ≥ 2634800823`), this is the
-   most consequential unopened source in the ledger. **Priority 1 for the citation gate.**
+3. ~~**Axler was not opened.**~~ **CLOSED 2026-07-26** — preprint, journal version and Corrigendum
+   all fetched and read at the locator (see the row in §2). Two *new* editorial gaps replace it, and
+   neither is mathematical: (a) the corollary numbering differs between arXiv v3 and *Integers* 16
+   (2016) A22, and the Corrigendum uses the journal's while this run's cards use the preprint's;
+   (b) the lower-bound row `(a,b,c,d) = (1,0,0,0)`, `x₀ = 1 772 201` — the one
+   `proof-attempt-0.md` §6.1 consumes — exists in the **preprint only**. **Priority 1 for the
+   citation gate is now: qualify every Axler locator by edition.**
 4. **Granville's pagination is the preprint's, not the journal's.** Preprint pp. 1–16 vs journal
    pp. 12–28. All Granville locators must be re-expressed against the journal copy, or explicitly
    marked "preprint pagination", before publication. **Priority 2 for the citation gate.**
@@ -665,8 +705,10 @@ Stated so no downstream leg mistakes silence for coverage.
 
 ## 7. Priority order for the citation gate
 
-1. `axler2014newbounds` — load-bearing under Kourbatov Thms 1/3/5; a corrigendum already moved one
-   of its ranges by nine orders of magnitude.
+1. ~~`axler2014newbounds` — load-bearing under Kourbatov Thms 1/3/5~~ — **now L0 (2026-07-26)**.
+   Residual, editorial: every Axler locator must name its edition (arXiv v3 vs *Integers* 16 A22 —
+   the corollary numbers differ by one), and the preprint-only row `x₀ = 1 772 201` must never be
+   cited against the journal.
 2. `granville1995cramer` — the refutation-side argument. Content confirmed; **pagination is not**.
 3. `ribenboim2004little` — the origin locator, second-hand.
 4. `oliveira2014goldbach` — the empirical foundation, never opened.

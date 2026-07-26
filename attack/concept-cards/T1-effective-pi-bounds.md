@@ -1,8 +1,10 @@
 # T1 — Technique: effective `π(x)` and `p_k` bounds
 
 **Kind:** technique (the analytic toolbox every effective card consumes)
-**Verdict:** **PROVEN** — every bound below is read at a numbered locator in an L0 source, except
-the Axler corollaries, which are **L2_strong and unopened**.
+**Verdict:** **PROVEN** — every bound below is read at a numbered locator in an L0 source. *(The
+Axler corollaries were promoted L2_strong → **L0** on 2026-07-26 by the re-attack leg
+`task-20260726-56a7`; see hazard 2, which now records an edition-numbering hazard instead of an
+unopened-source one.)*
 **Rests on:**
 - `dusart2010estimates` (L0) — arXiv:1002.0442, read in full:
   - **Thm 6.9, eq. (6.5):** `(x/ln x)(1 + 1/ln x) ≤ π(x)` for `x ≥ 599`;
@@ -12,10 +14,19 @@ the Axler corollaries, which are **L2_strong and unopened**.
   - **Prop. 6.6:** `p_k ≤ k(ln k + ln₂k − 1 + (ln₂k − 2)/ln k)` for `k ≥ 688383`.
   - **Prop. 6.7:** `p_k ≥ k(ln k + ln₂k − 1 + (ln₂k − 2.1)/ln k)` for `k ≥ 3`.
   - **Prop. 6.8:** for all `x ≥ 396738` there is a prime `p` with `x < p ≤ x(1 + 1/(25 ln²x))`.
-- `axler2014newbounds` (**L2_strong, NOT OPENED**), quoted through Kourbatov's proofs:
-  - **Cor. 3.6:** `x/(log x − 1 − 1/log x − 1/log²x) < π(x)` for `x ≥ 1772201`.
-  - **Cor. 3.5:** `log x − 1 − 1.17/log x < x/π(x)` for `x ≥ 2634800823` (**range corrected by
-    Axler's own corrigendum, from `x ≥ 5.43`**).
+- `axler2014newbounds` (**L0** — arXiv:1409.1780v3, *Integers* **16** (2016) A22 and the 2018
+  Corrigendum all fetched and read at the locator on 2026-07-26). **Corollary numbers differ by one
+  between the two editions**; both are given below.
+  - **arXiv Cor. 3.6 = *Integers* Cor. 3.5**, a table of rows
+    `x/(log x − 1 − 1/log x − a/log²x − b/log³x − …) < π(x)` for `x ≥ x₀`:
+    - `(a,b,c,d) = (2.1,0,0,0)`, `x₀ = 6690557` — *present in both editions*;
+    - `(0,0,0,0)`, `x₀ = 468049` — *present in both editions*;
+    - `(1,0,0,0)`, `x₀ = 1772201` — ⚠ **present in the arXiv preprint only**; the published table
+      has 12 columns and drops it. Do not quote `x ≥ 1772201` against the journal citation.
+  - **arXiv Cor. 3.5 = *Integers* Cor. 3.4**, last clause: `log x − 1 − 1.17/log x < x/π(x)` for
+    `x ≥ 2634800823` (**range corrected by Axler's own Corrigendum, from `x ≥ 5.43`; the
+    Corrigendum names Corollary 3.4, i.e. the journal numbering**). The pre-corrigendum range is
+    false: 4 987 066 counterexamples below `10⁸`, all beneath the corrected range.
 - `ferreira2017consequences` (L0) **Thm 4.4** — Rosser: `p_n > n ln n`; and
   `ln n + ln ln n − 1 < p_n/n < ln n + ln ln n` for `n ≥ 6`.
 
@@ -68,9 +79,14 @@ falsifiability test does.
    `k ≥ 688383`, `x ≥ 1772201`, `x ≥ 2634800823`. Dropping one turns a theorem into a guess. The
    Axler corrigendum is the cautionary case: a range moved by **nine orders of magnitude**, and
    Kourbatov had to issue a corrigendum of his own to propagate it.
-2. **The Axler corollaries were never opened in this run.** They sit beneath Kourbatov's Theorems
-   1, 3 and 5 — i.e. beneath **L2**, **L3** and **L4**, three of the most load-bearing cards in
-   the set. **Priority 1 for the citation gate.** (`source-ledger.md` §6.3, §7.1.)
+2. ~~**The Axler corollaries were never opened in this run.**~~ **CLOSED 2026-07-26** — all three
+   documents fetched and read. **Replaced by an edition hazard:** the corollary numbering differs
+   between arXiv:1409.1780v3 and *Integers* **16** (2016) A22, the Corrigendum uses the journal's,
+   and the lower-bound row `(1,0,0,0)/x₀ = 1772201` that `proof-attempt-0.md` §6.1 consumes exists
+   in the preprint only. **Every Axler locator must name its edition.** The
+   `(2.1,0,0,0)/x₀ = 6690557` row is in both editions and is strictly stronger — prefer it.
+   (`source-ledger.md` §2 Axler row; re-attack
+   `attack-round-2/proof-attempt-first-failure-maximality.md` §7.1.)
 3. **The 2018 Dusart is sharper and was not fetched.** *"Explicit estimates of some functions over
    primes"*, *Ramanujan J.* **45** (2018), 227–251, DOI `10.1007/s11139-016-9839-4` — the one open
    copy found served an expired TLS certificate and was not bypassed. Recorded as a pointer, not a
@@ -81,4 +97,6 @@ falsifiability test does.
 
 ## Declared gap
 
-The most consequential unopened source in the run sits inside this card.
+~~The most consequential unopened source in the run sits inside this card.~~ **Closed 2026-07-26.**
+What remains inside this card is editorial, not mathematical: the Axler locators must be qualified
+by edition (hazard 2), and hazard 3 (Dusart 2018, unfetched) is untouched.

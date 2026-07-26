@@ -84,3 +84,91 @@ reason, easy to miss: a check that agrees with its own source isn't evidence, it
 build the check from the *statement* being tested, not from the intermediate expressions the
 derivation produced along the way. If the check and the theorem share a step, the check cannot
 see an error in that step — it can only ever agree with it.
+
+---
+
+## 2026-07-26 — two roommates fix the same crooked shelf, neither knowing the other is home
+
+**Principle inscribed: independently repairing the same fault is not the same as repairing it once. A fan-out with no reconciliation stage doesn't converge on a second try — it doubles the number of answers, and each new answer is individually correct.**
+
+Round 1's own skeptic (`task-20260725-488f`) warned that a pipeline which forks work into parallel
+attempts, with nobody assigned to reconcile them afterward, would eventually fork the *same* repair
+twice. Round 2 (`reattack-20260726-57d1`) did exactly that: two proof attempts were both handed the
+same broken bound to fix. Picture two roommates, each noticing the same crooked shelf, each fixing
+it while the other is out — one wedges a matchbook under the left leg, the other planes down the
+right leg. Come home and the shelf is level *twice*, in two incompatible ways, and neither roommate
+knows the other one touched it. Both fixes were checked by hand, digit by digit, and both are
+correct: one attempt derived a bound of `0.99565`, the other `0.998244`, off two different rows of
+the same 2014 reference table, and neither document so much as mentions the other exists. A reader
+handed both has no rule for choosing, because nothing in the process ever asked the two fixes to
+meet.
+
+The same shape repeated one layer down: two attempts filed the *same* source under two contradictory
+trust tiers on the same day, and the record-keeping change one of them announced ("the ledger entry
+is now updated") had, when checked directly against the actual file, never happened at all — like
+two people each telling a shared calendar a different time for the same meeting, and one of them
+telling you they'd already fixed the clash when they hadn't opened the calendar again to check.
+
+**How to apply:** when a pipeline fans a hard problem out into parallel independent attempts,
+"parallel" cannot mean "silent" — build a reconciliation step into the plan from the start, not
+as an afterthought once a collision is noticed. A round that only adds more attempts without adding
+a leg whose job is to make the attempts talk to each other will look like progress (more things got
+fixed!) while actually widening, not narrowing, the number of live disagreements. This is the failure
+mode round 1 named in the abstract and round 2 produced in the concrete — the clearest possible
+confirmation that the fix belongs in the pipeline's shape, not in asking each attempt to try harder.
+
+---
+
+## 2026-07-26 — the referee who grades against last week's answer key
+
+**Principle inscribed: "I reproduced the earlier verdict exactly" is evidence of agreement, not of correctness. A checker that measures itself against the previous checker's output, rather than against the thing being checked, will faithfully re-certify an old mistake and call the faithfulness a pass.**
+
+Round 2's skeptic (`task-20260726-7211`, artifact `attack-round-2/faults.md`) re-ran a disputed
+prime-counting statistic that round 1 had flagged as unsettled, reproduced round 1's own numbers
+digit for digit, and declared the dispute *"settled"* — case closed, matches the file. But round 2's
+own hypha, working this same molecule one step later, recomputed that statistic from scratch, from
+the original definition, independent of both prior answers — and found every one of round 1's and
+round 2's shared numbers were off by exactly one, in the unsafe direction, because a script had
+silently dropped the last data point before counting. Picture a substitute teacher grading a pop
+quiz by comparing every answer sheet to last week's, rather than to the textbook: a student who
+copies last week's mistake gets full marks, because the grading is checking for *agreement*, not for
+*truth*. The round-2 skeptic's phrase for its own work — "this reproduces the earlier finding
+exactly" — is precisely that kind of grading, and it is nobody's fault in particular: matching a
+prior answer is a natural, cheap sanity check, and it is easy to let it stand in for the harder
+question of whether the prior answer was ever right.
+
+**How to apply:** a verification step that only checks internal consistency with an earlier step's
+output (as opposed to re-deriving the answer independently from the original statement) is not
+exempt from the same discipline it enforces on everyone else. When a check reports "matches the
+earlier result," ask separately whether anyone has recomputed that earlier result from scratch —
+matching is not a substitute for re-derivation, and a checker's own numbers deserve the same
+adversarial reproduction its findings demand of others.
+
+---
+
+## 2026-07-26 — a fire alarm with only two settings
+
+**Principle inscribed: a gate with exactly two verdicts cannot tell "I am blocked, and I am telling you plainly" from "I am blocked, and I am hiding it" — and will hand both the identical, worse-sounding verdict.**
+
+The round-2 editorial gate (`review-20260726-7d55`) had to score a paper that does something
+unusual: it states, in its abstract, in a boxed paragraph, and in its acknowledgements, that the
+underlying evidence gate is BLOCKED — and explains exactly why, in detail a reader can act on. The
+gate rule has only two words, SHIP and REWRITE, and BLOCKED forces REWRITE regardless of how the
+paper talks about it. So this careful, three-times-repeated disclosure scores *identically* to what
+a paper would score if it quietly deleted all three mentions and said nothing. Picture a fire alarm
+that only has "all clear" and "evacuate" — it cannot ring one way for "there's a small kitchen fire
+and I want you to know exactly where it is" and another way for "the building already burned down
+and nobody told you." Both are "not all clear," so both alarms sound the same, even though one of
+them is the more useful building to be in.
+
+The reviewer noticed this and refused to let the gate's silence stand — writing it into a dissent
+section rather than quietly padding the verdict, since a rule that bends for a gracious paper stops
+being a rule at all.
+
+**How to apply:** when a binary gate (ship/block, pass/fail, green/red) scores an artifact that is
+itself *reporting on* the thing the gate checks, check whether the gate has a way to distinguish
+honest disclosure from concealment. If it doesn't, the fix is not to soften the gate for artifacts
+that disclose well — that turns the gate into a popularity contest — the fix is to add a third
+word: something like "the artifact is correct about a real failure elsewhere," scored differently
+from "the artifact is wrong." Two verdicts is enough for a system that only ever fails one way; it
+is not enough for one that can fail *and* be honest about it, or fail and hide it.

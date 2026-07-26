@@ -209,9 +209,12 @@ index `≤ n`):
   are exactly `{1,2,3,4,6,9}`).
 
 **The honest status.** P6′-min is the obligation to work (it is what Theorem 2 needs, and its
-margin does not decay), P6′-rec must be listed beside it (Proposition 3 needs it), and card `L15`
-must be rewritten — its prose states the predicate that is now false, its measurement row measures a
-different one. That rewrite is **named, not applied**, and is part of §7's reconciliation leg.
+margin does not decay), and P6′-rec must be listed beside it (Proposition 3 needs it). **Card `L15`
+has already been rewritten to say so** — checked in the tracked tree, not inferred: commit
+`61689d0` retitled it *"the pair-uniform form is REFUTED; two weaker forms are OPEN"*, tabulates all
+four predicates with their statuses, carries both refuting witnesses, and states that the pruning is
+undamaged because it never consumed the pair-uniform form. Two residual defects in the *amended*
+card are recorded in §5.6.
 
 ### 2.3 The unconditional finite-range theorem, tightened — `[P·s]` + `[C]` ‹r2›
 
@@ -337,9 +340,10 @@ Exception census below `10⁹`: **17 exception *indices***, in exactly two clust
 few indices *after* a maximal gap. FFM calls this a "complete census of admissible **pairs**";
 the skeptic's R2-m2 is right that it counts indices, not pairs, so the census is complete as a list
 of `n` and is *not* a pair count — a labelling defect, not an arithmetic one, and it does not touch
-the refutation, which needs one witness. Card `L15` currently marks this claim *"OPEN …
-empirically unviolated by every measurement that bears on it"*; that is now false as stated — **the
-measurement that bears on the prose had never been run**, and it violates it 17 times below `10⁹`.
+the refutation, which needs one witness. Card `L15` used to mark this claim *"OPEN … empirically
+unviolated by every measurement that bears on it"* — **the measurement that bears on the prose had
+never been run**, and it violates it 17 times below `10⁹`. The card has since been amended in the
+tracked tree (commit `61689d0`) and now leads with the refutation.
 
 **The refutation costs the run nothing**, and saying why is the point: by Theorem 2 the pruning
 route consumes either of the two weaker predicates, and both survive. A strong-looking lemma was
@@ -587,16 +591,38 @@ readings.
   the one whose margin does not decay; **it is not weaker than P6′-gov, it is incomparable to it**;
   and P6′-rec must be listed alongside because Proposition 3 needs it.
 
-### 5.6 One new defect, found by this leg's own recomputation
+### 5.6 What round 2 already landed upstream, and three new defects found by this leg
 
-Reported because the discipline requires it, and flagged as trivial because it is. FFM §7.4 prints
-`e^{−0.0017569} = 0.99824467…`. The true value is `0.9982446424…` — the printed expansion's last
-digit is wrong by `2.8·10⁻⁸`. The round-2 skeptic independently reports `0.9982446424` in its own
-verification table and did not flag the discrepancy with the document it was checking. **Nothing
-depends on it**: Theorem C-b′'s headline `p_m ≤ 0.998244·p_{n₀}` is stated to six places and is
-correct, and the constant `0.0017569` from which it derives is itself verified correct. It is a
-transcription slip in one displayed expansion, and it belongs on §7's reconciliation checklist,
-not in anyone's assessment of the mathematics.
+**First, a correction this leg had to make to its own draft — and it is the same error as
+R2-B2.** Round 2's repairs are *not* uniformly "named but not applied." Commit `61689d0` touched
+exactly three files, and this leg checked each in the tracked tree with `git show`:
+
+| file | state |
+|---|---|
+| `concept-cards/L15-maximal-gap-reduction.md` | **AMENDED** — retitled *"the pair-uniform form is REFUTED; two weaker forms are OPEN"*, all four predicates tabulated with statuses, both witnesses carried, the pruning explicitly stated to be undamaged |
+| `concept-cards/T1-effective-pi-bounds.md` | **AMENDED** — Axler at L0, both editions' numbering, ⚠ on the preprint-only row |
+| `source-ledger.md` | **AMENDED** — `axler2014newbounds` L2_strong → L0; ledger now reads **20 rows, 12 L0, 3 L1, 3 L2_strong, 2 L2_weak, 0 L3** |
+| `notebook-{0,1,2}/`, `proof-attempt-{0,1,2}.md`, round-1 `faults.md` | **UNTOUCHED** since 2026-07-25 — the round-1 defects in those files stand as §5.7 describes |
+
+The draft of this document asserted the L15 rewrite was still pending. It was not. **A synthesis
+that reads reports instead of the tree reproduces exactly the fault it is adjudicating** — logged
+here rather than silently fixed, because that is the lesson round 2 is trying to teach.
+
+**Three new defects, all small, all found by this leg's own recomputation or tree-check.** None
+touches `F`; none touches any theorem's conclusion. They go on §7's checklist.
+
+1. **FFM §7.4 prints `e^{−0.0017569} = 0.99824467…`;** the true value is `0.9982446424…`, wrong in
+   the last displayed digit by `2.8·10⁻⁸`. The round-2 skeptic reports `0.9982446424` in its own
+   table and did not flag the discrepancy with the document it was checking. Theorem C-b′'s
+   headline `0.998244` is unaffected.
+2. **The amended card `L15` carries the disputed denominator.** It states `T_{n+1} < T_n` at
+   *"121 238 of **216 805** steps with `n ≥ 10` (55.9203 %)"* — FFM's count, which §5.4 adjudicates
+   as one too low against three independent recomputations. The amendment landed the *new* number
+   into the *canonical* card, which raises the cost of R2-M1 from "a disputed line in a proof
+   attempt" to "a wrong denominator in the concept card downstream legs read first."
+3. **A transposition in the same card:** *"0 exceptions in `50 847 503` pairs, `p < 10⁹`"*. FFM's
+   own figure is `50 847 533`, which is the right one — `π(10⁹) = 50 847 534`, hence `50 847 533`
+   consecutive steps.
 
 ### 5.7 Seams round 2 closed by itself
 
@@ -624,7 +650,7 @@ and it has no standing to.
 |---|---|---|---|
 | LOOP (round resolution) | round 1 was the whole attack | **resolved: round 2** | `reattack-verdict.json` present, well-formed, `rounds_run = 2` |
 | KERNEL | PASS | **PASS** | `lake build` exit 0; exhaustive audit over **63** declarations finds exactly one `sorryAx` — the declared open target; gates re-executed by the skeptic, not read |
-| SKEPTIC | FAIL — 2 BLOCKERs | **FAIL — 3 BLOCKERs** | R2-B1, R2-B2, R2-B3; repairs named in the document and explicitly **not applied** |
+| SKEPTIC | FAIL — 2 BLOCKERs | **FAIL — 3 BLOCKERs** | R2-B1, R2-B2, R2-B3; the *theorem-level* repairs are named in the documents and not applied, though three canonical files **were** amended in the tree — §5.6 |
 | CORPUS | PASS | **PASS** | 27/27 adversarial entries behaved as specified; 109/109 verification checks green; non-coverage stated rather than omitted; unchanged in round 2 and uncontradicted by it |
 
 The backend is `lean`, not `none`, so the DEGRADED carve-out does not apply and the kernel leg
@@ -658,8 +684,10 @@ paper-side audit (`attack/verification-report.md`, molecule `cite-20260725-9eef`
 editorial gate (`attack/editorial-verdict.md`) consequently returned **REWRITE**. So: no clearance
 exists, none is claimed here, and the one audit that did run failed.
 
-**The ledger's own state, after round 2's bounded refresh:** 20 rows; `axler2014newbounds` promoted
-**L2_strong → L0** (three documents fetched, MD5-pinned, read at the locator), leaving the
+**The ledger's own state, after round 2's bounded refresh** (read from the file, not from a
+report): **20 rows — 12 L0, 3 L1, 3 L2_strong, 2 L2_weak, 0 L3**, with `axler2014newbounds`
+promoted **L2_strong → L0** (three documents fetched, MD5-pinned, read at the locator; round 1's
+distribution was 11/3/4/2/0). That leaves the
 run's load-bearing unopened sources as `granville1995cramer` (L1, preprint pagination — the
 load-bearing citation of the entire refutation-side argument, **audit priority 1** now that Axler is
 open), card `L6`'s `2⁶⁴` verification height (**L2_weak, unopened** — and load-bearing in Theorem
@@ -679,7 +707,7 @@ paper-side work must be redone against round 2, not patched.
 
 | # | Action | Why |
 |---|---|---|
-| 1 | **A single reconciliation leg — not another fan-out.** Its whole job list: adopt §5.1's designation (keep Theorem C-b′, retire C(b\*) to a remark); amend UVR's tier labels to L0 and write the edition ⚠ into any document that keeps a preprint-only row; rewrite card `L15` per §2.2 (P6′-pair FALSE, P6′-min + P6′-rec as the obligations, measurement row relabelled P6′-gov); correct FFM §4's denominators to §5.4's; strike the "unconditional" label on Theorem C-a′ (R2-M2) and the "weakest of the three" prose (R2-M3); amend `notebook-1`'s `p*(C)` endpoint; fix FFM §7.4's printed expansion of `e^{−0.0017569}` (§5.6); relabel FFM's P6′-pair "census of pairs" as a census of indices (R2-m2); make the four round-2 artifacts cite each other. Then re-run the skeptic. | This is the only path to a clean gate. **None of it is research.** All of it is what a `write-paper` leg would otherwise have to guess at. Both the round-2 skeptic and this synthesis reach this conclusion independently. |
+| 1 | **A single reconciliation leg — not another fan-out.** Its whole job list: adopt §5.1's designation (keep Theorem C-b′, retire C(b\*) to a remark); amend UVR's tier labels to L0 and write the edition ⚠ into any document that keeps a preprint-only row; correct FFM §4's denominators **and card `L15`'s freshly-amended `216 805`** to §5.4's `216 806`, and `L15`'s `50 847 503` to `50 847 533` (§5.6); strike the "unconditional" label on Theorem C-a′ (R2-M2) and the "weakest of the three" prose (R2-M3); amend `notebook-{0,1,2}` and `proof-attempt-0.md`, which round 2 never touched — the mis-scoped P6′ inferences, the reversed `T_{m(n)}` row and `notebook-1`'s `p*(C)` endpoint are all still printed there; fix FFM §7.4's printed expansion of `e^{−0.0017569}` (§5.6); relabel FFM's P6′-pair "census of pairs" as a census of indices (R2-m2); make the four round-2 artifacts cite each other. **Card `L15` and card `T1` do not need rewriting — round 2 already amended them (§5.6); check the tree, not the reports.** Then re-run the skeptic. | This is the only path to a clean gate. **None of it is research.** All of it is what a `write-paper` leg would otherwise have to guess at. Both the round-2 skeptic and this synthesis reach this conclusion independently. |
 | 2 | Run a citation audit on the **round-2** corpus, Granville first, card `L6` second | Axler is now open; Granville is the load-bearing citation of the refutation-side argument and sits at preprint pagination; `L6` is load-bearing in two theorems and unopened (R2-M2) |
 | 3 | Rewrite `paper/paper.tex` **against round 2**, not patch it | It is a round-1 artifact stating a tier that is now wrong and constants that are now superseded; the existing citation and editorial gates both failed on it |
 | 4 | Attack the residual window (§4.3) as a short-interval prime-count problem | The one genuinely-open analytic node either round isolated exactly; the criterion is `1 + 2/L`, stated in closed form |
@@ -711,7 +739,7 @@ counter-models (§3.2), both repaired Theorem C constants and the round-1 factor
 the `2⁶⁴` frontier constants, the RH leg's critical constant `2/e` (§2.4), and the barrier
 inequality `p_n^{1+1/n} < 2 p_n` (§2.1).
 
-**Result: `python3 attack/verify_syn2.py` → exit 0, 30/30 checks pass.** Full log at
+**Result: `python3 attack/verify_syn2.py` → exit 0, 42/42 checks pass.** Full log at
 `attack/verify_syn2.out.txt`.
 
 | Quantity as stated in this document | This leg's independent value | Verdict |
@@ -736,11 +764,24 @@ inequality `p_n^{1+1/n} < 2 p_n` (§2.1).
 | RH critical constant `max_x log x/√x` | `0.7357588823428846…` `= 2/e` at `x = e²`, to 60 digits | ✓ |
 | barrier: `p_n^{1+1/n} < 2p_n` (`2 ≤ n ≤ 2·10⁴`) and `p_n < 2^n` (`2 ≤ n ≤ 216 816`, exact) | 0 failures each; and Bertrand does **not** certify at `n = 1` (`2² = 4 = 2·2`) | ✓ |
 
-**Two things this verification changed in the document, reported rather than smoothed.**
+**A second verification pass, on the tree rather than the arithmetic.** Every claim of the form
+"named, not applied" in this document's draft was re-checked with `git log`/`git show` against the
+committed tree rather than inherited from a report. That pass changed the document materially: it
+found that commit `61689d0` **had** already amended cards `L15` and `T1` and the source ledger,
+which the draft asserted was still pending — the same class of error as R2-B2, made by this leg,
+against the same commit. §5.6 records the finding, the corrected file-by-file state, and the two
+new defects the amended `L15` carries. It also confirmed the converse: `notebook-{0,1,2}` and
+`proof-attempt-{0,1,2}.md` have not been touched since 2026-07-25, so §5.7's "still unamended" is
+accurate.
 
-1. **A new defect (§5.6).** `e^{−0.0017569} = 0.9982446424…`, not FFM §7.4's printed
-   `0.99824467…`. Trivial, nothing depends on it, added to §7's checklist.
-2. **Two of this leg's own first-draft checks were wrong, not the artifacts'.** The initial script
+**Three things these verification passes changed in the document, reported rather than smoothed.**
+
+1. **The upstream-state claims were wrong in one direction and right in the other** — see the
+   paragraph above and §5.6. This is the single largest correction the verification made.
+2. **Three new defects (§5.6).** `e^{−0.0017569} = 0.9982446424…` not FFM's printed
+   `0.99824467…`; card `L15`'s freshly-amended `216 805` and `50 847 503`. All three trivial, all
+   three on §7's checklist.
+3. **Two of this leg's own first-draft checks were wrong, not the artifacts'.** The initial script
    scored round 1's printed-lemma requirement using the *sufficient condition* `(0.17 − 1/ℓ + err)/(2ℓ−1)`
    where the artifacts *solve* the quadratic `d(2ℓ−1) + d² ≥ R`, and used `ℓ⁴e^{−ℓ}` where the
    printed lemma's error term is `v·ℓ⁴e^{−ℓ}`. Corrected, both reproduce the artifacts exactly.

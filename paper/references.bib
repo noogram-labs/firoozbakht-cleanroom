@@ -1,12 +1,17 @@
 % References for "Firoozbakht's Conjecture: A Structured Attack".
 %
 % PROVENANCE RULE. Every entry below corresponds to a row of the run's
-% source-ledger (leg `source-ledger`, molecule task-20260725-d320, run
-% germ-20260725-791a7c45), EXCEPT the two entries marked
-% "PENDING LEDGER ROW", which were fetched and read at the locator by the
-% leg `proof-attempt__1` and proposed as ledger additions. They are flagged
-% as such in the paper (Section on source provenance) and in
-% paper/authoring-log.md. No entry here is present on recall.
+% source-ledger, `attack/source-ledger.md` (leg `source-ledger`, molecule
+% task-20260725-d320, run germ-20260725-791a7c45; 22 rows as of 2026-07-26).
+% No entry here is present on recall.
+%
+% Round-2 note (2026-07-26). The last two entries -- carneiro2019fourier and
+% visser2018andrica -- were "PENDING LEDGER ROWS" in the round-1 edition of
+% this file, and the round-1 citation audit returned BLOCKED for exactly that
+% reason. They are now rows of the ledger (its new section 2.8), folded there
+% verbatim from the round-1 proposal that had never been merged. Both carry a
+% standing re-audit obligation, recorded in the ledger's declared-gaps list
+% and in the paper's source-provenance section. Nothing else changed.
 
 @article{kourbatov2015bounds,
   author  = {Kourbatov, Alexei},
@@ -211,9 +216,11 @@
 }
 
 % ---------------------------------------------------------------------------
-% PENDING LEDGER ROWS. Fetched, version-pinned and read at the locator by the
-% leg `proof-attempt__1`; proposed as ledger additions but not yet folded into
-% the source-ledger artifact. Flagged in the paper and in authoring-log.md.
+% Ledger section 2.8, added 2026-07-26 (see the round-2 note in the header).
+% Fetched, version-pinned by digest and read at the locator by round-1 leg
+% `proof-attempt__1`; re-quoted at the same locators by round-2 leg
+% task-20260726-b335; bibliographic envelope re-confirmed 2026-07-26.
+% Re-audit obligation stands on both.
 % ---------------------------------------------------------------------------
 
 @article{carneiro2019fourier,
@@ -224,18 +231,25 @@
   number  = {3},
   pages   = {533--568},
   year    = {2019},
+  doi     = {10.4171/CMH/467},
   eprint  = {1708.04122},
   eprinttype = {arXiv},
   eprintclass = {math.NT},
-  note    = {Locators in the present paper are to arXiv:1708.04122v2, 14 Sep 2018}
+  note    = {Locators in the present paper are to arXiv:1708.04122v2, 14 Sep 2018
+             (preprint pagination; ledger tier L1)}
 }
 
-@misc{visser2018andrica,
+@article{visser2018andrica,
   author  = {Visser, Matt},
   title   = {Variants on {Andrica's} conjecture with and without the {Riemann} hypothesis},
+  journal = {Mathematics},
+  volume  = {6},
+  number  = {12},
+  pages   = {289},
   year    = {2018},
+  doi     = {10.3390/math6120289},
   eprint  = {1804.02500},
   eprinttype = {arXiv},
   eprintclass = {math.NT},
-  note    = {Version v3, 28 Nov 2018}
+  note    = {Locators in the present paper are to arXiv:1804.02500v3, 28 Nov 2018}
 }

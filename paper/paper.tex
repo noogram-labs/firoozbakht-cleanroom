@@ -43,13 +43,18 @@
 \newcommand{\Tn}{T_n}
 \newcommand{\gn}{g_n}
 \newcommand{\limsupn}{\limsup_{n\to\infty}}
+\newcommand{\Ppair}{\textup{(P6$'$-pair)}}
+\newcommand{\Pgov}{\textup{(P6$'$-gov)}}
+\newcommand{\Pmin}{\textup{(P6$'$-min)}}
+\newcommand{\Prec}{\textup{(P6$'$-rec)}}
 
 \title{Firoozbakht's Conjecture: A Structured Attack\\[2pt]
-\large A machine-checked reduction, an unconditional finite-range architecture,\\
-the closure of the Riemann-Hypothesis route, and what remains open}
+\large A machine-checked reduction and a machine-checked barrier, an unconditional\\
+finite-range architecture, the closure of the Riemann-Hypothesis route,\\
+a refuted pruning lemma, and what remains open}
 
 \author{Noogram}
-\date{25 July 2026}
+\date{26 July 2026 \\[2pt] \normalsize Round 2 --- supersedes the round-1 paper of 25 July 2026}
 
 \begin{document}
 \maketitle
@@ -57,28 +62,36 @@ the closure of the Riemann-Hypothesis route, and what remains open}
 \begin{abstract}
 Firoozbakht's conjecture asserts that $p_{n+1}^{1/(n+1)} < p_n^{1/n}$ for every $n \ge 1$,
 i.e.\ that $n \mapsto p_n^{1/n}$ is strictly decreasing. It is open. This paper reports a
-structured attack on it that neither proved nor refuted it, and states precisely what the
+two-round structured attack that neither proved nor refuted it, and states precisely what the
 attack did establish. Five things. (i) The reduction of the conjecture to the prime-gap
 inequality $g_n < T_n$, where $T_n := p_n(p_n^{1/n}-1)$, is \emph{machine-checked} in Lean~4
-against Mathlib: the development builds with exactly one \texttt{sorryAx} dependent, namely
-the conjecture itself. (ii) The maximal-gap pruning rule on which the only computationally
-live verification route depends is licensed by an elementary \emph{monotone-bar principle},
-which shows that the obligation the attack had ranked first --- monotonicity of the exact
-bar $T$ --- is misdirected: the pruning may be run against Kourbatov's monotone surrogate
-$S(x) = \log^2 x - \log x - 1.17$, whose oscillation is nil. (iii) An unconditional
-finite-range theorem, resting on a single explicit estimate for $\pi(x)$ due to Dusart,
-converts any first-occurrence prime-gap table into a proof of the conjecture up to that
-table's reach; it reproduces the published constant $1920$ at $2^{64}$ with no tuning, and
-it is accompanied by a table-free window $396\,738 \le p_n \le 777\,600$ together with a
-proof that no presently known unconditional gap bound can extend that window. (iv) Four
-theorems close the Riemann-Hypothesis route \emph{as a route}: the sharpest published
-RH-conditional gap bound certifies the Firoozbakht inequality at exactly one index in its
-range of availability, and no envelope of power type at any positive exponent can certify it
-beyond finitely many indices. (v) An independent exhaustive sweep to $10^{11}$
-($4\,118\,054\,812$ consecutive prime pairs) finds no violation and no near-miss, with
-$\max_{n \ge 10} g_n/T_n = 0.8318$. We also state, at length, what the attack did \emph{not}
-establish, including two named unrepaired defects in the underlying corpus and the fact that
-the citation audit for this paper has not been run.
+against Mathlib, and so is a \emph{barrier}: Bertrand's postulate --- the only prime-gap bound
+Mathlib carries --- is proved insufficient at \emph{every} index $n \ge 2$, the ceiling sitting
+strictly above the threshold it would have to fall below. The development builds with exactly
+one \texttt{sorryAx} dependent over 63 declarations, namely the conjecture itself. (ii) The
+pruning lemma on which record-gap verification searches rest was carrying three inequivalent
+statements under one name. Named apart, the strongest is \emph{false}, with two exhibited
+witnesses and a 17-index exception census below $10^9$; the two survivors are proved
+\emph{formally incomparable}; and the pruning is undamaged, because a first-failure-maximality
+theorem shows it consumes either survivor at a single index. (iii) An unconditional
+finite-range theorem, resting on one explicit estimate for $\pi(x)$ due to Dusart, converts any
+first-occurrence prime-gap table into a proof of the conjecture up to that table's reach; it
+reproduces the published constant $1920$ at $2^{64}$ with no tuning, and comes with a table-free
+window $396\,738 \le p_n \le 777\,600$ and a proof that the window closes permanently. Its
+companion near-record theorem is repaired and tightened: first-failure maximality now holds
+against all primes below $0.94970\,p_{n_0}$ on Dusart alone and below $0.998244\,p_{n_0}$ on
+Axler's corollaries, which this run has now read at the locator in both editions. (iv) Five
+theorems close the Riemann-Hypothesis route \emph{as a route}, with the quantifier that the
+first round dropped restored: the sharpest published RH-conditional gap bound certifies the
+Firoozbakht inequality at exactly one index of the range where the bound is available, no
+envelope of power type at any positive exponent certifies it beyond finitely many indices, the
+critical constant on the $\sqrt{p}\log p$ scale is exactly $2/e$, and Cram\'er's $\limsup$
+hypothesis does not entail the conjecture over integer sequences. (v) An exhaustive sweep to
+$10^{11}$ ($4\,118\,054\,812$ consecutive prime pairs) finds no violation and no near-miss, with
+$\max_{n \ge 10} g_n/T_n = 0.8318$; two further independent sweeps in round~2 reproduce it. We
+also state, at length, what the attack did \emph{not} establish: the conjecture is open, the
+underlying corpus's evidence gate stands at \textbf{BLOCKED} on three named unreconciled seams,
+and no citation clearance exists for this paper.
 \end{abstract}
 
 \tableofcontents
@@ -134,12 +147,13 @@ which is \cite[\S4, Thm.~3]{kourbatov2015bounds}. Thus $\Fb$ is trapped between 
 $\log^2$-scale gap bounds differing by an additive $0.17$.
 
 That sandwich is the source of the difficulty. The best \emph{unconditional} prime-gap bound
-available is $g_n = O\bigl(p_n^{0.525}\bigr)$ \cite{baker2001difference}; under the Riemann Hypothesis
-the state of the art is $g_n \le \tfrac{22}{25}\sqrt{p_n}\,\log p_n$ for $p_n > 3$
+available is $g_n = O\bigl(p_n^{0.525}\bigr)$ \cite{baker2001difference}; under the Riemann
+Hypothesis the state of the art is $g_n \le \tfrac{22}{25}\sqrt{p_n}\,\log p_n$ for $p_n > 3$
 \cite[\S1.2, Thm.~5]{carneiro2019fourier}. Both are \emph{powers} of $p_n$; $\Fb$ needs a
 \emph{polylogarithmic} bound. The distance is square-root scale against log scale, and no
 known method bridges it, even conditionally on RH. Section~\ref{sec:rh} turns this
-observation into theorems.
+observation into theorems, and \S\ref{sec:barrier} turns the formal half of it into a
+kernel-checked one.
 
 On the other side, the standard heuristic points the other way. Cram\'er's random model, in
 the corrected form Granville gives it, suggests
@@ -180,8 +194,9 @@ The necessary and sufficient conditions \eqref{eq:necessary} and \eqref{eq:suffi
 Kourbatov's \cite[\S2 Thm.~1, \S4 Thm.~3]{kourbatov2015bounds}, together with a family of
 sufficient conditions with $b \to 1$ \cite[\S4, Thm.~4]{kourbatov2015bounds} that presuppose
 the finite verification (they are stated for $p_k > 4\cdot10^{18}$). Both rest on Axler's
-effective bounds for $\pi(x)$ \cite{axler2014newbounds}; see \S\ref{sec:limits} for why that
-dependency is load-bearing and unresolved here.
+effective bounds for $\pi(x)$ \cite{axler2014newbounds}. That dependency was the largest
+unopened source of the first round; it is now opened, read at the locator in both editions,
+and carries a fresh and purely editorial hazard instead (Caveat~\ref{haz:axler}).
 
 \paragraph{Verification.}
 Kourbatov verified $\Fb$ for all $p_k < 4\cdot 10^{18}$
@@ -213,6 +228,44 @@ G(X) \;\ge\; f(X)\,\frac{\log X \,\log\log X \,\log\log\log\log X}{(\log\log\log
 \cite{ford2016large} --- an iterated-log factor above $\log X$, but still a
 full power of $\log$ below the $\log^2 X$ a counterexample to $\Fb$ would need.
 
+\subsection{What changed between the two rounds of this attack}
+\label{sec:rounds}
+
+This paper is the round-2 state of the work and supersedes, in place, a round-1 paper of the
+same name dated 25 July 2026. The change is not cosmetic and the honest summary is mixed.
+
+\paragraph{What changed.} Round~1 closed with two named blocking defects in its own corpus.
+Both are now \emph{mathematically repaired}, by independent re-derivation rather than by
+re-assertion, and every constant below was recomputed from the statements by a reviewing leg
+that shared no code path with the leg being reviewed.
+\begin{enumerate}
+\item The first defect was a vocabulary collision: the pruning lemma that record-gap searches
+  consume was carrying three inequivalent statements under one name. Naming them apart
+  (\S\ref{sec:predicates}) did more than disambiguate --- it showed the strongest of them to be
+  \textbf{false} (Theorem~\ref{thm:pairfalse}), showed the two survivors to be
+  \textbf{incomparable} rather than ordered (Proposition~\ref{prop:incomparable}), and exposed a
+  fourth statement nobody had been measuring under its own name
+  (Definition~\ref{def:predicates}). Round~1's paper asserted a strict ordering among these
+  statements; that assertion was wrong and is withdrawn here.
+\item The second defect was a mis-derived upper bound on $T_m$, false by a factor
+  $\approx 38.8$ over part of its range, which round~1 declined to state a constant for. It is
+  now restated in its tight form and \emph{proved} rather than checked numerically, in two
+  independent ways (\S\ref{sec:nearrecord}). Round~1's suppressed constant is superseded twice
+  over, and the sharper of the two repairs is carried here.
+\end{enumerate}
+Three further results are new: the machine-checked Bertrand barrier (\S\ref{sec:barrier}), the
+first-failure-maximality theorem that makes the refutation of the pruning lemma harmless
+(Theorem~\ref{thm:ffm}), and the restored quantifier in the RH route, which dissolved a silent
+contradiction between two artifacts of the run (\S\ref{sec:critconst}).
+
+\paragraph{What did not change.} $\Fb$ is open --- neither proved nor refuted by either round.
+The Lean \texttt{sorry} count is still exactly one, and it is the conjecture. The obstruction
+analysis of \S\ref{sec:limits} is unchanged and was \emph{reinforced}, in three independent
+places, by round~2. The underlying corpus's evidence gate is still \textbf{BLOCKED}; the reason
+changed, from unrepaired mathematical defects to unreconciled repairs, and
+\S\ref{sec:defects} argues that this is a worse signal rather than a better one. No citation
+clearance exists for this paper, in either round.
+
 \subsection{What this paper claims, and the vocabulary of its claims}
 \label{sec:vocab}
 
@@ -225,17 +278,19 @@ exception.
 \toprule
 Code & Meaning \\
 \midrule
-$\cK$ & \textbf{Machine-checked} by the Lean~4 kernel against Mathlib (\S\ref{sec:lean}). \\
+$\cK$ & \textbf{Machine-checked} by the Lean~4 kernel against Mathlib (\S\ref{sec:barrier}). \\
 $\cP$ & Paper proof, derived in this work, independently re-derived by an adversarial review leg. \\
-$\cPs$ & As $\cP$, but resting on a cited source not opened in this work. \\
-$\cC$ & Finite computation, exhaustive, independently reproduced by two code paths. \\
+$\cPs$ & As $\cP$, but resting somewhere on a source that was not opened in this work, or whose
+  ledger status is contested (\S\ref{sec:provenance}). \\
+$\cC$ & Finite computation, exhaustive, independently reproduced by two or more code paths. \\
 $\cH$ & Heuristic. Not evidence for or against anything, and never used in a proof. \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 The word \emph{proved}, unqualified, is reserved in this paper for statements carrying
-$\cK$. Everything at $\cP$ or $\cPs$ is a paper
+$\cK$: that is Lemma~\ref{lem:reduction} and the three barrier theorems of
+\S\ref{sec:barrier}, and nothing else. Everything at $\cP$ or $\cPs$ is a paper
 proof and is labelled as such at the point of use. In particular:
 
 \begin{center}
@@ -251,27 +306,36 @@ the two must fail, and no current technique can say which.}
 \subsection{Contributions}
 
 \begin{enumerate}
-\item \textbf{$\cK$} A Lean~4/Mathlib formalisation in which the reduction
+\item \textbf{$\cK$} A Lean~4/Mathlib development in which the reduction
   $\Fb \leftrightarrow (\forall n \ge 1,\, g_n < T_n)$ is machine-checked, with an
-  exhaustive list-free axiom audit over 60 declarations finding exactly one
-  \texttt{sorryAx} dependent --- the conjecture itself (\S\ref{sec:lean}).
-\item \textbf{$\cP$} The monotone-bar principle (Lemma~\ref{lem:M}) and its
-  truncated form, which discharge the practical content of the attack's ranked-first open
-  obligation without proving that obligation, and show it to be misdirected
+  exhaustive list-free axiom audit over 63 declarations finding exactly one
+  \texttt{sorryAx} dependent --- the conjecture itself --- together with three
+  \texttt{sorry}-free theorems establishing that the only prime-gap input Mathlib carries is
+  insufficient at every index $n \ge 2$ (\S\ref{sec:barrier}).
+\item \textbf{$\cP$} The refutation of the pruning lemma the attack had ranked as its most
+  tractable open obligation, the separation of the two survivors, and a
+  first-failure-maximality theorem showing the pruning route consumes either survivor at a
+  single index and is therefore undamaged (\S\ref{sec:predicates}).
+\item \textbf{$\cP$} The monotone-bar principle and its truncated form, which discharge the
+  practical content of that obligation against a monotone surrogate whose oscillation is nil
   (\S\ref{sec:monotone}).
-\item \textbf{$\cPs$, $\cC$} An unconditional
-  finite-range theorem (Theorem~\ref{thm:range}) resting on a single explicit $\pi(x)$
-  estimate, reproducing the published constant $1920$ at $2^{64}$; plus a table-free window
-  and a proof that it closes permanently (\S\ref{sec:range}).
-\item \textbf{$\cP$} Four theorems closing the RH route as a route
-  (\S\ref{sec:rh}), including a Lambert-$W$ determination of the critical constant $2/e$ and
-  an explicit counter-model showing that Cram\'er's $\limsup$ hypothesis does not entail
-  $\Fb$ over integer sequences.
-\item \textbf{$\cC$} An independent exhaustive verification to $10^{11}$ with a
-  verification discipline that raises rather than returns when a margin lands inside its
-  error budget (\S\ref{sec:computation}).
-\item An explicit account of what is \emph{not} established, including two unrepaired
-  defects in the underlying corpus and the absent citation audit (\S\ref{sec:limits}).
+\item \textbf{$\cP$, $\cC$} An unconditional finite-range theorem
+  (Theorem~\ref{thm:range}) resting on a single explicit $\pi(x)$ estimate, reproducing the
+  published constant $1920$ at $2^{64}$; and a table-free window with a proof that it closes
+  permanently (\S\ref{sec:range}).
+\item \textbf{$\cPs$} A repaired and tightened near-record maximality theorem in two branches
+  (Theorems~\ref{thm:Ca} and~\ref{thm:Cb}), replacing a round-1 bound that did not follow from
+  its stated justification (\S\ref{sec:nearrecord}).
+\item \textbf{$\cP$} Five theorems closing the RH route as a route (\S\ref{sec:rh}),
+  including a Lambert-$W$ determination of the critical constant $2/e$, a counter-model
+  showing that Cram\'er's $\limsup$ hypothesis does not entail $\Fb$ over integer sequences,
+  and the per-index critical constant that reconciles two artifacts of the run.
+\item \textbf{$\cC$} An exhaustive verification to $10^{11}$, reproduced by two further
+  independent round-2 sweeps, with a discipline that \emph{raises} rather than returns when a
+  margin lands inside its error budget (\S\ref{sec:computation}).
+\item An explicit account of what is \emph{not} established, including three named
+  unreconciled seams in the underlying corpus, two live labelling defects inside the repairs,
+  and the absent citation audit (\S\ref{sec:limits}).
 \end{enumerate}
 
 % ==========================================================================
@@ -292,7 +356,8 @@ L_n := \log p_n, \qquad g_n := p_{n+1} - p_n, \qquad
 T_n := p_n\bigl(p_n^{1/n} - 1\bigr) = p_n\bigl(e^{L_n/n} - 1\bigr).
 \]
 All logarithms are natural. We write $\rho_n := g_n/T_n$ for the \emph{normalised objective};
-$\Fb$ at $n$ is exactly $\rho_n < 1$.
+$\Fb$ at $n$ is exactly $\rho_n < 1$. We call $n$ a \emph{failure} if $g_n \ge T_n$, and a
+\emph{record index} (equivalently a maximal-gap index) if $g_n > g_j$ for every $j < n$.
 
 Identity \eqref{eq:index} looks like bookkeeping and is not: it is the hinge on which every
 analytic estimate in this paper turns, because $T_n$ depends on the pair $(p_n, n)$ and the
@@ -323,10 +388,10 @@ $p_{n+1} < p_n e^{L_n/n}$, i.e.\ $p_n + g_n < p_n + p_n(e^{L_n/n}-1)$. Subtracti
 gives $g_n < T_n$.
 \end{proof}
 
-Lemma~\ref{lem:reduction} is the one result in this paper carrying $\cK$: it is
-formalised and machine-checked in Lean~4 (\S\ref{sec:lean}), together with the intermediate
-equivalence, and both equivalences are pinned to numerals ($g_1 = 1$, $T_1 = 2^2 - 2$) so
-that a mis-stated $g$ or $T$ fails to compile rather than passing quietly.
+Lemma~\ref{lem:reduction} is formalised and machine-checked in Lean~4
+(\S\ref{sec:barrier}), together with the intermediate equivalence, and both equivalences are
+pinned to numerals ($g_1 = 1$, $T_1 = 2^2 - 2$) so that a mis-stated $g$ or $T$ fails to
+compile rather than passing quietly.
 
 \begin{remark}[Strict versus non-strict]
 \label{rem:strict}
@@ -349,8 +414,10 @@ This is \cite[endnotes, 5 Jan 2023]{kourbatov2015verification}, corroborated by
 \cite[Abstract, \S1 eq.~(1.4)]{visser2019verifying}. Its computational input is the
 first-occurrence gap table of \cite{oliveira2014goldbach}. \emph{This paper does not
 re-establish Theorem~\ref{thm:verified}}; \S\ref{sec:range} reconstructs the implication
-from a table to the range, and \S\ref{sec:limits} records that the table itself was never
-opened in this work.
+from a table to the range, and \S\ref{sec:provenance} records that the table itself was never
+opened in this work. Every statement below that consumes $p_{n_0} > 2^{64}$ consumes this
+theorem, and therefore that unopened table; the places where it happens are named at the point
+of use rather than collected here.
 
 \begin{theorem}[Infinitely often; cited]
 \label{thm:io}
@@ -368,23 +435,400 @@ $n$''.
 \end{hazard}
 
 % ==========================================================================
+\section{The formal substrate, and a machine-checked barrier}
+\label{sec:barrier}
+
+\subsection{What is machine-checked}
+
+The reduction chain
+\[
+\texttt{Conjecture} \;\leftrightarrow\; \texttt{ConjectureReal} \;\leftrightarrow\;
+\bigl(\forall n \ge 1,\ g_n < T_n\bigr)
+\]
+--- i.e.\ Lemma~\ref{lem:reduction} --- is formalised in Lean~4 against Mathlib and checked
+by the kernel. Toolchain: \texttt{leanprover/lean4:v4.29.0}; Mathlib tag \texttt{v4.29.0},
+revision \texttt{8a178386\allowbreak ffc0f5fe\allowbreak f0b77738\allowbreak bb5449d5\allowbreak 0efeea95}.
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.46\textwidth} p{0.44\textwidth}@{}}
+\toprule
+Gate & Result \\
+\midrule
+\texttt{lake build} exit code & \textbf{0} (2208 jobs) \\
+build warnings & \textbf{1} --- the declared open target, and nothing else \\
+declarations scanned by the axiom audit & \textbf{63} (exhaustive, list-free; was 60 before the barrier file) \\
+declarations depending on \texttt{sorryAx} & \textbf{1} --- \texttt{Firoozbakht.firoozbakht} \\
+live \texttt{sorry} tokens in sources & \textbf{1} \\
+stray \texttt{axiom}, \texttt{native\_decide}, \texttt{@[implemented\_by]} or \texttt{unsafe} & \textbf{none} (grep-clean) \\
+\texttt{Statement.lean} SHA-256, before and after & \textbf{identical} (\texttt{6528868823c0637d\dots}) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The single \texttt{sorryAx} dependent is Firoozbakht's conjecture itself, which round~2
+attempted and failed to prove; \texttt{exact?}, \texttt{aesop} and \texttt{decide} all fail, as
+expected. \emph{An attack on an open $\Pi_1$ statement whose \texttt{sorry} count reaches
+zero would be reporting a fabrication, not a result.} The byte-identity of the statement file
+across the round is what forecloses the failure mode ``closed a \texttt{sorry} by weakening the
+statement''; the equivalences were also shown non-vacuous, $g_1 = 1$ and $T_1 = 2^2 - 2$ being
+pinned to numerals.
+
+Two things were tested rather than trusted. First, the audit is list-free: a hand-maintained
+list of declarations to \texttt{\#print axioms} is a hazard dressed as a check, since a
+\texttt{sorry} in a forgotten declaration is invisible. Second, the \emph{detector} was tested
+by planting a \texttt{sorry} in the enlarged tree; the audit then scanned 64 declarations and
+reported two names, after which the plant was deleted and the tree returned to 63 and one. So
+the one-entry unproved list is produced by a detector demonstrated to fire. Separately, the
+checker was tested against a corpus of $27$ adversarial statements, all false or ill-formed;
+all $27$ behaved as specified, and the one corpus entry caught by \emph{no} gate in this study
+--- a true-but-differently-meant statement produced by an $\N \to \R$ coercion --- is named
+rather than omitted.
+
+\subsection{The Bertrand barrier}
+
+Mathlib's strongest prime-gap result is Bertrand's postulate. Round~2 asked what that buys,
+and proved that the answer is: nothing, at every index but the first.
+
+\begin{theorem}[The Bertrand barrier; $\cK$]
+\label{thm:barrier}
+The following are theorems of the development, all \texttt{sorry}-free.
+\begin{enumerate}
+\item[\textup{(a)}] \texttt{bertrand\_gap}: $p_{n+1} \le 2 p_n$ for $n \ge 1$.
+\item[\textup{(b)}] \texttt{p\_lt\_two\_pow}: $p_n < 2^n$ for $n \ge 2$.
+\item[\textup{(c)}] \texttt{bertrand\_ceiling\_above\_threshold}:
+  $p_n^{\,1 + 1/n} < 2 p_n$ for every $n \ge 2$.
+\end{enumerate}
+\end{theorem}
+
+Read (c) in the right direction. For Bertrand to \emph{certify} $\Fb$ at $n$ --- i.e.\ for the
+chain $p_{n+1} \le 2p_n < p_n^{1+1/n}$ to close --- its ceiling $2p_n$ would have to sit
+\emph{below} the threshold $p_n^{1+1/n}$. It sits strictly \emph{above} it, at every $n \ge 2$.
+The mechanism in one line: Bertrand supplies constant multiplicative slack $2$, while the
+threshold's slack $p_n^{1/n} = \exp(L_n/n)$ tends to $1$; certification would need
+$2^n \le p_n$, and $p_n < 2^n$, which is (b) --- itself proved \emph{from} Bertrand. \textbf{The
+best available tool proves its own insufficiency.}
+
+\begin{remark}[What the barrier is, and what it is not]
+\label{rem:barrier-scope}
+This is a negative-capability result. It says nothing about whether $\Fb$ is true, and nothing
+about whether $\Fb$ is provable; it says that one specific route --- the only prime-gap input
+Mathlib currently carries --- cannot reach it, and it says so at every index rather than
+``for large $n$''. It also says nothing about routes through bounds Mathlib does \emph{not}
+have: $p^{0.525}$ of \cite{baker2001difference}, the RH-conditional $\sqrt{p}\log p$ of
+\cite{carneiro2019fourier}, or a Cram\'er-scale $\log^2 p$. Those are examined on paper in
+\S\ref{sec:rh}, where the first two are found insufficient as well and the third is found not
+to exist in the literature. Round~1 recorded ``Bertrand is useless here'' as an observation;
+the difference round~2 makes is that there is now no sharper version of Bertrand worth
+formalising, because the shortfall is a whole scale and not a constant.
+\end{remark}
+
+\subsection{What is not formalised, and why}
+
+\begin{itemize}
+\item \textbf{The smooth model} (Proposition~\ref{prop:smooth}). Fully within Mathlib's
+  reach; still not done after two rounds, and still the highest-leverage formalisation target
+  the work has.
+\item \textbf{The $\limsup$ corollary.} Needs effective $\pi(x)$ bounds that are not assumed
+  present in Mathlib.
+\item \textbf{Any verified range past $n \le 4$.} This is a hard limit and deserves naming.
+  \texttt{Nat.nth} is \emph{noncomputable} \cite{mathlibNatNth} --- not merely slow --- so
+  \texttt{decide} cannot produce $p_n$ at all; and Mathlib's prime-specific \texttt{nth} API
+  is exactly five \texttt{@[simp]} base lemmas, $\texttt{nth Prime } 0 = 2$ through
+  $\texttt{nth Prime } 4 = 11$ \cite{mathlibNatPrimeNth}. Extending requires building
+  \texttt{Nat.count}$\leftrightarrow$\texttt{Nat.nth} bridging machinery, plus prime literals
+  with \texttt{Nat.Prime} certificates and a ``no prime strictly between'' lemma for each
+  consecutive pair. Reporting a larger verified $N$ without that work would be a fabrication.
+\item \textbf{Dusart's estimate} (Lemma~\ref{lem:dusart}) and Axler's corollaries are not in
+  Mathlib and would have to enter any formalisation of \S\ref{sec:range} as explicit
+  hypotheses --- and be declared as such in any paper quoting the result.
+\end{itemize}
+
+\begin{hazard}[The missing input, named precisely]
+\label{haz:missing}
+Discharging the one remaining \texttt{sorry} needs a gap bound of Cram\'er strength,
+$g_n < p_n^{1+1/n} - p_n \approx L_n^2$. No such unconditional theorem exists in the
+literature. \textbf{Even a complete formalisation of every published prime-gap bound,
+unconditional or RH-conditional, would not discharge it}: the obstruction is mathematical
+first and formalisation-budget second. This is the one place where a reader might expect
+``more Lean would help'', and it would not.
+\end{hazard}
+
+\begin{hazard}[Indexing]
+Mathlib's \texttt{nth} is $0$-indexed ($\texttt{nth Prime } 0 = 2$) while the conjecture as
+posed here is $1$-indexed ($p_1 = 2$). Every index threshold in the literature --- $k > 9$,
+$n \ge 10$, $n \ge 3645$, $n \ge 5$ --- is stated in the $1$-indexed convention. The
+off-by-one must be fixed once, in the statement file; it is the single most likely source of a
+silent error in a formalisation of this material.
+\end{hazard}
+
+% ==========================================================================
+\section{First-failure maximality: four predicates, one of them false}
+\label{sec:predicates}
+
+\subsection{The obligation, and the collision}
+
+Every practical verification of $\Fb$ over a range checks \emph{record} gaps rather than all
+indices. What licenses that pruning is
+
+\begin{quote}
+\textbf{(M1) --- first-failure maximality.} If $\Fb$ is false, its least failure $n_0$ is a
+\emph{strict} record index: $g_j < g_{n_0}$ for every $j < n_0$.
+\end{quote}
+
+Round~1 ranked the statement usually offered in support of (M1) as its most tractable open
+obligation, under the name (P6$'$), and reported it as ``open, and empirically unviolated by
+every measurement that bears on it''. Both halves of that sentence were wrong, and for the
+same reason: the name carried three inequivalent statements, so no single measurement bore on
+the prose. We name them apart, once and for all.
+
+\begin{definition}[The four predicates]
+\label{def:predicates}
+For $n \ge 1$ put
+\[
+r(n) := \max\{\, j \le n : j \text{ is a record index} \,\},
+\qquad
+\mu(n) := \min\{\, j : g_j \ge g_n \,\} .
+\]
+Both are well defined ($j = 1$ is a record; $j = n$ dominates $n$). The four statements are:
+\begin{align*}
+\Ppair &: \quad T_m \le T_n
+  \quad\text{whenever } m < n \text{ and some record index } j \text{ satisfies } m \le j < n;\\
+\Pgov  &: \quad T_{r(n)} \le T_n \quad \text{for every } n;\\
+\Pmin  &: \quad T_{\mu(n)} \le T_n \quad \text{for every } n;\\
+\Prec  &: \quad T_j \le T_{j'} \quad \text{for consecutive record indices } j < j' .
+\end{align*}
+\end{definition}
+
+In $\Ppair$ the index $m$ is \emph{arbitrary} --- that is exactly what ``$p_m$ and $p_n$
+straddle a record gap'' says, and it is the reading round~1's prose carried. $\Pgov$ is
+vacuous at record indices, so it is a statement about the indices strictly \emph{after} a
+record. $\Prec$ is the fourth statement, which round~1 never isolated and which turns out to
+be the hinge of the lattice.
+
+\begin{lemma}[$\cP$]
+\label{lem:fact0}
+$\mu(n)$ is a record index, and $\mu(n) \le r(n) \le n$.
+\end{lemma}
+
+\begin{proof}
+\idea{Minimality of $\mu(n)$ forbids an earlier index with a gap as large; and the running
+maximum at $n$ is attained at $r(n)$, which therefore competes in the minimisation.}
+If $\mu(n)$ were not a record there would be $j < \mu(n)$ with $g_j \ge g_{\mu(n)} \ge g_n$,
+contradicting minimality. For the second part, $g_{r(n)} \ge g_n$ because $r(n)$ carries the
+running maximum of $g$ on $[1,n]$, so $r(n)$ belongs to the set $\mu(n)$ minimises over.
+\end{proof}
+
+\subsection{The strongest predicate is false}
+
+\begin{theorem}[$\Ppair$ is false; $\cC$]
+\label{thm:pairfalse}
+There exist indices $m < j < n$ with $j$ a record index and $T_m > T_n$. Hence $\Ppair$ is
+false, and it is false already on $[1, 1847]$.
+\end{theorem}
+
+\begin{proof}
+\idea{Exhibit a pair straddling a record gap in the strictest available sense, and compute
+both bars.}
+Two witnesses, both computed at 60 decimal digits from the definition
+$T_k = p_k(e^{L_k/k}-1)$ with $p_k$ read off an independent sieve.
+
+\begin{center}
+\begin{tabular}{@{}llrrl@{}}
+\toprule
+ & role & index & prime & value \\
+\midrule
+\textbf{W1} & $m$          & $1823$ & $15\,641$ & $T_m = 83.0807167192698\ldots$ \\
+            & $j$ (record) & $1831$ & $15\,683$ & $g_j = 44$ (12th maximal gap) \\
+            & $n$          & $1847$ & $15\,823$ & $T_n = 83.0521061144139\ldots$ \\
+\midrule
+\textbf{W2} & $m$          & $10\,655\,449$ & $191\,912\,639$ & $T_m = 343.5112716866658\ldots$ \\
+            & $j$ (record) & $10\,655\,462$ & $191\,912\,783$ & $g_j = 248$ (27th maximal gap) \\
+            & $n$          & $10\,655\,590$ & $191\,915\,033$ & $T_n = 343.5112358945690\ldots$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+For W1, $p_m = 15\,641 < 15\,683 = p_j < p_{j+1} = 15\,727 < 15\,823 = p_n$, so the whole gap
+interval $(p_j, p_{j+1})$ lies between $p_m$ and $p_n$: the pair straddles the record gap in
+the strictest available sense. And
+\[
+T_m - T_n = +0.02861060485582\ldots > 0 ,
+\qquad\text{respectively}\qquad
+T_m - T_n = +3.5792097\cdot10^{-5} > 0 .
+\]
+Either witness refutes $\Ppair$.
+\end{proof}
+
+\begin{remark}[The witnesses are not floating-point]
+W1's margin is $2.9\cdot10^{-2}$ against a bar $T \approx 83$, whose \texttt{float64} unit in
+the last place is $1.4\cdot10^{-14}$: the margin is $2\cdot10^{12}$ ulps. W2's is
+$6.3\cdot10^{8}$ ulps. Both were nevertheless recomputed at 60 digits and independently
+reproduced by a reviewing leg, because the escalation discipline of
+\S\ref{sec:computation} applies here \emph{with the sign flipped}: a spurious exception would
+be the reassuring outcome for the attack, and the leg reporting it is the leg that wanted it
+to be false.
+\end{remark}
+
+\begin{proposition}[Exception census; $\cC$]
+\label{prop:census}
+Below $10^9$ there are exactly $17$ indices $n$ admitting an $m$ that witnesses a failure of
+$\Ppair$, in exactly two clusters: $n \in \{1836, 1837, 1840, 1844, 1845, 1846, 1847\}$, and a
+second cluster of ten indices in $[10\,655\,562,\, 10\,655\,594]$. Both clusters sit a few
+indices \emph{after} a maximal gap. The extreme margin over all admissible pairs is
+$-2.861\cdot10^{-2}$, attained at W1.
+\end{proposition}
+
+\begin{hazard}[A labelling defect in the census, carried rather than smoothed]
+\label{haz:census}
+The census counts \emph{indices} $n$, not \emph{pairs} $(m,n)$: for a fixed $n$ there may be
+several witnessing $m$. The upstream artifact reporting it calls it a ``complete census of
+admissible pairs'', which it is not; as a list of $n$ it is complete. The defect is one of
+labelling, not of arithmetic, and it does not touch Theorem~\ref{thm:pairfalse}, which needs a
+single witness. It is recorded in \S\ref{sec:defects} as one of the corpus's live defects.
+\end{hazard}
+
+\subsection{The lattice, and the invalid link}
+
+\begin{proposition}[Valid implications; $\cP$]
+\label{prop:implications}
+$\Ppair \Rightarrow \Pgov$; \; $\Ppair \Rightarrow \Prec$; \; and
+$\Pgov \wedge \Prec \Rightarrow \Pmin$.
+\end{proposition}
+
+\begin{proof}
+\idea{The first two are instances of $\Ppair$ with $m$ chosen to be a record index; the third
+chains $\Prec$ along the record indices from $\mu(n)$ up to $r(n)$ and then applies $\Pgov$
+once.}
+For $\Pgov$: fix $n$. If $r(n) = n$ the statement is $T_n \le T_n$. Otherwise set
+$m := j := r(n)$; then $m < n$ and $m \le j < n$, so the pair is admissible and $\Ppair$ gives
+$T_{r(n)} \le T_n$. For $\Prec$: let $j < j'$ be consecutive records and take $m := j$,
+$n := j'$; the pair is admissible. For the third: by Lemma~\ref{lem:fact0}, $\mu(n)$ is a
+record index and $\mu(n) \le r(n)$; both are records, so iterating $\Prec$ along the record
+indices from $\mu(n)$ to $r(n)$ gives $T_{\mu(n)} \le T_{r(n)}$, and $\Pgov$ at $n$ gives
+$T_{r(n)} \le T_n$. Chain.
+\end{proof}
+
+\begin{proposition}[The two survivors are incomparable; $\cP$]
+\label{prop:incomparable}
+In the setting in which all four predicates are stated --- a strictly increasing integer
+sequence with gap sequence $(g_k)$ and an arbitrary real bar $(T_k)$ --- both
+$\Pgov \Rightarrow \Pmin$ and $\Pmin \Rightarrow \Pgov$ are \textbf{false}.
+\end{proposition}
+
+\begin{proof}
+\idea{Four indices suffice: choose gaps so that the governing record and the minimal
+dominating index differ at the last index, then choose the bar to break whichever implication
+is being tested.}
+Take $g = (2,4,6,3)$. The record indices are $1,2,3$; $r(4) = 3$ while
+$\mu(4) = 2$ (the least $j$ with $g_j \ge 3$), so index~$4$ separates the two predicates.
+\begin{itemize}
+\item $\Pgov \not\Rightarrow \Pmin$: take $T = (0,10,1,5)$. $\Pgov$ is vacuous at
+  $n = 1,2,3$ (record indices) and at $n = 4$ reads $T_3 = 1 \le 5 = T_4$, true. $\Pmin$ at
+  $n = 4$ reads $T_2 = 10 \le 5 = T_4$, false.
+\item $\Pmin \not\Rightarrow \Pgov$: take $T = (0,1,10,5)$. $\Pmin$ is trivial at
+  $n = 1,2,3$ (there $\mu(n) = n$) and at $n = 4$ reads $T_2 = 1 \le 5 = T_4$, true. $\Pgov$
+  at $n = 4$ reads $T_3 = 10 \le 5 = T_4$, false.
+\end{itemize}
+\end{proof}
+
+Two consequences, both of which correct round~1.
+
+\begin{remark}[The withdrawn ordering]
+\label{rem:withdrawn}
+Round~1's paper and its fault report both asserted that the three statements are strictly
+ordered, $\Ppair \Rightarrow \Pgov \Rightarrow \Pmin$, and that the pruning consumes the
+weakest. \textbf{The second link is invalid} (Proposition~\ref{prop:incomparable}); the
+missing ingredient is $\Prec$, a fourth statement nobody had been measuring under its own
+name. The corrected picture is
+\[
+\Ppair \;\Longrightarrow\; \Pgov \wedge \Prec \;\Longrightarrow\; \Pmin ,
+\]
+with $\Ppair$ \textbf{false} and $\Pgov$, $\Prec$, $\Pmin$ all open.
+The reason the invalid link is not pedantry: $\Pgov$ is vacuous at every record index, so it
+says nothing whatsoever about how $T$ moves from one record to the next --- which is exactly
+the step $\Pmin$ needs. Any proof of $\Pgov \Rightarrow \Pmin$ must therefore consume a
+property of the primes. This is the same species of finding as the counter-model of
+\S\ref{sec:ffm-counter}: the separation is \emph{structural}, visible with no arithmetic input.
+\end{remark}
+
+\begin{remark}[And it is not the case that $\Pmin$ is ``the weakest'']
+\label{rem:notweakest}
+Upstream prose in the corpus calls $\Pmin$ ``the weakest of the three'' and ``the easier
+obligation'', on the strength of the ordering Proposition~\ref{prop:incomparable} disproves.
+The correct statement is: $\Pmin$ is the one Theorem~\ref{thm:ffm} needs and the one whose
+empirical margin does not decay, it is \emph{incomparable} to $\Pgov$, and $\Prec$ must be
+listed beside it because Proposition~\ref{prop:implications} needs it. The upstream prose has
+not been amended; see \S\ref{sec:defects}.
+\end{remark}
+
+\subsection{Why the refutation costs nothing}
+
+\begin{theorem}[First-failure maximality from either survivor, at one index; $\cP$]
+\label{thm:ffm}
+Suppose $\Fb$ is false and let $n_0$ be its least failure. If \emph{either}
+$T_{r(n_0)} \le T_{n_0}$ \emph{or} $T_{\mu(n_0)} \le T_{n_0}$, then $g_j < g_{n_0}$ for every
+$j < n_0$ --- that is, \textup{(M1)} holds.
+\end{theorem}
+
+\begin{proof}
+\idea{Both branches are three-link chains: minimality of $n_0$ turns ``earlier'' into
+``below its own bar'', the predicate transports the bar forward, and being a failure closes
+the loop into $g_{n_0} < g_{n_0}$.}
+\emph{The $\Pmin$ branch.} Put $m := \mu(n_0)$, so $g_m \ge g_{n_0}$ by definition. Suppose
+$m < n_0$. By minimality of $n_0$, $m$ is not a failure, so $g_m < T_m$. Then
+\[
+g_{n_0} \;\le\; g_m \;<\; T_m \;=\; T_{\mu(n_0)} \;\le\; T_{n_0} \;\le\; g_{n_0},
+\]
+the last step because $n_0$ \emph{is} a failure --- a contradiction. Hence $m = n_0$, i.e.\
+$\min\{j : g_j \ge g_{n_0}\} = n_0$, i.e.\ $g_j < g_{n_0}$ for every $j < n_0$.
+
+\emph{The $\Pgov$ branch.} If $r(n_0) = n_0$ then $n_0$ is a record index and the conclusion
+is the definition. Otherwise $r(n_0) < n_0$, so by minimality
+$g_{r(n_0)} < T_{r(n_0)} \le T_{n_0} \le g_{n_0}$; and for any $j < n_0$ we have
+$g_j \le g_{r(n_0)}$ because $r(n_0)$ carries the running maximum of $g$ on $[1,n_0]$.
+Chaining gives $g_j \le g_{r(n_0)} < g_{n_0}$.
+\end{proof}
+
+Three consequences, and they are why Theorem~\ref{thm:pairfalse} is a clarification rather
+than a loss.
+
+\begin{enumerate}
+\item \textbf{The pruning never needed $\Ppair$.} The refuted predicate is the strongest one;
+  the consumer runs on either of the two survivors. A strong-looking lemma was being carried,
+  unmeasured, for a job it was never needed for.
+\item \textbf{A single instance suffices.} Both branches consume the predicate only at $n_0$,
+  never as a universal statement. This matters for anyone trying to prove one: the target is
+  an instance at a hypothetical first failure, not a theorem about all $n$.
+\item \textbf{The empirical situation is unchanged and is not a proof.} Over the primes below
+  $10^9$ --- $50\,847\,533$ indices --- $\Pgov$, $\Pmin$, $\Prec$ and $T_{\mu(n)} \le T_{r(n)}$
+  all hold with \textbf{zero} exceptions, $\Prec$ across $29$ record steps
+  (\S\ref{sec:computation}). So the hypothesis of
+  Proposition~\ref{prop:implications} is empirically available on the swept range. That is the
+  honest statement and it is not a proof.
+\end{enumerate}
+
+\begin{remark}[Which margin decays, and which does not]
+\label{rem:margins}
+The two survivors behave very differently numerically, and conflating them was the second half
+of round~1's collision. The margin of $\Pgov$ \emph{decays} like $p^{-0.83}$: its minimum is
+$+1.04641539561833\cdot10^{-2}$ at $3\cdot10^6$ and $+2.93\cdot10^{-6}$ at $10^{11}$, with zero
+exceptions throughout --- which is why a \texttt{float64} check of it approaches its noise floor
+near the published frontier. The margin of $\Pmin$ is \emph{flat}: its global minimum is
+$+0.48452773339831\ldots$, attained at $n = 1879$ (with $\mu = 1831$) and never approached
+again across eleven decades. The upstream noise-floor alarm is therefore correct about $\Pgov$
+and \emph{does not apply} to $\Pmin$, which stands some $10^{12}$ ulps clear of zero at every
+decade measured; and the inference sometimes drawn from it --- ``the route must therefore be
+the analytic one'' --- does not survive the rescoping.
+\end{remark}
+
+% ==========================================================================
 \section{The monotone-bar principle and the maximal-gap reduction}
 \label{sec:monotone}
 
-\subsection{The obligation, and why it is the wrong one}
-
-Every practical verification of $\Fb$ over a range checks \emph{record} gaps rather than all
-indices. The standard justification for that pruning is the following statement, which the
-present attack initially ranked as its most tractable open obligation:
-
-\begin{quote}
-\textbf{(P6$'$)} For $m < n$ straddling a record gap, $T_m \le T_n$.
-\end{quote}
-
-(P6$'$) is a statement about the oscillation of the exact bar $T$, and $T$ is \emph{not}
-monotone: over the primes below $3\cdot10^6$ it decreases at about $55.9\%$ of steps
-(\S\ref{sec:computation}). The main finding of this section is that no consumer of (P6$'$)
-needs it.
+Section~\ref{sec:predicates} settled what the pruning obligation \emph{is}. This section shows
+that a verification over a range does not have to wait for it: the pruning can be run against a
+bar that is monotone by construction, and then the oscillation of $T$ is irrelevant.
 
 \begin{lemma}[Monotone-bar principle; $\cP$]
 \label{lem:M}
@@ -402,10 +846,12 @@ $g_m < B(p_m) \le B(p_{k_0}) \le g_{k_0}$.
 \end{proof}
 
 Only monotonicity of $B$ is used: no arithmetic, no analytic input, no property of the primes
-beyond $p_m < p_{k_0}$. The conclusion is strict, which is exactly the difference between
-``the first failure carries a record gap'' and ``the first failure carries a gap at least as
-large as all earlier ones''. The lemma says nothing about the \emph{second} breach, and it
-should not: breaches after the first need not be records.
+beyond $p_m < p_{k_0}$. The conclusion is strict. The lemma says nothing about the
+\emph{second} breach, and it should not: breaches after the first need not be records. Note
+also what it does \emph{not} do: with $B = T$ its hypothesis fails outright, since $T$ is not
+nondecreasing --- it decreases at about $55.9\%$ of steps below $3\cdot10^6$
+(\S\ref{sec:computation}). That is exactly why \S\ref{sec:predicates} was needed and why this
+section instantiates $B$ at a surrogate instead.
 
 Explicit bars have validity ranges, and the first few primes sit outside them, so we need a
 truncated form.
@@ -448,33 +894,50 @@ $S$ is strictly increasing on $x > e^{1/2}$, hence at every prime.
 $dS/dx = (2\log x - 1)/x > 0$ for $\log x > 1/2$, and $e^{1/2} = 1.6487\ldots < 2$.
 \end{proof}
 
-\begin{lemma}[$S$ lies below the true bar; $\cPs$]
+\begin{lemma}[$S$ lies below the true bar; $\cP$]
 \label{lem:S2}
 For every $n$ with $p_n \ge 2\,634\,800\,823$ we have $T_n > S(p_n)$.
 \end{lemma}
 
 \begin{proof}
 \idea{Replace the index $n$ by an upper bound on $\pi(p_n)$, then use $e^u - 1 > u$.}
-By \eqref{eq:index}, $n = \pi(p_n)$. Axler's Corollary~3.5, in the corrigendum-corrected
-form, states $\log x - 1 - 1.17/\log x < x/\pi(x)$ for $x \ge 2\,634\,800\,823$
-\cite{axler2014newbounds}. With $x = p_n$ and $\ell = L_n$ this gives
+By \eqref{eq:index}, $n = \pi(p_n)$. Axler's corollary on upper bounds for $\pi$, in the
+corrigendum-corrected form, states $\log x - 1 - 1.17/\log x < x/\pi(x)$ for
+$x \ge 2\,634\,800\,823$ \cite{axler2014newbounds}. With $x = p_n$ and $\ell = L_n$ this gives
 $\pi(x) < x/(\ell - 1 - 1.17/\ell)$, hence $u := \ell/\pi(x) > (\ell^2 - \ell - 1.17)/x$, and
 therefore $T_n = x(e^u - 1) > x u > \ell^2 - \ell - 1.17 = S(p_n)$.
 \end{proof}
 
-\begin{hazard}[The dependency, named]
+\begin{hazard}[The Axler dependency, as it now stands]
 \label{haz:axler}
-Lemma~\ref{lem:S2} rests on \cite{axler2014newbounds}, which \emph{was not opened in this
-work}; it is quoted through Kourbatov's proofs. Axler's own corrigendum moved the validity
-range of Corollary~3.5 from $x \ge 5.43$ to $x \ge 2\,634\,800\,823$ --- nine orders of
-magnitude --- so the range is load-bearing, not decorative: in-run data below $3\cdot10^6$
-exhibits $14\,426$ indices with $T_n \le S(p_n)$. Consequently
-Lemma~\ref{lem:S2} and Theorem~\ref{thm:B} carry
-$\cPs$, not $\cP$. See \S\ref{sec:limits} and
-Remark~\ref{rem:dusartonly} for the Dusart-only fallback.
+Round~1 carried Lemma~\ref{lem:S2} at $\cPs$ because \cite{axler2014newbounds} had not been
+opened; it was quoted through Kourbatov's proofs. \textbf{It is now opened}: the preprint
+(arXiv:1409.1780v3), the published version (\emph{Integers} \textbf{16} (2016), A22) and the
+2018 corrigendum were all fetched, digest-pinned and read at the locator. The mathematical
+tier improves accordingly and this lemma is stated at $\cP$. Two purely editorial hazards
+replace the old one, and neither is decorative.
+\begin{enumerate}
+\item[\textup{(a)}] \textbf{The corollary numbering differs by one between the editions.} The
+  upper-bound corollary is Cor.~3.5 in the preprint and Cor.~3.4 (p.~8) in the journal; the
+  lower-bound table is Cor.~3.6 and Cor.~3.5 respectively. The corrigendum --- which moves the
+  validity range from $x \ge 5.43$ to $x \ge 2\,634\,800\,823$, nine orders of magnitude ---
+  is written against the \emph{journal} numbering. Both editions point at the same inequality,
+  so no mathematical error propagates, but a locator naming a corollary number without naming
+  its edition matches no single edition. We therefore name the statement rather than a number.
+\item[\textup{(b)}] \textbf{One row of the lower-bound table exists in the preprint only.} The
+  row $(a,b,c,d) = (1,0,0,0)$ with $x_0 = 1\,772\,201$ appears in the preprint's 14-column
+  table and is absent from the journal's 12-column one. Theorem~\ref{thm:Cb} is deliberately
+  built on the $(2.1,0,0,0)$ row with $x_0 = 6\,690\,557$, which is present in \emph{both}
+  editions and is strictly stronger. See Remark~\ref{rem:retired}.
+\end{enumerate}
+The validity range remains load-bearing rather than decorative: the pre-corrigendum range is
+not merely unproved but false, with $4\,987\,066$ counterexamples below $10^8$, the smallest at
+$p = 59\,753$ --- all of them below the corrected threshold, which is therefore corroborated
+rather than contradicted. Correspondingly, in-run data below $3\cdot10^6$ exhibits $14\,426$
+indices with $T_n \le S(p_n)$, so Lemma~\ref{lem:S2} is false outside its stated range.
 \end{hazard}
 
-\begin{theorem}[Maximal-gap reduction; $\cPs$]
+\begin{theorem}[Maximal-gap reduction; $\cP$]
 \label{thm:B}
 Let $N_2 \ge 10$ and suppose $g_m < S(p_m)$ for every maximal-gap index $m \in [10, N_2]$.
 Then $g_k < S(p_k)$ for every $k \in [10, N_2]$, and consequently $\Fb$ holds at every
@@ -492,14 +955,16 @@ throughout $[10,N_2]$. Where $p_k \ge 2\,634\,800\,823$, Lemma~\ref{lem:S2} give
 $S(p_k) < T_k$, so $g_k < T_k$, which is $\Fb$ at $k$ by Lemma~\ref{lem:reduction}.
 \end{proof}
 
-\begin{remark}[The obligation was misdirected]
+\begin{remark}[What this settles about the obligation]
 \label{rem:misdirected}
-Theorem~\ref{thm:B} discharges the entire practical content of (P6$'$) without proving
-(P6$'$). The oscillation of $T$ is irrelevant to the pruning, because the pruning never runs
-against $T$: it runs against $S$, which does not oscillate. The pieces were all present in
-the attack's own concept-card set --- the bar $S$, the (unstated but immediate) monotonicity
-of $S$, and the open obligation --- and were never joined. The join is
-Lemma~\ref{lem:Mprime}.
+Theorem~\ref{thm:B} discharges the entire practical content of the pruning obligation without
+proving any of the four predicates of Definition~\ref{def:predicates}. The oscillation of $T$
+is irrelevant to the pruning \emph{as it is actually run}, because it is run against $S$, which
+does not oscillate. The pieces were all present in the attack's own concept-card set --- the
+bar $S$, the (unstated but immediate) monotonicity of $S$, and the open obligation --- and were
+never joined. The join is Lemma~\ref{lem:Mprime}. What the predicates are still needed for is
+the \emph{exact} bar: Theorem~\ref{thm:ffm} is a statement about $T$, and no surrogate
+substitutes for it there.
 \end{remark}
 
 \begin{remark}[Range discipline]
@@ -514,109 +979,12 @@ never assumed to overlap.
 The Axler dependency of Lemma~\ref{lem:S2} can be removed entirely at the cost of a looser
 bar: Lemma~\ref{lem:floor} below proves $T_n > B(p_n)$ with $B(x) = \log^2 x - 1.1\log x$
 for $p_n \ge 60\,184$, from Dusart alone, and $B$ is monotone by Lemma~\ref{lem:Bmono}.
-Substituting $B$ for $S$ throughout Theorem~\ref{thm:B} gives a fully $\cP$ version,
-with a bar looser by roughly $0.1 L$ --- a relative deficit measured at $0.193\%$ at
+Substituting $B$ for $S$ throughout Theorem~\ref{thm:B} gives a version resting on a single
+L0 source, with a bar looser by roughly $0.1 L$ --- a relative deficit measured at $0.193\%$ at
 $p = 2\cdot10^7$ and $0.196\%$ at $p = 1.69\cdot10^{15}$. We state the Axler version because
-it is the one the literature uses; we flag the fallback because it is the one that needs no
-unopened source.
+it is the one the literature uses; we flag the fallback because it is the one that needs the
+fewest sources.
 \end{remark}
-
-\subsection{Where the exact bar still resists}
-
-Lemma~\ref{lem:M} does not settle the statement ``if $\Fb$ fails, its first failure carries
-a record gap'' against the \emph{exact} bar $T$, because $T$ is not monotone. What can be
-proved unconditionally is a windowed version.
-
-\begin{theorem}[Near-record maximality, Dusart only; $\cP$]
-\label{thm:C}
-Suppose $\Fb$ is false and let $n_0$ be its least failure. By Theorem~\ref{thm:verified},
-$p_{n_0} > 2^{64}$, hence $L_{n_0} > 44.36$ and $T_{n_0} > 1919$. Let $m < n_0$ with
-\[
-p_m \;\le\; p_{n_0}\, e^{-0.0623} \;=\; 0.93960 \cdots p_{n_0} .
-\]
-Then $g_m < g_{n_0}$.
-\end{theorem}
-
-\begin{proof}
-\idea{Bound $T_m$ above and $T_{n_0}$ below with Dusart's two-sided $\pi(x)$ estimates and
-ask how far apart the two logarithms must be for the upper bound at $m$ to fall below the
-lower bound at $n_0$; the answer is a constant.}
-If $p_m < 60\,184$ then $g_m \le 72$ (the largest gap below $60\,184$; \S\ref{sec:computation},
-item V1) while $g_{n_0} \ge T_{n_0} > 1919$, and we are done. Otherwise
-$p_m \ge 60\,184 > 5393$, so both halves of \cite[Thm.~6.9, eq.~(6.6)]{dusart2010estimates}
-apply. Put $\ell = L_m \ge \log 60\,184 = 11.005$, $\lambda = L_{n_0} = \ell + d$ and
-$\varepsilon := (\ell^2-\ell)^2/p_m$. It suffices that
-$(\ell^2-\ell)\bigl(1 + (\ell^2-\ell)/p_m\bigr) \le \lambda^2 - 1.1\lambda$, i.e.\ that
-\[
-2\ell d + d^2 - 1.1 d - 0.1\ell \;\ge\; \varepsilon .
-\]
-The left side is increasing in $d \ge 0$, so it suffices that
-$d \ge d^*(\ell) := (0.1\ell + \varepsilon)/(2\ell - 1.1)$. Since
-$p_m \ge \max(e^{\ell}, 60\,184) = e^{\ell}$ for $\ell \ge \ell_0 := \log 60\,184 = 11.00516$,
-we have $\varepsilon(\ell) \le (\ell^2-\ell)^2 e^{-\ell}$ there; that majorant has
-logarithmic derivative $2(2\ell-1)/(\ell^2-\ell) - 1$, equal to $-0.618 < 0$ at $\ell_0$ and
-decreasing thereafter, so $\varepsilon(\ell) \le \varepsilon(\ell_0) = 0.20145$. Hence
-$d^*(\ell) \le (0.1\ell + 0.20145)/(2\ell - 1.1)$, whose numerator derivative test
-$0.1(2\ell-1.1) - 2(0.1\ell + 0.20145) = -0.5129 < 0$ shows it is decreasing, so it is
-maximised at $\ell_0$, where it equals $0.062264$. Thus $d \ge 0.0623$ suffices for every
-admissible $\ell$.
-\end{proof}
-
-\begin{remark}[The Axler-sharpened version is withheld]
-\label{rem:C-b}
-A companion statement sharpens the exponent $0.0623$ by roughly a factor of ten under
-Axler's corollaries. \textbf{We deliberately do not state its constant.} An adversarial
-review of the underlying corpus found that the sharpened version's derivation misapplies its
-upper bound on $T_m$ by a factor of order $\ell^2$, and that the in-run numerical check
-reproduced the error rather than catching it --- a check written from a derivation cannot
-catch an error in the derivation. The review also established that the sharpened statement's
-\emph{conclusion} survives under the corrected form of the bound, but the repair has not been
-applied to the source document. This paper therefore quotes only
-Theorem~\ref{thm:C}, whose constant was independently confirmed conservative and which uses
-no unopened source. See \S\ref{sec:limits}.
-\end{remark}
-
-\subsection{The obstruction inside the residual window}
-\label{sec:obstruction}
-
-Theorem~\ref{thm:C} leaves a sliver: the primes $p_m$ within a factor $e^{-0.0623}$ of
-$p_{n_0}$. The obstruction there is exact and worth naming, because it explains why no
-sharpening of constants closes the window.
-
-To first order in $y/p_m$, with $y = p_n - p_m$ and $k = \pi(p_n) - \pi(p_m)$,
-\[
-T_m \le T_n
-\quad\Longleftrightarrow\quad
-k \;\le\; y\Bigl(1 + \frac{1}{L_m}\Bigr)\frac{\pi(p_m)}{p_m}\bigl(1 + O(y/p_m)\bigr) ,
-\]
-i.e., since $\pi(x)/x \approx 1/(\log x - 1)$: \emph{$T_m \le T_n$ holds exactly when the
-interval $(p_m, p_n]$ contains no more than about $y/(L-2)$ primes.} The surplus
-$1/(L-1) - 1/L \approx 1/L^2$ between the running-average density and the local density is
-the entire drift that makes $T$ coarsely increase.
-
-\begin{proposition}[Obstruction; $\cP$]
-\label{prop:obstruction}
-Closing the residual window of Theorem~\ref{thm:C} requires an unconditional upper bound on
-the number of primes in an interval of length $y$ of order $x/\log x$ that is within a factor
-$1 + 2/L$ of the truth. The unconditionally available bound of Brun--Titchmarsh type gives
-only a factor of about $2$.
-\end{proposition}
-
-The required relative slack over the prime-number-theorem count is $4.7\%$ at $2^{64}$ and
-shrinks to $1\%$ at $L = 200$, while the Brun--Titchmarsh-to-needed ratio stays near $2.1$
-across that range. So the needed estimate is not a constant improvement but an
-asymptotically exact short-interval count. \emph{This is, in our judgement, the most
-tractable genuinely open analytic node the attack isolated --- and it is still an open
-problem in analytic number theory.}
-
-\begin{hazard}[Unsourced, and used only negatively]
-\label{haz:bt}
-Neither the Brun--Titchmarsh inequality nor the second Hardy--Littlewood conjecture is
-covered by a source-ledger row in this work. Both are standard and undisputed; they are used
-here only to \emph{name} an obstruction, never to support a positive claim.
-Proposition~\ref{prop:obstruction} is stated at $\cP$ for its criterion
-($1+2/L$, derived above) and its comparison to Brun--Titchmarsh is flagged as unsourced.
-\end{hazard}
 
 % ==========================================================================
 \section{The unconditional finite-range architecture}
@@ -625,7 +993,7 @@ Proposition~\ref{prop:obstruction} is stated at $\cP$ for its criterion
 The published frontier $2^{64}$ is not a per-pair sweep: it is a theorem about a table. This
 section reconstructs that theorem from first principles, with explicit constants, resting on
 \emph{one} cited inequality --- and in particular avoiding the Axler chain of
-Caveat~\ref{haz:axler}.
+Caveat~\ref{haz:axler} entirely.
 
 \subsection{The analytic input}
 
@@ -674,9 +1042,9 @@ increasing; $e^{0.55} = 1.7333 < 2$.
 
 Lemma~\ref{lem:Bmono} is the whole point: $B$ is a function of $p$ \emph{alone}, not of the
 pair $(p_n, n)$, so the non-monotone object $T$ never appears in a comparison between two
-different indices. In particular this section is independent of (P6$'$), and any downstream
-argument that gates the verified range on (P6$'$) is importing a dependency that is not
-there.
+different indices. In particular this section is independent of all four predicates of
+Definition~\ref{def:predicates}, and any downstream argument that gates the verified range on
+one of them is importing a dependency that is not there.
 
 \subsection{The finite-range theorem}
 
@@ -741,9 +1109,10 @@ integer check below $60\,184$, plus one comparison per distinct gap value. Nothi
 
 \begin{proposition}[$\cC$]
 \label{prop:1920}
-$B(2^{64}) = L(L-1.1)\bigr|_{L = \log 2^{64}} = 1919.1379834975\ldots$, so a gap of at least
-$1920$ is required to violate $\Fb$ at a prime just below $2^{64}$. Equivalently, the largest
-even $g$ with $S^\sharp(g) \le 2^{64}$ is $g = 1918$:
+$B(2^{64}) = L(L-1.1)\bigr|_{L = \log 2^{64}} = 1919.13798349753288\ldots$ (with
+$\log 2^{64} = 44.36141955583649\ldots$), so a gap of at least $1920$ is required to violate
+$\Fb$ at a prime just below $2^{64}$. Equivalently, the largest even $g$ with
+$S^\sharp(g) \le 2^{64}$ is $g = 1918$:
 $S^\sharp(1918) = 1.8209\cdot10^{19} \le 2^{64} = 1.8447\cdot10^{19} < S^\sharp(1920) =
 1.8629\cdot10^{19}$.
 \end{proposition}
@@ -773,10 +1142,10 @@ first-occurrence table again.
 
 Can a range be certified with \emph{no} prime enumeration at all? Only just, and only once.
 
-\begin{proposition}[Table-free window; $\cPs$]
+\begin{proposition}[Table-free window; $\cP$]
 \label{prop:window}
 $\Fb$ holds at every $n$ with $396\,738 \le p_n \le 777\,600$, with no computational input
-beyond two cited explicit estimates.
+beyond two cited explicit estimates, both from \cite{dusart2010estimates}.
 \end{proposition}
 
 \begin{proof}
@@ -814,17 +1183,284 @@ Immediate from the display in the proof of Proposition~\ref{prop:window}.
 A table-free proof of $\Fb$ on $[X_0, X]$ requires an unconditional explicit gap bound of
 quality $g_n = O(\log^2 p_n)$ on that range. Every known unconditional gap bound --- Dusart's
 $p/(25\log^2 p)$ here, $p^{0.525}$ of \cite{baker2001difference}, and everything between ---
-is a \emph{power of $p$}. So reading (B) is dead above $7.776\cdot10^5$ and will stay dead
-until unconditional prime-gap technology reaches $\log^2$ scale, which is exactly the strength
-that proving $\Fb$ itself requires. \textbf{Corollary, stated so that it is not re-derived:
-no amount of analysis will ever eliminate the computational input from a verified-range
-claim.} The verified range is irreducibly a computation plus a theorem about the computation.
-Theorem~\ref{thm:range} is the theorem; \S\ref{sec:limits} names the computation.
-The window $[396\,738, 777\,600]$ lies entirely above $X_0$ and is therefore already covered
-by (H1)--(H3) in any real verification; its value is that it is the exact measure of how much
-analysis alone can do, and the measure is: one factor of about $2$ in $p$, once, at
-$p \approx 10^6$.
+is a \emph{power of $p$}. So the table-free route is dead above $7.776\cdot10^5$ and will stay
+dead until unconditional prime-gap technology reaches $\log^2$ scale, which is exactly the
+strength that proving $\Fb$ itself requires. \textbf{Corollary, stated so that it is not
+re-derived: no amount of analysis will ever eliminate the computational input from a
+verified-range claim.} The verified range is irreducibly a computation plus a theorem about the
+computation. Theorem~\ref{thm:range} is the theorem; \S\ref{sec:provenance} names the
+computation. The window $[396\,738, 777\,600]$ lies entirely above $X_0$ and is therefore
+already covered by (H1)--(H3) in any real verification; its value is that it is the exact
+measure of how much analysis alone can do, and the measure is: one factor of about $2$ in $p$,
+once, at $p \approx 10^6$.
 \end{remark}
+
+\subsection{Near-record maximality against the exact bar}
+\label{sec:nearrecord}
+
+Lemma~\ref{lem:M} does not settle (M1) against the \emph{exact} bar $T$, because $T$ is not
+monotone, and Theorem~\ref{thm:ffm} settles it only from a predicate nobody has proved. What
+can be proved outright is a windowed version: the first failure's gap exceeds every gap
+occurring below a definite multiple of $p_{n_0}$. Round~1 stated one such theorem and withheld
+a second because its derivation was broken. Round~2 repaired the broken one --- twice, in two
+independent ways --- and tightened the first. Both repaired forms are stated here; the sharper
+one is carried and the other is retired to Remark~\ref{rem:retired}.
+
+The engine is the following sandwich, which uses no monotonicity at all.
+
+\begin{lemma}[Sandwich; $\cP$]
+\label{lem:W}
+Suppose $A(x) \le T_n \le C(x)$ at $x = p_n$ for every $n$ with $p_n \ge X_0$, and let $n_0$ be
+the least failure of $\Fb$. Then for every $m < n_0$ with $p_m \ge X_0$ and
+$C(p_m) \le A(p_{n_0})$, one has $g_m < g_{n_0}$.
+\end{lemma}
+
+\begin{proof}
+\idea{Transport the bar from $m$ to $n_0$ through the two envelopes, then use minimality at $m$
+and failure at $n_0$.}
+$T_m \le C(p_m) \le A(p_{n_0}) \le T_{n_0}$. Since $m < n_0$ and $n_0$ is least, $m$ is not a
+failure, so $g_m < T_m \le T_{n_0} \le g_{n_0}$.
+\end{proof}
+
+Two elementary facts convert $\pi$-estimates into envelopes for $T$.
+
+\begin{lemma}[$\cP$]
+\label{lem:E12}
+For $x > 0$ and $t > 0$: \textup{(E1)} $x(e^{t/x}-1) > t$; and \textup{(E2)} if
+$0 < t \le x$ then $x(e^{t/x}-1) \le t(1 + t/x)$.
+\end{lemma}
+
+\begin{proof}
+\idea{\textup{(E1)} is $e^s > 1+s$; \textup{(E2)} sums the tail of the exponential series and
+bounds it by $e - 2 < 1$.}
+(E1) is immediate from $e^s > 1+s$ at $s = t/x$. For (E2), write
+$x(e^{t/x}-1) = t + t\sum_{k \ge 2}(t/x)^{k-1}/k!$; for $0 < t/x \le 1$ the sum is at most
+$\sum_{k\ge2} 1/k! = e - 2 = 0.71828\ldots < 1$.
+\end{proof}
+
+Write $x = p_n$, $\ell = L_n$ and $u = \ell/\pi(x)$, so that $T_n = x(e^u - 1)$ exactly by
+\eqref{eq:index}. The four envelopes used below are then:
+
+\begin{center}
+\footnotesize
+\begin{tabular}{@{}l l l p{0.29\textwidth}@{}}
+\toprule
+& Envelope & Range & From \\
+\midrule
+(D-low)  & $T_n > \ell^2 - 1.1\ell$ & $x \ge 60\,184$ &
+  \cite[Thm.~6.9, (6.6)]{dusart2010estimates}, upper half; (E1) \\
+(D-high) & $T_n \le v(1 + v/x)$, $v := \ell^2 - \ell$ & $x \ge 5393$ &
+  \cite[Thm.~6.9, (6.6)]{dusart2010estimates}, lower half; (E2) \\
+(A-low)  & $T_n > \ell^2 - \ell - 1.17$ & $x \ge 2\,634\,800\,823$ &
+  Axler, upper-bound corollary, as corrected \\
+(A-high$'$) & $T_n \le v(1 + v/x)$, $v := \ell^2 - \ell - 1 - \tfrac{2.1}{\ell}$
+  & $x \ge 6\,690\,557$ & Axler, table row $(2.1,0,0,0)$; (E2) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{hazard}[The round-1 defect, stated precisely because a constant depended on it]
+\label{haz:F2}
+Round~1's corresponding upper envelope was printed as
+$T_n \le (\ell^2 - \ell - 1 - 1/\ell)(1 + \ell^4/x)$, justified as
+``$T_n \le v(1+v/x) \le v(1 + \ell^4/x)$ using $v < \ell^2$''. The step
+$v(1+v/x) \le v(1+\ell^4/x)$ is true but weakens the bound by an additive
+$v(\ell^4 - v)/x \approx \ell^6/x$, not the $v^2/x$ that the algebra consuming it silently
+assumed. \textbf{As printed, the bound does not follow from its stated justification, and the requirement
+it induces is wrong by a factor $38.813747\ldots$ at the bottom of its range.} Spelling that
+factor out, since three numbers are in play: at $\ell_1 = 14.3877$ the separation actually
+required by the \emph{printed} lemma is $0.169339812744\ldots$, while the separation required by
+its \emph{tight} form is $0.004362882388\ldots$ --- and the quotient of those two is the factor
+just quoted. The document printed $0.004479$, which is neither of them, and which the tight form
+shows to be sufficient (\S\ref{sec:computation}, item V11). The
+in-run numerical check reproduced the error rather than catching it, which is the general
+lesson --- \emph{a check written from a derivation cannot catch an error in the derivation}.
+The repair is not to re-insert $\ell^4$ correctly; it is never to introduce $\ell^4$ at all,
+which is what (D-high) and (A-high$'$) do. Round~1's \emph{conclusion} survives: the printed
+constant $0.004479$ is in fact sufficient, but for a reason the printed derivation did not
+supply, and both round-2 repairs below establish it independently.
+\end{hazard}
+
+Throughout the rest of this subsection, $n_0$ is the least failure of $\Fb$. By
+Theorem~\ref{thm:verified}, $p_{n_0} > 2^{64}$, so $\lambda := L_{n_0} > 44.36141955\ldots$
+and, by (D-low), $T_{n_0} > \lambda^2 - 1.1\lambda > 1919.1379834\ldots$, whence
+$g_{n_0} \ge T_{n_0} > 1919$.
+
+\begin{theorem}[Near-record maximality, Dusart only; $\cPs$]
+\label{thm:Ca}
+Let $m < n_0$. If $p_m \le p_{n_0}e^{-0.0516}$, i.e.\ $p_m \le 0.94970\,p_{n_0}$, then
+$g_m < g_{n_0}$.
+\end{theorem}
+
+\begin{proof}
+\idea{Below $10^8$ every gap is too small to matter; above it, ask how far apart the two
+logarithms must be for (D-high) at $m$ to fall below (D-low) at $n_0$, and bound the answer by
+a majorant on a partition rather than by sampling.}
+\emph{Small branch.} If $p_m < 10^8$ then $g_m \le 220$ (the largest prime gap below $10^8$,
+attained at $p = 47\,326\,693$; \S\ref{sec:computation}, item V10) and
+$220 < 1919 < g_{n_0}$.
+
+\emph{Main branch.} Let $p_m \ge 10^8$, so $\ell := L_m \ge \ell_D := \log 10^8 =
+18.4206807\ldots$, and both (D-high) at $m$ and (D-low) at $n_0$ apply. Put $d := \lambda -
+\ell \ge 0$, $v := \ell^2 - \ell$ and $\varepsilon := v^2/p_m$. By Lemma~\ref{lem:W} it
+suffices that $v(1 + v/p_m) \le \lambda^2 - 1.1\lambda$. Expanding $\lambda = \ell + d$,
+\[
+\lambda^2 - 1.1\lambda - v \;=\; 2\ell d + d^2 - 1.1 d - 0.1\ell ,
+\]
+so it suffices that $d(2\ell - 1.1) \ge 0.1\ell + \varepsilon$, i.e.\ that
+$d \ge d^*(\ell) := (0.1\ell + \varepsilon)/(2\ell - 1.1)$.
+
+Since $p_m \ge e^{\ell}$ we have $\varepsilon(\ell) \le (\ell^2-\ell)^2 e^{-\ell} \le
+\ell^4 e^{-\ell}$, and $\ell \mapsto \ell^4 e^{-\ell}$ is decreasing for $\ell > 4$. Partition
+$[\ell_D,\infty)$. On a cell $[a,b]$ we have $0.1\ell \le 0.1b$,
+$\ell^4e^{-\ell} \le a^4e^{-a}$ and $1/(2\ell-1.1) \le 1/(2a-1.1)$, so
+\[
+\sup_{[a,b]} d^*(\ell) \;\le\; \frac{0.1b + a^4e^{-a}}{2a - 1.1} .
+\]
+This is a \emph{majorant, not a sample}, so a maximum over a partition is a proof. Over
+$[\ell_D, 1000]$ in cells of width $0.01$ the majorant is largest on the first cell, where it
+equals $0.051599027$. For $\ell \ge 1000$, $0.1\ell/(2\ell-1.1)$ decreases to $0.05$, so the
+majorant there is at most $(100 + 1000^4e^{-1000})/1998.9 = 0.050028$. Hence
+$d^* \le 0.051599 < 0.0516$ throughout, and $e^{-0.0516} = 0.949708674346\ldots$.
+\end{proof}
+
+\begin{theorem}[Near-record maximality with Axler; $\cPs$]
+\label{thm:Cb}
+Let $m < n_0$. If $p_m \le p_{n_0}e^{-0.0017569}$, i.e.\ $p_m \le 0.998244\,p_{n_0}$, then
+$g_m < g_{n_0}$.
+\end{theorem}
+
+\begin{proof}
+\idea{The same majorant argument, with (A-high$'$) at $m$ and (A-low) at $n_0$; the surplus to
+be beaten is now $0.17 - 2.1/\ell$ rather than $0.1\ell$, which is bounded rather than
+growing --- that is the whole gain.}
+\emph{Small branch.} If $p_m < 6\,690\,557$ then $g_m \le 154$ (the largest prime gap below
+$6\,690\,557$, attained at $p = 4\,652\,353$; \S\ref{sec:computation}, item V10) and
+$154 < 1919 < g_{n_0}$.
+
+\emph{Main branch.} Let $p_m \ge 6\,690\,557$, so $\ell := L_m \ge \ell_A := \log 6\,690\,557
+= 15.7162077\ldots$ and (A-high$'$) applies at $m$; (A-low) applies at $n_0$ because
+$p_{n_0} > 2^{64} > 2\,634\,800\,823$. With $v := \ell^2 - \ell - 1 - 2.1/\ell$ and
+$\lambda = \ell + d$, Lemma~\ref{lem:W}'s hypothesis
+$v(1 + v/p_m) \le \lambda^2 - \lambda - 1.17$ expands to
+\[
+d(2\ell - 1) + d^2 \;\ge\; 0.17 - \frac{2.1}{\ell} + \frac{v^2}{p_m} \;=:\; \psi(\ell) ,
+\]
+so $d \ge \psi(\ell)/(2\ell-1)$ suffices, and $d = 0$ suffices wherever $\psi(\ell) \le 0$. As
+before $v^2/p_m \le \ell^4e^{-\ell}$, decreasing; $0.17 - 2.1/\ell$ is increasing;
+$1/(2\ell-1)$ is decreasing. So on a cell $[a,b]$,
+\[
+\sup_{[a,b]} \frac{\psi(\ell)}{2\ell-1} \;\le\;
+\frac{0.17 - 2.1/b + a^4e^{-a}}{2a - 1} .
+\]
+Over $[\ell_A, 300]$ in cells of width $0.01$ this majorant is largest on the cell beginning at
+$\ell = 24.40621$, where it equals $0.0017568759$; for $\ell \ge 300$ it is at most
+$(0.17 + 300^4e^{-300})/599 = 0.00028381$. Hence $d \ge 0.0017569$ suffices, and
+$e^{-0.0017569} = 0.998244642445\ldots$.
+\end{proof}
+
+\begin{remark}[Round~1 against round~2, and the sliver that remains]
+\label{rem:C-compare}
+\begin{center}
+\footnotesize
+\begin{tabular}{@{}l l l@{}}
+\toprule
+branch & round 1 & \textbf{round 2} \\
+\midrule
+Dusart only & $d \ge 0.0623$, $p_m \le 0.93961\,p_{n_0}$ &
+  $\mathbf{d \ge 0.0516}$, $\mathbf{p_m \le 0.94970\,p_{n_0}}$ \\
+with Axler & $d \ge 0.004479$, $p_m \le 0.99553\,p_{n_0}$ &
+  $\mathbf{d \ge 0.0017569}$, $\mathbf{p_m \le 0.998244\,p_{n_0}}$ \\
+ & \emph{(from a lemma that did not support it)} & \\
+\bottomrule
+\end{tabular}
+\end{center}
+The Dusart branch rests on an L0 source in both rounds; the Axler branch rested on an unopened
+source in round~1 and on one opened in both editions in round~2.
+The Dusart branch improves only because the small-branch cutoff rises from $60\,184$ to $10^8$,
+which is licensed by $g_m \le 220 < 1919$; it \textbf{cannot} improve much further, since
+$d^*(\ell) \to 0.05$, so the Dusart-only sliver is pinned near $5\%$ at every scale. The
+residual sliver on the Axler branch has relative width $0.176\%$ at $2^{64}$. Two sanity
+anchors, reported so the repair is not overstated: solving the quadratic exactly rather than
+majorising gives $0.051493457$ and $0.0017560603$, both \emph{below} the constants proved
+above, as a majorant requires.
+\end{remark}
+
+\begin{remark}[The other repair, and why it is retired]
+\label{rem:retired}
+A second round-2 leg repaired the same round-1 defect independently and correctly, into a
+different theorem: with $v := \ell^2 - \ell - 1 - 1/\ell$ in place of (A-high$'$)'s $v$ --- the
+tight restatement of round~1's own printed lemma --- and a proof that the majorant is
+decreasing (so that its supremum is attained at the left endpoint, $0.004363568$), one obtains
+$d \ge 0.0043636$, i.e.\ $p_m \le e^{-0.0043636}p_{n_0} = 0.995645906670\ldots\,p_{n_0}$. That
+statement is verified correct, and it is the cleanest available proof that round~1's
+\emph{conclusion} survived its own broken derivation, since $0.004363568$ is below the printed
+$0.004479$. \textbf{We nevertheless do not carry it}, for a reason that is not a matter of
+taste: it consumes the Axler table row $(1,0,0,0)$ with $x_0 = 1\,772\,201$, which exists in
+the preprint edition only (Caveat~\ref{haz:axler}(b)), whereas Theorem~\ref{thm:Cb}'s row is
+present in both. Two correct repairs of one defect, shipped by two legs that did not cite each
+other, is itself one of the corpus's unreconciled seams; \S\ref{sec:defects} records it as
+such rather than presenting the choice as if the corpus had made it.
+\end{remark}
+
+\begin{hazard}[What ``unconditional'' means for Theorem~\ref{thm:Ca}]
+\label{haz:uncond}
+Theorem~\ref{thm:Ca} uses no analytic source beyond \cite{dusart2010estimates}, and it is
+sometimes labelled ``unconditional'' on that ground. The label is too strong as usually
+written, and the honest form is: \emph{unconditional given the published $2^{64}$ verification
+height and a finite in-run gap computation}. Both are named inputs; neither is an analytic
+hypothesis; but the first is Theorem~\ref{thm:verified}, which rests on a source this work
+never opened, and the second is our own sieve. \textbf{That is why both
+Theorems~\ref{thm:Ca} and~\ref{thm:Cb} carry $\cPs$ here and not $\cP$}, even though their own
+analytic inputs are at the ledger's top tier: the weakest link is the verification height, not
+the estimate. Round~1 was faulted for exactly this pattern in a different branch, and it
+reappeared in round~2 in the branch round~1 had passed clean; \S\ref{sec:defects} records it.
+\end{hazard}
+
+\subsection{The obstruction inside the residual window}
+\label{sec:obstruction}
+
+Theorems~\ref{thm:Ca} and~\ref{thm:Cb} leave a sliver: the primes $p_m$ within a factor
+$e^{-d}$ of $p_{n_0}$. The obstruction there is exact and worth naming, because it explains why
+no sharpening of constants closes the window.
+
+To first order in $y/p_m$, with $y = p_n - p_m$ and $k = \pi(p_n) - \pi(p_m)$,
+\[
+T_m \le T_n
+\quad\Longleftrightarrow\quad
+k \;\le\; y\Bigl(1 + \frac{1}{L_m}\Bigr)\frac{\pi(p_m)}{p_m}\bigl(1 + O(y/p_m)\bigr) ,
+\]
+i.e., since $\pi(x)/x \approx 1/(\log x - 1)$: \emph{$T_m \le T_n$ holds exactly when the
+interval $(p_m, p_n]$ contains no more than about $y/(L-2)$ primes.} The surplus
+$1/(L-1) - 1/L \approx 1/L^2$ between the running-average density and the local density is
+the entire drift that makes $T$ coarsely increase.
+
+\begin{proposition}[Obstruction; $\cP$]
+\label{prop:obstruction}
+Closing the residual window requires an unconditional upper bound on the number of primes in
+an interval of length $y$ of order $x/\log x$ that is within a factor $1 + 2/L$ of the truth.
+The unconditionally available bound of Brun--Titchmarsh type gives only a factor of about $2$.
+\end{proposition}
+
+The required relative slack over the prime-number-theorem count is $4.7\%$ at $2^{64}$ and
+shrinks to $1\%$ at $L = 200$, while the Brun--Titchmarsh-to-needed ratio stays near $2.1$
+across that range. So the needed estimate is not a constant improvement but an
+asymptotically exact short-interval count. Independently, a computational route to the same
+wall prices it: typical windows are settled unconditionally by Brun--Titchmarsh at $99.861\%$
+of governed indices, but the extremal configuration needs a short-interval count sharp to
+$1 + 2.2/\log p$ --- Cram\'er strength --- and that gap \emph{widens} with scale even as
+empirical coverage improves. A pruning rule is worth its worst case. \emph{This is, in our
+judgement, the most tractable genuinely open analytic node the attack isolated --- and it is
+still an open problem in analytic number theory, not a lookup.}
+
+\begin{hazard}[Unsourced, and used only negatively]
+\label{haz:bt}
+Neither the Brun--Titchmarsh inequality nor the second Hardy--Littlewood conjecture is
+covered by a source-ledger row in this work. Both are standard and undisputed; they are used
+here only to \emph{name} an obstruction, never to support a positive claim.
+Proposition~\ref{prop:obstruction} is stated at $\cP$ for its criterion
+($1+2/L$, derived above) and its comparison to Brun--Titchmarsh is flagged as unsourced.
+\end{hazard}
 
 % ==========================================================================
 \section{The Riemann-Hypothesis route is closed}
@@ -840,8 +1476,13 @@ Throughout this section we use the CMS envelope
 B_n := \tfrac{22}{25}\sqrt{p_n}\, L_n ,
 \]
 for which \cite[\S1.2, Thm.~5]{carneiro2019fourier} gives: RH implies $g_n \le B_n$ for every
-$n \ge 3$ (equivalently $p_n > 3$; see \cite[Thm.~1, eq.~(1.4)]{visser2018andrica} for the
-same statement with hypothesis $n \ge 3$, $p_n \ge 5$).
+$n \ge 3$. The hypothesis is stated there as $p_n > 3$, and
+\cite[Thm.~1, eq.~(1.4)]{visser2018andrica} states the same bound with hypothesis
+$n \ge 3$, $p_n \ge 5$; over the primes $p_n > 3 \iff p_n \ge 5 \iff n \ge 3$, so these are the
+same hypothesis. \textbf{That hypothesis is part of the statement and is carried in every
+theorem below.} (The two sources differ in strictness, $\le$ against $<$; every argument here
+consumes the bound only as a non-strict upper envelope, so the discrepancy is inert here, and it
+is recorded rather than smoothed.)
 
 We say the envelope \emph{certifies} $\Fb$ at $n$ when $B_n \le T_n$; by
 Remark~\ref{rem:strict} this upgrades to the strict inequality $g_n < T_n$ that
@@ -853,59 +1494,93 @@ consequence of \cite[Thm.~6.9]{dusart2010estimates}: $\{n : T_n \ge L_n^2\} = \{
 \begin{lemma}[$\cP$]
 \label{lem:A1}
 For every real $x > 0$, $\sqrt{x} > \tfrac{25}{22}\log x$; equivalently
-$\tfrac{22}{25}\sqrt{x}\,\log x > (\log x)^2$ for all $x > 1$.
+$\tfrac{22}{25}\sqrt{x}\,\log x > (\log x)^2$ for all $x > 1$. Consequently $B_n > L_n^2$ at
+\emph{every} index $n \ge 1$.
 \end{lemma}
 
 \begin{proof}
 \idea{One stationary point, and it sits above zero.}
 Put $k := 25/22$ and $h(x) := \sqrt{x} - k\log x$ on $(0,\infty)$. Then
 $h'(x) = (\sqrt{x} - 2k)/(2x)$, so $h$ has a unique stationary point at
-$x^* = (2k)^2 = 625/121 = 5.16528925\ldots$, a minimum, with $h \to +\infty$ at both ends. At
-that point
+$x^* = (2k)^2 = 625/121 = 5.1652892561983471\ldots$, a minimum, with $h \to +\infty$ at both
+ends. At that point
 \[
-h(x^*) = \tfrac{25}{11} - \tfrac{25}{22}\log\tfrac{625}{121} = 0.40686238\ldots > 0 .
+h(x^*) = \tfrac{25}{11} - \tfrac{25}{22}\log\tfrac{625}{121} = 0.40686238165947680\ldots > 0 .
 \]
 Hence $h > 0$ throughout. Multiplying $\sqrt{x} > k\log x$ by $\log x > 0$ (valid for
-$x > 1$) and dividing by $k$ gives the second form.
+$x > 1$) and dividing by $k$ gives the second form; at $x = p_n \ge 2 > 1$ it gives
+$B_n > L_n^2$. The last claim holds at every index because $B_n$ is just a function of $p_n$:
+the CMS hypothesis plays no role in it. That is precisely why the arithmetic clearance set of
+Theorem~\ref{thm:Azero} can be, and is, larger than the certification set of
+Theorem~\ref{thm:A}.
 \end{proof}
 
-\begin{theorem}[The CMS envelope certifies at one index; $\cP$]
-\label{thm:A}
-Let $S := \{n \ge 3 : B_n \le T_n\}$. Then $S = \{3\}$. That is: the sharpest published
-RH-conditional prime-gap bound certifies the Firoozbakht inequality at the single index
-$n = 3$ ($p_3 = 5$) and at no other index in the range where the bound is available.
+\subsection{The certification set, with its quantifier attached}
+
+Round~1's headline for this section read ``the CMS envelope certifies $\Fb$ at exactly one index
+and at no other index whatsoever''. \textbf{The second clause is false as stated}, and round~2
+proves the two statements separately rather than patching the prose. The arithmetic and the
+hypothesis do different work, and the theorem that mixes them cannot say which did what.
+
+\begin{theorem}[Arithmetic clearance; no hypothesis, no RH; $\cP$]
+\label{thm:Azero}
+$A := \{n \ge 1 : B_n < T_n\} = \{1,2,3\}$, and the same set is obtained with $\le$ in place of
+$<$.
 \end{theorem}
 
 \begin{proof}
-\idea{Off a set of six indices the bar $T_n$ is below $L_n^2$, and the envelope is above
-$L_n^2$ always; the six are checked by hand.}
-Let $n \ge 3$. If $n \notin \{3,4,5,6,7,10\}$ then $T_n < L_n^2$, while
-Lemma~\ref{lem:A1} at $x = p_n \ge 5$ gives $B_n > L_n^2 > T_n$, so $n \notin S$. The six
-remaining indices are checked directly in $60$-digit arithmetic:
+\idea{Off a set of eight indices the bar $T_n$ sits below $L_n^2$, while the envelope is above
+$L_n^2$ always; the eight are checked by hand.}
+Let $n \ge 1$. If $n \notin \{1,\dots,7,10\}$ then $T_n < L_n^2$, while Lemma~\ref{lem:A1}
+gives $B_n > L_n^2 > T_n$, so $n \notin A$. The eight remaining indices are checked directly in
+$50$-digit arithmetic:
 \begin{center}
 \begin{tabular}{rrrrc}
 \toprule
 $n$ & $p_n$ & $T_n$ & $B_n$ & $B_n < T_n$? \\
 \midrule
-3 & 5 & 3.549879733 & 3.166955068 & yes \\
-4 & 7 & 4.386035932 & 4.530587009 & no \\
-5 & 11 & 6.769336928 & 6.998568638 & no \\
-6 & 13 & 6.934281081 & 8.138289656 & no \\
-7 & 17 & 8.481637825 & 10.27984133 & no \\
-10 & 29 & 11.61044961 & 15.95742984 & no \\
+1  & 2  & 2.0000000000 & 0.86262716625 & yes \\
+2  & 3  & 2.1961524227 & 1.6745100256  & yes \\
+3  & 5  & 3.5498797334 & 3.1669550684  & yes \\
+4  & 7  & 4.3860359319 & 4.5305870087  & no \\
+5  & 11 & 6.7693369282 & 6.9985686377  & no \\
+6  & 13 & 6.9342810812 & 8.1382896560  & no \\
+7  & 17 & 8.4816378252 & 10.279841332  & no \\
+10 & 29 & 11.610449607 & 15.957429839  & no \\
 \bottomrule
 \end{tabular}
 \end{center}
-All six comparisons are strict, so $\le$ and $<$ agree on them. Hence $S = \{3\}$.
+All eight comparisons are strict, so $<$ and $\le$ select the same indices. Hence
+$A = \{1,2,3\}$.
+\end{proof}
+
+\begin{theorem}[The CMS envelope certifies at one index; $\cP$]
+\label{thm:A}
+Let $S := \{n \ge 3 : B_n \le T_n\}$ be the set of indices at which the CMS envelope certifies
+$\Fb$ under RH. Then $S = A \cap [3,\infty) = \{3\}$. That is: the sharpest published
+RH-conditional prime-gap bound certifies the Firoozbakht inequality at \textbf{exactly one index
+of the range where that bound is available}, namely $n = 3$ ($p_3 = 5$).
+\end{theorem}
+
+\begin{proof}
+\idea{Intersect Theorem~\ref{thm:Azero}'s clearance set with the source's own hypothesis, and
+check that the certification at the surviving index is genuine.}
+$S = A \cap [3,\infty)$ by definition, using the strictness established in
+Theorem~\ref{thm:Azero} so that the $\le$ in $S$ and the $<$ in $A$ select the same indices.
+Theorem~\ref{thm:Azero} gives $A = \{1,2,3\}$, so $S = \{3\}$. At $n = 3$ the certification is
+genuine: RH gives $g_3 \le B_3 < T_3$, hence $g_3 < T_3$, hence $\Fb$ at $3$ by
+Lemma~\ref{lem:reduction}.
 \end{proof}
 
 \begin{remark}[Read the quantifier]
 \label{rem:quantifier}
-The restriction $n \ge 3$ in Theorem~\ref{thm:A} is part of the statement and must not be
-dropped when the theorem is quoted. The envelope in fact clears the bar at $n = 1$ and
-$n = 2$ as well; what excludes them is the \emph{source's} hypothesis $p_n > 3$, not the
-arithmetic. The correct informal form is therefore ``at exactly one index in the range where
-the CMS bound is available'', never ``at no other index whatsoever''.
+Comparing the two theorems: the envelope clears the bar at $n = 1$ and $n = 2$ as well, and
+what excludes those two indices is \textbf{the source's hypothesis $p_n > 3$, not the
+arithmetic}. So the correct informal form is ``at exactly one index of the range where the CMS
+bound is available'', never ``at no other index whatsoever''. This is not a nicety. A finite
+check that starts where its own theorem starts cannot detect that the range is doing work, and
+round~1's check started at $n = 3$ --- exactly where its theorem started --- which is why the
+two rows at $n = 1, 2$ were never printed.
 \end{remark}
 
 \begin{remark}
@@ -918,7 +1593,36 @@ of Theorem~\ref{thm:verified} --- and what is already known still certifies $\Fb
 above $n = 3$.
 \end{remark}
 
-\begin{theorem}[No power-type envelope suffices; $\cP$]
+\subsection{The per-index critical constant, and a seam it closes}
+\label{sec:critconst}
+
+Restoring the quantifier did more than correct a sentence: it dissolved a contradiction between
+two artifacts of this work that had gone unnoticed because both were numerically right and only
+the words disagreed. One reported that the CMS envelope certifies at ``one index and no other'';
+the other reported a certified range ``$p \le 5$'', i.e.\ three certified primes
+$\{2,3,5\}$. Both are level sets of a single object.
+
+\begin{definition}[Per-index critical constant]
+\label{def:Cn}
+For $n \ge 1$ put
+\[
+C_n \;:=\; \frac{T_n}{\sqrt{p_n}\,L_n} ,
+\]
+the largest constant $C$ for which the envelope $C\sqrt{p_n}L_n$ still lies at or below the bar
+at index $n$.
+\end{definition}
+
+Then $B_n < T_n \iff C_n > 22/25$, so Theorem~\ref{thm:Azero} says exactly that the level set
+$\{n : C_n > 22/25\}$ is $\{1,2,3\}$ --- three indices, i.e.\ the primes $2, 3, 5$, i.e.\ ``$p
+\le 5$''. The two artifacts were measuring the same level set from opposite sides, one counting
+indices under the source's hypothesis and one counting primes without it. They now cite each
+other through $C_n$. \emph{This is the one seam in either round that the legs closed by
+themselves rather than deferring};
+\S\ref{sec:defects} lists the ones they did not.
+
+\subsection{No power-type envelope suffices}
+
+\begin{theorem}[$\cP$]
 \label{thm:Bpow}
 Let $C > 0$, $\theta > 0$, $A \in \R$ and $E(x) := C x^\theta (\log x)^A$. Then
 $\#\{n : E(p_n) \le T_n\} < \infty$; indeed $E(p_n)/T_n \to \infty$.
@@ -941,16 +1645,18 @@ its asymptotic refinement $\limsup \le 1/C^+(B) < 21/25$
 \cite[\S1.2, Cor.~4]{carneiro2019fourier}. \textbf{The column that matters is $\theta$:} every
 entry has $\theta > 0$, while the bar \eqref{eq:sufficient} has $\theta = 0$. Improving the
 exponent from $0.525$ to $0.5$ --- exactly what RH buys --- moves nothing across the line,
-because the line is at $\theta = 0$.
+because the line is at $\theta = 0$. Numerically the same statement reads: the slack that
+Baker--Harman--Pintz supplies overtakes what is needed from $n = 245$ on, and RH's from
+$n = 3$ on; both are insufficient exactly where it matters.
 
 \begin{theorem}[The critical constant is $2/e$; $\cP$]
 \label{thm:Ccrit}
 For $C > 0$ set $E_C(x) := C\sqrt{x}\log x$. Then
-$\{x > 1 : E_C(x) \le (\log x)^2\} \ne \emptyset$ if and only if $C \le 2/e = 0.735758882\ldots$,
-and when non-empty this set is the \emph{bounded} interval with endpoints
-$\exp(-2W_0(-C/2))$ and $\exp(-2W_{-1}(-C/2))$, where $W_0, W_{-1}$ are the two real branches
-of the Lambert $W$ function. Consequently, for every $C > 0$, $E_C$ certifies $\Fb$ at only
-finitely many indices.
+$\{x > 1 : E_C(x) \le (\log x)^2\} \ne \emptyset$ if and only if
+$C \le 2/e = 0.7357588823428846\ldots$, and when non-empty this set is the \emph{bounded}
+interval with endpoints $\exp(-2W_0(-C/2))$ and $\exp(-2W_{-1}(-C/2))$, where $W_0, W_{-1}$ are
+the two real branches of the Lambert $W$ function. Consequently, for every $C > 0$, $E_C$
+certifies $\Fb$ at only finitely many indices.
 \end{theorem}
 
 \begin{proof}
@@ -993,9 +1699,10 @@ the scale, and by Theorem~\ref{thm:Bpow} the scale is the whole obstruction.
 That $\limsup = 0$ holds under RH together with Montgomery's pair correlation conjecture is
 \emph{reported}, not proved, by \cite[\S1.2, after eq.~(1.14)]{carneiro2019fourier}, who
 attribute it to three works not opened in this study. It is therefore second-hand and is
-attributed as such here. Corollary~\ref{cor:limsup0} does not depend on the statement being
-true --- it says that \emph{even if} it holds, nothing is certified --- so the weak tier does
-not propagate into the verdict.
+attributed as such here, at a strictly weaker tier than the rest of that citation.
+Corollary~\ref{cor:limsup0} does not depend on the statement being true --- it says that
+\emph{even if} it holds, nothing is certified --- so the weak tier does not propagate into the
+verdict.
 \end{hazard}
 
 \subsection{The material implication $\mathrm{RH} \Rightarrow \Fb$}
@@ -1045,7 +1752,7 @@ bound, and nothing here orders $\mathrm{RH}\Rightarrow\Fb$ against any other ope
 difficulty. In particular this paper does \emph{not} assert that $\Fb$ is harder than RH.
 \end{hazard}
 
-\begin{corollary}[The circularity charge, made quantitative; $\cPs$]
+\begin{corollary}[The band left for a candidate hypothesis; $\cP$]
 \label{cor:D2}
 Let $H$ be any hypothesis of gap-bound shape with $H \Rightarrow \Fb$. Composing with
 \eqref{eq:necessary} gives $H \Rightarrow (\forall k > 9 : g_k < L_k^2 - L_k - 1)$. So every
@@ -1053,7 +1760,8 @@ sufficient hypothesis is at least as strong as the necessary condition; and by
 \eqref{eq:sufficient} a hypothesis only an additive $0.17$ stronger than that bound already
 suffices. Hence a candidate gap-bound hypothesis can sit only in the band between
 $L^2 - L - 1$ and $L^2 - L - 1.17$: outside it, a candidate is either too weak to give $\Fb$
-or is itself a sufficient condition, i.e.\ $\Fb$ with a constant changed.
+or is itself a sufficient condition, i.e.\ $\Fb$ with a constant changed. \textbf{The band has
+width $0.17$.}
 \end{corollary}
 
 \begin{remark}
@@ -1169,6 +1877,28 @@ $\Fb$ needs a uniform bound at \emph{every} index with the second-order term pin
 distance between ``asymptotically at most $1$'' and ``below $L^2 - L - 1$ always'' is exactly
 the room the construction lives in.
 
+\subsection{Summary of the five readings}
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{0.52\textwidth} p{0.38\textwidth}@{}}
+\toprule
+Reading of ``an RH-conditional bound settles $\Fb$'' & Verdict \\
+\midrule
+The sharpest published RH-conditional gap bound certifies $\Fb$ cofinitely &
+  \textbf{refuted} --- one index in range (Thm.~\ref{thm:A}) \\
+Some bound $C p_n^\theta(\log p_n)^A$, $\theta > 0$, certifies $\Fb$ beyond finitely many $n$ &
+  \textbf{refuted} (Thm.~\ref{thm:Bpow}) \\
+Some envelope $C\sqrt{p}\log p$, any $C > 0$, certifies $\Fb$ beyond finitely many $n$ &
+  \textbf{refuted}; critical constant $2/e$ (Thm.~\ref{thm:Ccrit}) \\
+Cram\'er's $\limsup \le 1$ entails $\Fb$ over integer sequences &
+  \textbf{refuted} by counter-model (Thm.~\ref{thm:E}) \\
+$\mathrm{RH} \Rightarrow \Fb$ as a material implication &
+  \textbf{undecided}; Thm.~\ref{thm:D} bounds the required strength \\
+\bottomrule
+\end{tabular}
+\end{center}
+
 % ==========================================================================
 \section{The smooth model}
 \label{sec:smooth}
@@ -1196,8 +1926,10 @@ Since $p_n \sim n\log n$, Proposition~\ref{prop:smooth} says that the \emph{smoo
 Firoozbakht's conjecture is true and elementary. The entire difficulty of $\Fb$ localises in
 the fluctuation of $p_n$ around $n\log n$. The safe stated range is $x \ge 5$, not $x \ge 4$:
 the relevant bracket changes sign just above $4$ ($+0.0084$ at $x=4$, $-0.0193$ at $x = 4.05$).
-Proposition~\ref{prop:smooth} was \emph{not} formalised in Lean in this work
-(\S\ref{sec:lean}).
+Proposition~\ref{prop:smooth} was \emph{not} formalised in Lean in either round
+(\S\ref{sec:barrier}), and it remains the highest-leverage formalisation target the work has:
+it is the only node in the formalisation plan that is a genuine theorem rather than a
+definition or a finite check, and it is fully within Mathlib's reach.
 
 % ==========================================================================
 \section{Computational evidence}
@@ -1224,10 +1956,22 @@ The protocol is two-tier and the tiering is the point:
 The escalation discipline deserves emphasis because it inverts the usual default:
 \emph{the silent failure here is in the verification direction.} A probe that only breaks on
 a detected violation reports ``no counterexample'' out of numerical noise. This one cannot.
+Round~2 applied the same discipline with the sign flipped, in the one place where it mattered:
+the refutation of $\Ppair$ (Theorem~\ref{thm:pairfalse}) is the outcome that is bad news for the
+attack, so its witnesses were recomputed at 60 digits even though they stand
+$10^{8}$--$10^{12}$ ulps clear.
+
+Round~2 added two further sweeps, written from the statements rather than from any round-1 code
+path: one to $10^9$ ($50\,847\,533$ indices) and one to $2\cdot10^8$ ($11\,078\,936$ indices).
+Both reproduce round~1's headline statistics to every digit quoted. The smaller of the two is
+explicit that the $10^9$ decade is one beyond its own sieve and is therefore \emph{not}
+independently confirmed by it, and that nothing in its report depends on that decade; that is
+the discipline worth carrying.
 
 \subsection{Results}
 
 \begin{center}
+\small
 \begin{tabular}{@{}lr@{}}
 \toprule
 Quantity & Value \\
@@ -1239,6 +1983,11 @@ $\max_{n \ge 10} g_n/L_n^2$ & $0.7953487$, same prime \\
 largest gap in range & $464$ at $p = 42\,652\,618\,343$ \\
 maximal-gap records in range & $40$ \\
 sieve validation & $\pi(10^9)$, $\pi(10^{11})$ match standard values \\
+\midrule
+$\Pgov$, $\Pmin$, $\Prec$, $T_{\mu(n)} \le T_{r(n)}$ below $10^9$ & \textbf{0} exceptions each \\
+record steps checked for $\Prec$ below $10^9$ & $29$ \\
+$\Ppair$ exception indices below $10^9$ & $\mathbf{17}$, in two clusters
+  (Prop.~\ref{prop:census}) \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1246,10 +1995,52 @@ sieve validation & $\pi(10^9)$, $\pi(10^{11})$ match standard values \\
 Only two pairs in the whole range reach $\rho \ge 0.9$, and both are at $n < 5$
 ($\rho_2 = 0.9107$, $\rho_4 = 0.9120$), which is why the record is quoted for $n \ge 10$.
 
-\subsection{Verification of the lemmas of \S\ref{sec:monotone}--\S\ref{sec:range}}
+\subsection{The oscillation of $T$, and a three-way disputed denominator}
+\label{sec:oscillation}
 
-The following items are cited by number from the proofs above. All were recomputed
-independently of the code paths that produced the sweep.
+The fact that motivates \S\ref{sec:monotone} is that $T$ is not monotone. Quantified:
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+range & $T_{n+1} < T_n$, $n \ge 10$ & $T_{n+1} < T_n$, all $n$ \\
+\midrule
+$3\cdot10^6$ & $121\,238 / 216\,806 = \mathbf{55.9200\%}$ & $121\,239/216\,815 = 55.9182\%$ \\
+$10^9$       & --- & $\approx 57.88\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{hazard}[The figure is range-dependent, and its denominator was disputed three times]
+\label{haz:5592}
+Two riders travel with this figure and neither may be dropped. First, it is
+\textbf{range-dependent} --- $55.92\%$ at $3\cdot10^6$ against $57.88\%$ at $10^9$ --- and must
+never be quoted without its bound and its convention. Second, the denominator has a history
+worth recording, because it is a case where the review process was wrong twice in the same
+direction. Every \emph{numerator} above agrees across every document and both rounds. The
+\emph{denominators} were reported one lower ($216\,805$ and $216\,814$) by one round-2 leg, and
+a round-1 review had called the higher figure an off-by-one error while a round-2 leg
+re-affirmed that call. Three mutually independent recomputations --- including one written from
+the statements with its own sieve at 60 digits --- agree on
+$\pi(3\cdot10^6) = 216\,816$ and hence on $216\,815$ consecutive steps in total and $216\,806$
+with $n \ge 10$. The lower figures are consistent with a $T$-array truncated to the gap-array
+length before differencing, i.e.\ an implementation artefact rather than a counting convention.
+\textbf{We carry $121\,238/216\,806$ and $121\,239/216\,815$}, and record that the concept card
+downstream legs read first still carries the disputed lower denominator, so the discrepancy is
+live in the corpus (\S\ref{sec:defects}).
+\end{hazard}
+
+Whichever convention is used, the statistic is \textbf{not diagnostic} for any of the four
+predicates of Definition~\ref{def:predicates}: it measures single steps, while every predicate
+compares an index to a governor many steps back.
+
+\subsection{Verification of the lemmas and constants used above}
+\label{sec:vitems}
+
+The following items are cited by number from the proofs above --- items V1--V9 support
+\S\ref{sec:monotone}--\S\ref{sec:range}, V10--V11 the near-record theorems of
+\S\ref{sec:nearrecord}, V12 the barrier of \S\ref{sec:barrier} and V13 the constants of
+\S\ref{sec:rh}. All were recomputed independently of the code paths that produced the sweep.
 
 \begin{enumerate}
 \item[V1] $\max\{g_k : p_k < 60\,184\} = 72$, attained at $p = 31\,397$, by
@@ -1263,9 +2054,10 @@ independently of the code paths that produced the sweep.
   slack is $T_n - B(p_n) = +0.0798914728\ldots$, attained at the very bottom of the range
   ($p = 155\,893$).
 \item[V4] Lemma~\ref{lem:dusart} holds at every prime in $[60\,184, 2\cdot10^7]$; zero
-  failures.
-\item[V5] $B(2^{64}) = 1919.1379834975328$ (Proposition~\ref{prop:1920}), and the largest
-  even $g$ with $S^\sharp(g) \le 2^{64}$ is $1918$.
+  failures. The three Axler bounds of Caveat~\ref{haz:axler} were likewise tested at $x = p_n$
+  over the primes below $10^8$, each within its own stated range: zero failures each.
+\item[V5] $B(2^{64}) = 1919.13798349753288\ldots$ (Proposition~\ref{prop:1920}), and the
+  largest even $g$ with $S^\sharp(g) \le 2^{64}$ is $1918$.
 \item[V6] The sign change of $h(p) = p - 25(\log p)^3(\log p - 1.1)$ is at
   $p^* = 777\,600.744\ldots$ (Proposition~\ref{prop:window}).
 \item[V7] Table lookup for the whole in-run range: of the $209$ gap sizes occurring below
@@ -1280,13 +2072,34 @@ independently of the code paths that produced the sweep.
   consuming \emph{only} the $40$ maximal-gap records --- no sieve, no $\pi(x)$ computation,
   no per-prime check. This is the shape in which a frontier like $2^{64}$ is actually
   certified.
+\item[V10] The two small-branch inputs of \S\ref{sec:nearrecord}: the largest prime gap below
+  $10^8$ is $220$, attained at $p = 47\,326\,693$; the largest below $6\,690\,557$ is $154$,
+  attained at $p = 4\,652\,353$. Both by exact integer arithmetic over an in-run sieve.
+\item[V11] The constants of \S\ref{sec:nearrecord}, all recomputed at $40$--$60$ digits from
+  the statements: $e^{-0.0516} = 0.949708674346\ldots$;
+  $e^{-0.0017569} = 0.998244642445\ldots$; $e^{-0.0043636} = 0.995645906670\ldots$;
+  the majorant maxima $0.051599027$ and $0.0017568759$; the exact (non-majorised) requirements
+  $0.051493457$ and $0.0017560603$; and the round-1 defect of Caveat~\ref{haz:F2}: required
+  separation $0.169339812744\ldots$ under the printed lemma; $0.004362882388\ldots$ exactly
+  required under its tight form and $0.004363567696\ldots$ proved sufficient there by the
+  majorant argument; and the quotient of the first two, $38.813747\ldots$, which is the factor
+  by which the printed lemma is wrong (\emph{not} its quotient with the printed $0.004479$,
+  which is $37.807504\ldots$).
+\item[V12] The barrier of Theorem~\ref{thm:barrier}, checked numerically as a sanity companion
+  to the kernel proof: $p_n^{1+1/n} < 2p_n$ at every $2 \le n \le 2\cdot10^4$ and $p_n < 2^n$
+  at every $2 \le n \le 216\,816$ in exact integer arithmetic, zero failures each; and Bertrand
+  does \emph{not} certify at $n = 1$, where $2^2 = 4 = 2\cdot2$ --- the one index the theorem
+  excludes.
+\item[V13] $\log 2^{64} = 44.36141955583649\ldots$, and the RH critical constant
+  $\max_{x>1}\log x/\sqrt{x} = 0.7357588823428846\ldots = 2/e$ at $x = e^2$, to 60 digits
+  (Theorem~\ref{thm:Ccrit}).
 \end{enumerate}
 
 \begin{remark}[Stability of the table test across four decades]
 The minimum safety factor $q(g)/S^\sharp(g)$ is $5.3371$ at $g = 112$ at every one of
 $X = 10^7, 10^8, 10^9, 10^{10}, 10^{11}$. Four decades of new data and $134$ new gap sizes
 produced nothing tighter than a case already visible in the first decade ($g = 112$, first
-occurring at $p = 370\,261$). Route (b) neither tightens nor loosens as the range extends.
+occurring at $p = 370\,261$). The table test neither tightens nor loosens as the range extends.
 \end{remark}
 
 \subsection{Three refutations of claims about the evidence}
@@ -1350,95 +2163,22 @@ arithmetic, so rounding cannot be blamed.
 
 The consequence is sharp: \textbf{any proof of first-failure maximality that does not consume
 an arithmetic density input is wrong}, because the statement is false for sequences satisfying
-everything except primality. The good news is that a weak input suffices for this mechanism:
-the dense run the counter-model needs exceeds the unconditional Montgomery--Vaughan cap
-$2y/\log y$ by a factor that \emph{grows} with scale --- $1.41$ at $p \approx 10^3$, $4.18$ at
-$4\cdot10^8$, $9.13$ at $10^{18}$ --- so the counter-model is excluded unconditionally, and
-increasingly comfortably. (The Montgomery--Vaughan bound is not covered by a source-ledger row
-in this work; cf.\ Caveat~\ref{haz:bt}.)
+everything except primality. Note that Theorem~\ref{thm:ffm} respects this: it consumes a
+hypothesis about $T$ that is a statement about the primes. The good news is that a weak input
+suffices for this mechanism: the dense run the counter-model needs exceeds the unconditional
+Montgomery--Vaughan cap $2y/\log y$ by a factor that \emph{grows} with scale --- $1.41$ at
+$p \approx 10^3$, $4.18$ at $4\cdot10^8$, $9.13$ at $10^{18}$ --- so the counter-model is
+excluded unconditionally, and increasingly comfortably. (The Montgomery--Vaughan bound is not
+covered by a source-ledger row in this work; cf.\ Caveat~\ref{haz:bt}.)
 
 A second, independent route is also closed: bounding $T_m$ above and $T_n$ below with
 explicit $\pi(x)$ estimates \emph{at the two endpoints separately} demands record gaps of
 size at least $5.3\cdot10^4$ at $p = 10^6$ (Dusart) or $3.7\cdot10^3$ (Axler), against actual
 records of size $\approx \log^2 p \approx 176$; and past $\approx 10^{10}$ (Dusart) the
 criterion is unsatisfiable at \emph{any} gap size. The bound spread dwarfs the quantity being
-resolved, and no sharpening of constants rescues the route.
-
-% ==========================================================================
-\section{Formalisation in Lean~4}
-\label{sec:lean}
-
-\subsection{What is machine-checked}
-
-The reduction chain
-\[
-\texttt{Conjecture} \;\leftrightarrow\; \texttt{ConjectureReal} \;\leftrightarrow\;
-\bigl(\forall n \ge 1,\ g_n < T_n\bigr)
-\]
---- i.e.\ Lemma~\ref{lem:reduction} --- is formalised in Lean~4 against Mathlib and checked
-by the kernel. Toolchain: \texttt{leanprover/lean4:v4.29.0}; Mathlib tag \texttt{v4.29.0},
-revision \texttt{8a178386\allowbreak ffc0f5fe\allowbreak f0b77738\allowbreak bb5449d5\allowbreak 0efeea95}.
-
-\begin{center}
-\small
-\begin{tabular}{@{}p{0.46\textwidth} p{0.44\textwidth}@{}}
-\toprule
-Gate & Result \\
-\midrule
-\texttt{lake build} exit code & \textbf{0} (1984 jobs) \\
-build warnings & \textbf{1} --- the declared open target, and nothing else \\
-declarations scanned by the axiom audit & \textbf{60} (exhaustive, list-free) \\
-declarations depending on \texttt{sorryAx} & \textbf{1} --- \texttt{Firoozbakht.firoozbakht} \\
-live \texttt{sorry} tokens in sources & \textbf{1} \\
-stray \texttt{axiom}, \texttt{native\_decide}, \texttt{@[implemented\_by]} or \texttt{unsafe} & \textbf{none} (grep-clean) \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-The single \texttt{sorryAx} dependent is Firoozbakht's conjecture itself, which was never
-attempted. \emph{An attack on an open $\Pi_1$ statement whose \texttt{sorry} count reaches
-zero would be reporting a fabrication, not a result.} Four of the skeleton's original five
-\texttt{sorry}s --- the equivalence-chain lemmas --- were discharged with real proof terms,
-and the signatures were mechanically diffed against the skeleton anchor with zero changes,
-which is what forecloses the failure mode ``closed a \texttt{sorry} by weakening the
-statement''. The equivalences were also shown non-vacuous: $g_1 = 1$ and $T_1 = 2^2 - 2$ are
-pinned to numerals.
-
-The audit itself was made exhaustive rather than trusted: a hand-maintained list of
-declarations to \texttt{\#print axioms} is a hazard dressed as a check, since a \texttt{sorry}
-in a forgotten declaration is invisible. The list-free audit walks the namespace. The checker
-was then tested against a corpus of $27$ adversarial statements, all false or ill-formed; all
-$27$ behaved as specified. One corpus entry --- a true-but-differently-meant statement
-produced by an $\N \to \R$ coercion --- is caught by \emph{no} gate in this study and is named
-as such rather than omitted.
-
-\subsection{What is not formalised, and why}
-
-\begin{itemize}
-\item \textbf{The smooth model} (Proposition~\ref{prop:smooth}). Fully within Mathlib's
-  reach; simply not done.
-\item \textbf{The $\limsup$ corollary.} Needs effective $\pi(x)$ bounds that are not assumed
-  present in Mathlib.
-\item \textbf{Any verified range past $n \le 4$.} This is a hard limit and deserves naming.
-  \texttt{Nat.nth} is \emph{noncomputable} \cite{mathlibNatNth} --- not merely slow --- so
-  \texttt{decide} cannot produce $p_n$ at all; and Mathlib's prime-specific \texttt{nth} API
-  is exactly five \texttt{@[simp]} base lemmas, $\texttt{nth Prime } 0 = 2$ through
-  $\texttt{nth Prime } 4 = 11$ \cite{mathlibNatPrimeNth}. Extending requires building
-  \texttt{Nat.count}$\leftrightarrow$\texttt{Nat.nth} bridging machinery, plus prime literals
-  with \texttt{Nat.Prime} certificates and a ``no prime strictly between'' lemma for each
-  consecutive pair. Reporting a larger verified $N$ without that work would be a fabrication.
-\item \textbf{Dusart's estimate} (Lemma~\ref{lem:dusart}) is not in Mathlib and would have to
-  enter any formalisation of \S\ref{sec:range} as a hypothesis or an axiom --- and be
-  declared as such in any paper quoting the result.
-\end{itemize}
-
-\begin{hazard}[Indexing]
-Mathlib's \texttt{nth} is $0$-indexed ($\texttt{nth Prime } 0 = 2$) while the conjecture as
-posed here is $1$-indexed ($p_1 = 2$). Every index threshold in the literature --- $k > 9$,
-$n \ge 10$, $n \ge 3645$, $n \ge 5$ --- is stated in the $1$-indexed convention. The
-off-by-one must be fixed once, in the statement file; it is the single most likely source of a
-silent error in a formalisation of this material.
-\end{hazard}
+resolved, and no sharpening of constants rescues the route. This is not a contradiction of
+\S\ref{sec:nearrecord}: there the two endpoints are separated by a fixed multiplicative
+factor, which is exactly the regime the two-sided route cannot reach.
 
 % ==========================================================================
 \section{The tension that will not resolve itself}
@@ -1481,6 +2221,22 @@ improves only to $\approx\sqrt{p_n}\log p_n$ \cite{carneiro2019fourier}. Both ar
 $p_n$; $\Fb$ needs polylogarithmic. Any proposal of a ``direct proof'' must say how it clears
 this, or it is proposing something already beyond the field.
 
+Round~2 sharpened this in three independent places, produced by three legs that were not
+talking to each other --- which is worth recording, because agreement reached that way is
+evidence and agreement reached by copying is not:
+\begin{itemize}
+\item \textbf{Formally}, the only prime-gap input Mathlib carries is proved insufficient at
+  every index (Theorem~\ref{thm:barrier}, $\cK$).
+\item \textbf{Analytically}, every envelope $Cp^\theta(\log p)^A$ with $\theta > 0$ fails
+  beyond finitely many $n$, because the bar sits at $\theta = 0$
+  (Theorem~\ref{thm:Bpow}); and any hypothesis sufficient for $\Fb$ must itself deliver the
+  full $\log^2$-scale uniform bound with leading constant $1$ and second-order term pinned,
+  while a hypothesis only $0.17$ stronger already suffices --- the band left for a candidate
+  gap bound has width $0.17$ (Corollary~\ref{cor:D2}).
+\item \textbf{Numerically}, the crossover table of \S\ref{sec:rh}: the available slack
+  overtakes what is needed from $n = 245$ on unconditionally and from $n = 3$ on under RH.
+\end{itemize}
+
 Compounding it: \textbf{there is no induction mechanism.} $g_n$ is not constrained by
 $g_1,\dots,g_{n-1}$; knowing $\Fb$ up to $n$ gives no leverage at $n+1$. Any proposed
 inductive proof must first supply the missing mechanism.
@@ -1492,78 +2248,124 @@ Explicit constructions fail for a second, independent reason: they place the gap
 \emph{same} point. Correspondingly, although $\neg\Fb$ is $\Sigma_1$ and finitely certifiable
 in principle, the certificate must certify the \emph{rank} $n$, not merely the two primes.
 
-\subsection{Named defects in the underlying corpus}
+\subsection{The most tractable open node}
+
+It is Proposition~\ref{prop:obstruction}: an unconditional upper bound on the number of primes
+in a short interval, sharp to a factor $1 + 2/\log p$, where Brun--Titchmarsh gives about $2$.
+It is stated in closed form, it is the exact obstruction inside the residual window of
+Theorems~\ref{thm:Ca} and~\ref{thm:Cb}, and it is an open problem in analytic number theory
+rather than a lookup. Two further nodes worth naming: proving $\Prec$, or measuring it as a
+first-class obligation (Proposition~\ref{prop:implications} needs it and nobody was measuring
+it under its own name until round~2); and formalising Proposition~\ref{prop:smooth}.
+
+\subsection{Named defects and unreconciled seams in the underlying corpus}
 \label{sec:defects}
 
-The body of work this paper draws on was subjected to an adversarial review that found two
-unrepaired blocking defects. Neither touches $\Fb$, and both are disclosed here rather than
-smoothed.
+The body of work this paper draws on was subjected to adversarial review in both rounds. Round
+1's two blocking defects are repaired (\S\ref{sec:rounds}). Round~2's review returned
+\textbf{three} new blocking findings, and this is the honest reading of that: the count went up,
+and the species changed. \emph{None of the three is a mathematical error, and none touches
+$\Fb$.} All three are seams between artifacts that no leg owned.
 
 \begin{enumerate}
-\item \textbf{A vocabulary collision on the ``governing record index''.} The phrase carries
-  three inequivalent meanings across the corpus, and the same statistic was reported under
-  all three: (i) $m(n) = $ the most recent maximal-gap index $\le n$; (ii)
-  $m(n) := \min\{m : g_m \ge g_n\}$; (iii) $T_m \le T_n$ for \emph{all} $m < n$ straddling a
-  record gap. These are strictly ordered, (iii) $\Rightarrow$ (i) $\Rightarrow$ (ii), and the
-  search pruning consumes only the weakest, (ii). With that named, two apparently
-  contradictory findings cease to contradict: the margin of predicate~(i) decays like
-  $p^{-0.83}$ ($+1.05\cdot10^{-2}$ at $3\cdot10^6$ to $+2.93\cdot10^{-6}$ at $10^{11}$, zero
-  exceptions throughout), while the margin of predicate~(ii) is flat at $+0.4845$ with its
-  global minimum at $n = 1879$, never approached again across eleven decades, also with zero
-  exceptions. \textbf{This paper is written entirely in the disambiguated vocabulary}, but the
-  upstream artifacts still carry the collision, and an inference drawn there --- that a
-  \texttt{float64} check of the pruning predicate hits its noise floor at the published
-  frontier --- is derived from predicate~(i) and does \emph{not} apply to predicate~(ii),
-  which is $\sim10^{12}$ ulps clear of zero at every decade measured.
-\item \textbf{A mis-derived bound in the Axler-sharpened version of Theorem~\ref{thm:C}.} As
-  printed upstream, the theorem is false by a factor $\approx 38$ over part of its own
-  validity range, because the stated upper bound on $T_m$ does not follow from its stated
-  justification; the in-run numerical check reproduced the error rather than catching it. The
-  review confirmed that the \emph{conclusion} is nonetheless true under the corrected tight
-  form, and the repair is a one-line restatement. \textbf{It has not been applied.} This paper
-  therefore states only the Dusart-only Theorem~\ref{thm:C}, whose constant $0.0623$ is
-  unaffected and was independently confirmed conservative; see Remark~\ref{rem:C-b}.
+\item \textbf{Two correct, incompatible repairs of the same defect.} Two legs independently
+  repaired the round-1 bound of Caveat~\ref{haz:F2}, correctly, into two different theorems
+  with two different constants, off two different rows of the same source table, with neither
+  citing the other. Both were verified correct. The corpus contains no rule for choosing.
+  This paper chooses --- Theorem~\ref{thm:Cb}, on the ground that its source row exists in both
+  editions --- and states that it is choosing (Remark~\ref{rem:retired}). \textbf{Neither
+  upstream document has been amended.}
+\item \textbf{Contradictory source tiers for the same source.} One leg records
+  \cite{axler2014newbounds} as opened and read at the locator; another still labels it unopened
+  at every use and attaches to its own theorem the instruction that it must never appear in a
+  sentence containing the word ``unconditional''. That instruction is now too strict on
+  \emph{tier} grounds and exactly right on \emph{row} grounds (Caveat~\ref{haz:axler}(b)). A
+  reader of the second document alone gets the wrong tier. This paper is written in the
+  corrected tier throughout; the second document has not been amended.
+\item \textbf{An edition-fragile citation.} The table row underlying the retired repair exists
+  in the preprint edition only, and the artifact that \emph{depends} on it does not carry the
+  flag, though the concept card describing the source does. This paper resolves its own
+  exposure by not carrying that theorem (Remark~\ref{rem:retired}); the flag still has to be
+  written into the upstream document if it is kept.
 \end{enumerate}
 
-Consequently the pre-publication evidence gate on the underlying corpus stands at
-\textbf{BLOCKED}, with the adversarial-review leg named as the failing one. The formal
-(kernel) leg passes outright, and the adversarial-corpus leg passes ($27/27$). Nothing in
-\S\S\ref{sec:setup}--\ref{sec:tension} rests on either defect.
+Two further live defects sit \emph{inside} the repairs, both labelling rather than arithmetic,
+and both already stated at their point of use: the ``census of pairs'' that counts indices
+(Caveat~\ref{haz:census}), and the ``unconditional'' label on Theorem~\ref{thm:Ca} that rests
+on a verification height and an in-run sieve (Caveat~\ref{haz:uncond}). And three small numeric
+defects were found by recomputation, none touching any conclusion: an upstream document prints
+$e^{-0.0017569} = 0.99824467$ where the value is $0.9982446424\ldots$; and the concept card that
+downstream legs read first carries the disputed denominator $216\,805$ (Caveat~\ref{haz:5592})
+together with a transposed sweep size, $50\,847\,503$ for $50\,847\,533$.
+
+\begin{center}
+\fbox{\parbox{0.93\textwidth}{
+\textbf{The pre-publication evidence gate on the underlying corpus stands at BLOCKED}, with the
+adversarial-review leg named as the failing one, on the three findings above. The formal
+(kernel) leg passes outright --- and \emph{passing the kernel leg is not the claim ``proved''};
+the kernel verdict on $\Fb$ itself is that it was not provable within the budget. The
+adversarial-corpus leg passes ($27/27$). Nothing in
+\S\S\ref{sec:setup}--\ref{sec:tension} rests on an unrepaired defect: no constant here comes
+from a broken derivation, the withdrawn ordering of Remark~\ref{rem:withdrawn} is nowhere used,
+and the retired constant of Remark~\ref{rem:retired} appears only as the statement being
+retired. \textbf{This paper is an honest report on a blocked corpus. It is not a seal.}
+}}
+\end{center}
+
+\begin{remark}[The structural reading, which is what two rounds bought]
+\label{rem:structural}
+Round~1's review named this failure mode and predicted its recurrence: a fan-out with no
+reconciliation stage, in which nobody owns the seams. Round~2 \emph{widened} the fan-out, still
+supplied no reconciliation stage, and reproduced the prediction on itself. Every mathematical
+target round~2 was pointed at, it hit; what is missing is not mathematics but a single
+reconciliation pass. The useful conclusion --- which one round could not have supplied, having
+only one measurement --- is that more rounds \emph{of this shape} will not converge. We state
+it here because a reader deciding whether to extend this work should know that the next
+increment is editorial, not mathematical.
+\end{remark}
 
 \subsection{Source provenance, and the citation audit that has not run}
 \label{sec:provenance}
 
 Every citation in this paper traces to a row of a source ledger built from scratch for this
-study: $20$ rows, of which $11$ were fetched and read at the recorded locator, $3$ were
-fetched at a pagination that could not be independently confirmed, $4$ are attested at a
-specific locator by two or more independent fetched primary sources, and $2$ by one such
-source. No citation rests on recall. Seven source PDFs were fetched and read in full with
-their MD5 digests recorded.
+study: \textbf{22 rows --- 13 at L0} (primary source fetched, statement read at the recorded
+locator), \textbf{4 at L1} (fetched, but at an edition or pagination that could not be
+independently confirmed), \textbf{3 at L2\_strong} (attested at a specific locator by two or
+more independent fetched L0 sources), \textbf{2 at L2\_weak} (one such source),
+\textbf{and none at L3} (recall). No citation in this paper rests on recall.
 
-Two entries in \texttt{references.bib} --- \cite{carneiro2019fourier} and
-\cite{visser2018andrica} --- are \textbf{pending ledger rows}: they were fetched,
-version-pinned and read at the locator during this study, and proposed as ledger additions,
-but were not folded into the ledger artifact. They are flagged here and in
-\texttt{authoring-log.md}. Locators for \cite{carneiro2019fourier} are to
-arXiv:1708.04122v2 and cannot presently be mapped to the journal's numbering.
+Two of those rows are new, and how they got there must travel with them.
+\cite{carneiro2019fourier} and \cite{visser2018andrica} were fetched, version-pinned by digest
+and read at the locator by one leg of round~1, \emph{proposed} as ledger additions, and never
+folded in; the round-1 citation audit of this paper's predecessor consequently returned
+\textbf{BLOCKED}, naming exactly those two keys as tracing to no ledger row. The proposal has
+now been folded, verbatim as proposed, by the leg that authored this paper --- which is not the
+leg that owns the ledger. What that leg independently verified is the bibliographic envelope of
+both sources (title, authors, journal, volume, pages, DOI, and the existence of the pinned
+preprint version, checked against the publishers' listings); what it did \emph{not} do is
+re-open either document at the interior locators. \textbf{Both rows carry a standing re-audit
+obligation.} We record this rather than presenting a clean ledger, because a leg minting rows
+outside its own remit is the same species of seam as \S\ref{sec:defects}'s three, made by this
+paper's own author.
 
 \textbf{The citation audit for this paper has not been run, and no citation clearance is
-claimed.} Three unopened or under-located sources are load-bearing, in priority order:
+claimed.} The round-1 audit of the round-1 paper returned BLOCKED and the downstream editorial
+gate consequently returned REWRITE; no round-2 audit exists. The load-bearing unopened or
+under-located sources are, in priority order:
 
 \begin{enumerate}
-\item \cite{axler2014newbounds} --- \emph{not opened}. Quoted through Kourbatov's proofs;
-  Kourbatov's Theorems 1, 3 and 5 depend on it, and so do Lemma~\ref{lem:S2},
-  Theorem~\ref{thm:B} and Corollary~\ref{cor:D2}. Axler's own corrigendum moved the validity
-  range of Corollary~3.5 by nine orders of magnitude. \textbf{Priority~1.}
 \item \cite{granville1995cramer} --- fetched and read, but at \emph{preprint} pagination
   (pp.~1--16) against the journal's pp.~12--28. Every locator must be re-expressed against
   the journal copy. This is the load-bearing citation of the entire refutation-side argument
-  (\S\ref{sec:tension}). \textbf{Priority~2.}
-\item \cite{oliveira2014goldbach} --- \emph{not opened} (the publisher returned HTTP 403). It
-  is the first-occurrence gap table on which Theorem~\ref{thm:verified} rests, and therefore
-  the single largest external dependency of every statement about $2^{64}$ in this paper. If
-  that table is incomplete, Proposition~\ref{prop:1920} and every use of
-  Theorem~\ref{thm:verified} say nothing. \textbf{Priority~3.}
+  (\S\ref{sec:tension}), and it is now \textbf{priority~1}, Axler having been opened.
+\item The published $2^{64}$ verification height itself, which this work reaches through a
+  concept card resting on \cite{oliveira2014goldbach} at the weakest ledger tier.
+  \cite{oliveira2014goldbach} was \emph{not opened} (the publisher returned HTTP 403). It is
+  the first-occurrence gap table on which Theorem~\ref{thm:verified} rests, and therefore the
+  single largest external dependency of every statement about $2^{64}$ here --- including
+  Proposition~\ref{prop:1920} and the hypotheses of Theorems~\ref{thm:Ca} and~\ref{thm:Cb}. If
+  that table is incomplete, those statements say nothing. \textbf{Priority~2.}
+\item The two new rows above. \textbf{Priority~3}, and the reason is the fold, not the sources.
 \end{enumerate}
 
 Further, \cite{ribenboim2004little} (the origin locator, p.~185) was not opened and rests on
@@ -1571,7 +2373,8 @@ two independent citers; \cite{shanks1964maximal} and \cite{farhadian2017new} wer
 and are cited for attribution only, their content being available at first hand elsewhere in
 the bibliography; and \cite{baker2001difference} and \cite{ford2016large} were read at
 abstract level only --- adequate for the qualitative use both are put to, inadequate if any
-internal constant were quoted, which it is not.
+internal constant were quoted, which it is not. Caveat~\ref{haz:bt} names two standard results
+used only negatively and covered by no row at all.
 
 \subsection{Scale, stated plainly}
 
@@ -1579,7 +2382,7 @@ The in-run exhaustive sweep reached $p < 10^{11}$, which is $8.27$ decades short
 Several of the lemma verifications were run at the smaller scale $3\cdot10^6$, which is
 $12.8$ decades short of $2^{64}$. \textbf{Both sweeps verify the lemmas, not the range.}
 They must never be cited as a verification of $\Fb$. The distance between what this study owns
-and the published frontier is now exactly one external table and one inequality to check
+and the published frontier is exactly one external table and one inequality to check
 against it: for every even $g$ occurring as a prime gap in $[10^{11}, 2^{64}]$, is
 $q(g) > S^\sharp(g)$? The checker is written and validated on data we own; supply the table
 and the frontier is re-derived in seconds.
@@ -1593,28 +2396,37 @@ form ``$\Fb$ is unconditionally true below $X$'' must, to be honest, carry the t
 \begin{itemize}
 \item \textbf{Littlewood oscillation is irrelevant} to the threshold, its contribution
   being $O\bigl(L^2\log\log\log x/\sqrt{x}\bigr)$, which tends to zero.
-\item \textbf{Bertrand's postulate is useless} here: it implies $\Fb$ only at $n = 1$.
+\item \textbf{Bertrand's postulate is not merely useless here, it is provably closed} at every
+  $n \ge 2$ (Theorem~\ref{thm:barrier}). There is no sharper version of Bertrand that helps,
+  because the shortfall is a whole scale.
+\item \textbf{$\Ppair$ is false} (Theorem~\ref{thm:pairfalse}) and $\Pgov \Rightarrow \Pmin$ is
+  invalid (Proposition~\ref{prop:incomparable}). Do not attempt either.
 \item \textbf{The two-sided $\pi$-bound route} to the maximal-gap reduction cannot work
   (\S\ref{sec:ffm-counter}).
 \item \textbf{More sieving is not more evidence} (\S\ref{sec:artefact}(3)). The record that
   would matter is $4.2$ decades above anything reached here.
+\item \textbf{The table-free route} is permanently dead above $7.776\cdot10^5$
+  (Proposition~\ref{prop:closure}).
 \end{itemize}
 
 % ==========================================================================
 \section{Conclusion}
 \label{sec:conclusion}
 
-Firoozbakht's conjecture was neither proved nor refuted here. What was produced instead is a
-machine-checked reduction of it to a prime-gap inequality; an unconditional, table-driven
-verification architecture that reproduces the published $2^{64}$ frontier from first
-principles and rests on a single explicit estimate for $\pi(x)$; an exhaustive independent
-sweep to $10^{11}$ finding no counterexample and no near-miss; four theorems closing the
-Riemann-Hypothesis route as a route; and the discharge, without proving it, of the obligation
-this attack had ranked first --- offset by two named, unrepaired defects in the underlying
-corpus and by a citation audit that has not run.
+Firoozbakht's conjecture was neither proved nor refuted here, in either round. What was
+produced instead is: a machine-checked reduction of it to a prime-gap inequality, now joined by
+a machine-checked proof that the only prime-gap input the formal substrate carries is
+insufficient at every index; an unconditional, table-driven verification architecture that
+reproduces the published $2^{64}$ frontier from first principles and rests on a single explicit
+estimate for $\pi(x)$, with its near-record companion repaired and tightened; an exhaustive
+independent sweep to $10^{11}$ finding no counterexample and no near-miss, reproduced twice
+over; five theorems closing the Riemann-Hypothesis route as a route, with the quantifier that
+the first round dropped restored; and the outright refutation of the pruning lemma the attack
+had most quoted, together with a proof that the pruning never needed it --- offset by three
+named, unrepaired seams in the underlying corpus and by a citation audit that has not run.
 
 The most tractable genuinely open analytic node isolated here is the residual window of
-Theorem~\ref{thm:C}: an unconditional short-interval prime count sharp to a factor
+\S\ref{sec:nearrecord}: an unconditional short-interval prime count sharp to a factor
 $1 + 2/\log p$, where Brun--Titchmarsh gives only a factor $2$
 (Proposition~\ref{prop:obstruction}). It is stated in closed form. It is also still an open
 problem in analytic number theory, not a lookup.
@@ -1628,13 +2440,20 @@ more.}
 \addcontentsline{toc}{section}{Acknowledgements and provenance}
 
 This paper was produced by \textbf{Noogram} as the editorial artifact of a structured,
-multi-leg attack conducted on 25 July 2026. The legs contributing results reported here are:
-a decomposition leg; a source-ledger leg; a concept-card leg; three proof-attempt legs; three
-computational-notebook legs; Lean skeleton and probe legs; an adversarial red-team corpus leg;
-an adversarial review (skeptic) leg; an evidence gate; and a synthesis leg. The delivery
-posture of this artifact is \textbf{staged}: it reports a corpus whose evidence gate stands at
-BLOCKED (\S\ref{sec:defects}) and whose citation audit has not run
-(\S\ref{sec:provenance}). It is not a seal.
+multi-leg attack conducted over two rounds on 25--26 July 2026. \textbf{It is the round-2
+state of that work and supersedes, in place, the round-1 paper of the same name}; where the two
+differ, this one is current, and \S\ref{sec:rounds} states what changed and what did not. The
+legs contributing results reported here are, in round~1: a decomposition leg; a source-ledger
+leg; a concept-card leg; three proof-attempt legs; three computational-notebook legs; Lean
+skeleton and probe legs; an adversarial red-team corpus leg; an adversarial review leg; an
+evidence gate; and a synthesis leg. In round~2: three proof-attempt legs, a Lean probe leg
+(which contributed Theorem~\ref{thm:barrier}), an adversarial review leg, an evidence gate and
+a superseding synthesis leg.
+
+The delivery posture of this artifact is \textbf{staged}: it reports a corpus whose evidence
+gate stands at BLOCKED (\S\ref{sec:defects}) and for which no citation clearance exists
+(\S\ref{sec:provenance}). It is not a seal, and it should not be cited as though a clean gate
+stood behind it.
 
 \printbibliography[heading=bibintoc,title={References}]
 

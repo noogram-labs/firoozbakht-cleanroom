@@ -7,9 +7,14 @@
 `(p_n)^{1/n}` is strictly decreasing. **Status: OPEN.** Neither assumed true nor assumed false.
 **Seed anchors supplied:** none. This ledger was built from scratch.
 
-**Ledger size: 20 rows** — **12** at tier **L0**, 3 at **L1**, **3** at **L2_strong**, 2 at
-**L2_weak**, **0 at L3**. *(Amended 2026-07-26: `axler2014newbounds` promoted L2_strong → L0 by the
-re-attack leg `task-20260726-56a7`; bounded refresh, one row, no other row reopened.)* Every row has a BibTeX entry in §8 and a locator table or locator statement in §2.
+**Ledger size: 22 rows** — **13** at tier **L0**, **4** at **L1**, **3** at **L2_strong**, 2 at
+**L2_weak**, **0 at L3**. *(Amended twice on 2026-07-26. (i) `axler2014newbounds` promoted
+L2_strong → L0 by the re-attack leg `task-20260726-56a7`; bounded refresh, one row, no other row
+reopened. (ii) Two rows added in the new §2.8 — `carneiro2019fourier` (L1) and `visser2018andrica`
+(L0) — by the round-2 `write-paper` leg `edit-20260726-5e79`, folding a proposal that round-1 leg
+`proof-attempt__1` made and never merged, and on which the round-1 citation audit consequently
+returned BLOCKED. Both new rows carry a standing re-audit obligation; see the head of §2.8.)* Every
+row has a BibTeX entry in §8 and a locator table or locator statement in §2.
 Seven source PDFs were fetched and read in full; their MD5s are recorded per row.
 
 ---
@@ -563,6 +568,90 @@ be upgraded before the citation gate.
 
 ---
 
+### 2.8 RH-conditional prime-gap bounds
+
+*(Subsection added 2026-07-26 by the round-2 `write-paper` leg `edit-20260726-5e79`. These two rows
+were **fetched, version-pinned and read at the locator by the round-1 leg `proof-attempt__1`** and
+**proposed** as ledger additions in that leg's §11; they were never folded in, and the round-1
+citation audit `cite-20260725-9eef` returned **BLOCKED** for exactly that reason — the paper cited
+two keys with no ledger row. This subsection folds the pending proposal, verbatim as proposed, and
+does not invent it. Two facts about the fold must travel with it: (a) the round-2 RH leg
+`task-20260726-b335` re-quoted both sources at the same locators, same arXiv version pins and same
+MD5s, and independently re-affirmed the tiers proposed here — so the proposal is corroborated from
+inside round 2; (b) the writer leg **did not itself re-open either PDF**. It independently verified
+the bibliographic envelope of both — title, authors, journal, volume, pages, DOI, and the existence
+of the pinned arXiv version — against the arXiv listing pages on 2026-07-26, and it did **not**
+re-read the interior locator tables below. **Both rows must be re-audited by a citation-audit leg
+before publication**; they are recorded as ledger rows so that the paper's citations trace, not as a
+substitute for that audit.)*
+
+---
+
+**`carneiro2019fourier`** — tier **L1**
+
+- **Citation:** Emanuel Carneiro, Micah B. Milinovich, Kannan Soundararajan, "Fourier optimization
+  and prime gaps", *Commentarii Mathematici Helvetici* **94** (2019), no. 3, 533–568. DOI
+  `10.4171/CMH/467`. arXiv:1708.04122.
+- **Fetched:** `https://arxiv.org/pdf/1708.04122v2` (v2, 14 Sep 2018), MD5
+  `2fdff58bc850508d8f124b4e7ad6b594` — fetched and read at the locator by round-1 leg
+  `proof-attempt__1`. Bibliographic envelope (title, three authors, *Comment. Math. Helv.* **94**
+  (2019) no. 3, 533–568, DOI `10.4171/CMH/467`, versions v1 2017-08-14 / v2 2018-09-14) independently
+  re-confirmed 2026-07-26 against `https://arxiv.org/abs/1708.04122`.
+- **Why L1, not L0:** the locators are **preprint** locators recorded against a **journal**
+  citation. Same standard this ledger applies to `granville1995cramer`. The journal's own numbering
+  was not obtained.
+- **Statements read at the locator (preprint v2):**
+
+  | Locator | Statement |
+  |---|---|
+  | §1.2, sentence preceding Thm. 5 | assuming RH, `p_{n+1} − p_n ≤ (22/25)√p_n log p_n` for all primes **`p_n > 3`** |
+  | §1.2, Theorem 5 | assume RH; for `x ≥ 4` there is a prime in `[x, x + (22/25)√x log x]` |
+  | §1.2, Corollary 4, eq. (1.14) | assume RH; `limsup (p_{n+1}−p_n)/(√p_n log p_n) ≤ 1/C⁺(B) < 21/25` |
+  | §1.2, after eq. (1.14) | "the limit of this method would yield a constant `1/2`" |
+  | §1.2, after eq. (1.14) | under RH **and** Montgomery's pair-correlation conjecture the limsup in (1.14) "is actually zero (see, for instance, [26, 27, 35])" — CMS **report** this, they do not prove it |
+
+- **⚠ Sub-row at tier L2_weak.** The last locator above is a *report* of three works this run never
+  opened. Anything resting on it must be attributed second-hand ("as reported by CMS") and may not
+  be quoted at this row's L1 tier.
+- **Downstream rule:** the hypothesis `p_n > 3` is part of the statement and must be carried
+  wherever the bound is. Every locator must be qualified "arXiv:1708.04122v2" until the journal
+  pagination is obtained. **Citation-gate priority: joint 1 with `granville1995cramer` (both are
+  fetched-but-preprint-paginated), plus the re-audit obligation stated at the head of §2.8.**
+
+---
+
+**`visser2018andrica`** — tier **L0**
+
+- **Citation:** Matt Visser, "Variants on Andrica's conjecture with and without the Riemann
+  hypothesis", *Mathematics* **6** (2018), no. 12, Paper 289. DOI `10.3390/math6120289`.
+  arXiv:1804.02500.
+- **Fetched:** `https://arxiv.org/pdf/1804.02500v3` (v3, 28 Nov 2018), MD5
+  `38b405e83543fb6968754f90bac9c2d4` — fetched and read at the locator by round-1 leg
+  `proof-attempt__1`. Bibliographic envelope (title, author, *Mathematics* **6** (2018) no. 12,
+  289, DOI `10.3390/math6120289`, versions v1 2018-04-07 / v2 2018-09-18 / v3 2018-11-28)
+  independently re-confirmed 2026-07-26 against `https://arxiv.org/abs/1804.02500`.
+- **Why L0 and not L1:** the source is cited *as* the preprint and the locators are the preprint's
+  own numbered theorems, so citation and locator agree. (The journal version exists and is
+  open-access; the numbering was not cross-checked, and any future move to the journal citation
+  demotes this row to L1 until it is.)
+- **Statements read at the locator (v3):**
+
+  | Locator | Statement |
+  |---|---|
+  | Theorem 1, eq. (1.4) | assuming RH, `∀ n ≥ 3` (`p_n ≥ 5`), `g_n < (22/25)√p_n ln p_n` — attributed to CMS |
+  | §2, Theorem 4, eq. (2.1) | (Cramér 1919) assuming RH, `g_n = O(√p_n ln p_n)`; qualitative only |
+  | §2, Theorem 5, eq. (2.2) | (Goldston 1982) assuming RH, `g_n ≤ 4√p_n ln p_n`, `n` large |
+  | §7 | the CMS inequality holds **unconditionally** for all primes `< 1.836·10¹⁹` |
+  | §8 | RH's explicit gap bound "is still not quite sufficient to prove Andrica's conjecture" |
+
+- **Recorded, not smoothed:** CMS write the bound with `≤`, Visser with `<`. Every downstream use in
+  this run consumes it as a non-strict upper envelope, so the discrepancy is inert there; it is
+  **not** inert for anyone quoting strictness.
+- **Downstream rule:** this row is the L0 corroboration of the CMS hypothesis `n ≥ 3 ⟺ p_n ≥ 5 ⟺
+  p_n > 3`. It is the reason round 2 could restore the quantifier round 1 dropped.
+
+---
+
 ## 3. Coverage of the `decompose` leg's recall list (§7 A1–A12)
 
 Every A-tag from the upstream decomposition, and what this ledger did to it.
@@ -700,6 +789,15 @@ Stated so no downstream leg mistakes silence for coverage.
 10. **The Lean rows are documentation snapshots, not a pinned toolchain check.** They were read from
     the *current* mathlib4 docs on 2026-07-25. Names drift. The `lean-probe` leg must re-confirm
     against whatever toolchain is actually pinned. This ledger does not substitute for that.
+11. **The two §2.8 rows were folded by a writer leg, not by a sourcer leg, and were not re-opened by
+    it.** `carneiro2019fourier` and `visser2018andrica` were fetched, MD5-pinned and read at the
+    locator by round-1 leg `proof-attempt__1`, proposed as additions, and left unmerged; the round-2
+    writer leg merged the proposal verbatim so that the paper's citations trace, after independently
+    re-confirming only the *bibliographic envelope* of both (arXiv listing pages, 2026-07-26). The
+    interior locator tables in §2.8 are `proof-attempt__1`'s reading, corroborated by round-2 leg
+    `task-20260726-b335`, and **not** re-read by the writer. **A citation-audit leg must re-audit both
+    rows.** Recorded here rather than smoothed, because a leg minting rows outside its own remit is
+    exactly the cross-leg seam that round 2's BLOCKERs are made of.
 
 ---
 
@@ -710,9 +808,14 @@ Stated so no downstream leg mistakes silence for coverage.
    the corollary numbers differ by one), and the preprint-only row `x₀ = 1 772 201` must never be
    cited against the journal.
 2. `granville1995cramer` — the refutation-side argument. Content confirmed; **pagination is not**.
-3. `ribenboim2004little` — the origin locator, second-hand.
-4. `oliveira2014goldbach` — the empirical foundation, never opened.
-5. Everything else — L0, statement read at the recorded locator.
+3. **The two §2.8 rows, `carneiro2019fourier` and `visser2018andrica`** — folded by a writer leg from
+   an unmerged round-1 proposal; the interior locators were not re-read at fold time. Re-audit both.
+   `carneiro2019fourier` additionally carries preprint-vs-journal pagination (same defect as
+   `granville1995cramer`) and an L2_weak sub-row (the reported `limsup = 0`).
+4. `ribenboim2004little` — the origin locator, second-hand.
+5. `oliveira2014goldbach` — the empirical foundation, never opened. **Load-bearing** in every
+   statement about the `2⁶⁴` frontier, and reached by card `L6` at tier L2_weak.
+6. Everything else — L0, statement read at the recorded locator.
 
 ---
 
@@ -917,6 +1020,38 @@ Stated so no downstream leg mistakes silence for coverage.
   author = {{The mathlib Community}},
   title  = {\texttt{Mathlib.Data.Nat.Prime.Nth} --- mathlib4 documentation},
   note   = {\url{https://leanprover-community.github.io/mathlib4_docs/Mathlib/Data/Nat/Prime/Nth.html}, retrieved 2026-07-25}
+}
+
+% --- §2.8, added 2026-07-26 (see the note at the head of §2.8) ---
+
+@article{carneiro2019fourier,
+  author  = {Carneiro, Emanuel and Milinovich, Micah B. and Soundararajan, Kannan},
+  title   = {Fourier optimization and prime gaps},
+  journal = {Commentarii Mathematici Helvetici},
+  volume  = {94},
+  number  = {3},
+  pages   = {533--568},
+  year    = {2019},
+  doi     = {10.4171/CMH/467},
+  eprint  = {1708.04122},
+  archivePrefix = {arXiv},
+  primaryClass  = {math.NT},
+  note    = {Locators are to arXiv:1708.04122v2, 14 Sep 2018 (preprint pagination)}
+}
+
+@article{visser2018andrica,
+  author  = {Visser, Matt},
+  title   = {Variants on {Andrica's} conjecture with and without the {Riemann} hypothesis},
+  journal = {Mathematics},
+  volume  = {6},
+  number  = {12},
+  pages   = {289},
+  year    = {2018},
+  doi     = {10.3390/math6120289},
+  eprint  = {1804.02500},
+  archivePrefix = {arXiv},
+  primaryClass  = {math.NT},
+  note    = {Locators are to arXiv:1804.02500v3, 28 Nov 2018}
 }
 ```
 

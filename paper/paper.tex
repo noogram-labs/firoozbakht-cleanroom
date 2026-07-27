@@ -91,11 +91,11 @@ envelope of power type at any positive exponent certifies it beyond finitely man
 critical constant on the $\sqrt{p}\log p$ scale is exactly $2/e$, and Cram\'er's $\limsup$
 hypothesis does not entail the conjecture over integer sequences. (v) An exhaustive sweep to
 $10^{11}$ ($4\,118\,054\,812$ consecutive prime pairs) finds no violation and no near-miss, with
-$\max_{n \ge 10} g_n/T_n = 0.8318$; four further independent sweeps across rounds~2 and~3
+$\max_{n \ge 10} g_n/T_n = 0.8318$; five further independent sweeps across rounds~2 and~3
 reproduce it. We also state, at length, what the attack did \emph{not} establish: the
-conjecture is open; the underlying corpus's evidence gate stands at \textbf{BLOCKED}, on two
-named bookkeeping defects that succeed the three unreconciled seams of round~2, all of which
-round~3 closed; a round-2 citation audit of this paper's predecessor exists and returned
+conjecture is open; the underlying corpus's evidence gate stands at \textbf{BLOCKED} --- round~3
+closed all three of round~2's unreconciled seams and returned two bookkeeping defects of its own,
+neither mathematical and neither touching the conjecture; a round-2 citation audit of this paper's predecessor exists and returned
 \textbf{PASS}, but it predates the round-3 decisions and does not clear the two load-bearing
 sources that remain unopened, so \emph{no citation clearance is claimed here}.
 \end{abstract}
@@ -284,12 +284,13 @@ faulted --- by the second.}
   reversing two prior review verdicts and vindicating the figures this paper carries
   (Caveat~\ref{haz:5592}). (5)~It cross-referenced round~2's artifacts to one another.
 \item \textbf{An independent skeptic re-audit} then re-derived, rather than read, everything
-  the reconciliation had decided. It \textbf{confirmed all five decisions} --- three by
-  recomputing the numbers from the statements with its own scripts, one against \texttt{git
-  log} --- \textbf{closed 12 of round~2's 13 review findings}, re-executed the Lean gates from
-  a cold cache, and then \textbf{opened two new blocking findings of its own}, both about the
-  accuracy of statements the reconciliation made about the state of the corpus rather than
-  about any mathematics. \S\ref{sec:defects} names both.
+  the reconciliation had decided. It \textbf{found all five decisions correct} --- three of the
+  four substantive ones by recomputing the numbers from the statements with its own scripts,
+  the fourth against the version history, and the fifth, the cross-referencing, delivered but
+  incompletely --- \textbf{closed 12 of round~2's 13 review findings}, re-executed the Lean
+  gates from a cold cache, and then \textbf{opened two new blocking findings of its own}, both
+  about the accuracy of statements the reconciliation made about the state of the corpus rather
+  than about any mathematics. \S\ref{sec:defects} names both.
 \end{enumerate}
 Within this paper the round-3 consequences are: the ordinal of the second refuting witness is
 corrected ($27$th to $28$th maximal gap, Theorem~\ref{thm:pairfalse}); the exception census
@@ -335,8 +336,10 @@ $\cH$ & Heuristic. Not evidence for or against anything, and never used in a pro
 
 \textbf{The scope of that discipline, stated exactly, because round~2 stated it too widely and
 was faulted for it.} Every \emph{theorem, lemma, proposition and corollary} in this paper
-carries its code in its own heading, and \emph{no statement is asserted at a strength above
-its code anywhere}. The \emph{machine-checked} claim --- the strongest available here --- is
+carries, in its own heading, either its confidence code or the word \emph{cited} --- the latter
+for the two results imported wholesale rather than derived here (Theorem~\ref{thm:io} and
+Lemma~\ref{lem:dusart}), whose strength is their source's and whose ledger tier is given at the
+point of use. \emph{No statement is asserted at a strength above its code anywhere.} The \emph{machine-checked} claim --- the strongest available here --- is
 reserved for statements carrying $\cK$: that is Lemma~\ref{lem:reduction} and the three
 barrier theorems of \S\ref{sec:barrier}, and nothing else. Running prose, by contrast, uses
 ordinary mathematical English, in which ``we prove'' means ``there is a proof in this paper'',
@@ -2430,7 +2433,7 @@ still not done. Third, replacing Theorem~\ref{thm:Cb}'s floating-point certifica
 interval arithmetic (Caveat~\ref{haz:margin}); it is the one constant in this paper whose
 margin is thin enough for the distinction to matter.
 
-\subsection{Named defects and unreconciled seams in the underlying corpus}
+\subsection{Named defects in the underlying corpus, round by round}
 \label{sec:defects}
 
 The body of work this paper draws on was subjected to adversarial review in all three rounds.
@@ -2472,9 +2475,9 @@ about the state of the corpus that the corpus does not support}.
 \begin{enumerate}
 \item \textbf{A tier settled ``at every site'' reached one artifact out of seven.} The
   reconciliation recorded that \cite{axler2014newbounds} is L0 corpus-wide. It propagated the
-  correction into one sibling document and nowhere else: seven upstream sites --- five concept
-  cards, the concept-card index in two places, and one round-2 proof attempt --- still assert
-  the old tier or instruct a future leg to open a source that has been open since 26 July.
+  correction into one sibling document and nowhere else: seven upstream sites --- four concept
+  cards, the concept-card index in three separate places, and one round-2 proof attempt --- still
+  assert the old tier or instruct a future leg to open a source that has been open since 26 July.
   One of those sites gates a live numeral rather than a label. \textbf{This paper is unaffected
   in substance} --- it is written in the settled tier and its own Axler locators name their
   editions --- but the corpus is not consistent, and the claim that it is was published.
@@ -2566,8 +2569,10 @@ preprint version, checked against the publishers' listings); what it did \emph{n
 re-open either document at the interior locators. \textbf{Both rows carry a standing re-audit
 obligation.} We record this rather than presenting a clean ledger, because a leg minting rows
 outside its own remit is the same species of seam as \S\ref{sec:defects}'s, made by this
-paper's own author. \emph{Round~2's independent audit did what that leg could not: it re-opened
-both sources at every locator this paper invokes and re-verified each against the ledger rows.}
+paper's own author. \emph{Round~2's independent audit narrowed the exposure without discharging
+it: an independent leg re-verified every locator this paper invokes against those two ledger rows'
+own statement tables, entry by entry, and all pass --- but no leg has re-opened either document at
+its interior locators since the round-1 fetch, so the re-audit obligation stands.}
 
 \paragraph{The audit that exists, stated correctly.} \textbf{Round~2's edition of this section
 asserted, in four places, that no citation audit had been run and that no round-2 audit
@@ -2580,7 +2585,8 @@ caveat carried into this paper's running text rather than smoothed upward. Round
 round~1's paper, had returned BLOCKED --- naming exactly the two keys discussed above --- and
 that finding is discharged, not inherited. The false statement was an honest snapshot: it was
 true when round~2's edition was committed and false eleven minutes later, and no leg refreshed
-it before three downstream documents had quoted it (\S\ref{sec:defects}).
+it before two downstream documents had carried it forward, the second of them as the corpus's
+headline gate status (\S\ref{sec:defects}).
 
 \paragraph{Why no citation clearance is claimed here even so.} Three reasons, each of which
 survives the correction.

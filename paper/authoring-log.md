@@ -38,7 +38,7 @@ and a rewritten disclosure section.
 |---|---|---|---|
 | Thm. `thm:pairfalse`, witness W2 | gap `248` at `p = 191 912 783` called the **27th** maximal gap | **28th**, with a new remark giving the enumeration (28 records below `2·10⁸`, `15 683` twelfth, 25 records below `10⁸`) and a new verification item **V14** | R2-m1; four independent enumerations agree |
 | Caveat `haz:census` | census counts *indices*, not *pairs* — stated, but the pair count was missing | pair count supplied (**20** below `3·10⁸`) and an explicit prohibition on reading any ratio as a density, with the reason: the admissible-pair count below `10⁹` is of order `10¹⁵` | R2-m2 |
-| Rem. `rem:notweakest` | *"The upstream prose has not been amended"* | amended at the three sites the fault named, with `P6′-gov` restored to the canonical obligation list and `P6′-rec` beside it; two further sites still carry the word and are named in §11.3 | R2-M3 / S3-m1 |
+| Rem. `rem:notweakest` | *"The upstream prose has not been amended"* | amended at the three sites the fault named, with `P6′-gov` restored to the canonical obligation list and `P6′-rec` beside it; two further sites still carry the word and are named in §`sec:defects` | R2-M3 / S3-m1 |
 | Thm. `thm:ffm`, consequence 3 | `P6′-rec` reported as "0 exceptions" alongside the other two | the asymmetry stated: `gov`/`min` at 50 847 533 indices, **`rec` at 29 data points**, which must not be described as robust | reconciliation §7 item 5 |
 | Rem. `rem:margins` | the `P6′-gov` margin *"decays like `p^{−0.83}`"* | the single fitted exponent is withdrawn as non-extrapolable; local per-decade exponents `0.4538 / 0.7364 / 0.9967` given, extrapolation corrected `≈3.4·10⁻¹³ → ≈6.1·10⁻¹⁵`, direction noted as **safe** | R2-m6 |
 | Caveat `haz:5592` | three independent recounts; *"the concept card still carries the disputed denominator"* | **seven** independent recounts; the **self-consistency argument** that closes the dispute outright (`121 238 / 216 805` is the answer under *no* convention); range dependence at three decades tabulated; the cards are corrected, one frame document still is not | R2-M1, adjudicated in reconciliation §4 and re-derived in faults §1 |
@@ -75,9 +75,10 @@ rather than smoothed.
   reserved for `[K]` statements *"without exception"*, and breached it five times, first in the
   abstract where the codes are invisible. The editorial gate offered two repairs and named the
   one-line one as the honest one; that is the one taken. §`sec:vocab` now states the rule the
-  paper actually keeps — every labelled statement carries its code in its heading and nothing is
-  asserted above its code anywhere, while running prose speaks ordinary mathematical English and
-  cross-references the labelled statement that governs it — and **records the withdrawal of the
+  paper actually keeps — every labelled statement carries in its heading either its confidence
+  code or the word *cited* (the latter for the two results imported wholesale rather than derived
+  here), and nothing is asserted above its code anywhere, while running prose speaks ordinary
+  mathematical English and cross-references the labelled statement that governs it — and **records the withdrawal of the
   round-2 promise explicitly** rather than silently narrowing it. The abstract's breach is also
   independently defused (`proved formally incomparable` → `formally incomparable, by an explicit
   four-index counter-model in each direction`), so the claim now carries its own evidence.
@@ -124,7 +125,7 @@ was offered once before and was wrong.
 | Packages | `amsmath`, `amssymb`, `amsthm`, `booktabs`, `longtable`, `geometry`, `xcolor`, `hyperref`, `biblatex` |
 | Passes | xelatex ×3 + biber ×1 + `xdvipdfmx`, converged (`All targets up-to-date`) |
 | **Exit status** | **0** |
-| **Output** | `paper/paper.pdf`, **42 pages**, 369 119 bytes |
+| **Output** | `paper/paper.pdf`, **43 pages**, 370 194 bytes |
 | LaTeX warnings | **0** — no undefined reference, no undefined citation, no multiply-defined label, no `Citation ... undefined` |
 | `\cite` instances | 95, over **22** citekeys |
 | Bibliography | 22 entries, **0 orphans in either direction** (every `.bib` entry is cited; every cited key is in the `.bib`) |
@@ -210,11 +211,38 @@ table gives that locator as *"`x/(ln x − 1) ≤ π(x)` for `x ≥ 5393`; `π(x
 which is the half its Lemma `lem:floor` needs. The same row's Prop. 6.8 was checked against the
 paper's table-free window (`x ≥ 396 738`, factor `1 + 1/(25 ln²x)`): matches.
 
-**Issues found during review and fixed in place:** the four residual round-2 phrasings above; a
-forward reference to V14 written before the item existed (added); and the initial wording of the
-`haz:uncond` round-3 note, which said the correction was applied at two of three sites *and* that
-the third survived, when the fault list actually records **two** surviving sites, one of them not
-among the three originally named. Corrected to the fault list's own count.
+**Issues found during review and fixed in place.** Seven, all found by re-reading or by counting
+rather than by assuming, and all repaired before this log was closed:
+
+1. The four residual round-2 phrasings listed above (*two rounds* → *three*, *either round* → *any
+   round*, and two more).
+2. A forward reference to verification item **V14** written before the item existed. Added.
+3. The `haz:uncond` round-3 note initially said the correction was applied at two of three named
+   sites *and that the third survived*. The current fault list records **two** surviving sites,
+   one of which was not among the three originally named. Corrected to the fault list's own count
+   and shape.
+4. §`sec:rounds` initially said the re-audit *"confirmed all five decisions"*. The fault list is
+   more precise: three of the four substantive decisions were confirmed by recomputation, the
+   fourth against the version history, and the fifth — the cross-referencing — was delivered but
+   **incompletely**, which is exactly what the first round-3 BLOCKER is about. Saying "all five
+   confirmed" two paragraphs before disclosing that the fifth was faulted is an internal
+   contradiction; corrected.
+5. §`sec:defects` described the stale-tier sites as *"five concept cards, the concept-card index in
+   two places, and one round-2 proof attempt"* — which sums to eight, not the seven claimed. The
+   fault list's table has seven rows: **four** concept cards, the concept-card index in **three**
+   separate places, and one round-2 proof attempt. Corrected; the count now adds up.
+6. §`sec:provenance` initially credited the round-2 audit with having *"re-opened both sources at
+   every locator this paper invokes"*. It did not: `verification-report.md` §1.20–1.21 and §4 say
+   it re-verified every invoked locator **against the ledger's own §2.8 statement table**, which is
+   a different and weaker act. Since the whole point of this revision is that round~2 overstated
+   what an audit had done, overstating it in the opposite direction would have been the same error
+   with the sign flipped. Rewritten to what the audit says of itself, with the standing re-audit
+   obligation left explicitly standing.
+7. §`sec:provenance` said the false sentence was quoted by *three* downstream documents; the trace
+   is **two** (the reconciliation, then the synthesis it fed). Corrected. Also in the abstract:
+   *four* further independent sweeps → **five** (two in round 2, three in round 3), and the vocabulary
+   rule's claim that every labelled statement carries a confidence code, which is false for the two
+   results imported wholesale rather than derived here — those carry *cited*, and the rule now says so.
 
 **Issues deliberately NOT repaired, with justification:**
 

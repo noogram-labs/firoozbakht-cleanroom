@@ -54,7 +54,8 @@ finite-range architecture, the closure of the Riemann-Hypothesis route,\\
 a refuted pruning lemma, and what remains open}
 
 \author{Noogram}
-\date{26 July 2026 \\[2pt] \normalsize Round 2 --- supersedes the round-1 paper of 25 July 2026}
+\date{27 July 2026 \\[2pt] \normalsize Round 3 --- supersedes, in place, the round-2 paper of
+26 July 2026\\[1pt] \normalsize (which superseded the round-1 paper of 25 July 2026)}
 
 \begin{document}
 \maketitle
@@ -62,8 +63,9 @@ a refuted pruning lemma, and what remains open}
 \begin{abstract}
 Firoozbakht's conjecture asserts that $p_{n+1}^{1/(n+1)} < p_n^{1/n}$ for every $n \ge 1$,
 i.e.\ that $n \mapsto p_n^{1/n}$ is strictly decreasing. It is open. This paper reports a
-two-round structured attack that neither proved nor refuted it, and states precisely what the
-attack did establish. Five things. (i) The reduction of the conjecture to the prime-gap
+structured attack --- two attack rounds followed by a reconciliation leg and an independent
+re-audit --- that neither proved nor refuted it, and states precisely what the attack did
+establish. Five things. (i) The reduction of the conjecture to the prime-gap
 inequality $g_n < T_n$, where $T_n := p_n(p_n^{1/n}-1)$, is \emph{machine-checked} in Lean~4
 against Mathlib, and so is a \emph{barrier}: Bertrand's postulate --- the only prime-gap bound
 Mathlib carries --- is proved insufficient at \emph{every} index $n \ge 2$, the ceiling sitting
@@ -71,8 +73,9 @@ strictly above the threshold it would have to fall below. The development builds
 one \texttt{sorryAx} dependent over 63 declarations, namely the conjecture itself. (ii) The
 pruning lemma on which record-gap verification searches rest was carrying three inequivalent
 statements under one name. Named apart, the strongest is \emph{false}, with two exhibited
-witnesses and a 17-index exception census below $10^9$; the two survivors are proved
-\emph{formally incomparable}; and the pruning is undamaged, because a first-failure-maximality
+witnesses and a 17-index exception census below $10^9$; the two survivors are
+\emph{formally incomparable}, by an explicit four-index counter-model in each direction; and
+the pruning is undamaged, because a first-failure-maximality
 theorem shows it consumes either survivor at a single index. (iii) An unconditional
 finite-range theorem, resting on one explicit estimate for $\pi(x)$ due to Dusart, converts any
 first-occurrence prime-gap table into a proof of the conjecture up to that table's reach; it
@@ -88,10 +91,13 @@ envelope of power type at any positive exponent certifies it beyond finitely man
 critical constant on the $\sqrt{p}\log p$ scale is exactly $2/e$, and Cram\'er's $\limsup$
 hypothesis does not entail the conjecture over integer sequences. (v) An exhaustive sweep to
 $10^{11}$ ($4\,118\,054\,812$ consecutive prime pairs) finds no violation and no near-miss, with
-$\max_{n \ge 10} g_n/T_n = 0.8318$; two further independent sweeps in round~2 reproduce it. We
-also state, at length, what the attack did \emph{not} establish: the conjecture is open, the
-underlying corpus's evidence gate stands at \textbf{BLOCKED} on three named unreconciled seams,
-and no citation clearance exists for this paper.
+$\max_{n \ge 10} g_n/T_n = 0.8318$; five further independent sweeps across rounds~2 and~3
+reproduce it. We also state, at length, what the attack did \emph{not} establish: the
+conjecture is open; the underlying corpus's evidence gate stands at \textbf{BLOCKED} --- round~3
+closed all three of round~2's unreconciled seams and returned two bookkeeping defects of its own,
+neither mathematical and neither touching the conjecture; a round-2 citation audit of this paper's predecessor exists and returned
+\textbf{PASS}, but it predates the round-3 decisions and does not clear the two load-bearing
+sources that remain unopened, so \emph{no citation clearance is claimed here}.
 \end{abstract}
 
 \tableofcontents
@@ -228,13 +234,15 @@ G(X) \;\ge\; f(X)\,\frac{\log X \,\log\log X \,\log\log\log\log X}{(\log\log\log
 \cite{ford2016large} --- an iterated-log factor above $\log X$, but still a
 full power of $\log$ below the $\log^2 X$ a counterexample to $\Fb$ would need.
 
-\subsection{What changed between the two rounds of this attack}
+\subsection{What changed across the rounds of this attack}
 \label{sec:rounds}
 
-This paper is the round-2 state of the work and supersedes, in place, a round-1 paper of the
-same name dated 25 July 2026. The change is not cosmetic and the honest summary is mixed.
+This paper is the \textbf{round-3} state of the work and supersedes, in place, the round-2
+paper of the same name dated 26 July 2026, which had superseded the round-1 paper of 25 July
+2026. The corpus behind it carries exactly one current artifact of each name. The change is
+not cosmetic and the honest summary is mixed at every round.
 
-\paragraph{What changed.} Round~1 closed with two named blocking defects in its own corpus.
+\paragraph{Round~1 to round~2: what changed.} Round~1 closed with two named blocking defects in its own corpus.
 Both are now \emph{mathematically repaired}, by independent re-derivation rather than by
 re-assertion, and every constant below was recomputed from the statements by a reviewing leg
 that shared no code path with the leg being reviewed.
@@ -258,20 +266,58 @@ first-failure-maximality theorem that makes the refutation of the pruning lemma 
 (Theorem~\ref{thm:ffm}), and the restored quantifier in the RH route, which dissolved a silent
 contradiction between two artifacts of the run (\S\ref{sec:critconst}).
 
-\paragraph{What did not change.} $\Fb$ is open --- neither proved nor refuted by either round.
-The Lean \texttt{sorry} count is still exactly one, and it is the conjecture. The obstruction
-analysis of \S\ref{sec:limits} is unchanged and was \emph{reinforced}, in three independent
-places, by round~2. The underlying corpus's evidence gate is still \textbf{BLOCKED}; the reason
-changed, from unrepaired mathematical defects to unreconciled repairs, and
-\S\ref{sec:defects} argues that this is a worse signal rather than a better one. No citation
-clearance exists for this paper, in either round.
+\paragraph{Round~2 to round~3: what changed, stated plainly.} Round~3 ran no new mathematics.
+It ran two legs, in order, and both were funded outside the re-attack loop's own round cap on
+that loop's recommendation. \emph{The verdict of this paper therefore still rests on round~2's
+mathematics, read as amended by the first round-3 leg and as re-certified --- and partly
+faulted --- by the second.}
+\begin{enumerate}
+\item \textbf{A reconciliation leg} took five decisions on the seams round~2 had left between
+  its own artifacts, and landed them. (1)~It designated Theorem~\ref{thm:Cb} as the corpus's
+  single repaired near-record theorem and retired the competing repair to a remark --- the
+  choice this paper had already made independently, a day earlier, on the same documentary
+  ground (Remark~\ref{rem:retired}). (2)~It settled \cite{axler2014newbounds} at tier L0
+  corpus-wide, leaving an \emph{edition} exposure rather than a tier one
+  (Caveat~\ref{haz:axler}). (3)~It found that the ledger amendment it had been briefed to
+  apply \emph{had already landed}, and reported the reversal rather than re-applying it.
+  (4)~It recounted the disputed denominators of \S\ref{sec:oscillation} from the statement,
+  reversing two prior review verdicts and vindicating the figures this paper carries
+  (Caveat~\ref{haz:5592}). (5)~It cross-referenced round~2's artifacts to one another.
+\item \textbf{An independent skeptic re-audit} then re-derived, rather than read, everything
+  the reconciliation had decided. It \textbf{found all five decisions correct} --- three of the
+  four substantive ones by recomputing the numbers from the statements with its own scripts,
+  the fourth against the version history, and the fifth, the cross-referencing, delivered but
+  incompletely --- \textbf{closed 12 of round~2's 13 review findings}, re-executed the Lean
+  gates from a cold cache, and then \textbf{opened two new blocking findings of its own}, both
+  about the accuracy of statements the reconciliation made about the state of the corpus rather
+  than about any mathematics. \S\ref{sec:defects} names both.
+\end{enumerate}
+Within this paper the round-3 consequences are: the ordinal of the second refuting witness is
+corrected ($27$th to $28$th maximal gap, Theorem~\ref{thm:pairfalse}); the exception census
+gains its true pair count and an explicit prohibition on reading any of it as a density
+(Caveat~\ref{haz:census}); the disputed-denominator caveat gains a seventh independent count,
+the self-consistency argument that closes the dispute outright, and its range dependence
+across three decades (Caveat~\ref{haz:5592}); the upstream prose this paper contradicted in
+Remark~\ref{rem:notweakest} has since been amended at the three sites the fault named;
+Theorem~\ref{thm:Cb}'s certification margin over its own majorant is now recorded, because it
+is thin (Caveat~\ref{haz:margin}); the decay exponent of Remark~\ref{rem:margins} is
+requalified against its own local drift; and \S\ref{sec:provenance} is rewritten, because the
+statement round~2 made there about its own citation audit was false.
+
+\paragraph{What did not change, in three rounds.} $\Fb$ is open --- neither proved nor refuted
+by any round. The Lean \texttt{sorry} count is still exactly one, and it is the conjecture.
+The obstruction analysis of \S\ref{sec:limits} is unchanged and was \emph{reinforced}, in
+three independent places, by round~2; round~3 did not touch it. The underlying corpus's
+evidence gate is still \textbf{BLOCKED}, and has been at every round; the reason has now
+changed twice, from unrepaired mathematical defects (round~1) to unreconciled repairs
+(round~2) to inaccurate statements about the state of the corpus (round~3), and
+\S\ref{sec:defects} reads that trajectory honestly rather than as progress.
 
 \subsection{What this paper claims, and the vocabulary of its claims}
 \label{sec:vocab}
 
 This paper is an honest report on an attack that did not settle the conjecture. To keep the
-strength of each statement legible we fix the following vocabulary and use it without
-exception.
+strength of each statement legible we fix the following vocabulary.
 
 \begin{center}
 \begin{tabular}{@{}l p{0.80\textwidth}@{}}
@@ -288,10 +334,20 @@ $\cH$ & Heuristic. Not evidence for or against anything, and never used in a pro
 \end{tabular}
 \end{center}
 
-The word \emph{proved}, unqualified, is reserved in this paper for statements carrying
-$\cK$: that is Lemma~\ref{lem:reduction} and the three barrier theorems of
-\S\ref{sec:barrier}, and nothing else. Everything at $\cP$ or $\cPs$ is a paper
-proof and is labelled as such at the point of use. In particular:
+\textbf{The scope of that discipline, stated exactly, because round~2 stated it too widely and
+was faulted for it.} Every \emph{theorem, lemma, proposition and corollary} in this paper
+carries, in its own heading, either its confidence code or the word \emph{cited} --- the latter
+for the two results imported wholesale rather than derived here (Theorem~\ref{thm:io} and
+Lemma~\ref{lem:dusart}), whose strength is their source's and whose ledger tier is given at the
+point of use. \emph{No statement is asserted at a strength above its code anywhere.} The \emph{machine-checked} claim --- the strongest available here --- is
+reserved for statements carrying $\cK$: that is Lemma~\ref{lem:reduction} and the three
+barrier theorems of \S\ref{sec:barrier}, and nothing else. Running prose, by contrast, uses
+ordinary mathematical English, in which ``we prove'' means ``there is a proof in this paper'',
+and every such sentence cross-references the labelled statement whose code governs it.
+Round~2's edition promised instead that the bare word \emph{proved} would never appear outside
+a $\cK$ statement; it appeared five times, once in the abstract where the codes are not
+visible. That promise is withdrawn and replaced by the rule just stated, which is the one the
+paper actually keeps. In particular:
 
 \begin{center}
 \fbox{\parbox{0.93\textwidth}{
@@ -333,9 +389,11 @@ the two must fail, and no current technique can say which.}
 \item \textbf{$\cC$} An exhaustive verification to $10^{11}$, reproduced by two further
   independent round-2 sweeps, with a discipline that \emph{raises} rather than returns when a
   margin lands inside its error budget (\S\ref{sec:computation}).
-\item An explicit account of what is \emph{not} established, including three named
-  unreconciled seams in the underlying corpus, two live labelling defects inside the repairs,
-  and the absent citation audit (\S\ref{sec:limits}).
+\item An explicit account of what is \emph{not} established, including the trajectory of the
+  underlying corpus's blocking defects across three rounds --- two mathematical, then three
+  unreconciled seams, then two inaccuracies about the corpus's own state --- the two
+  load-bearing sources that remain unopened, and the exact sense in which the citation audit
+  that exists does not clear them (\S\ref{sec:limits}).
 \end{enumerate}
 
 % ==========================================================================
@@ -527,7 +585,7 @@ formalising, because the shortfall is a whole scale and not a constant.
 
 \begin{itemize}
 \item \textbf{The smooth model} (Proposition~\ref{prop:smooth}). Fully within Mathlib's
-  reach; still not done after two rounds, and still the highest-leverage formalisation target
+  reach; still not done after three rounds, and still the highest-leverage formalisation target
   the work has.
 \item \textbf{The $\limsup$ corollary.} Needs effective $\pi(x)$ bounds that are not assumed
   present in Mathlib.
@@ -643,7 +701,7 @@ $T_k = p_k(e^{L_k/k}-1)$ with $p_k$ read off an independent sieve.
             & $n$          & $1847$ & $15\,823$ & $T_n = 83.0521061144139\ldots$ \\
 \midrule
 \textbf{W2} & $m$          & $10\,655\,449$ & $191\,912\,639$ & $T_m = 343.5112716866658\ldots$ \\
-            & $j$ (record) & $10\,655\,462$ & $191\,912\,783$ & $g_j = 248$ (27th maximal gap) \\
+            & $j$ (record) & $10\,655\,462$ & $191\,912\,783$ & $g_j = 248$ (28th maximal gap) \\
             & $n$          & $10\,655\,590$ & $191\,915\,033$ & $T_n = 343.5112358945690\ldots$ \\
 \bottomrule
 \end{tabular}
@@ -659,6 +717,15 @@ T_m - T_n = +3.5792097\cdot10^{-5} > 0 .
 \]
 Either witness refutes $\Ppair$.
 \end{proof}
+
+\begin{remark}[A corrected ordinal]
+Round~2 printed W2's record gap as the \emph{27th} maximal prime gap. It is the \textbf{28th}:
+a running-maximum enumeration to $2\cdot10^8$ yields exactly $28$ record indices, with
+$15\,683$ twelfth ($g = 44$) and $191\,912\,783$ twenty-eighth ($g = 248$), and $25$ records
+below $10^8$. Four independent enumerations now agree
+(\S\ref{sec:computation}, item V14); nothing in Theorem~\ref{thm:pairfalse} depends on the
+ordinal, which is why the error survived two rounds.
+\end{remark}
 
 \begin{remark}[The witnesses are not floating-point]
 W1's margin is $2.9\cdot10^{-2}$ against a bar $T \approx 83$, whose \texttt{float64} unit in
@@ -682,10 +749,15 @@ $-2.861\cdot10^{-2}$, attained at W1.
 \begin{hazard}[A labelling defect in the census, carried rather than smoothed]
 \label{haz:census}
 The census counts \emph{indices} $n$, not \emph{pairs} $(m,n)$: for a fixed $n$ there may be
-several witnessing $m$. The upstream artifact reporting it calls it a ``complete census of
+several witnessing $m$. The upstream artifact reporting it called it a ``complete census of
 admissible pairs'', which it is not; as a list of $n$ it is complete. The defect is one of
 labelling, not of arithmetic, and it does not touch Theorem~\ref{thm:pairfalse}, which needs a
-single witness. It is recorded in \S\ref{sec:defects} as one of the corpus's live defects.
+single witness. Round~3 amended the upstream label and supplied the missing figure: the
+violating \emph{pairs} below $3\cdot10^8$ number \textbf{20}. \textbf{No ratio built from
+either count may be read as a density.} The reason is a matter of scale, not of taste: the
+number of \emph{admissible} pairs below $10^9$ --- pairs $(m,n)$ straddling a record, over
+which a density would have to be taken --- is $\sum_n r(n-1)$, of order $10^{15}$, against
+which $17$ or $20$ is not a small proportion but an incomparable object.
 \end{hazard}
 
 \subsection{The lattice, and the invalid link}
@@ -758,8 +830,12 @@ Upstream prose in the corpus calls $\Pmin$ ``the weakest of the three'' and ``th
 obligation'', on the strength of the ordering Proposition~\ref{prop:incomparable} disproves.
 The correct statement is: $\Pmin$ is the one Theorem~\ref{thm:ffm} needs and the one whose
 empirical margin does not decay, it is \emph{incomparable} to $\Pgov$, and $\Prec$ must be
-listed beside it because Proposition~\ref{prop:implications} needs it. The upstream prose has
-not been amended; see \S\ref{sec:defects}.
+listed beside it because Proposition~\ref{prop:implications} needs it. Since
+Theorem~\ref{thm:ffm} shows that \emph{either} survivor suffices at $n_0$, dropping $\Pgov$
+from the obligation list was also strictly lossy. \textbf{Round~3 amended the upstream prose}
+at the three sites the fault named and restored $\Pgov$ --- with $\Prec$ beside it --- to the
+canonical obligation list; two further sites in the same upstream document still carry the
+word, and are recorded in \S\ref{sec:defects}.
 \end{remark}
 
 \subsection{Why the refutation costs nothing}
@@ -805,16 +881,29 @@ than a loss.
   all hold with \textbf{zero} exceptions, $\Prec$ across $29$ record steps
   (\S\ref{sec:computation}). So the hypothesis of
   Proposition~\ref{prop:implications} is empirically available on the swept range. That is the
-  honest statement and it is not a proof.
+  honest statement and it is not a proof --- and the three predicates are not equally well
+  attested. $\Pgov$ and $\Pmin$ are checked at every one of $50\,847\,533$ indices;
+  \textbf{$\Prec$ rests on $29$ data points}, one per record step, because that is all the
+  range contains. A statement with $29$ observations behind it must not be described as
+  robust, and $\Prec$ is precisely the link that
+  Proposition~\ref{prop:implications}'s chain $\Pgov \wedge \Prec \Rightarrow \Pmin$ needs.
 \end{enumerate}
 
 \begin{remark}[Which margin decays, and which does not]
 \label{rem:margins}
 The two survivors behave very differently numerically, and conflating them was the second half
-of round~1's collision. The margin of $\Pgov$ \emph{decays} like $p^{-0.83}$: its minimum is
+of round~1's collision. The margin of $\Pgov$ \emph{decays}: its minimum is
 $+1.04641539561833\cdot10^{-2}$ at $3\cdot10^6$ and $+2.93\cdot10^{-6}$ at $10^{11}$, with zero
 exceptions throughout --- which is why a \texttt{float64} check of it approaches its noise floor
-near the published frontier. The margin of $\Pmin$ is \emph{flat}: its global minimum is
+near the published frontier. \textbf{The single exponent $p^{-0.83}$ that round~2 fitted across
+those five decades must not be extrapolated}, and round~3 was right to say so: the local
+per-decade exponents \emph{drift}, reading $0.4538$, $0.7364$ and $0.9967$ over the successive
+decades measured, so the decay is steepening rather than following one power law. Carrying the
+drift instead of the fit moves the extrapolated margin at $2^{64}$ from $\approx3.4\cdot10^{-13}$
+to $\approx6.1\cdot10^{-15}$, a factor of about $55$ smaller. The direction is \emph{safe} for
+the reading given here --- the noise-floor alarm about $\Pgov$ strengthens rather than weakens
+--- which is exactly why the fit went unchallenged for two rounds. The margin of $\Pmin$ is
+\emph{flat}: its global minimum is
 $+0.48452773339831\ldots$, attained at $n = 1879$ (with $\mu = 1831$) and never approached
 again across eleven decades. The upstream noise-floor alarm is therefore correct about $\Pgov$
 and \emph{does not apply} to $\Pmin$, which stands some $10^{12}$ ulps clear of zero at every
@@ -930,6 +1019,15 @@ replace the old one, and neither is decorative.
   built on the $(2.1,0,0,0)$ row with $x_0 = 6\,690\,557$, which is present in \emph{both}
   editions and is strictly stronger. See Remark~\ref{rem:retired}.
 \end{enumerate}
+\textbf{Round-3 status.} The corpus's reconciliation leg settled the tier at \textbf{L0}
+corpus-wide and recorded that the residual exposure is \emph{edition}, not tier --- items (a)
+and (b) above, which travel with every citation of this source from now on. The settlement is
+the best-corroborated provenance act in the run: two legs fetched all three documents
+independently and reported identical digests, and the pre-corrigendum range was additionally
+falsified from the primes themselves (below). \textbf{It did not, however, reach every site of
+the corpus:} seven upstream sites still describe this source as unopened, and
+\S\ref{sec:defects} records that as a live blocking defect. This paper is written in the
+settled tier throughout, and every Axler locator here names its edition.
 The validity range remains load-bearing rather than decorative: the pre-corrigendum range is
 not merely unproved but false, with $4\,987\,066$ counterexamples below $10^8$, the smallest at
 $p = 59\,753$ --- all of them below the corrected threshold, which is therefore corroborated
@@ -1375,7 +1473,7 @@ with Axler & $d \ge 0.004479$, $p_m \le 0.99553\,p_{n_0}$ &
 \bottomrule
 \end{tabular}
 \end{center}
-The Dusart branch rests on an L0 source in both rounds; the Axler branch rested on an unopened
+The Dusart branch rests on an L0 source in every round; the Axler branch rested on an unopened
 source in round~1 and on one opened in both editions in round~2.
 The Dusart branch improves only because the small-branch cutoff rises from $60\,184$ to $10^8$,
 which is licensed by $g_m \le 220 < 1919$; it \textbf{cannot} improve much further, since
@@ -1399,9 +1497,35 @@ $0.004479$. \textbf{We nevertheless do not carry it}, for a reason that is not a
 taste: it consumes the Axler table row $(1,0,0,0)$ with $x_0 = 1\,772\,201$, which exists in
 the preprint edition only (Caveat~\ref{haz:axler}(b)), whereas Theorem~\ref{thm:Cb}'s row is
 present in both. Two correct repairs of one defect, shipped by two legs that did not cite each
-other, is itself one of the corpus's unreconciled seams; \S\ref{sec:defects} records it as
-such rather than presenting the choice as if the corpus had made it.
+other, was one of the corpus's three round-2 seams.
+
+\textbf{Round-3 status: the corpus has now made this choice, and made the same one.} Its
+reconciliation leg designated Theorem~\ref{thm:Cb} as the corpus's single repaired near-record
+theorem, retired the competing statement to a remark upstream as well, and ruled that
+$0.99553$, $0.99565$, $0.0043636$ and the finite pair $(1\,772\,201, 132)$ may appear only as
+history and only with the edition flag attached. The independent re-audit that followed
+re-derived Theorem~\ref{thm:Cb}'s constants from its statement, hunted the corpus for surviving
+live uses of the retired figures, and found none. This paper reached the designation a day
+before the corpus did, on the identical ground; that agreement is worth recording precisely
+because it was not coordination.
 \end{remark}
+
+\begin{hazard}[Theorem~\ref{thm:Cb}'s certification margin is thin, and this is not a repair]
+\label{haz:margin}
+The constant $0.0017569$ certified in Theorem~\ref{thm:Cb} exceeds the majorant it must beat
+--- the maximum of the cell bound over the partition, $0.00175687590387\ldots$ --- by
+$\mathbf{2.4\cdot10^{-8}}$. That is far less headroom than the corresponding margin anywhere
+else in this paper, and far less than a formalisation performing this comparison with
+\texttt{norm\_num} and no directed rounding could be assumed to clear. Two things follow, and
+neither is that the theorem is in doubt. First, the majorant is \emph{grid-robust}: a fine
+scan over cell left-endpoints, rather than the single partition used in the proof, raises the
+supremum only to $0.00175687597478$, so the margin is a property of the bound and not an
+artefact of one chosen grid. Second, \textbf{closing this properly requires interval
+arithmetic, not a sharper float}; every high-precision certificate in this work is $50$--$60$
+digit floating point, and this is the one place where that distinction has visible
+consequences. We record the margin rather than repairing it, and \S\ref{sec:limits} lists the
+repair as outstanding.
+\end{hazard}
 
 \begin{hazard}[What ``unconditional'' means for Theorem~\ref{thm:Ca}]
 \label{haz:uncond}
@@ -1414,7 +1538,22 @@ never opened, and the second is our own sieve. \textbf{That is why both
 Theorems~\ref{thm:Ca} and~\ref{thm:Cb} carry $\cPs$ here and not $\cP$}, even though their own
 analytic inputs are at the ledger's top tier: the weakest link is the verification height, not
 the estimate. Round~1 was faulted for exactly this pattern in a different branch, and it
-reappeared in round~2 in the branch round~1 had passed clean; \S\ref{sec:defects} records it.
+reappeared in round~2 in the branch round~1 had passed clean.
+
+\textbf{Round-3 status, and why this caveat is now the paper's largest single exposure.} The
+dependence is not incidental and round~3 traced it rather than assuming it:
+Theorem~\ref{thm:Ca}'s improvement over its round-1 predecessor ($0.93961 \to 0.94970$) comes
+\emph{entirely} from raising the small-branch cutoff from $60\,184$ to $10^8$, and what
+licenses that raise is $g_{n_0} > 1919$, which is $p_{n_0} > 2^{64}$, which is
+Theorem~\ref{thm:verified}. Theorem~\ref{thm:Cb} consumes the same fact by the same mechanism
+at $6\,690\,557$. So the verification height sits under \emph{both} branches of this paper's
+near-record theorem, and the source it ultimately rests on --- \cite{oliveira2014goldbach} ---
+was never opened (\S\ref{sec:provenance}). \textbf{No sentence naming Theorem~\ref{thm:Ca} or
+Theorem~\ref{thm:Cb} may also contain the word ``unconditional'' without naming that height in
+the same breath.} Round~3 applied that correction to the upstream document at two of the three
+sites the fault named. Two sites still assert the bare label: that document's own summary
+verdict table, and the paragraph it wrote to be quoted --- so the upstream document now carries
+both readings and the quotable one is the wrong one. \S\ref{sec:defects} records it.
 \end{hazard}
 
 \subsection{The obstruction inside the residual window}
@@ -1616,8 +1755,8 @@ Then $B_n < T_n \iff C_n > 22/25$, so Theorem~\ref{thm:Azero} says exactly that 
 $\{n : C_n > 22/25\}$ is $\{1,2,3\}$ --- three indices, i.e.\ the primes $2, 3, 5$, i.e.\ ``$p
 \le 5$''. The two artifacts were measuring the same level set from opposite sides, one counting
 indices under the source's hypothesis and one counting primes without it. They now cite each
-other through $C_n$. \emph{This is the one seam in either round that the legs closed by
-themselves rather than deferring};
+other through $C_n$. \emph{This is the one seam either fan-out round closed by itself, without
+waiting for the reconciliation stage};
 \S\ref{sec:defects} lists the ones they did not.
 
 \subsection{No power-type envelope suffices}
@@ -1926,7 +2065,7 @@ Since $p_n \sim n\log n$, Proposition~\ref{prop:smooth} says that the \emph{smoo
 Firoozbakht's conjecture is true and elementary. The entire difficulty of $\Fb$ localises in
 the fluctuation of $p_n$ around $n\log n$. The safe stated range is $x \ge 5$, not $x \ge 4$:
 the relevant bracket changes sign just above $4$ ($+0.0084$ at $x=4$, $-0.0193$ at $x = 4.05$).
-Proposition~\ref{prop:smooth} was \emph{not} formalised in Lean in either round
+Proposition~\ref{prop:smooth} was \emph{not} formalised in Lean in any round
 (\S\ref{sec:barrier}), and it remains the highest-leverage formalisation target the work has:
 it is the only node in the formalisation plan that is a genuine theorem rather than a
 definition or a finite check, and it is fully within Mathlib's reach.
@@ -1966,7 +2105,12 @@ path: one to $10^9$ ($50\,847\,533$ indices) and one to $2\cdot10^8$ ($11\,078\,
 Both reproduce round~1's headline statistics to every digit quoted. The smaller of the two is
 explicit that the $10^9$ decade is one beyond its own sieve and is therefore \emph{not}
 independently confirmed by it, and that nothing in its report depends on that decade; that is
-the discipline worth carrying.
+the discipline worth carrying. Round~3 added three more --- one per leg, each with its own
+sieve, its own segmented sieve for the maximal-gap enumeration and its own $60$-digit
+re-adjudication of every near-tie --- written specifically so that no leg would confirm a
+figure by observing that it matched the previous leg's. \textbf{Agreement between recounts is
+evidence of agreement, not of correctness}, and the one dispute that agreement alone did not
+settle (Caveat~\ref{haz:5592}) was settled by an internal consistency argument instead.
 
 \subsection{Results}
 
@@ -2006,7 +2150,9 @@ The fact that motivates \S\ref{sec:monotone} is that $T$ is not monotone. Quanti
 range & $T_{n+1} < T_n$, $n \ge 10$ & $T_{n+1} < T_n$, all $n$ \\
 \midrule
 $3\cdot10^6$ & $121\,238 / 216\,806 = \mathbf{55.9200\%}$ & $121\,239/216\,815 = 55.9182\%$ \\
-$10^9$       & --- & $\approx 57.88\%$ \\
+$10^7$       & $374\,485 / 664\,569 = 56.3501\%$ & $374\,486/664\,578$ \\
+$10^8$       & $3\,280\,063 / 5\,761\,445 = 56.9313\%$ & $3\,280\,064/5\,761\,454$ \\
+$10^9$       & --- & $\approx 57.9\%$ \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -2014,20 +2160,35 @@ $10^9$       & --- & $\approx 57.88\%$ \\
 \begin{hazard}[The figure is range-dependent, and its denominator was disputed three times]
 \label{haz:5592}
 Two riders travel with this figure and neither may be dropped. First, it is
-\textbf{range-dependent} --- $55.92\%$ at $3\cdot10^6$ against $57.88\%$ at $10^9$ --- and must
-never be quoted without its bound and its convention. Second, the denominator has a history
-worth recording, because it is a case where the review process was wrong twice in the same
-direction. Every \emph{numerator} above agrees across every document and both rounds. The
+\textbf{range-dependent} --- $55.92\%$, $56.35\%$, $56.93\%$ over three successive decades, and
+about $57.9\%$ at $10^9$ --- and must never be quoted without its bound and its convention.
+Second, the denominator has a history worth recording, because it is a case where the review
+process was wrong twice in the same direction.
+
+Every \emph{numerator} above agreed across every document and every round. The
 \emph{denominators} were reported one lower ($216\,805$ and $216\,814$) by one round-2 leg, and
 a round-1 review had called the higher figure an off-by-one error while a round-2 leg
-re-affirmed that call. Three mutually independent recomputations --- including one written from
-the statements with its own sieve at 60 digits --- agree on
-$\pi(3\cdot10^6) = 216\,816$ and hence on $216\,815$ consecutive steps in total and $216\,806$
-with $n \ge 10$. The lower figures are consistent with a $T$-array truncated to the gap-array
-length before differencing, i.e.\ an implementation artefact rather than a counting convention.
-\textbf{We carry $121\,238/216\,806$ and $121\,239/216\,815$}, and record that the concept card
-downstream legs read first still carries the disputed lower denominator, so the discrepancy is
-live in the corpus (\S\ref{sec:defects}).
+re-affirmed that call in bold and declared the matter settled. \textbf{Both were wrong.} Seven
+mutually independent recomputations --- several written from the statements with their own
+sieves, re-adjudicating at $60$ digits every comparison whose relative margin fell inside
+$10^{-9}$, with zero reclassifications --- agree on $\pi(3\cdot10^6) = 216\,816$ and hence on
+$216\,815$ consecutive steps in total and $216\,806$ with $n \ge 10$. The lower figures are
+consistent with a $T$-array truncated to the \emph{gap}-array length $\pi(N)-1$ before
+differencing, which drops the last step and which happens to be an increase: an implementation
+artefact, not a counting convention --- and a counting convention is exactly what the document
+carrying the correct figure had been accused of inventing.
+
+\textbf{What actually closes the dispute is not the vote but a self-consistency argument}, and
+it had been sitting correctly stated and correctly labelled in a sibling artifact for a full
+round while three legs published the wrong side of it. The cut $n \ge 11$, which is the only
+convention that would produce the denominator $216\,805$, \emph{also} drops a descent
+($T_{11} < T_{10}$, so the step $10 \to 11$ is itself one of the descents being counted), and
+therefore yields $121\,237/216\,805$. So one counts from $n = 10$ and gets
+$121\,238/216\,806$, or counts from $n = 11$ and gets $121\,237/216\,805$: \textbf{the
+published pair $121\,238/216\,805$ is the answer under no convention whatsoever}, having mixed
+one cut's numerator with the other's denominator. \textbf{We carry $121\,238/216\,806$ and
+$121\,239/216\,815$}, and round~3 corrected the canonical concept cards downstream legs read
+first; one frame document upstream still prints the retired pair (\S\ref{sec:defects}).
 \end{hazard}
 
 Whichever convention is used, the statistic is \textbf{not diagnostic} for any of the four
@@ -2039,8 +2200,9 @@ compares an index to a governor many steps back.
 
 The following items are cited by number from the proofs above --- items V1--V9 support
 \S\ref{sec:monotone}--\S\ref{sec:range}, V10--V11 the near-record theorems of
-\S\ref{sec:nearrecord}, V12 the barrier of \S\ref{sec:barrier} and V13 the constants of
-\S\ref{sec:rh}. All were recomputed independently of the code paths that produced the sweep.
+\S\ref{sec:nearrecord}, V12 the barrier of \S\ref{sec:barrier}, V13 the constants of
+\S\ref{sec:rh} and V14 the maximal-gap ordinals of \S\ref{sec:predicates}. All were recomputed
+independently of the code paths that produced the sweep.
 
 \begin{enumerate}
 \item[V1] $\max\{g_k : p_k < 60\,184\} = 72$, attained at $p = 31\,397$, by
@@ -2093,6 +2255,14 @@ The following items are cited by number from the proofs above --- items V1--V9 s
 \item[V13] $\log 2^{64} = 44.36141955583649\ldots$, and the RH critical constant
   $\max_{x>1}\log x/\sqrt{x} = 0.7357588823428846\ldots = 2/e$ at $x = e^2$, to 60 digits
   (Theorem~\ref{thm:Ccrit}).
+\item[V14] The maximal-gap record enumeration to $2\cdot10^8$, by running maximum over an
+  independent segmented sieve: exactly $\mathbf{28}$ record indices, with $15\,683$ twelfth
+  ($g = 44$) and $191\,912\,783$ twenty-eighth ($g = 248$), and $25$ records below $10^8$.
+  This is the item that corrects the ordinal printed in round~2
+  (Theorem~\ref{thm:pairfalse}); four independent enumerations agree. Also, the grid-robustness
+  check of Caveat~\ref{haz:margin}: a fine scan of cell left-endpoints raises
+  Theorem~\ref{thm:Cb}'s majorant only from $0.00175687590387$ to $0.00175687597478$, leaving
+  the certified margin at $2.40\cdot10^{-8}$.
 \end{enumerate}
 
 \begin{remark}[Stability of the table test across four decades]
@@ -2254,77 +2424,130 @@ It is Proposition~\ref{prop:obstruction}: an unconditional upper bound on the nu
 in a short interval, sharp to a factor $1 + 2/\log p$, where Brun--Titchmarsh gives about $2$.
 It is stated in closed form, it is the exact obstruction inside the residual window of
 Theorems~\ref{thm:Ca} and~\ref{thm:Cb}, and it is an open problem in analytic number theory
-rather than a lookup. Two further nodes worth naming: proving $\Prec$, or measuring it as a
-first-class obligation (Proposition~\ref{prop:implications} needs it and nobody was measuring
-it under its own name until round~2); and formalising Proposition~\ref{prop:smooth}.
+rather than a lookup. Three further nodes worth naming. First, proving $\Prec$, or measuring it
+as a first-class obligation over a real range: Proposition~\ref{prop:implications} needs it,
+nobody was measuring it under its own name until round~2, and its entire empirical base is $29$
+observations. Second, formalising Proposition~\ref{prop:smooth} --- still, after three rounds,
+the only node of the formalisation plan that is a genuine theorem within Mathlib's reach, and
+still not done. Third, replacing Theorem~\ref{thm:Cb}'s floating-point certificate with
+interval arithmetic (Caveat~\ref{haz:margin}); it is the one constant in this paper whose
+margin is thin enough for the distinction to matter.
 
-\subsection{Named defects and unreconciled seams in the underlying corpus}
+\subsection{Named defects in the underlying corpus, round by round}
 \label{sec:defects}
 
-The body of work this paper draws on was subjected to adversarial review in both rounds. Round
-1's two blocking defects are repaired (\S\ref{sec:rounds}). Round~2's review returned
-\textbf{three} new blocking findings, and this is the honest reading of that: the count went up,
-and the species changed. \emph{None of the three is a mathematical error, and none touches
-$\Fb$.} All three are seams between artifacts that no leg owned.
+The body of work this paper draws on was subjected to adversarial review in all three rounds.
+Round~1's two blocking defects were mathematical and are repaired (\S\ref{sec:rounds}).
+Round~2's review returned \textbf{three} new blocking findings, none of them a mathematical
+error: all three were seams between artifacts that no leg owned. \textbf{Round~3 closed all
+three}, and returned \textbf{two} of its own.
 
+\paragraph{Round~2's three seams, and how each was closed.}
 \begin{enumerate}
 \item \textbf{Two correct, incompatible repairs of the same defect.} Two legs independently
   repaired the round-1 bound of Caveat~\ref{haz:F2}, correctly, into two different theorems
   with two different constants, off two different rows of the same source table, with neither
-  citing the other. Both were verified correct. The corpus contains no rule for choosing.
-  This paper chooses --- Theorem~\ref{thm:Cb}, on the ground that its source row exists in both
-  editions --- and states that it is choosing (Remark~\ref{rem:retired}). \textbf{Neither
-  upstream document has been amended.}
-\item \textbf{Contradictory source tiers for the same source.} One leg records
-  \cite{axler2014newbounds} as opened and read at the locator; another still labels it unopened
-  at every use and attaches to its own theorem the instruction that it must never appear in a
-  sentence containing the word ``unconditional''. That instruction is now too strict on
-  \emph{tier} grounds and exactly right on \emph{row} grounds (Caveat~\ref{haz:axler}(b)). A
-  reader of the second document alone gets the wrong tier. This paper is written in the
-  corrected tier throughout; the second document has not been amended.
+  citing the other. \textbf{Closed by designation}: the corpus now carries
+  Theorem~\ref{thm:Cb} alone, on the ground that its source row exists in both editions, and
+  retires the other to a remark (Remark~\ref{rem:retired}). The re-audit hunted the corpus for
+  surviving live uses of the retired constants and found none.
+\item \textbf{Contradictory source tiers for the same source.} One leg recorded
+  \cite{axler2014newbounds} as opened and read at the locator; another labelled it unopened at
+  every use. \textbf{Closed as a decision} --- the tier is settled at L0, the residual
+  exposure being edition rather than tier (Caveat~\ref{haz:axler}) --- \textbf{but not closed
+  in the corpus}; see the first surviving defect below.
 \item \textbf{An edition-fragile citation.} The table row underlying the retired repair exists
-  in the preprint edition only, and the artifact that \emph{depends} on it does not carry the
-  flag, though the concept card describing the source does. This paper resolves its own
-  exposure by not carrying that theorem (Remark~\ref{rem:retired}); the flag still has to be
-  written into the upstream document if it is kept.
+  in the preprint edition only. \textbf{Closed} the only way it can be, by retiring the
+  theorem that consumed it and writing the edition flag into the artifact that depended on it
+  rather than only into the card describing the source.
+\end{enumerate}
+Alongside them, all three of round~2's major findings and all seven of its minor ones were
+dispositioned, twelve of the thirteen by \emph{independent re-derivation from the statements}
+rather than by re-assertion. Where those findings bear on this paper they are applied at their
+point of use: the corrected ordinal (Theorem~\ref{thm:pairfalse}), the index-versus-pair
+census (Caveat~\ref{haz:census}), the restored obligation (Remark~\ref{rem:notweakest}), the
+recorded certification margin (Caveat~\ref{haz:margin}), the requalified decay exponent
+(Remark~\ref{rem:margins}), and the vindicated denominators (Caveat~\ref{haz:5592}).
+
+\paragraph{Round~3's two blocking defects, which are why the gate is still shut.} Neither is a
+mathematical error, neither touches $\Fb$, and both are of the same species: \emph{a statement
+about the state of the corpus that the corpus does not support}.
+\begin{enumerate}
+\item \textbf{A tier settled ``at every site'' reached one artifact out of seven.} The
+  reconciliation recorded that \cite{axler2014newbounds} is L0 corpus-wide. It propagated the
+  correction into one sibling document and nowhere else: seven upstream sites --- four concept
+  cards, the concept-card index in three separate places, and one round-2 proof attempt --- still
+  assert the old tier or instruct a future leg to open a source that has been open since 26 July.
+  One of those sites gates a live numeral rather than a label. \textbf{This paper is unaffected
+  in substance} --- it is written in the settled tier and its own Axler locators name their
+  editions --- but the corpus is not consistent, and the claim that it is was published.
+\item \textbf{Four statements about the corpus's own state, false, and re-published as gate
+  status.} The reconciliation asserted that this paper had not been rewritten against round~2,
+  that it asserted a superseded tier, that it carried a superseded constant, and that no
+  round-2 citation audit existed. Checked against the version history, all four are false: the
+  round-2 rewrite is on record, this paper's Axler statements are retrospective and correct,
+  the superseded constant appears once and only as history (Remark~\ref{rem:C-compare}), and
+  the round-2 citation audit exists and returned \textbf{PASS} (\S\ref{sec:provenance}). The
+  error propagated one hop further before it was caught, into the corpus's own headline gate
+  summary --- so a false statement about a file became a false statement about a gate, in two
+  steps, neither of which involved anyone asserting something they believed to be untrue.
+  \emph{The origin was an honest snapshot in this paper's own round-2 edition, true when it was
+  written and false eleven minutes later, that nobody refreshed.} \S\ref{sec:provenance} is the
+  refresh.
 \end{enumerate}
 
-Two further live defects sit \emph{inside} the repairs, both labelling rather than arithmetic,
-and both already stated at their point of use: the ``census of pairs'' that counts indices
-(Caveat~\ref{haz:census}), and the ``unconditional'' label on Theorem~\ref{thm:Ca} that rests
-on a verification height and an in-run sieve (Caveat~\ref{haz:uncond}). And three small numeric
-defects were found by recomputation, none touching any conclusion: an upstream document prints
-$e^{-0.0017569} = 0.99824467$ where the value is $0.9982446424\ldots$; and the concept card that
-downstream legs read first carries the disputed denominator $216\,805$ (Caveat~\ref{haz:5592})
-together with a transposed sweep size, $50\,847\,503$ for $50\,847\,533$.
+Below the blocking level, and named rather than smoothed: the upstream document's summary
+verdict table and its most quotable paragraph still label Theorem~\ref{thm:Ca}
+``unconditional, Dusart only'' (Caveat~\ref{haz:uncond}); the reconciliation credited its own
+published script with two computations the script does not contain --- the numbers are right
+and were independently recomputed twice, but the named artifact does not produce them; two
+further upstream sites still call $\Pmin$ ``the weakest'' (Remark~\ref{rem:notweakest}); one
+upstream site still reports the census as $17$ exceptions without the index/pair distinction
+(Caveat~\ref{haz:census}); the frame document a fresh leg reads first still prints the retired
+denominator $216\,805$ (Caveat~\ref{haz:5592}); one concept card instructs citing an Axler
+``v4'' that no leg ever fetched; and two concept cards disagree on how many independent
+recounts agree.
 
 \begin{center}
 \fbox{\parbox{0.93\textwidth}{
 \textbf{The pre-publication evidence gate on the underlying corpus stands at BLOCKED}, with the
-adversarial-review leg named as the failing one, on the three findings above. The formal
-(kernel) leg passes outright --- and \emph{passing the kernel leg is not the claim ``proved''};
-the kernel verdict on $\Fb$ itself is that it was not provable within the budget. The
-adversarial-corpus leg passes ($27/27$). Nothing in
-\S\S\ref{sec:setup}--\ref{sec:tension} rests on an unrepaired defect: no constant here comes
-from a broken derivation, the withdrawn ordering of Remark~\ref{rem:withdrawn} is nowhere used,
-and the retired constant of Remark~\ref{rem:retired} appears only as the statement being
-retired. \textbf{This paper is an honest report on a blocked corpus. It is not a seal.}
+adversarial-review leg named as the failing one, on the two round-3 findings above. The formal
+(kernel) leg passes outright, re-executed from a cold cache by two independent round-3 legs ---
+and \emph{passing the kernel leg is not the claim ``proved''}; the kernel verdict on $\Fb$
+itself is that it was not provable within the budget. The adversarial-corpus leg passes
+($27/27$). Nothing in \S\S\ref{sec:setup}--\ref{sec:tension} rests on an unrepaired defect: no
+constant here comes from a broken derivation, the withdrawn ordering of
+Remark~\ref{rem:withdrawn} is nowhere used, and the retired constant of
+Remark~\ref{rem:retired} appears only as the statement being retired. \textbf{This paper is an
+honest report on a blocked corpus. It is not a seal.}
 }}
 \end{center}
 
-\begin{remark}[The structural reading, which is what two rounds bought]
+\begin{remark}[The structural reading, which is what three rounds bought]
 \label{rem:structural}
-Round~1's review named this failure mode and predicted its recurrence: a fan-out with no
+Round~1's review named the failure mode and predicted its recurrence: a fan-out with no
 reconciliation stage, in which nobody owns the seams. Round~2 \emph{widened} the fan-out, still
-supplied no reconciliation stage, and reproduced the prediction on itself. Every mathematical
-target round~2 was pointed at, it hit; what is missing is not mathematics but a single
-reconciliation pass. The useful conclusion --- which one round could not have supplied, having
-only one measurement --- is that more rounds \emph{of this shape} will not converge. We state
-it here because a reader deciding whether to extend this work should know that the next
-increment is editorial, not mathematical.
+supplied no reconciliation stage, and reproduced the prediction on itself. Round~2's edition of
+this paper concluded from that single extra measurement that more rounds \emph{of this shape}
+would not converge, and that the missing increment was one reconciliation pass, which is
+editorial rather than mathematical.
+
+\textbf{That prediction was tested, and it half held.} The reconciliation pass was funded and
+it ran; it closed every seam it was pointed at, reversed two prior review verdicts and its own
+brief's premise where each was wrong, and opened no mathematics --- confirming that the
+residual work was editorial. But the gate did not clear, because the pass committed a fresh
+instance of the very failure it existed to remove, inside the document whose own closing lesson
+is that a leg's claim about the state of a file is not evidence about the state of that file.
+\textbf{Three consecutive rounds have now failed at the same step, each time in the leg created
+to fix the previous round's failure at it.} The generalisable reading is not that a quantity of
+work remains but that a \emph{discipline} is missing: no brief in three rounds has required a
+leg to check the corpus before describing it, and every leg that checked anyway found something.
+We record this because a reader deciding whether to extend this work should also know that the
+one-leg estimate offered here in round~2 was wrong, and should discount the same estimate,
+offered again, accordingly.
 \end{remark}
 
-\subsection{Source provenance, and the citation audit that has not run}
+\subsection{Source provenance, and what the citation audit does and does not clear}
 \label{sec:provenance}
 
 Every citation in this paper traces to a row of a source ledger built from scratch for this
@@ -2345,13 +2568,41 @@ both sources (title, authors, journal, volume, pages, DOI, and the existence of 
 preprint version, checked against the publishers' listings); what it did \emph{not} do is
 re-open either document at the interior locators. \textbf{Both rows carry a standing re-audit
 obligation.} We record this rather than presenting a clean ledger, because a leg minting rows
-outside its own remit is the same species of seam as \S\ref{sec:defects}'s three, made by this
-paper's own author.
+outside its own remit is the same species of seam as \S\ref{sec:defects}'s, made by this
+paper's own author. \emph{Round~2's independent audit narrowed the exposure without discharging
+it: an independent leg re-verified every locator this paper invokes against those two ledger rows'
+own statement tables, entry by entry, and all pass --- but no leg has re-opened either document at
+its interior locators since the round-1 fetch, so the re-audit obligation stands.}
 
-\textbf{The citation audit for this paper has not been run, and no citation clearance is
-claimed.} The round-1 audit of the round-1 paper returned BLOCKED and the downstream editorial
-gate consequently returned REWRITE; no round-2 audit exists. The load-bearing unopened or
-under-located sources are, in priority order:
+\paragraph{The audit that exists, stated correctly.} \textbf{Round~2's edition of this section
+asserted, in four places, that no citation audit had been run and that no round-2 audit
+existed. Those assertions were false, and correcting them is the first item of this
+revision.} An independent citation-audit leg audited this paper's round-2 edition and returned
+\textbf{PASS}: $22$ of $22$ citekeys traced to ledger rows, all $91$ \verb|\cite| instances
+locator-matched over $59$ distinct (citekey, locator) pairs, \textbf{zero} citations at the
+recall tier, zero fabricated citations, zero orphans in either direction, and every L1/L2 tier
+caveat carried into this paper's running text rather than smoothed upward. Round~1's audit, of
+round~1's paper, had returned BLOCKED --- naming exactly the two keys discussed above --- and
+that finding is discharged, not inherited. The false statement was an honest snapshot: it was
+true when round~2's edition was committed and false eleven minutes later, and no leg refreshed
+it before two downstream documents had carried it forward, the second of them as the corpus's
+headline gate status (\S\ref{sec:defects}).
+
+\paragraph{Why no citation clearance is claimed here even so.} Three reasons, each of which
+survives the correction.
+\begin{enumerate}
+\item The audit on record was run against \emph{round~2's} edition and against the ledger as it
+  stood on 26 July. It predates the round-3 decisions --- a designated theorem, a retired one,
+  a settled tier, corrected denominators --- and this edition. What is outstanding is
+  therefore a \emph{re-audit against the round-3 state}, which is a check rather than a
+  rewrite, since this paper had independently reached the designation before the corpus did.
+\item A PASS that \emph{carries} its caveats is not a clearance \emph{of} those caveats. The
+  audit records the Granville pagination exposure explicitly rather than discharging it.
+\item Two load-bearing sources remain under-opened, listed immediately below. Neither the audit
+  nor this paper can close them; only fetching them can.
+\end{enumerate}
+
+The load-bearing unopened or under-located sources are, in priority order:
 
 \begin{enumerate}
 \item \cite{granville1995cramer} --- fetched and read, but at \emph{preprint} pagination
@@ -2364,7 +2615,13 @@ under-located sources are, in priority order:
   the first-occurrence gap table on which Theorem~\ref{thm:verified} rests, and therefore the
   single largest external dependency of every statement about $2^{64}$ here --- including
   Proposition~\ref{prop:1920} and the hypotheses of Theorems~\ref{thm:Ca} and~\ref{thm:Cb}. If
-  that table is incomplete, those statements say nothing. \textbf{Priority~2.}
+  that table is incomplete, those statements say nothing. \textbf{Priority~2, and round~3
+  raised its standing.} Two legs independently traced the dependence rather than assuming it,
+  and confirmed that this height sits under \emph{both} branches of the near-record theorem, by
+  the mechanism spelled out in Caveat~\ref{haz:uncond}. It is the largest provenance exposure
+  in the corpus --- larger than anything round~3's five decisions touched --- and the reason it
+  survived three rounds is that it had previously been reported inside a citation paragraph
+  rather than at the altitude of the mathematics that consumes it.
 \item The two new rows above. \textbf{Priority~3}, and the reason is the fold, not the sources.
 \end{enumerate}
 
@@ -2413,7 +2670,7 @@ form ``$\Fb$ is unconditionally true below $X$'' must, to be honest, carry the t
 \section{Conclusion}
 \label{sec:conclusion}
 
-Firoozbakht's conjecture was neither proved nor refuted here, in either round. What was
+Firoozbakht's conjecture was neither proved nor refuted here, in any round. What was
 produced instead is: a machine-checked reduction of it to a prime-gap inequality, now joined by
 a machine-checked proof that the only prime-gap input the formal substrate carries is
 insufficient at every index; an unconditional, table-driven verification architecture that
@@ -2422,8 +2679,19 @@ estimate for $\pi(x)$, with its near-record companion repaired and tightened; an
 independent sweep to $10^{11}$ finding no counterexample and no near-miss, reproduced twice
 over; five theorems closing the Riemann-Hypothesis route as a route, with the quantifier that
 the first round dropped restored; and the outright refutation of the pruning lemma the attack
-had most quoted, together with a proof that the pruning never needed it --- offset by three
-named, unrepaired seams in the underlying corpus and by a citation audit that has not run.
+had most quoted, together with a proof that the pruning never needed it --- offset by a corpus
+whose evidence gate has been shut at every round, for a reason that has changed twice and is
+now neither mathematical nor about $\Fb$, and by two load-bearing sources that three rounds
+failed to open.
+
+A third round tested the prediction the second one made about itself. The reconciliation pass
+that round~2 said was the missing increment was funded, ran, closed all three of round~2's
+seams, confirmed by independent re-derivation twelve of its thirteen review findings, and
+opened no mathematics --- and the gate still did not clear, because that pass reproduced, about
+itself, the class of error it existed to remove. What three rounds bought, beyond the theorems
+above, is therefore a fairly sharp measurement of where this kind of work fails: not in the
+mathematics, which held under every recomputation anyone ran at it, but in the bookkeeping
+between artifacts, which failed in the same way three times.
 
 The most tractable genuinely open analytic node isolated here is the residual window of
 \S\ref{sec:nearrecord}: an unconditional short-interval prime count sharp to a factor
@@ -2440,20 +2708,25 @@ more.}
 \addcontentsline{toc}{section}{Acknowledgements and provenance}
 
 This paper was produced by \textbf{Noogram} as the editorial artifact of a structured,
-multi-leg attack conducted over two rounds on 25--26 July 2026. \textbf{It is the round-2
-state of that work and supersedes, in place, the round-1 paper of the same name}; where the two
+multi-leg attack conducted over three rounds on 25--27 July 2026. \textbf{It is the round-3
+state of that work and supersedes, in place, the round-2 paper of the same name}; where the two
 differ, this one is current, and \S\ref{sec:rounds} states what changed and what did not. The
 legs contributing results reported here are, in round~1: a decomposition leg; a source-ledger
 leg; a concept-card leg; three proof-attempt legs; three computational-notebook legs; Lean
 skeleton and probe legs; an adversarial red-team corpus leg; an adversarial review leg; an
 evidence gate; and a synthesis leg. In round~2: three proof-attempt legs, a Lean probe leg
-(which contributed Theorem~\ref{thm:barrier}), an adversarial review leg, an evidence gate and
-a superseding synthesis leg.
+(which contributed Theorem~\ref{thm:barrier}), an adversarial review leg, a citation-audit leg,
+an editorial-review leg, an evidence gate and a superseding synthesis leg. In round~3, funded
+outside the re-attack loop's own cap: a reconciliation leg, an independent skeptic re-audit
+leg, an evidence gate and a superseding synthesis leg. No mathematics in this paper originates
+in round~3; what round~3 contributed is adjudication, independent re-derivation, and the two
+findings of \S\ref{sec:defects}.
 
 The delivery posture of this artifact is \textbf{staged}: it reports a corpus whose evidence
-gate stands at BLOCKED (\S\ref{sec:defects}) and for which no citation clearance exists
-(\S\ref{sec:provenance}). It is not a seal, and it should not be cited as though a clean gate
-stood behind it.
+gate stands at BLOCKED (\S\ref{sec:defects}) and claims no citation clearance, in the precise
+sense set out in \S\ref{sec:provenance} --- an independent round-2 audit of this paper's
+predecessor returned PASS, and that is not the same thing. It is not a seal, and it should not
+be cited as though a clean gate stood behind it.
 
 \printbibliography[heading=bibintoc,title={References}]
 

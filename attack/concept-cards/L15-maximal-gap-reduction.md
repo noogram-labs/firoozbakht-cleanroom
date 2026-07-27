@@ -15,8 +15,8 @@ See `attack-round-2/proof-attempt-first-failure-maximality.md` §1–§3, §5.
 > | name | statement | status |
 > |---|---|---|
 > | **P6′-pair** | `T_m ≤ T_n` for every `m < n` with a record index `j`, `m ≤ j < n` | **FALSE** |
-> | **P6′-gov** | `T_{r(n)} ≤ T_n` for every `n` | OPEN — 0 exceptions in `50 847 503` pairs, `p < 10⁹`; margin decays `≈ p^{−0.83}` |
-> | **P6′-min** | `T_{µ(n)} ≤ T_n` for every `n` | OPEN — 0 exceptions in `50 847 503` pairs; margin **flat** at `+0.4845277` (`n = 1879`) across seven decades |
+> | **P6′-gov** | `T_{r(n)} ≤ T_n` for every `n` | OPEN — 0 exceptions in `50 847 533` **indices**, `p < 10⁹`; margin decays `≈ p^{−0.83}` |
+> | **P6′-min** | `T_{µ(n)} ≤ T_n` for every `n` | OPEN — 0 exceptions in `50 847 533` **indices**; margin **flat** at `+0.4845277` (`n = 1879`) across seven decades |
 > | **P6′-rec** | `T_j ≤ T_{j'}` for consecutive record indices | OPEN — 0 exceptions in **29** record steps. *New obligation:* `P6′-gov ⟹ P6′-min` is **not** valid without it |
 >
 > **The refuting witness (least):** `m = 1823` (`p_m = 15 641`), record index `j = 1831`
@@ -42,7 +42,7 @@ refutation, because it never consumed the pair-uniform form.
 ## Why it is not a triviality
 
 The chain needs `T` to be nondecreasing across the block, and **`T` is not monotone**:
-`T_{n+1} < T_n` at **121 238 of 216 805** steps with `n ≥ 10` (**55.9203 %**) at `3·10⁶`, verified
+`T_{n+1} < T_n` at **121 238 of 216 806** steps with `n ≥ 10` (**55.9200 %**) at `3·10⁶` *(denominator corrected 2026-07-27 by the round-3 reconciliation leg, decision 4: `π(3·10⁶) = 216 816`, so there are `216 815` steps and `216 806` of them have `n ≥ 10`; the all-`n` figure is `121 239 / 216 815 = 55.9182 %`. Four independent recounts agree — see `attack/reconciliation.md` §4 and `attack/synthesis.md` §5.4)*, verified
 in-run and reproduced independently 2026-07-26. The figure is **range-dependent** — `56.3501 %` at
 `10⁷`, `56.9313 %` at `10⁸` — and must never be quoted without its bound and its `n ≥ 10`
 convention (`faults.md` F5). So the reduction cannot simply be asserted — and in its pair-uniform
@@ -116,6 +116,13 @@ coarse trend — is shown in `proof-attempt-0.md` §7.3 to be unable to close th
 level of effective-constant improvement, and `attack-round-2/proof-attempt-first-failure-maximality.md`
 §8 adds that the surviving predicates must be attacked **index-selectively**, because the
 pair-uniform form is false. ~~**This is the single most tractable open obligation in the attack.**~~
-**Withdrawn.** The obligation to state and work is **P6′-min** (the weakest sufficient form,
-Theorem 2 of the round-2 attempt), with **P6′-rec** listed beside it because
-`P6′-gov ⟹ P6′-min` needs it and its empirical base is 29 data points.
+**Withdrawn.** The obligations to state and work are **P6′-min** *and* **P6′-gov** — Theorem 2 of
+the round-2 attempt accepts **either** at `n₀`, and Proposition 4 of the same document proves the
+two **formally incomparable** (`gov ⇏ min` and `min ⇏ gov`), so neither may be dropped as "the
+weaker one" and dropping `gov` is strictly lossy. **P6′-rec** is listed beside them because
+`P6′-gov ∧ P6′-rec ⟹ P6′-min` is the valid chain and its empirical base is 29 data points.
+*(Amended 2026-07-27 by the round-3 reconciliation leg, decision 5; `faults.md` **R2-M3**. The
+line previously read "the weakest sufficient form" and listed only `min` and `rec` — an ordering
+the round-2 document's own Proposition 4 disproves. What is true of `gov` vs `min` is empirical:
+`T_{µ(n)} ≤ T_{r(n)}` at every index below `10⁹`, so on that range `gov ⟹ min`. A measurement, not
+a proof. See `attack/reconciliation.md` §5.)*

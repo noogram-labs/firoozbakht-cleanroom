@@ -8,6 +8,32 @@
 > **Status of `F` in this document: OPEN.** Not assumed true, not assumed false. Nothing below
 > proves or refutes `F`, and nothing below may be quoted as evidence in either direction.
 
+> ### 🔗 Round-3 reconciliation banner — read this before quoting anything below
+>
+> A **reconciliation leg** (`task-20260727-264e`, 2026-07-27, round 3) owned the seams between the
+> four round-2 artifacts. Its decisions are recorded in **`attack/reconciliation.md`** and are
+> **binding on this document**, which has been amended in place where they touch it. The four
+> round-2 artifacts, and where each stands after reconciliation:
+>
+> | artifact | role | status after round 3 |
+> |---|---|---|
+> | `proof-attempt-first-failure-maximality.md` (FFM) | P6′ predicates, Theorem C-a′/C-b′ | **carries the designated Theorem C-b′**; §4 denominators corrected, §5 gov/min ordering corrected, C-a′ header corrected |
+> | `proof-attempt-unconditional-verified-range.md` (UVR) | Lemma H, (A-high\*), Theorem 2, the unconditional range | **Theorem C(b\*) retired to a remark**; Axler tier corrected L2_strong → **L0** |
+> | `proof-attempt-RH-conditional-bound.md` (RH) | the RH route, five theorems | unchanged; its §10 sieve count `216 815` is the **correct** one and corroborates decision 4 |
+> | `lean-probe-report.md` | the kernel leg + the barrier | clean; §4's slack table annotated (constants restored) |
+>
+> **The five decisions in one line each.** (1) The corpus's single repaired Theorem C(b) is
+> **Theorem C-b′**, `p_m ≤ 0.998244·p_{n₀}`, off the Axler row `(2.1,0,0,0)/6 690 557` present in
+> **both** editions; C(b\*) and the constants `0.99553`/`0.99565` are retired. (2)
+> `axler2014newbounds` is **L0**, everywhere, with a standing ⚠ that the `(1,0,0,0)/1 772 201` row
+> is **preprint-only**. (3) The ledger amendment **had already landed**; R2-B2's "never made" is
+> stale, verified against the tree. (4) The `55.92 %` denominators are `216 806` (`n ≥ 10`) and
+> `216 815` (all `n`) — a fourth independent recount, against FFM's original table and against both
+> prior skeptics. (5) R2-M2, R2-M3, R2-m1, R2-m2 and R2-m4 are applied in place.
+>
+> **`F` remains OPEN.** Nothing in round 3 moves it; reconciliation removes ambiguity, not
+> obstruction.
+
 ---
 
 ## 0. Perimeter
@@ -177,7 +203,14 @@ weakening at all (§3.2), and re-derives everything downstream from it.
 > ```
 > T_n  <  v (1 + v/x)  =  v + v²/x .
 > ```
-> `[rests on axler2014newbounds Cor. 3.6, tier L2_strong, NOT OPENED in this run — see §6.]`
+> `[rests on axler2014newbounds Cor. 3.6 (= *Integers* Cor. 3.5), tier **L0** — the source was`
+> `fetched, MD5-pinned and read at the locator on 2026-07-26 by the sibling leg`
+> `task-20260726-56a7; the ledger row was amended the same day. Tier label corrected in place`
+> `2026-07-27 by the round-3 reconciliation leg, decision 2 — it read "L2_strong, NOT OPENED",`
+> `which was true when this document was written and is false now.` **⚠ EDITION HAZARD: the**
+> **`(1,0,0,0) / x₀ = 1 772 201` row this lemma consumes is present in the arXiv preprint ONLY and**
+> **is absent from *Integers* 16 (2016) A22. Do not quote `x ≥ 1 772 201` against the journal**
+> **citation.** `See §3.5's retirement notice and attack/source-ledger.md's axler2014newbounds row.]`
 
 *Proof.* Card **T1** quotes Axler Cor. 3.6: `x/(ℓ − 1 − 1/ℓ − 1/ℓ²) < π(x)` for `x ≥ 1 772 201`.
 The denominator is positive on that range: at `ℓ = ℓ₁` it equals
@@ -305,7 +338,39 @@ is a strict improvement rather than a repair of an error: `0.006992` is a *valid
 from the printed lemma's error term `ℓ₁⁴e^{−ℓ₁} = 0.02418`, which the repair replaces by
 `E(ℓ₁) = 0.020704` and then discharges against `1/ℓ` entirely.
 
-### 3.5 Theorem C(b\*) — the repaired theorem
+### 3.5 Theorem C(b\*) — the repaired theorem, **RETIRED TO A REMARK**
+
+> ⛔ **RETIRED — round-3 reconciliation leg (`task-20260727-264e`), decision 1, 2026-07-27.**
+> Round 2 repaired round-1's F2 **twice**, in two legs that never cited each other
+> (`faults.md` **R2-B1**). This theorem is one of the two; the other is **Theorem C-b′** in
+> `attack/re-attack/attack-round-2/proof-attempt-first-failure-maximality.md` §7.4
+> (`d ≥ 0.0017569`, `p_m ≤ 0.998244·p_{n₀}`, off the Axler row `(2.1,0,0,0) / x₀ = 6 690 557`).
+> **Theorem C-b′ is designated as the corpus's single repaired Theorem C(b). Theorem C(b\*) below
+> is retired to a remark and must not be quoted as the run's result.**
+>
+> **Why C-b′ and not this one — the ground that decides it, not taste.** The Axler row this theorem
+> consumes, `(a,b,c,d) = (1,0,0,0)` with `x₀ = 1 772 201`, exists **only in arXiv:1409.1780v3** and
+> is **absent from the published *Integers* **16** (2016) A22** (the journal's table has 12 columns,
+> the preprint's 14). That was established by two independent byte-level fetches with matching MD5s
+> (FFM §7.1 Finding B; `faults.md` R2-B3 confirming it) and is now a standing downstream rule on the
+> `axler2014newbounds` row of `attack/source-ledger.md`: *"do not quote `x ≥ 1 772 201` against the
+> journal citation. The `(2.1,0,0,0)/6 690 557` row is present in **both** editions and is strictly
+> stronger; use it."* C-b′ uses exactly that row. C-b′ is additionally the sharper theorem
+> (`0.998244` vs `0.99565`). **This leg wrote its own document; the row it happened to pick is
+> edition-fragile, and nothing in the theorem's mathematics is wrong** — the round-2 skeptic
+> verified both theorems at 40–50 dps and both stand.
+>
+> **What this theorem is still good for, and why it is kept rather than deleted.** It is the
+> cleanest proof that round 1's conclusion *survived its own broken derivation*: it is the sharp
+> statement of what round 1's printed lemma would have ordered, and it shows the printed constant
+> `0.004479` was sufficient after all. Read §3.5–§3.7 as **history and calibration**, not as the
+> live theorem.
+>
+> **Every appearance of `0.99565` / `0.9956459` / `0.0043636` in this document, and the finite pair
+> `1 772 201 / 132`, is retired with it.** The live constants are `0.998244` / `0.0017569` and the
+> finite pair `6 690 557 / 154`. Three constants had been circulating under one theorem name
+> (`0.99553` round 1, `0.99565` here, `0.998244` in C-b′); **there is now one: `0.998244`.**
+> See `attack/reconciliation.md` §1.
 
 > **Theorem C(b\*).** Suppose `F` is false and let `n₀` be its least failure. By card **L6**,
 > `p_{n₀} > 2⁶⁴`, hence `λ = L_{n₀} > 44.3614` and, by (D-low), `T_{n₀} > λ² − 1.1λ > 1919`.
@@ -318,9 +383,15 @@ from the printed lemma's error term `ℓ₁⁴e^{−ℓ₁} = 0.02418`, which th
 > and more sharply whenever (★) holds with `ℓ = L_m`. A fortiori the constant `0.004479` quoted by
 > `proof-attempt-0.md` Theorem C(b) is sufficient, and the sweep-free constant `0.0061205` needs no
 > optimisation at all.
-> `[rests on axler2014newbounds Cor. 3.5 and 3.6, tier L2_strong, NOT OPENED — §6. **This theorem
-> is NOT unconditional in the citation sense** and must never be quoted inside a sentence
-> containing the word "unconditional".]`
+> `[rests on axler2014newbounds Cor. 3.5 and 3.6 (= *Integers* Cor. 3.4 and 3.5), tier **L0**`
+> `— fetched, MD5-pinned and read at the locator 2026-07-26; tier corrected in place 2026-07-27,`
+> `decision 2. The instruction below is RESCOPED, not struck: it was over-strict on TIER grounds`
+> `(the source is open) and exactly right on ROW grounds.]`
+> **This theorem is RETIRED (see the notice above) and, if quoted at all, must carry the edition
+> hazard: its Axler row `(1,0,0,0) / 1 772 201` is preprint-only. It may not be quoted inside a
+> sentence containing the word "unconditional" — not because the source is unopened, but because
+> the finite-range unconditional result of §4 does not use Axler at all and must not be conflated
+> with it (§4.4).**
 
 *Proof.* Two cases on `p_m`.
 
@@ -393,6 +464,13 @@ The cost of choosing enlargement over tightening is the point: the finite obliga
 certify grows from `132` to `288`. **The repair taken here (tighten the lemma) is the one that
 leaves the computation where the mathematics actually puts it.** F13 is closed by this paragraph:
 the constants are `1 772 201 / 132` under (A-high\*), and the alternative is priced.
+
+> ⚠ **Retired pricing — round-3 reconciliation, decision 1, 2026-07-27.** The reasoning of this
+> section (tighten the lemma rather than enlarge the finite obligation) is **correct and stands**;
+> the *constants* do not. With Theorem C(b\*) retired (§3.5), the live finite pair is
+> **`6 690 557 / 154`** (Theorem C-b′, FFM §7.4), not `1 772 201 / 132`. The `288` at
+> `1.332·10⁹` is unchanged as the counterfactual price of the alternative repair. Any Lean leg
+> should certify the gap table below **`6 690 557`** (`g ≤ 154`), not below `1 772 201`.
 
 *(A second reading of F13's warning, recorded because it is the sharper one: a defective analytic
 lemma does not usually announce itself as a false theorem — it announces itself as a **larger
@@ -522,7 +600,7 @@ subquestion, once:
 | Lemma 1, Lemma 4 | none | none | **yes** — and Lemma 1 is machine-checked |
 | Lemma 3, Theorem 2, Cor. 2.1, Prop. 3, Prop. 4 | none | Dusart eq. (6.6) / Prop. 6.8, tier **L0**, read at the locator by the ledger leg, **not re-opened by this leg** | **yes**, in the mathematical sense, with the L0 provenance named |
 | Theorem C(a) | none | Dusart only, tier L0 | **yes** |
-| Theorem C(b\*), (A-high\*), (A-low), Fact S2, Theorem B | none | **Axler Cor. 3.5/3.6, tier L2_strong, NOT OPENED** | **no** |
+| Theorem C(b\*) *(RETIRED, §3.5)*, (A-high\*), (A-low), Fact S2, Theorem B | none | Axler Cor. 3.5/3.6, tier **L0** *(corrected 2026-07-27, decision 2 — was "L2_strong, NOT OPENED")*; ⚠ but (A-high\*)'s row `(1,0,0,0)/1 772 201` is **preprint-only** | **no** — for a *different* reason than when this table was written: not an unopened source, but (i) an edition-fragile locator and (ii) the fact that §4's unconditional range does not use Axler at all and must not be conflated with it. The live Axler-based theorem is **C-b′** (FFM §7.4), which uses the both-editions row |
 
 "Unconditional" here means *no unproved hypothesis*, never *no computation* (Prop. 4 proves the
 computation cannot be removed) and never *no citation*. **The repaired Theorem C(b\*) is not part
@@ -645,10 +723,14 @@ existing ledger rows; the ledger is not re-opened.
 
 **Anchors the skeptic flagged, that bear on this subquestion — the complete list:**
 
-1. **`axler2014newbounds` (Cor. 3.5, Cor. 3.6) — tier L2_strong, NOT OPENED.** Flagged by
-   `faults.md` F3 and by `proof-attempt-0.md` §10 gap 4. **Not resolved by this leg** — no PDF was
-   fetched, and the repair in §3 is a *derivation* repair, not a *citation* repair. (A-high\*)
-   inherits the flag verbatim and §4.4 quarantines everything that rests on it.
+1. **`axler2014newbounds` (Cor. 3.5, Cor. 3.6) — tier L0.** *(Amended 2026-07-27, decision 2. As
+   written: "tier L2_strong, NOT OPENED … not resolved by this leg" — accurate for this leg, which
+   fetched no PDF, and **superseded** by the sibling leg `task-20260726-56a7`, which fetched the
+   arXiv v3, the *Integers* 16 (2016) A22 and the 2018 corrigendum the same day, MD5-pinned all
+   three, read them at the locator, and landed the ledger promotion L2_strong → L0. The round-2
+   skeptic re-fetched independently and reproduced all three MD5s.)* The residual exposure is **not**
+   tier but **edition**: (A-high\*)'s row `(1,0,0,0)/1 772 201` is preprint-only, which is why
+   Theorem C(b\*) is retired (§3.5) in favour of FFM's Theorem C-b′.
 2. **`oliveira2014goldbach` — tier L2_weak, NOT OPENED** (AMS HTTP 403; ledger §6.2). Hypothesis
    (H2) of Theorem 2 at `X = 2⁶⁴`. **Not resolved.** Remains G2.
 3. **`faults.md` F11 — the mitigation to be struck.** Applied in §4.7: `proof-attempt-2.md` G1's
@@ -710,6 +792,13 @@ kept as printed, `M-9`'s finite branch would need `max{g_k : p_k < 1.332·10⁹}
 Lean instead of `132` below `1 772 201` — a 751× larger certified gap table for no mathematical
 gain. The tightening is the cheaper formalisation by a wide margin.
 
+> ⚠ **Amended 2026-07-27 (decision 1 + 5).** The Lean sketch above axiomatises the Axler row
+> `1772201`, which is **preprint-only**. Since Theorem C(b\*) is retired in favour of Theorem C-b′
+> (FFM §7.4), a Lean leg should axiomatise the **both-editions** row instead —
+> `axler35 : ∀ x, 6690557 ≤ x → x / (log x - 1 - 1/log x - 2.1/(log x)^2) < π x` — and certify
+> `max{g_k : p_k < 6 690 557} = 154`. See `attack/re-attack/attack-round-2/lean-probe-report.md`
+> §M-7/§M-8 and `attack/reconciliation.md` §5.
+
 ---
 
 ## 8. What this document does NOT establish
@@ -743,7 +832,7 @@ Stated at length, because a document with "verified" in its title is the one tha
 |---|---|---|---|
 | **G1** | **Dusart Thm 6.9 eq. (6.6) was not read from the source by this leg** — tier L0 via card **T1** / the ledger leg. If the constant `1.1` or the range `x ≥ 60 184` is mis-transcribed upstream, Lemma 3 and everything above it moves. | **MAJOR** — **one** mitigation, not two: the numerical check at every prime in `[60 184, 2·10⁶]` (V8b, 0 failures) would expose a wrong constant. The Kourbatov-threshold mitigation is **struck** per F11 (§4.7). Neither is a substitute for opening the paper. | §4.2 |
 | **G2** | **(H2) — the first-occurrence gap table below `2⁶⁴` — is not verified in this run**; `oliveira2014goldbach` unopened (L2_weak, HTTP 403). | **BLOCKER for Corollary 2.1**, not for Theorem 2 (an implication). Unchanged from round 1. | §4.7 |
-| **G3** | **Axler Cor. 3.5 / 3.6 unopened** (L2_strong). (A-high\*), (A-low), Fact S2, Theorem B and Theorem C(b\*) all inherit it. **The F2 repair does not touch this.** | **MAJOR** for anything Axler-based; **not** a gap in the unconditional range, which does not use Axler (§4.3). | §3, §6 |
+| **G3** | ~~**Axler Cor. 3.5 / 3.6 unopened** (L2_strong)~~ — **CLOSED as a tier gap 2026-07-27** (decision 2): the source was fetched, MD5-pinned and read at the locator on 2026-07-26 by the sibling leg, and the ledger row is **L0**. **REPLACED by G3′ — an *edition* gap:** (A-high\*) and Theorem C(b\*) consume the Axler row `(1,0,0,0)/x₀ = 1 772 201`, which exists in **arXiv:1409.1780v3 only** and is absent from *Integers* **16** (2016) A22. | G3: **closed**. G3′: **MAJOR** for `(A-high\*)`/`C(b\*)` — and discharged the only way it can be, by **retiring** them (§3.5) in favour of FFM's Theorem C-b′, which uses the `(2.1,0,0,0)/6 690 557` row present in both editions. Neither ever was a gap in the unconditional range, which does not use Axler (§4.3). | §3, §6, `attack/reconciliation.md` §1–§2 |
 | **G4** | **`ε`/`E` monotonicity in Prop. R1 step (1) and Cor. R1.1 is argued by sign of the log-derivative plus a monotone majorant, not by a formal proof of unimodality.** The endpoints are evaluated exactly and the grid check V2 found 0 exceptions over 4 000 points. | MINOR — the argument is a two-line derivative computation and the constants are checked at the binding endpoint `ℓ₁`. | §3.4 |
 | **G5** | **`G₀ = 72` and the `132` / `288` gap constants are this leg's own sieve facts.** Exact integer arithmetic, and V4b self-tests the segmented implementation against a plain sieve at `2·10⁶`; the `288` figure at `1.332·10⁹` has **no** second implementation behind it (only an L3 recollection of A005250, which is not evidence). | MINOR for `72` / `132`; **MAJOR-if-load-bearing** for `288`, which is used **only** in §3.7's counterfactual pricing and in no theorem. | §3.7, §4.2 |
 | **G6** | **The floating-point / `mpmath` checks are 50-digit, not interval arithmetic.** The binding margins are `+0.0799` (V8) and `0.004479 − 0.0043636 = 1.15·10⁻⁴` (V3) — both astronomically clear of 50-digit noise, but the computation does not claim to be certified. | MINOR | §5 |
@@ -758,8 +847,8 @@ Stated at length, because a document with "verified" in its title is the one tha
 |---|---|
 | **F2 (BLOCKER) — the derivation defect** | **FIXED.** (A-high) is restated as (A-high\*) `T_n < v(1 + v/x)`, `v := ℓ²−ℓ−1−1/ℓ`, proved from Lemma H with no weakening step (§3.2). `ℓ⁴/p_m` is replaced by `v²/p_m` in the displayed criterion (★) (§3.3). The uniform constant is **re-derived, not re-quoted**: `0.0043636`, now **proved in closed form** (Prop. R1) rather than swept, and independently re-solved from Lemma W's hypothesis (§5, V3). |
 | **F2(c) — the quoted constant below its own criterion** | **DISSOLVED.** The repaired criterion's maximum is `0.0043636 < 0.004479`; the printed criterion's `0.0044887 > 0.004479` no longer has a formula to disagree with. |
-| **F2 — provenance** | **NOT fixed, and not claimed.** (A-high\*) still rests on Axler Cor. 3.6, tier L2_strong, unopened (G3). |
-| **Theorem C(b\*)** | **PROVED**, modulo the unopened Axler source. Slightly **stronger** than as printed: `p_m ≤ 0.99565·p_{n₀}` (was `0.99553`). Sweep-free branch improved from `0.006992` to `0.0061205`. |
+| **F2 — provenance** | **FIXED, by the sibling leg, not by this one.** *(Amended 2026-07-27, decision 2. As written: "NOT fixed, and not claimed … tier L2_strong, unopened".)* Axler is **L0** — fetched, MD5-pinned, read at the locator 2026-07-26 by `task-20260726-56a7`; the ledger row and card `T1` carry the promotion. What survives is not a tier gap but an **edition** gap (G3′): (A-high\*)'s row is preprint-only, which is why Theorem C(b\*) is retired in favour of Theorem C-b′. |
+| **Theorem C(b\*)** | **PROVED and RETIRED.** The mathematics stands (independently verified at 40–50 dps by the round-2 skeptic): `p_m ≤ 0.99565·p_{n₀}`, sweep-free branch improved from `0.006992` to `0.0061205`. **It is nevertheless retired to a remark** (§3.5, decision 1) because its Axler row is preprint-only; the corpus's single repaired Theorem C(b) is **Theorem C-b′** (`p_m ≤ 0.998244·p_{n₀}`), FFM §7.4. `0.99565` may appear only as history. |
 | **Theorem C(a)** | **UNAFFECTED** by the repair, and the reason is recorded (§3.8): (D-high) is Lemma H at its natural `t`, with no substitution inside the second factor. Independently re-verified: true max required `d = 0.062079811 ≤ 0.0623`. |
 | **F13 (MINOR)** | **CLOSED.** Had the printed lemma been retained, the finite branch would run to `1.332·10⁹` with governing constant `288` (not `132`), still `< 1919`, so the theorem was repairable either way — at 751× the computation. |
 | **Subquestion `unconditional-verified-range`, Reading (A)** | **PROVED** (Theorem 2, §4.2), constants explicit, **one** cited inequality (Dusart eq. 6.6, L0), independent of P6′ under all three of F1's readings (§4.6), and **audited step-by-step to be untouched by F2** (§4.3). |

@@ -59,3 +59,45 @@ New MAJORs: **R2-M1** (a three-fractions statistic dispute the round-2 skeptic i
 **Round 2 converged?** NO — kernel is UNPROVABLE_IN_BUDGET (not PROVED, and honestly so: this is Firoozbakht's conjecture, open since 1982) and skeptic carries 3 BLOCKERs (not clean, and a higher BLOCKER count than round 1's 2). `round = 2 = ${rounds}` — the loop's target is exhausted. Per the `while` discipline, the loop terminates here: `round < rounds` is now false (`2 < 2` is false), so no round 3 is nucleated. The stop condition (kernel PROVED **and** skeptic clean, same round) never held in either round. Exit: **rounds-exhausted → BLOCKED** (never a silent pass).
 
 **Trajectory, honestly read:** the unproved list did **not shrink** (`unproved-1` = `unproved-2`, one entry, unchanged — expected, since it is the open conjecture itself). The BLOCKER set changed *kind* but not *count downward*: round 1's 2 BLOCKERs were genuine mathematical/definitional defects inside individual artifacts; round 2 closed both of those specific defects (confirmed FIXED by independent re-derivation) but **introduced 3 new BLOCKERs of a different species — reconciliation failures across a widened fan-out**, exactly the failure mode round 1's own skeptic (§6) predicted would recur. The loop is not converging on the reconciliation axis; per the round-2 skeptic's explicit recommendation, round 3 (were it to run) would need a reconciliation leg, not another fan-out — this loop's `rounds=2` cap does not fund that leg.
+
+---
+
+## Round 3 — the reconciliation leg, run outside this loop's `rounds = 2` cap
+
+This loop exited `rounds-exhausted / BLOCKED` and recorded that *"round 3 (were it to run) would need
+a reconciliation leg, not another fan-out — this loop's `rounds=2` cap does not fund that leg."*
+**That leg was funded separately and ran on 2026-07-27:** molecule `task-20260727-264e`, artifact
+**`attack/reconciliation.md`**. It was not a fan-out: one leg, five decisions, no new mathematics
+opened.
+
+**Disposition of this loop's three round-2 BLOCKERs, as seams:**
+
+- **R2-B1 — CLOSED by designation.** **Theorem C-b′** (`p_m ≤ 0.998244·p_{n₀}`, Axler row
+  `(2.1,0,0,0)/6 690 557`) is the corpus's single repaired Theorem C(b); **Theorem C(b\*)**
+  (`0.99565`, row `(1,0,0,0)/1 772 201`) is retired to a remark. The deciding ground is R2-B3's own
+  finding — the `1 772 201` row is preprint-only — which the ledger had already recorded as a
+  standing downstream rule that nobody propagated. Both theorems remain mathematically correct;
+  the choice is documentary. Round 1's `0.99553` and round 2's `0.99565` are retired.
+- **R2-B2 — limb 1 is STALE; limb 2 is CLOSED.** The claim *"the ledger amendment … was checked
+  directly and **never made**"* recorded above is **wrong**: the reconciliation leg checked the
+  committed tree and found `source-ledger.md`'s Axler row at **L0** with the full fetch record,
+  §6 gap 3 marked `CLOSED 2026-07-26`, and card `T1` amended to match. The skeptic's line numbers
+  resolve only in a worktree branched before commit `61689d0`. What genuinely had not landed was
+  the propagation of the L0 tier into the **sibling** document (UVR), and that is what round 3
+  landed. `axler2014newbounds` is **L0** at every site, with a standing ⚠ that its
+  `(1,0,0,0)/1 772 201` row is preprint-only.
+- **R2-B3 — CLOSED by retirement.** The theorem that consumed the edition-fragile row is retired,
+  and the edition ⚠ is now written into the document that consumed it as well as into card `T1`.
+
+**MAJORs:** R2-M1 recounted from the statement — the denominators are `216 806` (`n ≥ 10`) and
+`216 815` (all `n`); FFM's table was one low at every range under both conventions, and
+`proof-attempt-0.md`'s figure was right all along. Five independent counts now agree, one of them
+(the round-2 RH leg's own §11 item 15, **unread for a full round**) with a self-consistency argument
+showing `121 238 / 216 805` is impossible under *any* convention. R2-M2 and R2-M3 applied in place,
+as are all seven MINORs.
+
+**What round 3 did NOT do.** It cleared no gate, opened no source, wrote no Lean, re-ran no `lake`,
+and proved nothing. **`F` remains OPEN and the evidence gate remains BLOCKED.** The reconciliation
+leg's own §8 item 1 is *re-run the skeptic against the amended tree* — that is the next step, and it
+is not done. Closing the seams is not the same as a clean skeptic run, and the leg says so in those
+words.

@@ -10,6 +10,32 @@
 `(p_n)^{1/n}` strictly decreasing. **Status of `F` in this document: OPEN.** Nothing below asserts
 it and nothing below refutes it. This leg attacks the subquestion only.
 
+> ### 🔗 Round-3 reconciliation banner — read this before quoting anything below
+>
+> A **reconciliation leg** (`task-20260727-264e`, 2026-07-27, round 3) owned the seams between the
+> four round-2 artifacts. Its decisions are recorded in **`attack/reconciliation.md`** and are
+> **binding on this document**, which has been amended in place where they touch it. The four
+> round-2 artifacts, and where each stands after reconciliation:
+>
+> | artifact | role | status after round 3 |
+> |---|---|---|
+> | `proof-attempt-first-failure-maximality.md` (FFM) | P6′ predicates, Theorem C-a′/C-b′ | **carries the designated Theorem C-b′**; §4 denominators corrected, §5 gov/min ordering corrected, C-a′ header corrected |
+> | `proof-attempt-unconditional-verified-range.md` (UVR) | Lemma H, (A-high\*), Theorem 2, the unconditional range | **Theorem C(b\*) retired to a remark**; Axler tier corrected L2_strong → **L0** |
+> | `proof-attempt-RH-conditional-bound.md` (RH) | the RH route, five theorems | unchanged; its §10 sieve count `216 815` is the **correct** one and corroborates decision 4 |
+> | `lean-probe-report.md` | the kernel leg + the barrier | clean; §4's slack table annotated (constants restored) |
+>
+> **The five decisions in one line each.** (1) The corpus's single repaired Theorem C(b) is
+> **Theorem C-b′**, `p_m ≤ 0.998244·p_{n₀}`, off the Axler row `(2.1,0,0,0)/6 690 557` present in
+> **both** editions; C(b\*) and the constants `0.99553`/`0.99565` are retired. (2)
+> `axler2014newbounds` is **L0**, everywhere, with a standing ⚠ that the `(1,0,0,0)/1 772 201` row
+> is **preprint-only**. (3) The ledger amendment **had already landed**; R2-B2's "never made" is
+> stale, verified against the tree. (4) The `55.92 %` denominators are `216 806` (`n ≥ 10`) and
+> `216 815` (all `n`) — a fourth independent recount, against FFM's original table and against both
+> prior skeptics. (5) R2-M2, R2-M3, R2-m1, R2-m2 and R2-m4 are applied in place.
+>
+> **`F` remains OPEN.** Nothing in round 3 moves it; reconciliation removes ambiguity, not
+> obstruction.
+
 ---
 
 ## 0. Verdict

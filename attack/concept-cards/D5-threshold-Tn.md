@@ -43,8 +43,11 @@ explicit function of `L_n` alone.
    bar. This is why **L16**'s certificate needs a *lower* bound on `π(p_n)`, and only a lower
    bound.
 2. **`T` is not monotone along the sequence `n = 1, 2, 3, …`** — because `p` jumps by `g_n` while
-   `n` increments by 1. Verified in this run: **`T_{n+1} < T_n` at 121 238 of 216 805 steps with
-   `n ≥ 10` (55.92%)**, sieve to `3·10⁶`. This is a *discreteness* phenomenon and no smooth model
+   `n` increments by 1. Verified in this run: **`T_{n+1} < T_n` at 121 238 of 216 806 steps with
+   `n ≥ 10` (55.9200 %)** *(denominator corrected `216 805 → 216 806` on 2026-07-27 by the round-3
+   reconciliation leg, decision 4: `π(3·10⁶) = 216 816`, so `216 815` steps of which `216 806` have
+   `n ≥ 10`; all-`n` form `121 239 / 216 815 = 55.9182 %`. Five independent counts agree — see
+   `attack/reconciliation.md` §4)*, sieve to `3·10⁶`. This is a *discreteness* phenomenon and no smooth model
    reproduces it (see the hazard in **L14**). It is the reason **L15** (the maximal-gap
    reduction) is an obligation rather than a triviality.
 

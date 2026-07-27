@@ -162,7 +162,7 @@ S(x)  :=  log²x − log x − 1.17.
 > `log x − 1 − 1.17/log x < x/π(x)` for `x ≥ 2 634 800 823`. Hence with `x = p_n`, `ℓ = L_n`,
 > `π(x) < x/(ℓ − 1 − 1.17/ℓ)`, so `u := ℓ/π(x) > (ℓ² − ℓ − 1.17)/x`, and
 > `T_n = x(e^u − 1) > x·u > ℓ² − ℓ − 1.17 = S(p_n)`. ∎
-> **`[flag: rests on `axler2014newbounds`, tier L2_strong, NOT OPENED in this run — see T1
+> **`[flag: rests on `axler2014newbounds`, tier L2_strong, NOT OPENED in this run — **superseded: now L0, see the note at the end of this flag** — see T1
 > hazard 2, L4 hazard 4. The validity range `x ≥ 2 634 800 823` is the corrigendum-corrected one
 > and is load-bearing: in-run data at `p < 3·10⁶` shows `T_n ≤ S(p_n)` at 14 426 indices, the
 > largest at `p = 2 875 681` (§9). Fact S2 is false below its range, and this is not a defect —
@@ -521,7 +521,14 @@ Stated so nothing downstream mistakes silence for coverage.
    (`π(x+y) − π(x) ≤ 2y/log y`) and the status of the second Hardy–Littlewood conjecture. Both
    are standard; neither supports a positive claim here; both belong on the citation gate's
    rank-5 list alongside the six items already there (INDEX §5).
-4. **Facts S2, (A-low) and (A-high) rest on `axler2014newbounds`, tier L2_strong, NOT OPENED.**
+4. **Facts S2, (A-low) and (A-high) rest on `axler2014newbounds`, tier L2_strong, NOT OPENED.** *(⚠ **Tier superseded 2026-07-27.** `axler2014newbounds` is **L0** — the arXiv v3
+preprint, the published *Integers* **16** (2016) A22 and the 18 Jan 2018 Corrigendum were fetched,
+MD5-pinned and read at the locators on 2026-07-26, and the ledger row was amended the same day. The
+residual exposure is **edition, not tier**: this document's `(A-high)` consumes the Axler row
+`(1,0,0,0) / x₀ = 1 772 201`, which exists in the **preprint only**. Round 3 designated the
+`(2.1,0,0,0) / 6 690 557` row — present in both editions — as the corpus's basis, via Theorem C-b′.
+See `attack/reconciliation.md` §1–§2 and the `axler2014newbounds` row of
+`attack/source-ledger.md`.)*
    Theorem B and Theorem C(b) inherit that. **Theorem C(a) does not** — it uses only
    `dusart2010estimates` (L0, read in full), which is why it is stated separately despite being
    14× weaker. If the citation gate cannot raise Axler to L0, C(a) is what survives, and
@@ -564,7 +571,7 @@ engine and it has no analysis in it.
 
 | Node | Content | Effort | Depends on |
 |---|---|---|---|
-| **M-1** | Lemma M: `Monotone B → IsLeast {k | B (p k) ≤ g k} k₀ → ∀ m < k₀, g m < g k₀` | **low** — three rewrites, no `Real` beyond `B`'s codomain | `D1` (fixed indexing) |
+| **M-1** | Lemma M: `Monotone B → IsLeast {k \| B (p k) ≤ g k} k₀ → ∀ m < k₀, g m < g k₀` | **low** — three rewrites, no `Real` beyond `B`'s codomain | `D1` (fixed indexing) |
 | **M-2** | Lemma M′ (truncated form, with the `N₁` side condition) | low | M-1 |
 | **M-3** | `S(x) = log²x − log x − 1.17` is `Monotone` on `x ≥ 2` | low — `Real.log` monotone + `deriv` or direct algebra | Mathlib `Real.log` |
 | **M-4** | Theorem A (record-scan completeness) | low | M-2, M-3 |

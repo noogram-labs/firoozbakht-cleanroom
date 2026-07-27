@@ -1,0 +1,15 @@
+N =    3,000,000  pi(N) =    216,816  largest =   2,999,999
+    steps (all n)   =    216,815   decreasing =    121,239   = 55.918179 %
+    steps (n >= 10) =    216,806   decreasing =    121,238   = 55.920039 %
+    near-ties re-adjudicated at 60 dps: 23 examined, 0 reclassified
+N =   10,000,000  pi(N) =    664,579  largest =   9,999,991
+    steps (all n)   =    664,578   decreasing =    374,486   = 56.349443 %
+    steps (n >= 10) =    664,569   decreasing =    374,485   = 56.350055 %
+    near-ties re-adjudicated at 60 dps: 498 examined, 0 reclassified
+N =  100,000,000  pi(N) =  5,761,455  largest =  99,999,989
+    steps (all n)   =  5,761,454   decreasing =  3,280,064   = 56.931184 %
+    steps (n >= 10) =  5,761,445   decreasing =  3,280,063   = 56.931256 %
+    near-ties re-adjudicated at 60 dps: 16218 examined, 0 reclassified
+
+pi(10^9) by segmented sieve (for the L15 sweep-size figure):
+    pi(10^9) = 50,847,534   consecutive steps = 50,847,533

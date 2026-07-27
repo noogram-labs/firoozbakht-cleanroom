@@ -9,6 +9,32 @@
 > (`lean/Firoozbakht/Statement.lean:186`) remains the single `sorry` in the development and is
 > correctly open. **`lean/Firoozbakht/Statement.lean` was not touched by this leg.**
 
+> ### 🔗 Round-3 reconciliation banner — read this before quoting anything below
+>
+> A **reconciliation leg** (`task-20260727-264e`, 2026-07-27, round 3) owned the seams between the
+> four round-2 artifacts. Its decisions are recorded in **`attack/reconciliation.md`** and are
+> **binding on this document**, which has been amended in place where they touch it. The four
+> round-2 artifacts, and where each stands after reconciliation:
+>
+> | artifact | role | status after round 3 |
+> |---|---|---|
+> | `proof-attempt-first-failure-maximality.md` (FFM) | P6′ predicates, Theorem C-a′/C-b′ | **carries the designated Theorem C-b′**; §4 denominators corrected, §5 gov/min ordering corrected, C-a′ header corrected |
+> | `proof-attempt-unconditional-verified-range.md` (UVR) | Lemma H, (A-high\*), Theorem 2, the unconditional range | **Theorem C(b\*) retired to a remark**; Axler tier corrected L2_strong → **L0** |
+> | `proof-attempt-RH-conditional-bound.md` (RH) | the RH route, five theorems | unchanged; its §10 sieve count `216 815` is the **correct** one and corroborates decision 4 |
+> | `lean-probe-report.md` | the kernel leg + the barrier | clean; §4's slack table annotated (constants restored) |
+>
+> **The five decisions in one line each.** (1) The corpus's single repaired Theorem C(b) is
+> **Theorem C-b′**, `p_m ≤ 0.998244·p_{n₀}`, off the Axler row `(2.1,0,0,0)/6 690 557` present in
+> **both** editions; C(b\*) and the constants `0.99553`/`0.99565` are retired. (2)
+> `axler2014newbounds` is **L0**, everywhere, with a standing ⚠ that the `(1,0,0,0)/1 772 201` row
+> is **preprint-only**. (3) The ledger amendment **had already landed**; R2-B2's "never made" is
+> stale, verified against the tree. (4) The `55.92 %` denominators are `216 806` (`n ≥ 10`) and
+> `216 815` (all `n`) — a fourth independent recount, against FFM's original table and against both
+> prior skeptics. (5) R2-M2, R2-M3, R2-m1, R2-m2 and R2-m4 are applied in place.
+>
+> **`F` remains OPEN.** Nothing in round 3 moves it; reconciliation removes ambiguity, not
+> obstruction.
+
 ---
 
 ## 0. Perimeter — what was read, what was recomputed, what was fetched
@@ -134,8 +160,8 @@ P6′-pair, every admissible pair with `n ≤ N`). Unqualified, it means "for ev
 | Claim | Verdict |
 |---|---|
 | **P6′-pair** (card **L15**'s prose; `proof-attempt-0.md` §1's (M3)) | **REFUTED.** Two explicit witnesses, exact arithmetic (§3) |
-| **P6′-gov** | **OPEN.** 0 exceptions in `50 847 503` admissible indices (`p < 10⁹`) |
-| **P6′-min** | **OPEN.** 0 exceptions in `50 847 503` admissible indices (`p < 10⁹`) |
+| **P6′-gov** | **OPEN.** 0 exceptions in `50 847 533` indices (`p < 10⁹`) *(was `50 847 503` — transposition, corrected 2026-07-27)* |
+| **P6′-min** | **OPEN.** 0 exceptions in `50 847 533` indices (`p < 10⁹`) *(was `50 847 503` — transposition, corrected 2026-07-27)* |
 | **P6′-rec** | **OPEN.** 0 exceptions in 29 record steps (`p < 10⁹`) |
 | `P6′-pair ⟹ P6′-gov` and `P6′-pair ⟹ P6′-rec` | **PROVED**, elementary (§3.1) |
 | `P6′-gov ∧ P6′-rec ⟹ P6′-min` | **PROVED**, elementary (§3.1) |
@@ -186,7 +212,7 @@ T_m − T_n  =  0.028610605…  >  0 .
 | | index | prime | value |
 |---|---:|---:|---|
 | `m` | 10 655 449 | 191 912 639 | `T_m = 343.5112716866658…` |
-| `j` (record) | 10 655 462 | 191 912 783 | `g_j = 248` — the 27th maximal prime gap |
+| `j` (record) | 10 655 462 | 191 912 783 | `g_j = 248` — the **28th** maximal prime gap |
 | `n` | 10 655 590 | 191 915 033 | `T_n = 343.5112358945690…` |
 
 ```
@@ -202,8 +228,13 @@ float64 ulp is `2⁻⁴⁶ = 1.4·10⁻¹⁴`: the margin is `2·10¹²` ulps. W
 direction*) applies here with the sign flipped — a *false* exception would be the reassuring
 outcome for the run, and this leg is the one reporting it.
 
-**Complete exception census, `p < 10⁹`** (this leg): **17** admissible pairs violate P6′-pair, in
-exactly two clusters — `n ∈ {1836, 1837, 1840, 1844, 1845, 1846, 1847}` and
+**Complete exception census, `p < 10⁹`** (this leg): **17** *indices* `n` carry a violation of
+P6′-pair (the underlying violating `(m,n)` **pairs** number **20** below `3·10⁸` — `n = 1847`,
+`n = 10 655 564` and `n = 10 655 590` each carry two violating `m`; amended 2026-07-27 per
+`faults.md` R2-m2, decision 5). The census is complete as a list of `n`; it is **not** a pair count,
+and the denominators in §9 items 3/5/7 are index counts too, so no ratio here may be read as a
+density over admissible pairs — the true admissible-pair count below `10⁹` is `Σ_n r(n−1) ≈ 10¹⁵`.
+The 17 indices sit in exactly two clusters — `n ∈ {1836, 1837, 1840, 1844, 1845, 1846, 1847}` and
 `n ∈ {10 655 562, …, 10 655 594}` (10 indices). Both clusters sit a few indices *after* a maximal
 gap, which is the structural spot `notebook-2` §3 identified for a different statistic. The
 minimum over all admissible pairs is `−2.861·10⁻²`, attained at W1.
@@ -301,8 +332,11 @@ Three things this theorem fixes:
 
 1. **The pruning never needed P6′-pair.** Theorem 1 refutes the strongest predicate and the
    consumer is untouched, because the consumer runs on either of the two weaker ones.
-2. **P6′-min is the right obligation to state and the right one to work.** It is the weakest of
-   the three (Propositions 2–4), and by Theorem 2 it is already sufficient.
+2. **P6′-min is a sufficient obligation, and by Theorem 2 the right one to work.** *(Amended
+   2026-07-27, R2-M3: it is **not** "the weakest of the three". Proposition 4 proves `P6′-gov` and
+   `P6′-min` **incomparable**; the only order relations proved here are `pair ⟹ gov`, `pair ⟹ rec`
+   and `gov ∧ rec ⟹ min`. `P6′-min` is preferred because its margin does not decay and because
+   Theorem 2 consumes it at a single index — not because it is weaker.)*
 3. **A single instance suffices.** Both branches use the predicate only at `n₀`. This is the
    same shape as Lemma M (§6): the conclusion is forced at the *first* failure and says nothing
    about later ones.
@@ -314,17 +348,35 @@ Three things this theorem fixes:
 Apply the monotone-bar principle (Lemma M, §6) with `B = T`. The hypothesis fails: **`T` is not
 nondecreasing.** This leg's own count, at three ranges and under both conventions:
 
+> ⚠ **AMENDED 2026-07-27 by the round-3 reconciliation leg (`task-20260727-264e`), decision 4.**
+> Every **denominator** in the table as this leg originally printed it was **one too low**, at every
+> range and under both conventions; every numerator was right. The corrected table is below and the
+> adjudication paragraph under it is **reversed**. See `attack/reconciliation.md` §4 for the recount
+> and `attack/synthesis.md` §5.4 for the third and fourth concurring counts.
+
 | range | `T_{n+1} < T_n`, `n ≥ 10` | `T_{n+1} < T_n`, all `n` |
 |---|---|---|
-| `3·10⁶` | `121 238 / 216 805` = **55.9203 %** | `121 239 / 216 814` = 55.9184 % |
-| `10⁷` | `374 485 / 664 568` = **56.3501 %** | `374 486 / 664 577` = 56.3495 % |
-| `10⁸` | `3 280 063 / 5 761 444` = **56.9313 %** | `3 280 064 / 5 761 453` = 56.9312 % |
+| `3·10⁶` | `121 238 / 216 806` = **55.9200 %** | `121 239 / 216 815` = 55.9182 % |
+| `10⁷` | `374 485 / 664 569` = **56.3501 %** | `374 486 / 664 578` = 56.3494 % |
+| `10⁸` | `3 280 063 / 5 761 445` = **56.9313 %** | `3 280 064 / 5 761 454` = 56.9312 % |
 
-This reproduces `faults.md` F5 exactly and settles the three-fractions dispute recorded there:
-card **L15**'s `121 238 / 216 805` is the `n ≥ 10` convention and is correct; `notebook-0` R4's
-`121 239 / 216 814` is the all-`n` convention and is correct; `proof-attempt-0.md` §9 item 18's
-`121 238 / 216 806` matches neither. **The `55.92 %` figure is range-dependent** (`notebook-0` R4
-is right about that too) and must never be quoted without both its bound and its convention.
+**Counting convention, stated so the table is reproducible.** A *step* is an index `n` for which
+both `T_n` and `T_{n+1}` are defined from the sieve, i.e. `1 ≤ n ≤ π(N) − 1`. At `N = 3·10⁶`,
+`π(N) = 216 816`, so there are `216 815` steps, and `216 806` of them have `n ≥ 10`. The figures
+this leg first printed (`216 814 / 216 805`) come from differencing a `T`-array that had been
+truncated to the *gap*-array length `π(N) − 1` **before** differencing — an implementation artefact,
+not a counting convention.
+
+**The adjudication, corrected.** This table does **not** settle the three-fractions dispute in the
+direction first stated. `proof-attempt-0.md` §9 item 18's **`121 238 / 216 806` is the correct
+`n ≥ 10` count** — round 1's `faults.md` F5 called it an off-by-one and this leg re-affirmed that
+verdict; both were wrong. Likewise `notebook-1` §2's `374 485 / 664 569` at `10⁷` is correct, not
+"denominator off by one". Card **L15**'s `121 238 / 216 805` and `notebook-0` R4's
+`121 239 / 216 814` are each one too low and have been corrected in the tree. Corroboration from
+inside this same round: the sibling leg's `proof-attempt-RH-conditional-bound.md` §10 states
+`216 815 consecutive pairs` — the larger number. **The `55.92 %` figure is range-dependent**
+(`notebook-0` R4 is right about that) and must never be quoted without both its bound and its
+convention.
 
 The statistic is nevertheless **not diagnostic for any of the three predicates** — it measures
 single steps, and every predicate here compares an index to a governor many steps back. That is
@@ -351,22 +403,45 @@ under the name `min(T_n − T_{m(n)})` is listed with **the predicate it actuall
 
 - `notebook-0` measured **P6′-min**. Its margin is flat: the global minimum `0.4845277` at
   `n = 1879` is set in the fourth decade and is never approached again through `10⁹` (this leg) or
-  `10¹¹` (`notebook-0`). Per-decade minima of the P6′-min margin, this leg: `2.42` (`10³`),
+  `10¹¹` (`notebook-0`). Per-decade minima of the P6′-min margin, this leg: **`1.354`** (`10³`),
   `3.05` (`10⁴`), `0.4845` (`10⁵`), `1.68` (`10⁶`), `3.81` (`10⁷`), `1.70` (`10⁸`), `3.89` (`10⁹`)
-  — no trend.
+  — no trend. *(The `10³` entry read `2.42`; corrected 2026-07-27 to the round-2 skeptic's
+  independently recomputed `1.35373` at `p = 5` — `faults.md` **R2-m7**. The discrepancy is confined
+  to indices below `n = 10`, where every criterion in this corpus is out of range; the section's
+  claim — no trend, global minimum `0.4845277` at `n = 1879`, never approached again — is
+  unaffected, and the skeptic reproduces the other six entries exactly. This leg's own recount was
+  not re-run for this row: the correction rests on the skeptic, and is labelled as such.)*
 - `notebook-2` measured **P6′-gov**. Its margin decays like `p^{−0.83}`.
 
 Both are correct because `µ(n) ≤ r(n)` (Fact 0) and `T` grows along records, so the P6′-gov margin
 is the *smaller* of the two at every index — this leg confirms `T_{µ(n)} ≤ T_{r(n)}` at all
-`50 847 533` indices below `10⁹`, with 0 exceptions. **P6′-gov is the harder obligation, and it is
-the one that decays. P6′-min is the easier obligation, it is the one Theorem 2 needs, and it does
-not decay.**
+`50 847 533` indices below `10⁹`, with 0 exceptions.
+
+> ⚠ **AMENDED 2026-07-27 (round-3 reconciliation, decision 5; `faults.md` R2-M3).** The sentence
+> that stood here — *"P6′-gov is the harder obligation … P6′-min is the easier obligation"* —
+> contradicted this document's own **Proposition 4**, which proves `P6′-gov ⇏ P6′-min` **and**
+> `P6′-min ⇏ P6′-gov`. The two predicates are formally **incomparable**. What is true is the
+> **empirical** statement just made: on the swept range `T_{µ(n)} ≤ T_{r(n)}` at every index, so
+> *on that range* the P6′-gov margin is the smaller of the two and gov ⟹ min — which is a
+> measurement, not a proof, and must not be spent as one. The correct standing form:
+
+**P6′-gov and P6′-min are incomparable (Proposition 4). P6′-min is the one Theorem 2 needs and the
+one whose margin does not decay; P6′-gov is the one that decays and is empirically the tighter of
+the two on `p < 10⁹`. Since Theorem 2 shows *either* predicate at `n₀` suffices, both stay on the
+obligation list, alongside P6′-rec (Proposition 3 needs it). Dropping `gov` would be strictly
+lossy.**
 
 ### 5.1 The two consequences `faults.md` F1 flags, resolved
 
 **Consequence 2 — the float64 noise-floor alarm (`notebook-2` §3 point 2).** The alarm is derived
 from the P6′-gov margin's `p^{−0.83}` decay: extrapolated to `2⁶⁴` it is `4.457·10⁻¹³` against a
-`T ≈ 1919`. That is a **correct warning about P6′-gov** and this leg does not soften it. It
+`T ≈ 1919`. *(⚠ Amended 2026-07-27, `faults.md` **R2-m6**: `0.83` is **not** a constant exponent.
+From the four margins in this very section the local per-decade exponents are `0.4536`, `0.7365`,
+`0.9967` — monotonically **rising** toward `≈ 1`. At the last measured exponent the extrapolated
+margin at `2⁶⁴` is `≈ 6.1·10⁻¹⁵`, smaller by a factor `≈ 55`. The direction is **safe** — the alarm
+gets stronger, not weaker — and nothing downstream moves, but a nine-decade extrapolation of a
+visibly drifting exponent must carry that fact. Figures from the round-2 skeptic, which reproduced
+all four margins to every digit; not independently re-derived by the round-3 leg.)* That is a **correct warning about P6′-gov** and this leg does not soften it. It
 **does not apply to P6′-min**: the P6′-min margin at its global minimum is `0.4845277`, and one
 float64 ulp of `T = 1919.14` (which lies in `[1024, 2048)`) is `2⁻⁴² = 2.2737·10⁻¹³`, so the
 margin stands `2.1·10¹²` ulps clear at the published frontier. (`faults.md` F10 is right that
@@ -392,7 +467,7 @@ After this leg:
 | "The claim" | P6′-pair, **OPEN** | **P6′-pair, FALSE** (§3, two witnesses), with the note that its refutation costs the run nothing |
 | measurement row | "`T_{m(n)} ≤ T_n` for `m(n)` = governing record index — 0 exceptions in 216 815 pairs" | "**P6′-gov** — 0 exceptions in **216 794** admissible pairs at `3·10⁶`; margin decays `≈ p^{−0.83}` (`notebook-2` §3)" |
 | "Why it is nevertheless very likely true" | dip statistics | must separate: the dip statistics measure `T`'s excursion below its own running maximum and bear on **P6′-rec**, not on P6′-gov or P6′-min |
-| verdict | "the single most tractable open obligation" | **P6′-min** is the obligation; it is not a Dusart lookup (`proof-attempt-0.md` §7 and §8 below), and P6′-rec must be listed alongside it because Proposition 3 needs it |
+| verdict | "the single most tractable open obligation" | **P6′-min *and* P6′-gov** stay on the obligation list — they are incomparable (Prop. 4) and Theorem 2 accepts either at `n₀`, so dropping `gov` is strictly lossy *(amended 2026-07-27, R2-M3)*; neither is a Dusart lookup (`proof-attempt-0.md` §7 and §8 below), and P6′-rec must be listed alongside them because Proposition 3 needs it |
 
 ---
 
@@ -566,7 +641,17 @@ T_{n₀}  >  λ² − 1.1λ  >  1919.1379834…   and hence   g_{n₀} ≥ T_{n�
 *(`λ = 44.3614195558…` and `1919.1379834975…`; the latter is `notebook-2` §1.6's constant,
 reproduced.)*
 
-> **Theorem C-a′ (Dusart only — no source outside `dusart2010estimates`, L0).**
+> **Theorem C-a′ (Dusart-only *analytics*; the finite branch consumes card `L6` and an in-run
+> gap sieve).** *(Header corrected 2026-07-27, round-3 reconciliation, `faults.md` R2-M2. The
+> header formerly read "no source outside `dusart2010estimates`, L0", which is false of the small
+> branch: it consumes `g_{n₀} > 1919`, i.e. `p_{n₀} > 2⁶⁴` — card **L6**, tier **L2_weak, NOT
+> OPENED** — and the in-run fact `max{g_m : p_m < 10⁸} = 220`. The **analytics** are Dusart-only
+> and L0; the theorem is not "unconditional" in the citation sense. Its honest label:
+> **unconditional given the published `2⁶⁴` verification height (L6) and a finite in-run gap
+> computation** — both named inputs, neither an analytic hypothesis. Note the improvement from
+> round 1's `0.93961` comes **entirely** from raising the small-branch cutoff to `10⁸`, so the `L6`
+> dependence is the source of the headline, not incidental to it. UVR §4.4 builds the correct
+> "what may be called unconditional" table; read it alongside this header.)*
 > Let `m < n₀`. If `p_m ≤ p_{n₀}·e^{−0.0516}`, i.e. `p_m ≤ 0.94970·p_{n₀}`, then `g_m < g_{n₀}`.
 >
 > *Proof.* **Small branch.** If `p_m < 10⁸` then `g_m ≤ 220` (the largest prime gap below `10⁸`,
@@ -618,7 +703,16 @@ reproduced.)*
 > Over `[ℓ_A, 300]` in cells of width `0.01` this majorant is largest on the cell starting at
 > `ℓ = 24.40621`, where it equals **`0.0017568759`**. For `ℓ ≥ 300` it is at most
 > `(0.17 + 300⁴e^{−300})/599 = 0.00028381`. Hence `d ≥ 0.0017569` suffices, and
-> `e^{−0.0017569} = 0.99824467…`. ∎
+> `e^{−0.0017569} = 0.9982446424…` *(printed `0.99824467…` before 2026-07-27; corrected per
+> `attack/synthesis.md` §5.6 item 1 — the headline `0.998244` is unaffected)*. ∎
+>
+> ⚠ **Certification margin, recorded 2026-07-27 (`faults.md` R2-m3).** The certified constant
+> `0.0017569` clears its own majorant `0.00175687590387` by **`2.4·10⁻⁸`** — `≈ 1.4·10⁻⁵` in
+> relative terms. At 50 dps this is safe and both the round-2 skeptic and this leg confirm it, but
+> **these checks are 50-digit floating point, not interval arithmetic** (UVR §9 G6 records the same
+> limitation for its own constants; this document carried no counterpart). Any Lean leg discharging
+> `M-7`/`M-8` by `norm_num` on the quadratic **without directed rounding** has far less headroom
+> here than elsewhere in the corpus. Carry the margin next to the constant.
 
 **Comparison with round 1** — every constant recomputed by this leg, `mpmath` at 40–50 digits:
 
@@ -626,6 +720,21 @@ reproduced.)*
 |---|---|---|---|
 | Dusart only | `d ≥ 0.0623` → `p_m ≤ 0.93961 p_{n₀}` | **`d ≥ 0.0516` → `p_m ≤ 0.94970 p_{n₀}`** | L0 both rounds |
 | with Axler | `d ≥ 0.004479` → `p_m ≤ 0.99553 p_{n₀}`, from a lemma that does not support it | **`d ≥ 0.0017569` → `p_m ≤ 0.998244 p_{n₀}`** | round 1: L2_strong, unopened, arXiv-only column. **round 2: L0, both editions** |
+
+> ✅ **DESIGNATED — round-3 reconciliation leg, decision 1, 2026-07-27.** Round 2 shipped two
+> incompatible repairs of round-1 F2: **Theorem C-b′** here (`d ≥ 0.0017569`, `0.998244·p_{n₀}`,
+> Axler row `(2.1,0,0,0) / x₀ = 6 690 557`) and **Theorem C(b\*)** in
+> `proof-attempt-unconditional-verified-range.md` §3.5 (`d ≥ 0.0043636`, `0.99565·p_{n₀}`, row
+> `(1,0,0,0) / x₀ = 1 772 201`). Both are mathematically correct — verified independently at 40–50
+> dps by the round-2 skeptic. **Theorem C-b′ is the designated carry-forward form**, on the ground
+> that decides it and is not a matter of taste: its Axler row is present in **both** the arXiv
+> preprint and *Integers* **16** (2016) A22, whereas `1 772 201` is **absent from the journal**
+> (`faults.md` R2-B3, confirmed twice by independent PDF fetch with matching MD5s, and recorded on
+> the `axler2014newbounds` ledger row as a standing downstream rule). C-b′ is additionally the
+> sharper statement. **Theorem C(b\*) is retired to a remark** — see UVR §3.5, amended in place.
+> The three constants that circulated for one theorem name resolve to one: `0.998244`. Round 1's
+> `0.99553` and UVR's `0.99565` are **retired** and may appear only as history. See
+> `attack/reconciliation.md` §1.
 
 The Dusart branch improves only because the small-branch cutoff is raised from `60 184` to `10⁸`
 (licensed by `g_m ≤ 220 < 1919`, which needs `p_{n₀} > 2⁶⁴` — card **L6** — and nothing else). It
@@ -650,6 +759,21 @@ L0**, with the fetch record of §7.1, the edition-numbering finding, and the not
 `(1,0,0,0)/1 772 201` column is preprint-only. `attack/concept-cards/T1-effective-pi-bounds.md`
 hazard 2 is amended correspondingly. **No other ledger row was reopened** — this is the bounded
 refresh the brief authorises and nothing more.
+
+> ✅ **VERIFIED LANDED — round-3 reconciliation leg (`task-20260727-264e`), decision 3, 2026-07-27.**
+> `faults.md` **R2-B2** reported this amendment as *"never made"*. That finding is **STALE**, and
+> the reconciliation leg checked the tracked tree rather than either report:
+> `attack/source-ledger.md` line 412 reads *"tier **L0** (promoted from L2_strong on 2026-07-26 by
+> the re-attack leg `task-20260726-56a7`)"*, carries the three MD5s, the edition-numbering table,
+> and the ⚠ on the preprint-only `(1,0,0,0)/1 772 201` row with the downstream rule *"do not quote
+> `x ≥ 1 772 201` against the journal citation"*; §6 gap 3 reads *"~~Axler was not opened~~ —
+> **CLOSED 2026-07-26**"*; `attack/concept-cards/T1-effective-pi-bounds.md` lines 4–5 and 17–24
+> carry the same promotion, both editions' numbering, and the same ⚠. The skeptic's line numbers
+> (`406`, `642`) resolve only in the pre-merge tree — it read a worktree branched before commit
+> `61689d0`. §11 items 8 and 9 are therefore **accurate as written**. What did *not* land, and what
+> the reconciliation leg has now landed, is the propagation of the new tier into the **sibling
+> leg's** document (`proof-attempt-unconditional-verified-range.md`) — R2-B2 limb 2. See
+> `attack/reconciliation.md` §2–§3.
 
 ---
 
@@ -707,15 +831,15 @@ quoted from an upstream artifact without being recomputed here.**
 |---|---|---|
 | 1 | Failures of `F`, `p < 10⁹` | **none** |
 | 2 | Maximal-gap record indices | 21 (`3·10⁶`), 22 (`10⁷`), 25 (`10⁸`), **30** (`10⁹`); largest gap `282` at `p = 436 273 009` |
-| 3 | **P6′-pair exceptions**, `p < 10⁹` | **17** in `50 847 532` admissible pairs; min margin `−2.861060·10⁻²` at `n = 1847` |
+| 3 | **P6′-pair exception *indices***, `p < 10⁹` | **17** indices in `50 847 533` swept indices (**20** violating `(m,n)` pairs below `3·10⁸`); min margin `−2.861060·10⁻²` at `n = 1847`. *Index count, not a pair count — amended 2026-07-27, R2-m2.* |
 | 4 | P6′-pair witnesses at 60 dps | W1 `T_m − T_n = 0.028610605`; W2 `T_m − T_n = 3.5792097·10⁻⁵` |
-| 5 | **P6′-gov exceptions**, `p < 10⁹` | **0** in `50 847 503` admissible pairs |
+| 5 | **P6′-gov exceptions**, `p < 10⁹` | **0** in `50 847 533` indices *(was `50 847 503` — transposition, corrected 2026-07-27; `π(10⁹) = 50 847 534`, hence `50 847 533` steps)* |
 | 6 | P6′-gov min margin | `+1.046415·10⁻²` (`3·10⁶`), `+6.060476·10⁻³` (`10⁷`), `+1.111812·10⁻³` (`10⁸`), `+1.120382·10⁻⁴` (`10⁹`) — reproduces `notebook-2` §3 to every digit quoted |
-| 7 | **P6′-min exceptions**, `p < 10⁹` | **0** in `50 847 503` admissible pairs |
+| 7 | **P6′-min exceptions**, `p < 10⁹` | **0** in `50 847 533` indices *(was `50 847 503` — same transposition, corrected 2026-07-27)* |
 | 8 | P6′-min min margin | `+0.4845277` at `n = 1879`, `p = 16 141`, `µ = 1831`, `p_µ = 15 683` — **identical at `3·10⁶`, `10⁷`, `10⁸`, `10⁹`**; reproduces `notebook-0` finding 3 |
 | 9 | **P6′-rec exceptions** (`T` decreasing between consecutive records) | **0** in 29 record steps |
 | 10 | `T_{µ(n)} ≤ T_{r(n)}` (Proposition 3's hypothesis, pointwise) | **0** exceptions in `50 847 533` indices |
-| 11 | `T_{n+1} < T_n`, `n ≥ 10` | `121 238/216 805` = 55.9203 % (`3·10⁶`); `374 485/664 568` = 56.3501 % (`10⁷`); `3 280 063/5 761 444` = 56.9313 % (`10⁸`) |
+| 11 | `T_{n+1} < T_n`, `n ≥ 10` | `121 238/216 806` = 55.9200 % (`3·10⁶`); `374 485/664 569` = 56.3501 % (`10⁷`); `3 280 063/5 761 445` = 56.9313 % (`10⁸`) — **denominators corrected 2026-07-27, §4 and `attack/reconciliation.md` §4** |
 | 12 | `S`-breaches (`g_k ≥ L² − L − 1.17`), `p < 10⁹` | exactly `k ∈ {1,2,3,4,6,9}`; none with `k > 9`; `k = 3, 6` are not records |
 | 13 | Lemma M′(ii) at `N₁ = 10` | `max{g_j : j ≤ 9} = 6 < S(29) = 6.80139` ✓ |
 | 14 | Largest `n` with `T_n ≤ L² − L − 1.17` | `n = 208 494`, `p = 2 875 681` at `3·10⁶` — below Axler's corrected range, so (A-low) is not contradicted (reproduces `proof-attempt-0.md` §9 item 10) |
@@ -808,7 +932,7 @@ no number-theoretic input, no `Real` analysis beyond the bar's codomain.
 
 | Node | Content | Effort | Depends on |
 |---|---|---|---|
-| **M-1** | Lemma M: `Monotone B → IsLeast {k | B (p k) ≤ g k} k₀ → ∀ m < k₀, g m < g k₀` | low | `D1` (fixed indexing) |
+| **M-1** | Lemma M: `Monotone B → IsLeast {k \| B (p k) ≤ g k} k₀ → ∀ m < k₀, g m < g k₀` | low | `D1` (fixed indexing) |
 | **M-2** | Lemma M′ (truncated, with the `N₁` side condition) | low | M-1 |
 | **M-3** | `S x = log²x − log x − 1.17` is `Monotone` for `x ≥ 2` | low | Mathlib `Real.log` |
 | **M-4** | Theorem A (record-scan completeness) | low | M-2, M-3 |
@@ -844,7 +968,9 @@ The defensible sentences produced by this leg:
 > either one, at the first failure alone, implies that the first failure carries a record gap.*
 
 > *If Firoozbakht's conjecture fails, its first failure occurs at a gap larger than every gap
-> between primes below `0.94970·p_{n₀}` unconditionally, and below `0.998244·p_{n₀}` on Axler's
+> between primes below `0.94970·p_{n₀}` — on Dusart's L0 analytics, given the published `2⁶⁴`
+> verification height (card `L6`, L2_weak, unopened) and a finite in-run gap computation — and below
+> `0.998244·p_{n₀}` on Axler's
 > effective `π(x)` corollaries — now read at the locator in both the preprint and the journal, and
 > in a form present in both. Whether the first failure is a record outright is open, and closing it
 > requires a short-interval prime count beyond Brun–Titchmarsh.*

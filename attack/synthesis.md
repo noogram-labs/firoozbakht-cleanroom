@@ -52,9 +52,11 @@ cited below only where round 2 left them standing, and every such case is marked
 **The one-sentence result of the whole run.** *Firoozbakht's conjecture was neither proved nor
 refuted; what three legs of work produced instead is (i) a machine-checked reduction of `F` to the
 prime-gap inequality `g_n < T_n`, joined by a machine-checked proof that the only prime-gap input
-Mathlib carries (Bertrand) is **provably insufficient at every `n ≥ 2`**, (ii) an unconditional,
-table-driven verification architecture reproducing the published `2⁶⁴` frontier from first
-principles, tightened to `0.94970·p_{n₀}` on Dusart alone and `0.998244·p_{n₀}` with Axler, (iii)
+Mathlib carries (Bertrand) is **provably insufficient at every `n ≥ 2`**, (ii) a table-driven
+verification architecture reproducing the published `2⁶⁴` frontier from first principles on
+unconditional analytics alone, whose first-failure-maximality theorems then tighten to
+`0.94970·p_{n₀}` on Dusart and `0.998244·p_{n₀}` with Axler — *given* the published `2⁶⁴`
+verification height, card `L6`, which is unopened (§4.5), (iii)
 an exhaustive independent sweep to `10¹¹` with no counterexample and no near-miss, (iv) a
 five-theorem closure of the Riemann-Hypothesis route *as a route*, and (v) the outright
 **refutation of the run's own most-quoted lemma** (`P6′-pair`), with a proof that two of the
@@ -221,7 +223,14 @@ Round 3 struck that prose in three places and **restored `P6′-gov` to card `L1
 with `P6′-rec` beside them because `gov ∧ rec ⟹ min` is the one valid chain (R2-M3, §5.5). Card
 `L15` in the tracked tree now reads exactly that — checked, not inferred.
 
-### 2.3 The unconditional finite-range theorem — one theorem, one constant ‹r3› — `[P·L6]` + `[C]`
+### 2.3 The finite-range theorem — one theorem, one constant ‹r3› — `[P·L6]` + `[C]`
+
+> ⚠ **Read the code `[P·L6]` before quoting anything in this section.** Every Theorem C constant
+> below is *unconditional in its analytics* and *conditional on card `L6`* — the published `2⁶⁴`
+> verification height, tier **L2_weak, NOT OPENED** — for its finite branch. The honest form is
+> **"unconditional given the published `2⁶⁴` verification height and a finite in-run gap
+> computation"**, both named inputs, neither an analytic hypothesis. This is R2-M2's discipline
+> (§5.5), and it binds this document as much as the artifacts it folds.
 
 `proof-attempt-2` (round 1) reconstructed from first principles the architecture by which the
 literature's `2⁶⁴` frontier is certified; round 2 repaired its central bound; **round 3 chose which
@@ -317,8 +326,8 @@ consecutive prime pairs; **0** violations of `F`; max `ρ_n = g_n/T_n` (`n ≥ 1
 
 Round 2 ‹r2› added two further independent sweeps written from statements rather than any round-1
 code path: FFM's to `10⁹` (`50 847 533` **indices** — relabelled from "pairs" in round 3, R2-m2) and
-the skeptic's own to `2·10⁸`. Round 3 added a fourth (`reconcile_recount.py`), and **this leg adds a
-fifth** (`verify_syn3.py`, own sieve, 60-dps re-adjudication of every near-tie). All of them
+the skeptic's own to `2·10⁸`. Round 3 added another (`reconcile_recount.py`), and **this leg adds one
+more** (`verify_syn3.py`, own sieve, 60-dps re-adjudication of every near-tie). All of them
 reproduce round 1's headline statistics to every digit quoted, and all return **0** exceptions for
 P6′-gov, P6′-min, P6′-rec and `T_{µ(n)} ≤ T_{r(n)}`. The discipline worth carrying: the round-2
 skeptic is explicit that FFM's `10⁹` decade is one beyond its own sieve and is **not** independently
@@ -783,8 +792,9 @@ The round-2 synthesis and the round-3 reconciliation both reported the kernel st
 | `shasum -a 256 Firoozbakht/Statement.lean` | — | `6528868823c0637dd182c914e2ef43a7455f851335cafaba6cee934802e004c1` — recorded so the next leg can check the fidelity anchor by hash rather than by report |
 
 **Reading, first-hand: the build is green, the axiom surface is clean, and the single `sorry` is the
-conjecture itself.** This is the fifth leg to report these numbers and the first since round 2 to
-have produced them by execution.
+conjecture itself.** Three legs have now produced these numbers by *execution* — the round-2
+lean-probe, the round-2 skeptic, and this one; the two legs in between (the round-2 synthesis and
+the round-3 reconciliation) reported them second-hand and said so.
 
 ### 8.2 Independent recomputation — `attack/verify_syn3.py`
 

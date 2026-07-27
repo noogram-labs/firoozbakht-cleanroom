@@ -1,0 +1,49 @@
+PASS  pi(3e6): got=216816 want=216816
+PASS  violations of F below 3e6 (gap form): got=0 want=0
+PASS  violations of F, exact integers, n<=3000: got=0 want=0
+PASS  near-ties needing 60-dps re-adjudication: got=0 want=0  [the count is not float-fragile]
+PASS  steps, all n, at 3e6: got=216815 want=216815
+PASS  decreasing, all n, at 3e6: got=121239 want=121239
+PASS  steps, n>=10: got=216806 want=216806
+PASS  decreasing, n>=10: got=121238 want=121238
+PASS  steps, n>=11: got=216805 want=216805
+PASS  decreasing, n>=11: got=121237 want=121237  [=> 121238/216805 is the answer under NO convention]
+PASS  percentage n>=10: got=55.92003911330867226921764 want=55.92003911...
+PASS  percentage all n: got=55.91817909277494638286096 want=55.91817909...
+PASS  T_11 < T_10 (the descent the n>=11 cut drops): got=True want=True
+PASS  p_1823: got=15641 want=15641
+PASS  p_1831: got=15683 want=15683
+PASS  p_1847: got=15823 want=15823
+PASS  g_1831: got=44 want=44
+PASS  1831 is a record index: got=True want=True
+PASS  W1 refutes P6'-pair: T_1823 > T_1847: got=True want=True
+PASS  W1 margin T_1823 - T_1847: got=0.02861060485582088140073892 want=0.02861060...
+PASS  ordinal of gap 44 at p=15683: got=12 want=12
+PASS  P6'-gov exceptions below 3e6: got=0 want=0
+PASS  P6'-min exceptions below 3e6: got=0 want=0
+PASS  P6'-min minimum margin index n: got=1879 want=1879
+PASS  P6'-min minimum margin governor mu: got=1831 want=1831
+PASS  P6'-min minimum margin: got=0.4845277333983160340559969 want=0.4845277...
+PASS  maximal-gap records below 2e8: got=28 want=28
+PASS  12th record starts at p: got=15683 want=15683
+PASS  12th record gap: got=44 want=44
+PASS  28th record starts at p: got=191912783 want=191912783
+PASS  28th record gap: got=248 want=248
+PASS  records below 1e8: got=25 want=25
+PASS  e^-0.0017569 (C-b', live): got=0.9982446424453653429681526 want=0.99824464244536...
+PASS  e^-0.0043636 (C(b*), retired): got=0.9956459066696852796994390 want=0.99564590666968...
+PASS  e^-0.0516 (C-a'): got=0.9497086743460632730823050 want=0.94970867434606...
+PASS  log 6690557: got=15.71620768723352453067489 want=15.7162076872...
+PASS  log 1772201: got=14.38773283486557825865872 want=14.3877328348...
+PASS  log 2^64: got=44.36141955583649980270286 want=44.361419555836...
+PASS  L(L-1.1) at 2^64: got=1919.137983497532885653479 want=1919.13798349753...
+PASS  published integer ceiling: got=1920 want=1920
+PASS  RH critical constant 2/e: got=0.7357588823428846431910475 want=0.7357588823428846...
+PASS  log(e^2)/sqrt(e^2): got=0.7357588823428846431910475 want=0.7357588823428846...
+PASS  indices 2<=n<=20000 where Bertrand certifies F: got=0 want=0
+PASS  Bertrand ties exactly at n=1 (2^2 = 2*2): got=True want=True
+PASS  failures of p_n < 2^n (exact ints, n>=2) to pi(3e6): got=0 want=0
+PASS  certified 0.0017569 exceeds the cell majorant: got=0.00175687597478 want=< 0.0017569  [R2-m3 margin]
+PASS  C-b' margin 0.0017569 - majorant (grid-robust sup): got=2.402521574027548341911961e-8 want=2.4...
+
+47/47 checks pass

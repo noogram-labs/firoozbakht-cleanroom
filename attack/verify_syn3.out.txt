@@ -1,0 +1,71 @@
+==============================================================================
+1. sieve and pi(x)
+==============================================================================
+PASS  pi(3e6)  got=216816  want=216816
+
+==============================================================================
+2. F over the swept range -- p_{n+1}^{1/(n+1)} < p_n^{1/n}
+==============================================================================
+PASS  violations of F below 3e6  got=0  want=0
+PASS  violations of F, exact integers, n<=3000  got=0  want=0
+
+==============================================================================
+3. the three-fractions statistic, recounted from the statement
+==============================================================================
+PASS  steps, all n, at 3e6  got=216815  want=216815
+PASS  steps, n>=10, at 3e6  got=216806  want=216806
+PASS  decreasing, all n  got=121239  want=121239
+PASS  decreasing, n>=10  got=121238  want=121238
+PASS  near-ties reclassified at 60 dps  got=0  want=0
+PASS  55.9200% (n>=10)  got=55.920039113  want=55.920039113
+PASS  55.9182% (all n)  got=55.918179092  want=55.918179092
+PASS  T_11 < T_10 (the 10->11 step is itself a descent)  got=True  want=True
+PASS  hence the n>=11 cut gives 121237/216805, not 121238/216805  got=(121237, 216805)  want=(121237, 216805)
+
+==============================================================================
+4. maximal prime gaps -- is 248 at p=191912783 the 27th or the 28th?
+==============================================================================
+PASS  ordinal of gap 248 at p=191912783  got=28  want=28
+PASS  gap at p=191912783  got=248  want=248
+PASS  ordinal of gap 44 at p=15683  got=12  want=12
+PASS  record count below 2e8  got=28  want=28
+PASS  records below 1e8  got=25  want=25
+
+==============================================================================
+5. the P6' predicates over the swept range
+==============================================================================
+PASS  P6'-gov exceptions below 3e6  got=0  want=0
+PASS  P6'-min exceptions below 3e6  got=0  want=0
+PASS  P6'-min global min margin ~ +0.4845277  got=0.4845277  want=0.4845277
+PASS  P6'-min argmin n  got=1879  want=1879
+PASS  P6'-min argmin mu  got=1831  want=1831
+PASS  p_1823  got=15641  want=15641
+PASS  p_1831  got=15683  want=15683
+PASS  p_1847  got=15823  want=15823
+PASS  W1 margin T_m - T_n ~ +0.0286106049  got=0.0286106048  want=0.0286106048
+PASS  W1 refutes P6'-pair (T_m > T_n with a record strictly between)  got=True  want=True
+
+==============================================================================
+6. the headline constants
+==============================================================================
+PASS  e^-0.0017569  (Theorem C-b', LIVE)  got=0.9982446424453653  want=0.9982446424453653
+PASS  e^-0.0043636  (Theorem C(b*), RETIRED)  got=0.995645906669685  want=0.995645906669685
+PASS  e^-0.0516     (Theorem C-a')  got=0.949708674346063  want=0.949708674346063
+PASS  log 6690557 (both-editions Axler row)  got=15.7162076872  want=15.7162076872
+PASS  log 1772201 (preprint-only Axler row)  got=14.3877328348  want=14.3877328348
+PASS  log 2^64  got=44.36141955583649  want=44.36141955583649
+PASS  L(L-1.1) at 2^64 -> the published 1920  got=1919.137983497532  want=1919.137983497532
+PASS  hence a gap >= 1920 is needed just below 2^64  got=1920  want=1920
+PASS  RH critical constant 2/e  got=0.7357588823428846  want=0.7357588823428846
+PASS    attained at x=e^2  got=0.7357588823428846  want=0.7357588823428846
+
+==============================================================================
+7. the Bertrand barrier -- p_n^(1+1/n) > 2 p_n for n >= 2
+==============================================================================
+PASS  indices 2<=n<=20000 where Bertrand's ceiling would certify F  got=0  want=0
+PASS  at n=1 Bertrand exactly ties (2^2 = 4 = 2*2), so it certifies nowhere for n>=2  got=True  want=True
+PASS  p_n < 2^n for 2<=n<=pi(3e6) (exact integers)  got=0  want=0
+
+==============================================================================
+40/40 checks pass
+==============================================================================

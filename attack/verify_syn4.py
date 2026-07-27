@@ -97,6 +97,27 @@ check_str("percentage n>=10", mpf(d_10) / s_10 * 100, "55.92003911")
 check_str("percentage all n", mpf(d_all) / s_all * 100, "55.91817909")
 check("T_11 < T_10 (the descent the n>=11 cut drops)", Tv[10] < Tv[9], True)
 
+# the two further ranges the document quotes as range-dependence riders (§5.4)
+BIG = primes_upto(10 ** 8)
+check("pi(1e7)", sum(1 for p in BIG if p <= 10 ** 7), 664579)
+check("pi(1e8)", len(BIG), 5761455)
+
+
+def recount_upto(lim, nmin=10):
+    Q = [p for p in BIG if p <= lim]
+    T = [mpf(Q[k]) * (exp(log(mpf(Q[k])) / (k + 1)) - 1) for k in range(len(Q))]
+    lo = nmin - 1
+    return (sum(1 for k in range(lo, len(Q) - 1) if T[k + 1] < T[k]), len(Q) - 1 - lo)
+
+
+d7, s7 = recount_upto(10 ** 7)
+d8, s8 = recount_upto(10 ** 8)
+check("decreasing / steps, n>=10, at 1e7", (d7, s7), (374485, 664569))
+check("decreasing / steps, n>=10, at 1e8", (d8, s8), (3280063, 5761445))
+check_str("percentage n>=10 at 1e7", mpf(d7) / s7 * 100, "56.35005")
+check_str("percentage n>=10 at 1e8", mpf(d8) / s8 * 100, "56.93125")
+del BIG
+
 # ---------------------------------------------------------------- P6' predicates
 records = []          # record (maximal-gap) indices, 1-indexed
 best = 0

@@ -26,7 +26,7 @@ one current answer, and this is it. Three things separate this document from the
    **does** carry a round-2 citation audit and it returned **PASS** — the previous synthesis said no
    audit existed. What that does and does not license is stated precisely in §6.
 3. **This leg re-executed the Lean gates and re-derived every headline number itself**
-   (`attack/verify_syn4.py`, **47/47, exit 0**, own sieve, 60 dps, no upstream code path opened).
+   (`attack/verify_syn4.py`, **53/53, exit 0**, own sieve, 60 dps, no upstream code path opened).
    §8.
 
 **Which round the verdict rests on.** `attack/re-attack/reattack-verdict.json` names
@@ -669,7 +669,9 @@ from its own sieve (§8): `T_11 < T_10` confirmed, and the `n ≥ 11` cut gives 
 `121 237 / 216 805`.
 
 **Two riders that must travel with the figure, every time.** It is **range-dependent** (`55.92 %` at
-`3·10⁶`, `56.35 %` at `10⁷`, `56.93 %` at `10⁸`, `≈ 57.9 %` at `10⁹`) and must never be quoted
+`3·10⁶`, `56.35 %` at `10⁷`, `56.93 %` at `10⁸` — all three re-derived by this leg from its own sieve
+— and `≈ 57.9 %` at `10⁹`, which is above this leg's range and is the reconciliation's figure) and
+must never be quoted
 without its bound and its convention; and it is **uninformative about P6′** under every reading — it
 measures single steps, while every P6′ predicate compares an index to a governor many steps back. The
 margin that *is* diagnostic (`P6′-min`, `+0.4845277` at `n = 1879`, `µ = 1831`, re-derived here) does
@@ -924,7 +926,7 @@ path open — it does not import or copy `verify_syn{,2,3}.py`, `reconcile_recou
 `2·10⁸` gap enumeration; `mpmath` at 60 decimal digits; every near-tie (relative margin `< 10⁻⁹`)
 re-adjudicated exactly.
 
-**Result: `python3 attack/verify_syn4.py` → exit 0, 47/47 checks pass.** Log at
+**Result: `python3 attack/verify_syn4.py` → exit 0, 53/53 checks pass.** Log at
 `attack/verify_syn4.out.txt`.
 
 | Quantity as stated in this document | This leg's independent value | Verdict |
@@ -934,7 +936,8 @@ re-adjudicated exactly.
 | violations of `F`, exact integers `p_{n+1}^n < p_n^{n+1}`, `n ≤ 3000` | **0** | ✓ — two formulations, no disagreement |
 | near-ties reclassified at 60 dps | **0** — the count is not float-fragile | ✓ |
 | steps / decreasing, all `n`; `n ≥ 10`; `n ≥ 11` | `216 815 / 121 239`; `216 806 / 121 238`; `216 805 / 121 237` | ✓ — **§5.4**; `121 238 / 216 805` is impossible under any convention |
-| the two percentages | `55.92003911330867…` / `55.91817909277494…` | ✓ |
+| the two percentages at `3·10⁶` | `55.92003911330867…` / `55.91817909277494…` | ✓ |
+| `π(10⁷)` / `π(10⁸)`; the `n ≥ 10` recount at both | `664 579` / `5 761 455`; `374 485 / 664 569 = 56.35005…%`; `3 280 063 / 5 761 445 = 56.93125…%` | ✓ — the range-dependence riders of §5.4, re-derived rather than inherited |
 | `T_11 < T_10` (the descent the `n ≥ 11` cut drops) | confirmed | ✓ |
 | ordinal of gap `248` at `p = 191 912 783` | **28th**; 28 records below `2·10⁸`; `15 683` is 12th (`g = 44`); 25 records below `10⁸` | ✓ — R2-m1, fourth independent confirmation |
 | P6′-gov / P6′-min exceptions below `3·10⁶` | 0 / 0 | ✓ |
@@ -978,7 +981,7 @@ including — especially — the ones I am inheriting from a skeptic report:
 ### 8.4 Not done, and named rather than omitted
 
 This leg did **not** re-run the `10¹¹` sweeps, the red-team corpus (`corpus/verify_corpus.py`), or
-FFM's `10⁹` decade — its own sieve reaches `3·10⁶` for the statistic and `2·10⁸` for the maximal-gap
+FFM's `10⁹` decade — its own sieve reaches `10⁸` for the statistic and `2·10⁸` for the maximal-gap
 enumeration, and every figure above that range is attributed to the leg that produced it. It **opened
 no source**; every PDF-level provenance statement (MD5s, the 14-vs-12-column tables, the corrigendum
 text, the edition numbering) rests on the FFM leg's fetch and the round-2 skeptic's independent
@@ -1039,7 +1042,7 @@ round 3), `source-ledger.md` (amended in rounds 2 and 3), `proof-attempt-{0,1,2}
 *Artifact of leg `synthesize`, molecule `task-20260727-4709`, run `germ-20260725-791a7c45`, **round 3,
 v2**. Supersedes the round-2 and the earlier round-3 `synthesis.md` in place; the galaxy carries
 exactly one current answer. No number in this document was invented; every figure traces to a cited
-source artifact or to this leg's own `attack/verify_syn4.py` (47/47, exit 0) and its own execution of
+source artifact or to this leg's own `attack/verify_syn4.py` (53/53, exit 0) and its own execution of
 the Lean gates (exit 0/0/0, 2208 jobs, 63 declarations, one `sorryAx`). Every statement about the
 state of a file was checked with `grep` or `git log` by this leg. The conjecture `F` remains **OPEN**
 — neither proved nor refuted by any round. The evidence gate is **BLOCKED**, failing leg SKEPTIC, on

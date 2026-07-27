@@ -11,6 +11,12 @@ PASS  decreasing, n>=11: got=121237 want=121237  [=> 121238/216805 is the answer
 PASS  percentage n>=10: got=55.92003911330867226921764 want=55.92003911...
 PASS  percentage all n: got=55.91817909277494638286096 want=55.91817909...
 PASS  T_11 < T_10 (the descent the n>=11 cut drops): got=True want=True
+PASS  pi(1e7): got=664579 want=664579
+PASS  pi(1e8): got=5761455 want=5761455
+PASS  decreasing / steps, n>=10, at 1e7: got=(374485, 664569) want=(374485, 664569)
+PASS  decreasing / steps, n>=10, at 1e8: got=(3280063, 5761445) want=(3280063, 5761445)
+PASS  percentage n>=10 at 1e7: got=56.35005544947176290197105 want=56.35005...
+PASS  percentage n>=10 at 1e8: got=56.93125596096118248113104 want=56.93125...
 PASS  p_1823: got=15641 want=15641
 PASS  p_1831: got=15683 want=15683
 PASS  p_1847: got=15823 want=15823
@@ -46,4 +52,4 @@ PASS  failures of p_n < 2^n (exact ints, n>=2) to pi(3e6): got=0 want=0
 PASS  certified 0.0017569 exceeds the cell majorant: got=0.00175687597478 want=< 0.0017569  [R2-m3 margin]
 PASS  C-b' margin 0.0017569 - majorant (grid-robust sup): got=2.402521574027548341911961e-8 want=2.4...
 
-47/47 checks pass
+53/53 checks pass

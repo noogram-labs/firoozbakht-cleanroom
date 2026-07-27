@@ -411,6 +411,9 @@ exists to stop.
 | `attack/concept-cards/D5-threshold-Tn.md` | 4 | denominator `216 805 → 216 806`, both conventions stated |
 | `attack/concept-cards/INDEX.md` | 4 | the corpus's headline statistics row corrected likewise |
 | `attack/concept-cards/L15-maximal-gap-reduction.md` | 4, 5 | denominator `216 805 → 216 806` + all-`n` figure + convention; sweep size `50 847 503 → 50 847 533` (×2, and relabelled *indices*); "Declared gap" now lists **both** `P6′-min` and `P6′-gov` (R2-M3) |
+| `attack/proof-attempt-0.md` | 2 | **tier pointer only** — its two `axler2014newbounds` "L2_strong, NOT OPENED" flags now name the L0 promotion and the edition hazard. No mathematics, no constant and no verdict in this round-1 document was touched |
+| `attack/claims-ledger.md` | 4 | claim **C8** (the disclosed card defect) marked **REPAIRED**, with where |
+| `attack/re-attack/rounds.md` | 1–5 | round-3 addendum: the disposition of all three round-2 BLOCKERs and the three MAJORs, including the correction of this file's own "never made" statement about the ledger |
 | `attack/synthesis.md` | 1–5 | §5's adjudications updated from *adjudicated* to **landed**, with this document cited; §7 item 1's checklist marked off item by item; §6's gate reading unchanged |
 
 **Not edited, deliberately:** `lean/` (no gate re-run, no Lean written), `paper/paper.tex` (a round-1

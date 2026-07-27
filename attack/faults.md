@@ -1,444 +1,351 @@
-# faults.md — red-team of the Firoozbakht attack corpus
+# faults.md — red-team of the round-3 reconciliation, **the corpus's single current fault list**
 
-**Molecule:** `task-20260725-488f` (leg `skeptic`, crew role: skeptic)
-**Run:** `germ-20260725-791a7c45` · **Date:** 2026-07-25
+**Molecule:** `task-20260727-5096` (leg `skeptic`, round 3) · **Run:** `germ-20260725-791a7c45`
+**Date:** 2026-07-27 · **Audited leg:** `task-20260727-264e` (`reconcile`), `attack/reconciliation.md`
 **Conjecture under attack (`F`):** `p_{n+1}^{1/(n+1)} < p_n^{1/n}` for all `n ≥ 1`.
-**Status of `F` in this document: OPEN.** Nothing below proves or refutes it. This document
-attacks the *artifacts*, not the conjecture.
+**Status of `F` in this document: OPEN.** Nothing below proves or refutes it, and nothing in the
+round-3 reconciliation leg moves it. This document attacks *artifacts*, not the conjecture.
+
+> **This file supersedes both prior fault lists and is the only current one.**
+> Round 1's list is preserved verbatim at **`attack/faults-round-1.md`** (renamed, not rewritten,
+> not deleted). Round 2's list stays at
+> **`attack/re-attack/attack-round-2/faults.md`** as the record of what round 3 was asked to close;
+> it now carries a supersession banner pointing here. Every finding of both is dispositioned below,
+> **by re-checking the tree, not by reading either report.**
 
 ---
 
-## 0. Perimeter — what was read and what was independently recomputed
+## 0. Verdict, stated first
 
-**Artifacts audited (all of them):**
-
-| Artifact | Lines |
-|---|---|
-| `attack/proof-attempt-0.md` (`first-failure-maximality`) | 603 |
-| `attack/proof-attempt-1.md` (`RH-conditional-bound`) | 893 |
-| `attack/proof-attempt-2.md` (`unconditional-verified-range`) | 461 |
-| `attack/notebook-0/findings-0.md` | 172 |
-| `attack/notebook-1/findings.md` | 207 |
-| `attack/notebook-2/findings.md` | 375 |
-| `attack/concept-cards/` (INDEX + L15, T1 read at the locator; others skimmed) | — |
-| `attack/lean-probe-report.md`, `lean/` sources | 279 + tree |
-| `attack/notebook-0/ffm_lab.py`, `attack/notebook-2/fb_core.py` | source-read |
-
-**Independent recomputation performed by this leg.** Nothing below is a reading of an
-upstream number. A fresh sieve (to `3·10⁶`, `10⁷`, `10⁸`) and independent `mpmath`/`numpy`
-implementations were written from the *statements* in the artifacts, not from their code, and
-every numeric verdict below is this leg's own. Scripts: `attack/skeptic-checks/`.
-
-**Method.** For each artifact: (i) re-derive every displayed algebraic step by hand; (ii)
-re-evaluate every quoted constant; (iii) cross-compare quantities that appear in more than one
-artifact under the same name. Category (iii) is where the two BLOCKERs live — neither is
-visible from inside a single artifact, which is why no leg caught them.
-
----
-
-## 1. Verdict
-
-**The BLOCKER set is non-empty. Two findings block the seal.**
+**The BLOCKER set is non-empty. Round 3 is NOT clean, and the evidence gate stays BLOCKED.**
 
 | Severity | Count | Findings |
 |---|---|---|
-| **BLOCKER** | **2** | F1, F2 |
-| **MAJOR** | **4** | F3, F4, F5, F6 |
-| **MINOR** | **8** | F7 – F14 |
+| **BLOCKER** | **2** | S3-B1, S3-B2 |
+| **MAJOR** | **2** | S3-M1, S3-M2 |
+| **MINOR** | **5** | S3-m1 … S3-m5 |
 
-Both BLOCKERs are **repairable** and neither is a mathematical error about `F`. F1 is a
-collision of vocabulary that has produced two contradictory headline sentences in the same run;
-F2 is a derivation that does not go through as written, whose *conclusion* this leg
-independently confirms to be true. Neither is softened below, and neither may be waved through
-by pointing at the repair: the artifacts as they stand are what a downstream `write-paper` /
-`synthesize` leg will read.
+### Disposition of every round-2 finding, one line each — the answer the brief demands
 
-The corpus is, otherwise, unusually disciplined. §5 records what was checked and came back
-clean, because a red-team report that lists only hits is not calibrated.
+| round-2 finding | verdict | how I verified it **in the tree** |
+|---|---|---|
+| **R2-B1** — two incompatible repairs of one theorem | **CLOSED** | FFM §7.4 carries the `✅ DESIGNATED` notice for **C-b′**; UVR §3.5 carries `⛔ RETIRED` on C(b\*) with the quarantine rescoped, §3.7 re-priced to `6 690 557 / 154`, §9 `G3 → G3′`, §10 both verdict rows amended; `source-ledger.md`'s Axler row makes the edition rule load-bearing on the designation; `claims-ledger.md` R8, `evidence-verdict.md`, `synthesis.md` and `paper/paper.tex` Rem. `rem:retired` all say the same thing. **No concept card carries a Theorem C constant at all** (grep for `0.99553`/`0.998244`/`0.94970` over `attack/concept-cards/`: zero hits), so there is no stale card site. I re-derived the designated theorem's constants myself — see §1 |
+| **R2-B2** limb 1 — *"the ledger amendment was never made"* | **CLOSED — the round-2 skeptic was wrong, the reconciliation is right** | `attack/source-ledger.md` line 426 reads **`tier L0`** with the three-document fetch table, the edition-numbering ⚠ and the preprint-only-row rule; §6 gap 3 reads `~~Axler was not opened.~~ CLOSED 2026-07-26`. `git log` puts the promotion in `61689d0` (07-26 19:22), merged at `4526b27` (19:26); the round-2 `faults.md` was committed at 20:46 **on a branch cut before that merge**, which is why its `:406`/`:642` line numbers resolve only in the pre-merge tree. Verified by `git log --format` on the file, not from any report |
+| **R2-B2** limb 2 — the tier never propagated to the sibling | **STILL OPEN — see S3-B1** | It propagated into UVR (§3.2, §4.4, §6 item 1, §9, §10) and nowhere else. Five concept cards and one round-2 proof attempt still assert `L2_strong` / *"never opened"* / *"Citation-gate Priority 1"* |
+| **R2-B3** — repair resting on a preprint-only Axler row | **CLOSED** | Discharged the only way it can be — by retirement (UVR §3.5) — and the surviving `1 772 201` sites all carry the edition flag (`paper.tex` l. 928/1399 + `haz:axler`, `T1` hazard 2, ledger). Residue in round-1 `proof-attempt-0.md` is flagged at its §11 (S3-m3). I re-verified the row's *mathematics* independently: `π(x) > x/(ℓ−1−1/ℓ−a/ℓ²)` has **0 failures** at every prime in range below `10⁸` for `a = 1` and for `a = 2.1` |
+| **R2-M1** — the `55.92 %` denominators | **CLOSED** | FFM §4's table, its convention paragraph and its **reversed** adjudication are in the tree; §9 item 11 matches; cards `L15`, `D5`, `INDEX` corrected; sweep size `50 847 503 → 50 847 533` in card `L15` and FFM §9 items 5/7. **I recounted from the statement with my own script** (`attack/skeptic-round3-checks/s3_recount.py`) and I agree with the reconciliation and disagree with both prior skeptics — §1 |
+| **R2-M2** — C-a′'s *"unconditional / Dusart only"* label | **STILL OPEN (partially applied) — see S3-M1** | §7.4's header and §13's defensible sentence are corrected. **Two of the three sites R2-M2 names are untouched:** FFM §2's verdict row (l. 173) still reads *"**PROVED** unconditionally, Dusart only"*, and §7.4's own "Reading of Theorem C" (l. 751) still reads *"unconditionally, on Dusart alone"* — neither names card `L6` |
+| **R2-M3** — *"the weakest of the three"* | **CLOSED at the three named sites**, with a wording residue elsewhere (S3-m1) | FFM §3.3 point 2 (l. 336), §5 closing (l. 421–428) and §5.2's instruction (l. 470) all now say **incomparable (Prop. 4)** and keep `gov`; card `L15`'s "Declared gap" (l. 118–123) lists **P6′-min *and* P6′-gov**, with `rec` beside them |
+| **R2-m1** — `248` is the 27th or the 28th maximal gap | **CLOSED** | FFM §3 W2 table (l. 215) reads **28th**. **Independently recomputed here**: running-maximum enumeration to `2·10⁸` gives exactly 28 records, `15 683` twelfth (`g = 44`), `191 912 783` twenty-eighth (`g = 248`), and 25 records below `10⁸` — consistent with FFM §9 item 2's census |
+| **R2-m2** — census counts indices, not pairs | **CLOSED** (one wording residue, S3-m2) | FFM §3's census paragraph now says *indices*, records **20** violating pairs below `3·10⁸`, states the true admissible-pair count `≈ 10¹⁵` and forbids reading any ratio as a density; §9 items 3/5/7 relabelled |
+| **R2-m3** — C-b′'s constant clears its majorant by `2.4·10⁻⁸` | **CLOSED as a recorded margin** (not repaired — correctly, that needs interval arithmetic) | The ⚠ block is in FFM §7.4. **I reproduced the margin from the statement**: majorant max `0.00175687590387`, so `0.0017569 − majorant = 2.41·10⁻⁸` |
+| **R2-m4** — the lean-probe slack table drops both constants | **CLOSED** | `lean-probe-report.md` l. 201–203 annotates both columns as `C = 1` illustrations, not measurements, and names the exponent as what carries the conclusion |
+| **R2-m5** — write-perimeter tension | **CLOSED for this loop, OPEN as a process question** | The reconciliation's brief authorised in-place edits and §0 declares the perimeter; the standing rule-6 exemption is correctly deferred to the next loop's brief |
+| **R2-m6** — `p^{−0.83}` extrapolated nine decades | **CLOSED** | FFM §5.1 l. 439–441 carries the three local exponents, the corrected `≈ 6.1·10⁻¹⁵` and the "direction is safe" note. I re-derived the local exponents from the four published margins: `0.4538`, `0.7364`, `0.9967` — agrees |
+| **R2-m7** — the `10³` per-decade entry | **CLOSED** | FFM §5 l. 406–408 reads `1.354`, attributed, with the out-of-range note |
+
+**Nothing above is softened, and nothing was cleared to be helpful.** Two BLOCKERs means the loop
+has not reached its fixpoint; the honest exit is **BLOCKED**, not convergence. Note the shape of
+what survives: **the reconciliation's five decisions are right, and its two failures are both of the
+same species as the fault it was created to fix** — a statement about the state of the tree that the
+tree does not support.
+
+---
+
+## 1. What I recomputed myself, before reading anyone's verdict
+
+Every number in this section is mine. Scripts: `attack/skeptic-round3-checks/s3_recount.py` and
+`…/s3_constants.py`, both written from the **statements** in FFM §7.4 and in the reconciliation's
+§4 convention paragraph; no upstream script (`reconcile_recount.py`, `r2_*.py`, `chk_*.py`,
+`verify_syn*.py`) was opened before they were written and run.
+
+**The recount, at three ranges and three cuts** (own sieve; float64 pass with every relative margin
+inside `10⁻⁹` re-adjudicated at 60 dps — **0 reclassifications**, so the count is not float-fragile):
+
+| `N` | `π(N)` | all `n` | `n ≥ 10` | `n ≥ 11` |
+|---|---:|---|---|---|
+| `3·10⁶` | 216 816 | `121 239 / 216 815` = 55.918179 % | **`121 238 / 216 806` = 55.920039 %** | `121 237 / 216 805` = 55.919836 % |
+| `10⁷` | 664 579 | `374 486 / 664 578` | `374 485 / 664 569` = 56.350055 % | `374 484 / 664 568` |
+| `10⁸` | 5 761 455 | `3 280 064 / 5 761 454` | `3 280 063 / 5 761 445` = 56.931256 % | `3 280 062 / 5 761 444` |
+
+This is the **sixth** independent count and it agrees with the reconciliation. It also reproduces
+the RH leg's self-consistency argument from my own code path: the `n ≥ 11` cut gives
+`121 237 / 216 805`, so **`121 238 / 216 805` is the answer under no convention** — the published
+card figure mixed one cut's numerator with another's denominator. I state this having recomputed it,
+not because it matches `reconciliation.md`; the brief's warning about agreement-is-not-correctness
+applies to me as much as to my predecessor.
+
+**Re-running the audited leg's own script.** I executed `attack/reconcile_recount.py` and diffed the
+result against the committed `reconcile_recount.out.txt`: **byte-identical**. The script is what it
+claims to be, and its `π(10⁹) = 50 847 534` (⇒ `50 847 533` steps) reproduces.
+
+**The designated theorem's constants, re-derived from FFM §7.4's statement** (`s3_constants.py`):
+
+| quantity | my value | corpus value | verdict |
+|---|---|---|---|
+| `ℓ_A = log 6 690 557` | `15.7162076872…` | same | ✓ |
+| C-b′ cell majorant `sup (0.17 − 2.1/b + a⁴e^{−a})/(2a−1)`, width `0.01` | **`0.00175687590387`** at cell `a = 24.40621` | same | ✓ |
+| certified `0.0017569` minus that majorant | **`2.41·10⁻⁸`** | `2.4·10⁻⁸` (R2-m3) | ✓ |
+| C-b′ tail `ℓ ≥ 300` | `0.00028380634` | `0.00028381` | ✓ |
+| C-b′ exact requirement (quadratic solved) | `0.00175606…` at `ℓ ≈ 24.4289` | `0.0017560603` at `24.4295` | ✓ |
+| C-a′ cell majorant | **`0.0515990267`** at the first cell | same | ✓ |
+| C-a′ tail `ℓ ≥ 1000` / exact requirement | `0.050027515` / `0.05149345…` | `0.050028` / `0.051493457` | ✓ |
+| finite branches: max gap below `60 184` / `468 049` / `1 772 201` / `6 690 557` / `10⁸` | `72@31 397` / `112@370 261` / `132@1 357 201` / `154@4 652 353` / `220@47 326 693` | same | ✓ |
+| maximal-gap records below `2·10⁸` | **28**, `15 683` 12th, `191 912 783` 28th, 25 below `10⁸` | 28 (R2-m1) | ✓ |
+| `e^{−0.0017569}` / `e^{−0.0043636}` / `e^{−0.0516}` at 40 dps | `0.9982446424453653…` / `0.9956459066696853…` / `0.9497086743460633…` | same | ✓ |
+
+**The Lean gates, re-executed by me, not read.** `lake exe cache get` → 0; `lake build` → 0,
+`Build completed successfully (2208 jobs)`; `lake env lean audit_exhaustive.lean` → 0,
+`declarations scanned: 63`, `depending on sorryAx: [Firoozbakht.firoozbakht]`;
+`shasum -a 256 lean/Firoozbakht/Statement.lean` = `6528868823c0637dd182c914e2ef43a7455f851335cafaba6cee934802e004c1`.
+Every value matches `lean-probe-report.md` and the round-2 skeptic. **The kernel leg is clean.**
+The reconciliation declared its Lean status second-hand; that declaration was honest, and the
+underlying facts hold.
 
 ---
 
 ## 2. BLOCKERS
 
-### F1 — **BLOCKER** — `P6′` is measured under three inequivalent definitions, and two sibling legs publish opposite trends for the same named quantity
+### S3-B1 — **BLOCKER** — decision 2 says `axler2014newbounds` is L0 *"at every site in the corpus"*; **six sites still say it is L2_strong and unopened**, one of them a round-2 artifact the reconciliation declared consistent. **R2-B2 limb 2 is not closed.**
 
-**Where.** `notebook-0/findings-0.md` §2 finding 3 vs `notebook-2/findings.md` §3; card
-`L15`; `proof-attempt-0.md` §1 (M1/M2/M3).
+**Where** (all quoted from the tracked tree, 2026-07-27, after the round-3 merges):
 
-**The fault.** The symbol `m(n)` and the phrase "governing record index" carry **three
-inequivalent meanings** across the run, and the quantity `min(T_n − T_{m(n)})` is reported
-under all of them without any leg naming which one it used:
+| site | what it still says |
+|---|---|
+| `attack/concept-cards/L2-threshold-asymptotics.md:9` | `` `axler2014newbounds` (**L2_strong, NOT OPENED**) Corollaries 3.5/3.6 `` |
+| `…/L2-threshold-asymptotics.md:78,98` | *"which were **not fetched** in this run"*; *"is at L2_strong and unopened"* |
+| `…/L3-necessary-condition.md:61,67` | *"Axler's Corollary 3.6, unopened"*; *"the effective `π(x)` input … was never opened"* |
+| `…/L4-sufficient-condition.md:70` | *"Axler was **not opened in this run**; this is Priority 1 for the citation gate"* |
+| `…/D3-pi-and-count-index-identity.md:60` | *"is at tier L2_strong and was never opened"* |
+| `…/INDEX.md:62` and `INDEX.md:248` | dependency table: *"`axler2014newbounds` (**L2_strong, unopened**)"*; next-action 2: *"**Open Axler.** … unopened … Citation-gate Priority 1"* |
+| `attack/re-attack/attack-round-2/proof-attempt-RH-conditional-bound.md:708–711, 941–945` | *"Axler's Corollary 3.5, **unopened in this run** … the numeral `0.17` must not be quoted downstream until Axler is at L0"*; *"**Axler is still unopened.** … **Citation-gate Priority 1, unchanged since round 1**"* |
 
-| Definition | Where | Source |
-|---|---|---|
-| **(A)** `m(n)` = the most recent maximal-gap index `≤ n` | card `L15`; `notebook-2` | `fb_core.py:181-197` (`cur_Tm` = `T` at the last record) |
-| **(B)** `m(n) := min{ m : g_m ≥ g_n }` | `notebook-0` | `ffm_lab.py:14` |
-| **(C)** `T_m ≤ T_n` for **all** `m < n` straddling a record gap | card `L15`'s own prose statement of P6′ | — |
+**Why this is a BLOCKER and not bookkeeping.** It is R2-B2's exact failure mode, one round later,
+in a document whose §2 asserts the opposite in its own words — *"`axler2014newbounds` is tier L0 at
+every site in the corpus"* — and whose §5 asserts *"a `write-paper` leg reading any one of these
+files now reaches the other three, and finds one answer at every site."* The tree does not support
+either sentence. Concretely:
 
-(C) ⟹ (A) ⟹ (B) as obligations, and the implications are strict. **(B) is the weakest, and
-(B) is the one the search-pruning actually consumes** — `m(n)` under (B) is a record index with
-`g_{m(n)} ≥ g_n`, so `g_n ≤ g_{m(n)} < T_{m(n)} ≤ T_n` closes the chain. `notebook-0` says this
-explicitly ("it *implies* FFM and is what the standard argument consumes"); `notebook-2` does not
-say which it used.
+1. **The RH artifact is one of the four the banner declares reconciled**, and `reconciliation.md` §6
+   records it as *"banner only — nothing in this document needed correcting."* That is false: two of
+   its flag blocks gate a live numeral (`0.17` in Corollary D.2) on a tier that decision 2 says is
+   already cleared, and one of them declares a citation-gate priority that is already discharged.
+2. **The cards are the layer the reconciliation itself calls load-bearing** — its own §5 says a wrong
+   number in a canonical card *"is read first by every downstream leg, which is exactly what made
+   R2-M1 worse than a disputed line in a proof attempt."* The same argument applies verbatim to a
+   wrong **tier** in a canonical card, and the leg applied it to the denominator and not to the tier.
+3. **The ledger's own amendment names the missing sites.** The `axler2014newbounds` row's edition ⚠
+   ends *"…while cards **T1**/**L2**/**L4** use the preprint's numbering"*. Only `T1` was ever
+   amended. The instruction to propagate is written on the row that was propagated *from*.
+4. A downstream leg reading `INDEX.md` — the entry point — is told to spend a funded leg **opening a
+   source that has been open since 2026-07-26**, with MD5s on the ledger.
 
-**Recomputed independently by this leg** (fresh sieve, both definitions, same code path):
-
-| range | (A) `min(T_n − T_{m(n)})` | (B) `min(T_n − T_{m(n)})` |
-|---|---|---|
-| `3·10⁶` | `+1.04642·10⁻²` at `p = 2 011 211` | `+0.484528` at `n = 1879`, `p = 16 141` |
-| `10⁷` | `+6.06048·10⁻³` at `p = 4 652 581` | `+0.484528` (unchanged) |
-| `10⁸` | `+1.11181·10⁻³` at `p = 47 326 957` | `+0.484528` (unchanged) |
-
-Both notebooks are **numerically correct**. Column (A) reproduces `notebook-2` §3 to every digit
-it quotes (`1.046·10⁻²`, `6.060·10⁻³`, `1.112·10⁻³`). Column (B) reproduces `notebook-0`
-finding 3's global minimum `0.485 at n = 1879`. Zero exceptions under both, at every scale.
-
-**Why this blocks.** The run now carries two headline sentences that a reader cannot reconcile:
-
-> `notebook-2` §3, billed as "**the one unexpected result**" and escalated as a *cosmon-ward
-> observation*: "**The empirical case for P6′ does not strengthen with range — it weakens.**"
-
-> `notebook-0` §2 finding 3: "**The margin does not decay.** … The global minimum is at
-> `n = 1879` and is never approached again."
-
-They are both true, of different predicates, and **neither notebook cites the other**.
-`notebook-2` reconciles its result against card `L15`'s *dip* statistic and concludes the card is
-wrong; it never considers that a sibling leg measured a different `m(n)`. A `synthesize` or
-`write-paper` leg reading both has no way to tell that `min(T_n − T_{m(n)})` denotes two things.
-
-**Two consequences that are themselves defects, not just risks:**
-
-1. **`notebook-2` §3 consequence 2 — the float64-noise-floor alarm — is scoped to the wrong
-   predicate.** "A float64 check of P6′ hits the noise floor at the published frontier" is derived
-   from the (A)-margin's `p^{−0.83}` decay. Under (B) — the version a pruned search consumes —
-   the margin is flat at `0.485` across every decade measured here and is `~10¹²` ulps clear of
-   zero. The warning is real for (A) and **does not apply** to the obligation the search route
-   needs. As written it reads as a general indictment of computational checks of P6′.
-2. **`notebook-2` §3 consequence 3 — "the route to discharging P6′ must therefore be the analytic
-   one" — is an inference from the mis-scoped premise** and does not survive it.
-
-**Repair (not applied by this leg).** Name the three predicates (P6′-pair, P6′-gov, P6′-min),
-state which one each measurement used, and state that the pruning consumes P6′-min. Then
-`notebook-0` and `notebook-2` cease to conflict and both results stand. `L15` must be amended:
-its prose states (C) while its measurement row ("`T_{m(n)} ≤ T_n` for `m(n)` = governing record
-index") states (A).
+**Repair.** Amend the six sites to tier **L0** with the two standing ⚠ (edition numbering; the
+preprint-only `(1,0,0,0)/1 772 201` row), exactly as `T1` and the ledger already carry them. In the
+RH artifact this is a tier pointer only — its mathematics is untouched and `0.17` becomes citable.
+`INDEX.md`'s next-action 2 should be struck and replaced by the two sources that *are* unopened
+(`granville1995cramer` at journal pagination, `oliveira2014goldbach`).
 
 ---
 
-### F2 — **BLOCKER** — `proof-attempt-0.md` Theorem C(b): the cited bound **(A-high)** is too weak by a factor `≈ ℓ²` to support the theorem, and the quoted constant is below the document's own criterion
+### S3-B2 — **BLOCKER** — the reconciliation's *"what is still open"* section states four things about the tree that the tree contradicts, and the round-3 synthesis has already re-published them as the corpus's gate status
 
-**Where.** `proof-attempt-0.md` §6.1 (A-high), §6.2 Theorem C(b) and its proof, §9 item 15,
-and every downstream quotation of `0.004479` / `0.99553` (§2 verdict table, §6 "Reading of
-Theorem C", §7, §10 gap 1, §11 correction 3, §13 defensible sentence).
+**Where.** `attack/reconciliation.md` §6 ("Not edited, deliberately"), §7 item 3, §8 items 2 and 4;
+propagated into `attack/synthesis.md` §0 (l. 50), §7 (l. 728–731, 744), §8 item 4 (l. 761), §9
+(l. 908–909, 918–919).
 
-**The fault, in three parts.**
+| the claim | the tree |
+|---|---|
+| *"`paper/paper.tex` … a round-1 artifact that §7 says must be **rewritten** against round 2"* (§6, §8 item 4) | `paper.tex` **was** rewritten against round 2 on 2026-07-26 — commit `d33dfe0` *"write-paper round 2: rewrite paper.tex against round 2, superseding round 1"*, plus `1637cf3`. It is 2460 lines, treats Axler as **read at the locator in both editions** (l. 83, 196–199, `haz:axler`), carries `0.998244` as the theorem it keeps, and **already retires `0.99565`** in Rem. `rem:retired` for the preprint-only-row reason — i.e. it reached decision 1 independently, a day early |
+| *"It is … asserting a tier that is now wrong (**«Axler … not opened»**)"* (§8 item 4) | No such assertion exists in `paper.tex`. Grep returns zero hits; the paper's Caveat `haz:axler` records the promotion and the two editorial hazards |
+| *"and constants that are now superseded — including `0.99553`"* (§8 item 4) | `0.99553` appears **once**, in Rem. `rem:C-compare`'s round-1-vs-round-2 column, correctly labelled *"(from a lemma that did not support it)"* |
+| *"**No citation audit has been run on the round-2 corpus at all** — the only one on disk is a round-1, paper-side audit that itself returned **BLOCKED**"* (§7 item 3, §8 item 2) | `attack/verification-report.md` is the **round-2** audit (`cite-20260726-d5a8`, 2026-07-26, commit `51756c5`), **verdict PASS**: 91 `\cite` instances, 22 citekeys, 59 locator pairs, zero L3, audited against the *amended* ledger including the §2.8 rows the reconciliation says carry only a *"standing re-audit obligation"*. It also carries the Granville pagination caveat explicitly. Separately, `attack/editorial-verdict.md` is the **round-2** gate (`review-20260726-7d55`, REWRITE on the 2460-line paper), which `synthesis.md` l. 909 calls *"round 1"* |
 
-**(a) The stated lemma does not support the theorem.** §6.1 states
+**Why this is a BLOCKER.** Three reasons, and the third is the one that matters.
 
-> **(A-high)** `T_n ≤ (ℓ² − ℓ − 1 − 1/ℓ)(1 + ℓ⁴/x)` for `x ≥ 1 772 201`,
-> justified as "`T_n ≤ v(1 + v/x) ≤ v(1 + ℓ⁴/x)` using `v < ℓ²`".
+1. **It is the same error the leg exists to prevent, committed by the leg**, and it says so itself:
+   §7's closing lesson is *"a leg's claim about the state of a file is not evidence about the state
+   of that file. `git show` is."* §3 is entirely a tree check; §6, §7 and §8 are not, and nothing
+   marks the change of standard. The leg's §9 self-verification claims *"every string this document
+   claims to have edited (`grep` after each edit)"* — that discipline was applied to what it wrote
+   and not to what it declined to write.
+2. **It has already propagated.** The round-3 synthesis (`4753437`, 15:09, after the reconciliation
+   merged at 14:49) now states as the corpus's headline gate status: *"The citation audit has **not**
+   been run on this corpus … The only audit on disk is round-1, paper-side, and it returned
+   **BLOCKED**"* and *"`paper/paper.tex` is a **round-1** artifact."* A false statement about the
+   tree has become a false statement about a **gate**, in the document a `write-paper` leg reads
+   first. That is strictly worse than where R2-B2 started.
+3. **It misdirects the two most expensive items on the next-run list.** §8 items 2 and 4 fund a
+   citation audit that has run and passed, and a paper rewrite that has been done. The genuinely
+   open provenance work — `granville1995cramer` at journal pagination, `oliveira2014goldbach`
+   behind its paywall — is real and is correctly named in §7 items 1–2; it is buried under two
+   recommendations that a reader can check in thirty seconds and that will cost the loop a round.
 
-`v < ℓ²` gives `v(1 + v/x) ≤ v(1 + ℓ²/x)`, **not** `v(1 + ℓ⁴/x)`. The stated justification does
-not produce the stated inequality (it would need `v² < ℓ⁴`, which is a different — and true —
-fact, but then the `ℓ⁴/x` belongs *inside* the expansion as `v²/x`, not as a factor multiplying
-`v`). As printed, (A-high) is a *valid but much weaker* bound.
+**Not overstated.** The *substance* of §7 items 1, 2, 4, 5 and 6 is correct and I confirm it: card
+`L6` is `L2_weak` and unopened and is load-bearing in **both** branches of Theorem C (I verified the
+dependence: C-a′'s small branch consumes `g_{n₀} > 1919`, which is `p_{n₀} > 2⁶⁴`, and its
+`0.93961 → 0.94970` improvement comes entirely from the `10⁸` cutoff that fact licenses);
+`granville1995cramer` is L1 at preprint pagination and is the load-bearing citation of the
+refutation-side argument; the certificates are 50–60-digit floats, not interval arithmetic; `P6′-rec`
+rests on 29 record steps; and the residual `0.176 %` window is genuinely open mathematics. **What is
+wrong is the account of what the tree already contains, not the account of what is missing.**
 
-**(b) Under (A-high) as printed, Theorem C(b) is false by a factor of 38.** Requiring
-`C(p_m) ≤ A(p_{n₀})` in Lemma W with `C =` (A-high)-as-printed and `A =` (A-low), and solving for
-the true minimal separation `d = L_{n₀} − L_m` at each `ℓ = L_m` (this leg, `mpmath`, 50 digits,
-`p_m = e^ℓ`, `ℓ ∈ [ℓ₁, 300]`):
-
-| ℓ | `p_m` | required `d`, (A-high) **as printed** | `d` from PA-0's displayed formula |
-|---|---|---|---|
-| `ℓ₁ = 14.3877` | `1.772·10⁶` | **0.169340** | 0.0044887 |
-| 16 | `8.89·10⁶` | 0.060196 | 0.0037056 |
-| 18 | `6.57·10⁷` | 0.017191 | 0.0033155 |
-| 20 | `4.85·10⁸` | 0.006280 | 0.0030854 |
-| 44.36 | `1.84·10¹⁹` | 0.001681 | 0.0016810 |
-
-The claimed uniform constant `d ≥ 0.004479` becomes valid only for `p_m ≳ 1.33·10⁹`. At the
-bottom of (A-high)'s *own* stated validity range the required `d` is **0.16934**, i.e.
-`p_m ≤ 0.8442·p_{n₀}` — **worse than Theorem C(a)'s Dusart-only `0.9396`**, inverting the
-document's headline that Axler buys `0.99553`.
-
-**(c) The quoted constant does not match the document's own displayed criterion.** §6.2 displays
-the sufficient condition `d(2ℓ−1) + d² ≥ 0.17 − 1/ℓ + ℓ⁴/p_m`, whose maximum over `ℓ ≥ ℓ₁` is
-**0.0044887** (attained at `ℓ₁`), not the `0.004479` that §6.2 and §9 item 15 report as
-"`max d* = 0.004479 at ℓ = ℓ₁`". The reported sweep is **below** the document's own criterion —
-i.e. it errs in the *unsafe* direction relative to the formula printed one line above it. §9 item
-15 is presented as corroboration; it corroborates neither the printed lemma nor the printed
-formula.
-
-**What is nevertheless true — stated so the repair is not overstated.** With the *tight* form
-`T_n ≤ v(1 + v/x)`, `v := ℓ² − ℓ − 1 − 1/ℓ` — which is what §6.2's algebra silently assumes —
-this leg computes the true maximal required separation over `ℓ ∈ [ℓ₁, 300]` as
-**`d* = 0.0043629` at `ℓ = ℓ₁`**. So `d ≥ 0.004479` **is** sufficient, and **Theorem C(b)'s
-conclusion is correct**. The sweep-free branch `0.006992` is also sufficient. The defect is
-entirely in the derivation and in the lemma the derivation names.
-
-**Why this blocks anyway.** (i) The artifact states a lemma and then proves a theorem that does
-not follow from it — the exact "mis-cited lemma" failure the run's own gates exist to catch.
-(ii) The in-run numerical check (§9 item 15) reproduced the error rather than catching it, so the
-artifact's verification apparatus gave a false green. (iii) §12 hands (A-high) to the Lean legs as
-a hypothesis to transcribe; a faithful transcription of §6.1 makes `M-8`/Theorem C(b)
-**unprovable**. (iv) The constant `0.004479` appears in §13's *defensible sentence* — the sentence
-downstream is instructed to quote.
-
-**Repair (one line).** Restate (A-high) as `T_n ≤ v(1 + v/x)` with `v := ℓ² − ℓ − 1 − 1/ℓ`;
-replace `ℓ⁴/p_m` by `v²/p_m` in §6.2's displayed criterion; re-run §9 item 15 against the
-corrected expression. `0.004479` then stands (true max `0.0043629`). **Theorem C(a) is
-unaffected** — see §5.
+**Repair.** Correct the four claims in `reconciliation.md` §6/§7/§8 and in `synthesis.md`
+§0/§7/§8/§9 against `git log`; re-point §8 item 2 at the two sources that are actually unopened;
+replace §8 item 4 with *"re-audit the round-2 paper against the round-3 decisions"* (the paper agrees
+with them already, so this is a check, not a rewrite).
 
 ---
 
 ## 3. MAJOR
 
-### F3 — **MAJOR** — `proof-attempt-0.md` labels Theorem B's discharge "unconditional" and directs that P6′ be *retired*, on the strength of a source the run has not opened
+### S3-M1 — **MAJOR** — R2-M2 is applied at one of its three named sites; FFM still says C-a′ holds *"unconditionally, Dusart only"* in its verdict table and in the sentence it hands downstream
 
-**Where.** `proof-attempt-0.md` §2 verdict table, §4, §11 correction 1.
+`faults.md` R2-M2's "Where" names **three** sites: §7.4's header, §2's verdict row, §13's defensible
+sentence. `reconciliation.md` §5 reports R2-M2 *"Does not stand. Applied."* Two survive:
 
-§2's verdict table row reads: "**The search-pruning that (M3) was wanted for** — **DISCHARGED**
-unconditionally by Thm A + Thm B". §11 correction 1 escalates this to a directive: the obligation
-"should be **retired**, not worked."
+- `proof-attempt-first-failure-maximality.md:173` — *"| **(M1)** restricted to `p_m ≤ 0.94970·p_{n₀}` | **PROVED** unconditionally, Dusart only (§7.4, Thm C-a′) |"*
+- `…:751` (§7.4's own **"Reading of Theorem C, round 2"**, the paragraph written to be quoted) — *"`g_{n₀}` exceeds every gap between primes below `0.94970·p_{n₀}` — **unconditionally, on Dusart alone**"*
 
-Theorem B's second half — the step from `g_k < S(p_k)` to `F` at `k` — is **Fact S2**, which the
-document itself flags in §10 gap 4 as resting on `axler2014newbounds`, tier **L2_strong, NOT
-OPENED in this run**, with a validity range (`x ≥ 2 634 800 823`) that card `T1` records as
-having been **moved nine orders of magnitude by a corrigendum**. "Unconditional" is being used in
-its mathematical sense (no unproved *conjecture*) in a table that a reader will take as "nothing
-outstanding", two sections before the flag appears.
+Neither names card `L6`, and l. 751 sits **eighty lines below** the corrected header that says the
+label is false — so the document now asserts both readings, and the quotable one is the wrong one.
+§13's corrected sentence shows the honest form and is the model: *"on Dusart's L0 analytics, given
+the published `2⁶⁴` verification height (card `L6`, L2_weak, unopened) and a finite in-run gap
+computation."*
 
-Retiring the run's ranked open obligation #1 on an unread paper is a one-way action. The
-mitigation exists and the document names it (§10 gap 4: re-derive Theorem B on the Dusart-only bar
-`B(x) = log²x − 1.1 log x`, feasible, at the cost of a bar `≈ 0.1L` looser) — **but it has not
-been done**, and §11 does not condition the retirement on it.
+**Repair.** Apply §13's wording to l. 173 and l. 751. One line each. Until then R2-M2 is open, and
+round-1 F3's pattern — *"unconditional"* asserted on a chain containing an unopened source — is
+still live in the corpus's own summary table.
 
-**Repair.** Either carry out the Dusart-only re-derivation (`proof-attempt-2.md` §2.4 Lemma 3
-already supplies exactly that bar, and §5 below confirms it is monotone and correct), or
-downgrade §11 correction 1 from "retire" to "retire *conditional on the citation gate raising
-Axler to L0, else re-derive on Dusart*".
+### S3-M2 — **MAJOR** — `reconciliation.md` §9 credits `reconcile_recount.py` with three computations the script does not contain
 
-### F4 — **MAJOR** — `proof-attempt-1.md`'s headline "at no other index whatsoever" is false as stated, and conflicts with `notebook-1`
+§9 reads: *"`attack/reconcile_recount.py` → the table of §4, **plus** `π(10⁹) = 50 847 534` …,
+**plus the maximal-gap record enumeration to `2·10⁸`** (28 records; `15 683` twelfth, `191 912 783`
+twenty-eighth) that adjudicates R2-m1, **plus the four headline exponentials at 40 dps**"*, and §4
+says of the ordinal *"**Confirmed independently here** — own running-maximum enumeration."*
 
-**Where.** `proof-attempt-1.md` §0 headline, §5 Theorem A, §13 summary; vs
-`notebook-1/findings.md` §1 F2 table.
+The script is 111 lines. It sieves, counts descents, re-adjudicates near-ties and runs a segmented
+`π(10⁹)`. **It contains no gap enumeration and no exponential** — `grep -E "gap|record|exp\("`
+returns nothing, and its committed log (which I reproduced byte-identically) prints neither. So the
+two claims the leg marks as *its own* computation rest on no artifact on disk.
 
-Theorem A is correctly stated: `S := { n ≥ 3 : B_n ≤ T_n } = {3}`. The **`n ≥ 3` restriction is
-load-bearing** and it is dropped in both places the result is quoted for downstream use:
+**The numbers are right** — I computed both independently (§1: 28 records, `15 683` 12th,
+`191 912 783` 28th; the three exponentials to 40 dps) — which is why this is MAJOR and not BLOCKER.
+But the defect is precisely the one the leg's own §9 promises against: *"Every number in it is either
+this leg's own computation (`attack/reconcile_recount.py`) or explicitly attributed to the leg it
+came from."* A third party auditing R2-m1's reversal from the named script finds nothing, and the
+adjudication of a MINOR that reverses a published ordinal then rests on an unpublished code path.
 
-> §0: "certifies the Firoozbakht inequality at **exactly one index, `n = 3` (`p = 5`)**, and at no
-> other index whatsoever."
-> §13: "certifies Firoozbakht's inequality at the single index `n = 3` — the prime 5 — and at no
-> other."
-
-Recomputed by this leg (`mpmath`, 40 digits):
-
-| `n` | `p_n` | `B_n = (22/25)√p·log p` | `T_n` | `B_n < T_n` |
-|---:|---:|---:|---:|:---:|
-| 1 | 2 | 0.86262717 | 2.0000000 | **yes** |
-| 2 | 3 | 1.6745100 | 2.1961524 | **yes** |
-| 3 | 5 | 3.1669551 | 3.5498797 | yes |
-
-The envelope clears the bar at `n = 1` and `n = 2` as well. What excludes them is **CMS's
-hypothesis `p_n > 3`**, not the arithmetic — a materially different statement, and the one a
-reader needs, since it says the obstruction is the *source's range*, not the *function*.
-
-This also produces a visible cross-artifact conflict: `notebook-1` §1 F2 reports
-`p*(22/25) = "p ≤ 5"`, i.e. three certified primes, against PA-1's "one index … and no other".
-Neither artifact cites the other. Both are right; the words are not.
-
-**Repair.** Quote Theorem A with its quantifier: "*at exactly one index in the range where the
-CMS bound is available (`n ≥ 3`), namely `n = 3`*".
-
-### F5 — **MAJOR** — `notebook-0`'s claim of *exact* reproduction of the `55.92 %` statistic is false, and three mutually incompatible fractions for it circulate in the run
-
-**Where.** `notebook-0/findings-0.md` §3 R4 and §5; `proof-attempt-0.md` §5 and §9 item 18;
-card `L15` "Why it is not a triviality"; `notebook-1/findings.md` §2.
-
-Recomputed by this leg at `N = 3·10⁶` (216 816 primes):
-
-| convention | count | percent |
-|---|---|---|
-| `T_{n+1} < T_n`, **`n ≥ 10`** | **121 238 / 216 805** | 55.9203 % |
-| `T_{n+1} < T_n`, **all `n`** | **121 239 / 216 814** | 55.9184 % |
-
-- Card `L15` states `121 238 / 216 805` — **correct**, for `n ≥ 10`.
-- `notebook-0` R4 states `121 239 / 216 814` and describes it as "reproduced **exactly** at its own
-  bound". It is the *all-`n`* count. The numerator differs from `L15`'s. The percentages agree to
-  four significant figures; the fractions do not, and "exactly" is the wrong word for a different
-  numerator over a different denominator.
-- `proof-attempt-0.md` §9 item 18 states `121 238 / 216 806`, and §5 asserts that the difference
-  from upstream's `216 805` "is a range convention". It is not: `216 805` is the exact count of
-  steps `n → n+1` with `n ≥ 10` in this sieve, and `216 806` matches **neither** convention. PA-0's
-  denominator is an off-by-one; its claim that the numerator "agrees exactly" with upstream is
-  correct, and its explanation of the denominator is not.
-
-Same class of slip in `notebook-1` §2: `374 485 / 664 569` at `10⁷`; this leg gets
-`374 485 / 664 568` (numerator exact, denominator off by one).
-
-**Why MAJOR and not MINOR.** The `55.92 %` figure is the single most-quoted statistic in the
-corpus — it is the stated reason `T` is not monotone, which is the stated reason P6′ is open,
-which is the stated reason target #0 exists. Three different fractions for it, one of them
-labelled an *exact reproduction* of another, is a provenance failure at the root of the
-obligation tree.
-
-### F6 — **MAJOR** — `notebook-1/findings.md` §1 F2's definition of `p*(C)` contradicts its own table
-
-**Where.** `notebook-1/findings.md` §1 F2.
-
-> "Define `p*(C)` = the largest `P` such that `B_C(p) < T(p)` for all **`10 ≤ p ≤ P`**"
-
-The table then reports `p*(1) = 3`, `p*(22/25) = 5`, `p*(4/π) = 2` — all **below** the stated
-lower endpoint `10`, which makes the defining condition vacuous and the reported values
-unreachable under the definition as written. This leg reproduces the table's values under the
-reading `2 ≤ p ≤ P` (see F4), so the values are right and the definition is mistyped.
-
-The row that matters downstream is `1/(8π) → p ≤ 62 869`, quoted as evidence that circulating
-constants "certify a conditional theorem weaker than a laptop". That conclusion survives; the
-definition must be fixed before the paper reprints the table, because as written the table is
-unfalsifiable.
+**Repair.** Either add the enumeration and the exponentials to `reconcile_recount.py` (twenty lines)
+and re-commit its log, or amend §9 to attribute them to an unpublished ad-hoc computation. Do not
+leave the script credited with work it does not do.
 
 ---
 
 ## 4. MINOR
 
-### F7 — **MINOR** — `proof-attempt-0.md` §9 item 7 states the P6′ predicate with the inequality reversed
+### S3-m1 — **MINOR** — the "weakest" wording survives R2-M3 at two uncited sites in the same document
 
-The verification table row reads "`T_n < T_{m(n)}`, `m(n)` = governing record index — **0
-exceptions in 216 815 pairs**". The predicate P6′ requires `T_{m(n)} ≤ T_n`. As printed, the row
-claims zero exceptions to the *opposite* inequality, which this leg's recomputation shows is
-violated at essentially every index. A transcription slip in a table headed "Verification
-performed by this leg" — the one place a reader is entitled to read literally.
+`proof-attempt-first-failure-maximality.md:171` — *"this is the **weakest** known sufficient
+hypothesis"* — and `:180` — *"the **weakest** of them is precisely the one whose …"*. R2-M3 named
+§3.3/§5/§5.2 and those are fixed; these two were not in its list and were not swept. Since
+Proposition 4 makes `gov` and `min` incomparable, "the weakest" has no referent among the three at
+either site. One-word fix (*"weakest known sufficient hypothesis"* → *"a minimal sufficient
+hypothesis, incomparable to P6′-gov"*).
 
-### F8 — **MINOR** — `proof-attempt-1.md` §5 Remark 3: "essentially the whole verified range" glosses a real shortfall
+### S3-m2 — **MINOR** — one index/pair conflation survives R2-m2
 
-Remark 3 argues RH is not load-bearing because `visser2018andrica` §7 verifies the CMS inequality
-unconditionally for `p < 1.836·10¹⁹`, "so over essentially the whole verified range (**Fact 4**,
-`2⁶⁴ = 1.8447·10¹⁹`)". `1.836·10¹⁹ < 1.8447·10¹⁹`: the unconditional range falls short of the
-verified range by `≈ 0.47 %`, i.e. by roughly `8.7·10¹⁶` — about `1.9·10¹⁵` primes. The remark's
-point stands; "essentially" is carrying an unstated gap and should carry a number instead.
+`…-first-failure-maximality.md:913` (§11 item 1) still reads *"17 exceptions below `10⁹`"* — the
+census is 17 **indices** (`p < 10⁹`) carrying 20 **pairs** (`p < 3·10⁸`), which §3 and §9 now state
+correctly. Same fix as §3's.
 
-### F9 — **MINOR** — `proof-attempt-1.md` §9 Claim 2 draws a universal from one instance, and picks the *widest* available bracket
+### S3-m3 — **MINOR** — the retired denominator is still live in three round-1 documents, one of which is not a notebook
 
-Claim 2 concludes "**no** unconditional `π(x)` estimate in the run's toolbox (card **T1**)
-separates `q` from the primes" from a single comparison against Dusart Thm 6.9 eq. (6.5), whose
-two-sided bracket has width `0.2762·x/log²x`. Card `T1` also carries eq. (6.6)
-(`x/(log x − 1) ≤ π(x) ≤ x/(log x − 1.1)` on their ranges), whose bracket width is
-`≈ 0.1·x/log²x` — narrower by a factor `≈ 2.8`, and the tighter of the two.
+`attack/decompose.md:222` and `:485` print *"`T` decreases at **121 238 of 216 805** consecutive
+steps"* as a headline; `attack/proof-attempt-0.md:217` still defends the one-step difference as
+*"a range convention"*, which decision 4 shows is an implementation artefact; `notebook-0` R4 still
+carries `216 814`. The reconciliation's exclusion of round-1 artifacts is declared and defensible
+for notebooks and proof attempts, and it made the right call to amend the **cards**. `decompose.md`
+is neither — it is the frame document a fresh leg reads before the cards, and it was not in the list.
+Add it to the next amendment sweep, or add a one-line supersession pointer at both sites.
 
-The conclusion survives (`0.1·x/log²x` still dwarfs `log x · log log x` by an unbounded factor),
-so nothing downstream moves. But the argument as written establishes the claim for one estimate
-and asserts it for all of them, and it does so using the weaker instrument when the stronger one
-was in hand. The document already marks the surrounding gloss as unproved (§11 item 9); this is
-inside the *proved* Claim 2.
+### S3-m4 — **MINOR** — card `L4`'s edition instruction contradicts the ledger's own fetch record
 
-### F10 — **MINOR** — `notebook-2/findings.md` §3 mislabels `eps · T` as "one ulp"
+`concept-cards/L4-sufficient-condition.md:70`: *"Cite **arXiv v4 only**."* The ledger's Axler row
+pins **arXiv:1409.1780v3** (MD5 `f4cde1df…`) plus the journal and the corrigendum; no `v4` was
+fetched by this run. The same card sentence also carries the stale *"not opened in this run"* of
+S3-B1, so both are fixed in one edit — but the version numeral is a separate error and would survive
+a tier-only sweep.
 
-> "One ulp of `T ≈ log²p` at `2⁶⁴` is `4.269·10⁻¹³`"
+### S3-m5 — **MINOR** — the canonical cards disagree on how many recounts agree
 
-`T ≈ L² − L − 1 = 1922.57` at `2⁶⁴`, which lies in `[1024, 2048)`, so one float64 ulp is
-`2⁻⁴² = 2.2737·10⁻¹³`. The quoted `4.269·10⁻¹³` is `eps · T = 2.2204·10⁻¹⁶ × 1922.57` — the
-*relative* machine epsilon times the value, i.e. an upper bound of about two ulps, not one ulp.
-The stated crossover ratio `1.04` becomes `≈ 1.96` with the true ulp; the qualitative conclusion
-(same order of magnitude) is unchanged, and the section already caveats the extrapolation. The
-label is still wrong in a passage whose whole point is numerical hygiene.
-
-### F11 — **MINOR** — `proof-attempt-2.md` G1 offers a mitigation that its own §2.7 caveat 2 withdraws
-
-G1 (the unread Dusart eq. (6.6)) is rated MAJOR "mitigated twice", the second mitigation being
-"the threshold agreement with Kourbatov's independently published `g < 1920` would expose a wrong
-range". §2.7 caveat 2 then records that Kourbatov's *own* criterion yields `1922`, so his
-published `1920` is conservative relative to it, and that the agreement with this leg's `1918` is
-"partly arithmetic luck at even-gap granularity".
-
-A threshold that is conservative by an unquantified margin cannot detect a wrong validity range.
-The mitigation should be struck, leaving G1 with one mitigation (the 1.27 M-prime numerical check,
-which is genuine — this leg reproduces it, §5).
-
-### F12 — **MINOR** — `proof-attempt-0.md` §9 item 19's misclassification rates do not reproduce to the four digits claimed
-
-PA-0 reports the `T`-increase rule's misclassification at threshold `L − t` as `t=0`: 7.0745 %,
-`t=1`: 2.7942 %, `t=2`: **0.2947 %**, `t=3`: 7.1875 %, and states this "reproduces upstream to 4
-digits". This leg, at the same `N = 3·10⁶`, gets **7.0747 / 2.7946 / 0.2952 / 7.1877**. The
-agreement is to three digits, not four; the discrepancy is consistent with a `≥` vs `>` boundary
-convention or an `n ≥ 10` cut that is not stated. The finding PA-0 draws from it (`L − 2` is the
-correct single-step threshold, because `π(x)/x ≈ 1/(L−1)`) is unaffected — this leg confirms
-`t = 2` is the minimiser by an order of magnitude.
-
-### F13 — **MINOR** — `proof-attempt-0.md` §10 gap 6's constants will need re-checking under the F2 repair
-
-Gap 6 notes that if the `p_{n₀} > 2⁶⁴` frontier were smaller, "the constants `72` and `132` would
-need re-checking". Under the F2 repair the small-`p_m` branch of Theorem C(b) must be extended
-from `p_m < 1 772 201` to `p_m < 1.33·10⁹` (where the corrected `d*` falls below `0.004479` under
-the *as-printed* lemma) if the printed (A-high) is retained rather than tightened. The relevant
-constant is then the largest gap below `1.33·10⁹`, not `132`. Recorded here so the repair is not
-applied half-way.
-
-### F14 — **MINOR** — `notebook-2/findings.md` §1.4's dichotomy relies on gap parity without saying so
-
-"Either `g_n ≤ 108` and Corollary A1 settles it … or `g_n ≥ 110`" is exhaustive only because
-prime gaps are even above `p = 2`. The step is correct (the section is scoped to `p_n ≥ 60 184`)
-and the same parity assumption is used explicitly elsewhere in the corpus (`proof-attempt-2.md`
-§2.7: "Every prime gap after `g_1 = 1` is even"). It is unstated here, in the passage titled "Why
-the table test is sound", which is the passage a Lean transcription would work from.
+Card `L15:45` says *"**Four** independent recounts agree"*; card `D5:49` says *"**Five** independent
+counts agree"*; `reconciliation.md` §4 says five and lists them. Both cards were amended by the same
+leg in the same commit. With this document the number is **six**. Cosmetic, but it is a discrepancy
+between two cards that a downstream leg would have to adjudicate, which is the class of thing this
+round exists to remove.
 
 ---
 
-## 5. What was attacked and came back clean
+## 5. What I attacked and could not break
 
-A red-team report that lists only hits is not calibrated. Every item below was independently
-recomputed or re-derived by this leg and **survives**.
+Listed so the report is calibrated. Every item was re-derived or re-executed here, not read.
 
-| # | Claim attacked | Verdict |
+| # | attacked | verdict |
 |---|---|---|
-| 1 | **PA-0 Lemma M / M′** (monotone-bar principle) — the engine of the whole document | **CORRECT.** Re-derived line by line. Only monotonicity of `B` is used; the `N₁` side condition in M′ is genuinely load-bearing and correctly discharged (`max{g_j : j ≤ 9} = 6 < S(29) = 6.80139`, reproduced). |
-| 2 | **PA-0 Theorem C(a)** and its constant `0.0623` | **CORRECT and conservative.** This leg's independent sweep of the true required separation under (D-high)/(D-low) gives `max d* = 0.062080` at `ℓ = log 60 184`; `0.0623` covers it. The `ε = (ℓ²−ℓ)²/p_m` bookkeeping — the exact place C(b) goes wrong — is right here. |
-| 3 | **PA-0 §9 items 2–5, 13** | Reproduced exactly: `S`-breaches `= {1,2,3,4,6,9}`; of these `{1,2,4,9}` are records and `{3,6}` are not; max gap below `60 184` `= 72` at `p = 31 397`; max gap below `1 772 201` `= 132` at `p = 1 357 201`. |
-| 4 | **PA-1 Lemma A.1** (`√x > (25/22) log x`) | **CORRECT.** Stationary point `x* = 625/121 = 5.16529`, `h(x*) = 0.406862 > 0`. Reproduced at 40 digits. |
-| 5 | **PA-1 Theorem A's six-row table** | **CORRECT** to every digit quoted (`n = 3,4,5,6,7,10`), all comparisons strict. Only the `n ≥ 3` framing is at fault (F4). |
-| 6 | **PA-1 Theorem C** (critical constant `2/e`) | **CORRECT.** `max_x log x/√x = 2/e = 0.7357589` at `x = e²`; Lambert-`W` endpoints correct; the table rows `C = 0.5, 0.1, 0.01` reproduce exactly, including the prime counts (`x⁺ = 74.19 / 8099 / 2 122 265` → **20 / 1018 / 157 340** primes, matching PA-1's table digit for digit). |
-| 7 | **PA-1 Theorem D / Cor. D.1** (`8.72·10⁷` at `2⁶⁴`) | **CORRECT.** `(22/25)√p·L/(L²−L−1) = 8.722·10⁷` at `p = 2⁶⁴`. The `C ≤ 1.009·10⁻⁸` figure also reproduces. |
-| 8 | **PA-1 Theorem E** (counter-model to `(Cr) ⟹ F`) | **CORRECT.** Construction re-derived; `J_k ≥ 0` restriction is genuinely load-bearing and correctly flagged; Claims 1–4 go through; the `n_k ∈ {5,16,256,65536}` table reproduces exactly (`q = 11, 57, 1634, 821 709`; `J = 4, 11, 53, 180`; `T^{(q)} = 6.769, 16.387, 47.914, 170.778`). The `n_k = 5` non-violation is correctly attributed to the `L13` exception set, not to a defect. |
-| 9 | **PA-2 Lemmas 1–4 and Theorem 2** | **CORRECT.** Lemma 3's derivation (`e^t − 1 > t` + Dusart upper bound on `π` → lower bound on `T`) is right, and the direction (upper bound on the *rank* yields a lower bound on the *bar*) is the correct one. Lemma 4's monotonicity is right. Theorem 2's two-case split is exhaustive and case 2's `G₀ = 72 < B(60 184) = 109.008` is reproduced. |
-| 10 | **PA-2 §4 verification table** | Reproduced: `min(T − L(L−1.1)) = +0.079891473` at `p = 155 893` for `p ≥ 60 184`; `max ρ (n ≥ 10) = 0.7604709` at `n = 217`, `p = 1327`, `g = 34`; largest even `g` with `S(g) ≤ 2⁶⁴` is **1918** (`S(1918) = 1.8209·10¹⁹`, `S(1920) = 1.8629·10¹⁹`); under `L²−L−1.17` it is **1922**; `h(p)` sign change at `p* ≈ 777 601`. |
-| 11 | **PA-2 Prop. 3 / Prop. 4** (the table-free window `[396 738, 777 600]`) | **CORRECT.** `h(396 738) = −2.35·10⁵`, `h(777 600) < 0 < h(777 601)`, `h' > 0` on `[4·10⁵, ∞)` verified. The obstruction (Prop. 4) is correctly stated as a scale mismatch, not a constant. |
-| 12 | **notebook-2 §1.6** (`L(L−1.1)` at `2⁶⁴`) | **CORRECT** to all digits: `1919.1379834975`. The local/global caveat the leg insists on is the right caveat. |
-| 13 | **notebook-2 §1.4** safety factors | Reproduced: `min P₁(g)/S(g) = 5.3371` at `g = 112`, `P₁(112) = 370 261`, `S(112) = 69 375.4`. The claim that this minimum does not move across four decades is consistent with everything this leg can reach. |
-| 14 | **notebook-2 §2.1** (`F2` margin is a `1/n` artefact) | **CORRECT and important.** Independently confirmed that `max ρ (n≥10) = 0.7604709` at `3·10⁶` while the `F2` margin reads `0.9999984` — the two statistics are measuring different things and only `ρ` is diagnostic. This is the single best catch in the corpus. |
-| 15 | **`ρ` extrema** | Reproduced: `max ρ` over all `n` is `0.911985` at `n = 4`, then `0.910684` at `n = 2`; both below the `n ≥ 10` cutoff. `notebook-0` R4 and `notebook-2` §1.1 agree with each other and with this leg. |
-| 16 | **`lean/` tree** | **Clean on inspection.** `p n := Nat.nth Nat.Prime (n - 1)` — the 0-indexing correction is applied, `Conjecture := ∀ n, 1 ≤ n → F3 n` carries the `1 ≤ n` guard, `T n := (p n)^(1+1/n) − p n` is the right bar. Exactly one `sorry` (`Statement.lean:186`, the open target). No `axiom`, no `native_decide`, no `unsafe`, no `@[implemented_by]` — grep-confirmed by this leg. `audit_exhaustive.lean` replaces a hand-maintained list with an environment walk and was self-tested against a planted `sorry`: this is the right shape for the gate. |
-| 17 | **Does any artifact assume `F`?** | **No.** Every one of the six documents states `F` OPEN at the top and none of them uses `F` as a hypothesis anywhere. The `Σ₁/Π₁` asymmetry is stated correctly in all four places it appears. |
-| 18 | **Does any artifact pass a scale-limited computation off as general?** | **No.** Every notebook and proof attempt carries an explicit scale disclaimer naming the decades short of `2⁶⁴`, and PA-0 §9, PA-1 §10 and PA-2 §4 each restate it after the table rather than before. This is the discipline the brief asked me to hunt for and I could not find a violation of it. |
+| 1 | **Decision 1** — is C-b′ the right designation? | **SOUND.** The deciding ground is documentary and checks out: the `(2.1,0,0,0)/6 690 557` row is the one present in both editions per two independent fetches with matching MD5s, the ledger recorded the downstream rule *before* the decision, and C-b′ is also the sharper theorem (`0.176 %` vs `0.435 %` sliver). The decision goes **against** the longer sibling document's own theorem, which is the opposite of the "prefer the leg that wrote more" failure |
+| 2 | **The designated theorem itself** | **CORRECT.** Cell majorant, tail bound, exact quadratic requirement, both finite branches and the Axler row's empirical validity all re-derived here (§1). The proof structure — majorant over cells, not a sample — is a genuine proof |
+| 3 | **Decision 3's reversal of a BLOCKER** | **CORRECT, and correctly reported.** The `git log` timing explains the round-2 skeptic's error exactly; reporting *"the premise of my brief is false"* is the behaviour the loop needs and it is not softened anywhere in the document |
+| 4 | **Decision 4 against its own predecessors** | **CORRECT.** My sixth count agrees, including the `n ≥ 11` self-consistency test that makes the disputed pair impossible under any convention. The leg contradicted the document that had declared the matter settled, which is the right instinct |
+| 5 | **Does any round-3 artifact assume `F`, or launder a scale-limited computation as general?** | **No.** `reconciliation.md` states `F` OPEN at the top, in §7 and in its colophon, refuses to clear the gate, and names the obstruction (`g_n ≪ p^{0.525}` unconditional, `≈ √p log p` under RH, both *powers* where `F` needs polylog; no induction mechanism). The two riders on the `55.92 %` figure — range-dependence and non-diagnosticity for P6′ — are both correct and both stated |
+| 6 | **The kernel leg** | **CLEAN**, re-executed here: cache 0, build 0 (2208 jobs), audit 0, 63 declarations, one `sorryAx` (`Firoozbakht.firoozbakht`), `Statement.lean` byte-frozen at the reported SHA-256 |
+| 7 | **The reconciliation's declared perimeter** | **HONEST.** *"Opened no source", "re-ran no mathematics except the recount", "cleared no gate", "took second-hand from whom"* — each is true of what the document does, and the second-hand attributions are marked at the sites, not only in the colophon |
+| 8 | **R2-B1's retirement, hunted for stale live sites** | **No stale site found.** Every surviving `0.99565` / `1 772 201` / `132` is inside a retirement remark, a history column or an edition flag. The single residue is round-1 `proof-attempt-0.md`'s own §6.1/§7, whose §11 now carries the pointer |
 
 ---
 
 ## 6. Reading of the fault set
 
-The corpus does not fail in the way a math-attack corpus usually fails. There is **no** assumed
-conclusion, **no** circular reasoning, **no** sieve-to-`10⁷` result dressed as a theorem, and no
-laundering of a pruned search into a verification height — every one of those was hunted and
-came back clean (§5 items 17–18).
+Round 3 did the job it was asked to do. **All five decisions are correct**, three of the four checked
+against my own recomputation, one against `git log`, and the fifth — the cross-reference layer —
+substantially delivered. The reconciliation reversed two skeptics and one proof attempt on the
+denominators, and reversed **its own brief** on the ledger; both reversals hold. That is the
+behaviour the loop was missing.
 
-It fails in two other ways, and both are structural rather than local:
+**Both surviving BLOCKERs are the same fault, and it is the fault the leg was created to fix.** Not
+one of them is an error inside a decision. They are: a tier that was decided *"at every site"* and
+propagated to one artifact out of seven (S3-B1); and a section describing the state of the tree from
+memory of a report, inside the document whose closing lesson is *"a leg's claim about the state of a
+file is not evidence about the state of that file"* (S3-B2). The reconciliation caught this species
+of error in a skeptic and in a synthesizer. It did not catch it in itself, and the round-3 synthesis
+has already inherited it.
 
-1. **Vocabulary collision across legs (F1, F4, F5, F6).** Four of the six findings above are the
-   same failure: a symbol or a phrase that means different things in different artifacts, with no
-   leg holding the cross-artifact view. `m(n)`, "certifies at index `n`", `55.92 %`, `p*(C)`.
-   Each leg is internally rigorous and each is scrupulous about *its own* declared gaps; nobody
-   owned the seams. This is the predictable failure mode of a fan-out with no reconciliation
-   stage, and it is what a `synthesize` leg must be tasked with — not summarising, but
-   **reconciling**.
+The structural reading, stated once: **the corpus's problem has moved from mathematics to
+bookkeeping, and bookkeeping is now the cheaper thing to get right.** Every finding in this document
+is closable by editing text — no sieve, no fetch, no derivation. What is *not* closable that way is
+listed in `reconciliation.md` §7 items 1, 2, 4, 5, 6, which I confirm: card `L6` unopened under both
+branches of the headline theorem, Granville at preprint pagination under the whole refutation-side
+argument, floating-point certificates where interval arithmetic is needed, 29 data points under
+`P6′-rec`, and one genuinely open short-interval prime-count problem in the `0.176 %` sliver.
 
-2. **In-run numerical checks that reproduce the algebra instead of testing it (F2, F12).** PA-0
-   §9 item 15 swept an expression derived from the same wrong step as the theorem it was meant to
-   corroborate, and reported PASS. A check written from the *derivation* cannot catch an error in
-   the derivation; it must be written from the *statement*. Every numeric verdict in this document
-   was produced that way, which is why F2 was visible from here and not from inside PA-0.
+**A note to whoever runs the next skeptic.** Round 2 inherited a wrong number from round 1 and
+re-published it; round 3 caught that and then made a structurally identical mistake about the
+paper and the citation gate; and I found it only because I ran `git log` on files nobody had asked
+me about. **Do not confirm a finding of mine by observing that it matches this document.** Six of
+the fourteen round-2 findings I confirmed as closed, I confirmed by recomputing the number from the
+statement; two I reversed against the leg's own report of itself. Recompute, and check the tree.
 
-Neither BLOCKER touches `F`. **`F` remains OPEN**, and nothing in this red-team moves it in either
-direction.
+**Neither BLOCKER, neither MAJOR, and none of the MINORs touches `F`. `F` remains OPEN**, and
+nothing in round 3 moves it in either direction. The defensible sentence is unchanged:
+*Firoozbakht's conjecture is numerically robust over the verified range and simultaneously
+incompatible with the standard Cramér–Granville heuristic; at least one of the two must fail, and no
+current technique can say which.*
 
 ---
 
-*Artifact of leg `skeptic`, molecule `task-20260725-488f`, run `germ-20260725-791a7c45`.
-Verification scripts: `attack/skeptic-checks/`. The conjecture remains **OPEN**.*
+*Artifact of leg `skeptic`, round 3, molecule `task-20260727-5096`, run `germ-20260725-791a7c45`.
+Verification scripts: `attack/skeptic-round3-checks/s3_recount.py`, `…/s3_constants.py`. The Lean
+gates and the audited leg's own recount script were **re-executed**, not read. Round 1's fault list
+is preserved at `attack/faults-round-1.md`; round 2's at
+`attack/re-attack/attack-round-2/faults.md`. **The conjecture remains OPEN. The evidence gate
+remains BLOCKED.***

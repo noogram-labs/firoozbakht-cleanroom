@@ -6,6 +6,17 @@
 **Status of `F` in this document: OPEN.** Nothing below proves or refutes it. This document attacks
 the round-2 *artifacts*, not the conjecture.
 
+> ### ⛔ SUPERSEDED — 2026-07-27 by the round-3 skeptic (`task-20260727-5096`)
+>
+> **This is no longer the corpus's current fault list.** `attack/faults.md` is, and it dispositions
+> every finding below — **R2-B1, R2-B2, R2-B3, R2-M1, R2-M2, R2-M3, R2-m1 … R2-m7** — as CLOSED or
+> STILL OPEN, verified in the tree rather than from the reconciliation's report of itself. Summary
+> of what changed: R2-B1, R2-B3, R2-M1, R2-M3 and all seven MINORs are **CLOSED**; **R2-B2 limb 1 is
+> STALE** (the ledger amendment *had* landed — this document's `:406`/`:642` line numbers resolve
+> only in a pre-merge worktree); **R2-B2 limb 2 (tier propagation) and R2-M2 are STILL OPEN**, and
+> two new BLOCKERs were raised against round 3. Round 1's list is preserved at
+> `attack/faults-round-1.md`. **Quote this file only as history.**
+
 > ### 🔗 Round-3 reconciliation banner — read this before quoting anything below
 >
 > A **reconciliation leg** (`task-20260727-264e`, 2026-07-27, round 3) owned the seams between the

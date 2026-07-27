@@ -1,0 +1,15 @@
+l_A = 15.7162076872   l_D = 18.4206807440
+C-b' EXACT max required d = 0.00175612474349 at l = 24.428932
+C-b' cell MAJORANT max = 0.00175687590387 on cell starting l = 24.406208
+     0.0017569 - majorant = 2.41e-08
+     tail l>=300 bound = 0.00028380634
+C-a' EXACT max required d = 0.0515676451845 at l = 18.420681
+C-a' cell MAJORANT max = 0.0515990266818 on cell starting l = 18.420681
+     tail l>=1000 bound = 0.050027515
+max gap below 60,184 = 72 at p = 31,397
+max gap below 468,049 = 112 at p = 370,261
+max gap below 1,772,201 = 132 at p = 1,357,201
+max gap below 6,690,557 = 154 at p = 4,652,353
+max gap below 100,000,000 = 220 at p = 47,326,693
+Axler row a=1   (x0=1 772 201): failures below 1e8 = 0
+Axler row a=2.1 (x0=6 690 557): failures below 1e8 = 0

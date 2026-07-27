@@ -1,6 +1,6 @@
 # firoozbakht-cleanroom — an agent fleet attacking an open conjecture, published exactly as it was generated
 
-This repository **is** the working directory the fleet ran in. Nothing was copied here, nothing was staged, nothing was scrubbed. The agents wrote into this tree, committed on their own branches, and `cs done` merged them — 100 commits across two rounds, 34 nodes, zero collapses. Publishing it was one `git push`.
+This repository **is** the working directory the fleet ran in. Nothing was copied here, nothing was staged, nothing was scrubbed. The agents wrote into this tree, committed on their own branches, and `cs done` merged them — 129 commits across three rounds. Publishing it was one `git push`.
 
 That is the claim being demonstrated, and it is worth stating plainly because [the first run of this same spore could not make it](https://github.com/noogram-labs/firoozbakht): there, every deliverable landed in a git-ignored state directory, so the galaxy's tree stayed empty and publication needed a hand-built copy with a scrubbing pass. Here the deliverables are tracked artifacts of the run itself.
 
@@ -14,19 +14,28 @@ That is the claim being demonstrated, and it is worth stating plainly because [t
 
 **This galaxy has run two rounds.** Round 1 attacked the conjecture; its loop refused to pass and named two repairable defects. Round 2 was then run **on this same galaxy, resuming from round 1's own artifacts** — nothing was re-germinated, nothing was copied. Everything below is the round-2 state, which supersedes round 1 in place.
 
-| Gate | Round 1 | Round 2 |
-|---|---|---|
-| Evidence gate (kernel + skeptic + corpus) | **BLOCKED** — 2 skeptic blockers | **BLOCKED** — 3 *new* skeptic blockers |
-| Citation gate (audit against the source ledger) | **BLOCKED** — 2 citekeys | **PASS** — 22 citekeys, zero L3, zero fabricated |
-| Editorial verdict (independent reviewer) | **REWRITE** | **REWRITE** — one of round 1's three reasons lifted |
+| Gate | Round 1 | Round 2 | Round 3 |
+|---|---|---|---|
+| Evidence gate | **BLOCKED** — 2 skeptic blockers | **BLOCKED** — 3 *new* blockers | **BLOCKED** — 2 blockers, both clerical |
+| Citation gate | **BLOCKED** — 2 citekeys | **PASS** | **PASS** — held through a full rewrite |
+| Editorial verdict | **REWRITE** | **REWRITE** | **REWRITE** |
 
-**What round 2 established.** Both of round 1's blockers are confirmed **fixed** — by independent re-derivation, not by re-assertion. `m(n)`'s three inequivalent definitions are named apart; Theorem C(b)'s printed bound, which was false by a factor ~38 over part of its range, is restated correctly (its conclusion was independently true all along — the derivation was the defect). The citation gate flipped from BLOCKED to PASS.
+**Round 2 fixed round 1's defects and produced new ones.** Both round-1 blockers were closed by independent re-derivation — including a theorem whose printed bound was false by a factor ~38 while its conclusion was true. But three new blockers appeared and the count went 2 → 3. The list churned rather than shrank.
 
-**What round 2 also established, and this matters more.** Three *new* blockers appeared, of a different kind: two round-2 legs repaired the same theorem into two incompatible statements, assigned contradictory bibliographic tiers to the same source on the same day, and — caught by a byte-level PDF fetch with an MD5 pin — cited a corollary that exists **only in the preprint edition** and is absent from the published one.
+**Round 2's skeptic diagnosed why, and it is the sharpest observation in the repository.** All three new blockers were **seams, not steps** — not one was an error inside a proof. They were two legs repairing the same fault differently, two legs assigning one source opposite tiers, and one leg's repair resting on a citation the other leg had already shown to be edition-only. Round 1 had predicted exactly this failure mode: *"a fan-out with no reconciliation stage … nobody owned the seams."* Round 2 doubled the fan-out and still had no reconciliation stage. *"The loop is not converging on this axis; it is widening."*
 
-So the blocker count went 2 → 3. **The list did not shrink; it churned.** That is the honest signal, and the loop says so rather than presenting motion as progress: it explicitly recommends *against* another fan-out round, and names what is actually missing — a single reconciliation leg, keeping Theorem C-b' (whose Axler row is present in both editions) and retiring its rival.
+**Round 3 was therefore not another fan-out.** It was a single reconciliation leg with five decisions and no new research — pick one repaired theorem, pick one tier, land one ledger amendment, recount one disputed statistic from the statement, make the artifacts cite each other — followed by an independent skeptic re-audit.
 
-The conjecture is neither proved nor refuted, across both rounds.
+What that produced:
+
+- Of the seven inherited findings, **five closed and two remain**, each with exact file and line.
+- One "blocker" turned out **not to exist**: the ledger amendment round 2 reported as never landed *had* landed. Round 2's `faults.md` was committed on a branch cut before the merge, so its line numbers only resolved in the pre-merge tree. A seam manufactured by branch timing.
+- The disputed statistic was **recounted from the statement** by three separate parties. The reconciliation and the round-3 skeptic agree with each other and **disagree with both earlier skeptics** — the correct figure had been in the original proof attempt all along, corrupted by round 1's skeptic and then "confirmed" by round 2's, which reproduced the wrong document faithfully. Agreement with a predecessor is not correctness.
+- The two survivors are **propagation work**, not mathematics: a tier decision that reached one sibling artifact and not five others.
+
+So the blocker trajectory is 2 → 3 → 2, and the kind changed. That is what a reconciliation stage buys, and what a third fan-out would not have.
+
+The conjecture is neither proved nor refuted, across all three rounds.
 
 ### The reviewer caught the paper misreporting itself
 

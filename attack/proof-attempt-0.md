@@ -571,7 +571,7 @@ engine and it has no analysis in it.
 
 | Node | Content | Effort | Depends on |
 |---|---|---|---|
-| **M-1** | Lemma M: `Monotone B → IsLeast {k | B (p k) ≤ g k} k₀ → ∀ m < k₀, g m < g k₀` | **low** — three rewrites, no `Real` beyond `B`'s codomain | `D1` (fixed indexing) |
+| **M-1** | Lemma M: `Monotone B → IsLeast {k \| B (p k) ≤ g k} k₀ → ∀ m < k₀, g m < g k₀` | **low** — three rewrites, no `Real` beyond `B`'s codomain | `D1` (fixed indexing) |
 | **M-2** | Lemma M′ (truncated form, with the `N₁` side condition) | low | M-1 |
 | **M-3** | `S(x) = log²x − log x − 1.17` is `Monotone` on `x ≥ 2` | low — `Real.log` monotone + `deriv` or direct algebra | Mathlib `Real.log` |
 | **M-4** | Theorem A (record-scan completeness) | low | M-2, M-3 |

@@ -932,7 +932,7 @@ no number-theoretic input, no `Real` analysis beyond the bar's codomain.
 
 | Node | Content | Effort | Depends on |
 |---|---|---|---|
-| **M-1** | Lemma M: `Monotone B → IsLeast {k | B (p k) ≤ g k} k₀ → ∀ m < k₀, g m < g k₀` | low | `D1` (fixed indexing) |
+| **M-1** | Lemma M: `Monotone B → IsLeast {k \| B (p k) ≤ g k} k₀ → ∀ m < k₀, g m < g k₀` | low | `D1` (fixed indexing) |
 | **M-2** | Lemma M′ (truncated, with the `N₁` side condition) | low | M-1 |
 | **M-3** | `S x = log²x − log x − 1.17` is `Monotone` for `x ≥ 2` | low | Mathlib `Real.log` |
 | **M-4** | Theorem A (record-scan completeness) | low | M-2, M-3 |

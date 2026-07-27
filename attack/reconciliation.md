@@ -416,6 +416,12 @@ exists to stop.
 | `attack/re-attack/rounds.md` | 1–5 | round-3 addendum: the disposition of all three round-2 BLOCKERs and the three MAJORs, including the correction of this file's own "never made" statement about the ledger |
 | `attack/synthesis.md` | 1–5 | §5's adjudications updated from *adjudicated* to **landed**, with this document cited; §7 item 1's checklist marked off item by item; §6's gate reading unchanged |
 
+**Two one-character rendering fixes, recorded so the diff has no unexplained lines.** The Lean-plan
+table row `M-1` in FFM §12 and in `attack/proof-attempt-0.md` §11 contains the set-builder
+`{k | B (p k) ≤ g k}`, whose bare `|` opens a phantom sixth column in strict Markdown. The pipe is
+escaped in both. **No content changed** — this is the only edit this leg made to a round-1
+mathematical document other than the tier pointers listed above.
+
 **Not edited, deliberately:** `lean/` (no gate re-run, no Lean written), `paper/paper.tex` (a round-1
 artifact that §7 says must be **rewritten** against round 2, not patched), `notebook-{0,1,2}`,
 `proof-attempt-{0,1,2}.md`, `attack/faults.md` (round 1), `attack/evidence-verdict.md`,

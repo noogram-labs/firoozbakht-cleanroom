@@ -195,7 +195,7 @@ Every number quoted on a card was recomputed here rather than copied. Sieve of E
 | `max ρ_n` (`n ≥ 10`) | `0.7604709` at `n = 217`, `p = 1327`, `g = 34` | **D6**, **T2** |
 | runner-up `ρ_n` | `0.7590821` at `n = 149 689`, `p = 2 010 733`, `g = 148` | **D6** |
 | `max c_n` (`n ≥ 10`) | `0.7025656` at `n = 149 689`, `p = 2 010 733` | **D7**, **T2** |
-| Steps with `T_{n+1} < T_n` (`n ≥ 10`) | **121 238 / 216 805 = 55.92 %** | **D5**, **L15** |
+| Steps with `T_{n+1} < T_n` (`n ≥ 10`) | **121 238 / 216 806 = 55.9200 %** *(denominator corrected 2026-07-27, round-3 reconciliation, decision 4 — see `attack/reconciliation.md` §4; all-`n` form is `121 239 / 216 815 = 55.9182 %`)* | **D5**, **L15** |
 | Record (maximal) gaps in range | **21** | **L15** |
 | `T_{m(n)} ≤ T_n`, `m(n)` = governing record index | **0 exceptions in 216 815 pairs** | **L15** |
 | `{n : T_n ≥ L_n²}` | exactly **`{1,2,3,4,5,6,7,10}`**; `p_109 = 599` | **L13**, **D7** |

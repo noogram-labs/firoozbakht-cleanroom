@@ -18,6 +18,23 @@ the v4 rounds rule, **the verdict below rests on round 2's artifacts**
 including the question a single round cannot answer: did the still-unproved list *shrink*, or
 merely *churn*?
 
+> ### 🔗 ROUND-3 ADDENDUM — the reconciliation leg ran, and its decisions are binding
+>
+> This synthesis's §7 item 1 asked for **one reconciliation leg, not another fan-out**. It ran:
+> molecule `task-20260727-264e`, 2026-07-27, artifact **`attack/reconciliation.md`**. Its five
+> decisions are **landed in the tree**, not proposed, and this document's §5 is updated below to
+> say so. In one line each: (1) **Theorem C-b′** (`p_m ≤ 0.998244·p_{n₀}`) is the corpus's single
+> repaired Theorem C(b) — Theorem C(b\*) is retired to a remark and `0.99553`/`0.99565` are retired
+> with it; (2) `axler2014newbounds` is **L0** at every site, with a standing ⚠ that its
+> `(1,0,0,0)/1 772 201` row is **preprint-only**; (3) the ledger amendment **had already landed** —
+> R2-B2 limb 1 is stale, verified against the tree, and what round 3 landed is limb 2, the
+> propagation into UVR; (4) a **fourth independent recount** from the statement confirms
+> `121 238 / 216 806` (`n ≥ 10`) and `121 239 / 216 815` (all `n`) — FFM's table and card `L15` are
+> corrected; (5) R2-M2, R2-M3 and all seven MINORs are applied in place, and the four round-2
+> artifacts now carry a common cross-reference banner. **`F` is still OPEN and the evidence gate is
+> still BLOCKED** — the round-3 leg explicitly declines to clear it (`reconciliation.md` §7), and
+> its own §8 item 1 is *re-run the skeptic against the amended tree*.
+
 **What changed versus round 1, in one line each.** Both of round 1's BLOCKERs (F1, F2) are now
 **mathematically fixed** — by independent re-derivation, not re-assertion, and confirmed by a
 skeptic who recomputed every constant from scratch. Three genuinely new mathematical results
@@ -256,7 +273,10 @@ constants.
   **Round 2 shipped this repair twice, into two incompatible theorems** (Theorem C-b′ at
   `0.998244` and Theorem C(b\*) at `0.99565`), off two different Axler table rows, with neither leg
   citing the other. Both are independently verified correct. That collision is BLOCKER R2-B1;
-  §5.1 adjudicates it and designates **Theorem C-b′** as the one to carry forward.
+  §5.1 adjudicates it and designates **Theorem C-b′** as the one to carry forward, and the round-3
+  reconciliation leg **landed** that designation in both documents on 2026-07-27
+  (`attack/reconciliation.md` §1): C(b\*) is retired to a remark, and `0.99553` / `0.99565` are
+  retired with it. **The live Axler-branch constant is `0.998244` and there is now only one.**
 
 ### 2.4 The RH route is closed — as a route — `[P]`, with round 2's quantifier repair ‹r2›
 
@@ -496,7 +516,14 @@ editions of the source**, so it is not exposed to R2-B3. C(b\*) should be retire
 where it remains useful, because it is the sharper statement of *what round 1's printed lemma would
 have ordered* and is the cleanest proof that round 1's conclusion survived its own broken
 derivation. This adjudication agrees with the round-2 skeptic's own recommendation, reached
-independently. **Neither document has been edited; both still stand as written.**
+independently.
+
+> ✅ **LANDED 2026-07-27 (`reconciliation.md` §1).** The sentence that stood here — *"Neither
+> document has been edited; both still stand as written"* — is **superseded**. Both documents are now
+> amended in place: UVR §3.5 carries the retirement notice (plus rescoped quarantine, retired §3.7
+> pricing, amended §4.4/§6/§9/§10), and FFM §7.4 carries the designation notice. The round-3 leg
+> verified the deciding ground against the artifacts rather than inheriting it, and found it already
+> written as a standing downstream rule on the `axler2014newbounds` ledger row.
 
 ### 5.2 R2-B2 — contradictory tiers for `axler2014newbounds`. **Narrowed, not cleared.**
 
@@ -517,7 +544,12 @@ directly rather than reading either report.
   merge. **The finding is an artifact of parallel fan-out, not a defect in the tree** — which is
   precisely the class of error a reconciliation leg exists to catch, and for once it cuts in the
   corpus's favour.
-- **Limb 2 — the two legs contradict each other — STANDS.** UVR's document still labels
+- **Limb 2 — the two legs contradict each other — CLOSED 2026-07-27** (`reconciliation.md` §2).
+  UVR's tier labels are amended in place to **L0** at every site (§3.2, §3.5, §4.4, §6 item 1,
+  §9 G3 → G3′, §10), with the quarantine **rescoped** rather than struck: it now bites on the
+  preprint-only *row* and on the §4-conflation hazard, not on an unopened source. As it stood
+  before that edit — **and the finding below is the record of why it needed making** — UVR's
+  document labelled
   `axler2014newbounds` **L2_strong, NOT OPENED** at every use, and attaches to Theorem C(b\*) the
   instruction that it *"must never be quoted inside a sentence containing the word
   unconditional."* That instruction is now over-strict on *tier* grounds (the source was opened)
@@ -526,7 +558,10 @@ directly rather than reading either report.
 
 **Net: the BLOCKER is narrowed to one limb and is not cleared.** This synthesis does not and cannot
 clear it — only a re-run skeptic leg can, and none is funded by this loop. §6 records the gate as
-BLOCKED accordingly.
+BLOCKED accordingly. *(Round-3 addendum: the surviving limb is now **repaired in the tree**
+(`reconciliation.md` §2–§3), so the corpus carries one tier at every site. The **gate is still
+BLOCKED** — repairing the artifacts is not clearing the finding, and the round-3 leg says so in the
+same words: only a re-run skeptic can. `reconciliation.md` §8 item 1.)*
 
 ### 5.3 R2-B3 — an edition-fragile citation. **Confirmed, and half-flagged.**
 
@@ -545,7 +580,10 @@ preprint only … Do not quote `x ≥ 1772201` against the journal citation"*) a
 numbering. The artifact that *depends* on the fragile row — UVR's Theorem C(b\*) — does **not**
 carry it. So the corpus flags the hazard in the card and not in the place that consumes it.
 §5.1's adjudication resolves the exposure by retiring the dependent theorem; the flag still has to
-be written into the document if it is kept.
+be written into the document if it is kept. *(Round-3: **both** were done —
+`reconciliation.md` §1–§2. The dependent theorem C(b\*) is retired **and** the edition ⚠ is written
+into UVR §3.2 and §3.5, so the hazard is now flagged in the place that consumes it as well as in the
+card.)*
 
 ### 5.4 R2-M1 — the `55.92 %` statistic. **Adjudicated, with a third independent recount.**
 
@@ -572,6 +610,15 @@ round 2 confirmed the wrong answer more emphatically. The round-2 skeptic caught
 own predecessor, and this leg's third independent recount confirms the skeptic. Carry
 **`121 238 / 216 806 = 55.9200 %` (`n ≥ 10`)** and **`121 239 / 216 815 = 55.9182 %` (all `n`)**.
 
+> ✅ **LANDED 2026-07-27 — and a FOURTH independent recount** (`reconciliation.md` §4,
+> `attack/reconcile_recount.py`). The round-3 leg recomputed from the *statement* with no upstream
+> code path open, prepared to contradict this adjudication, and reproduced it exactly at all three
+> ranges (`216 815 / 216 806`, `664 578 / 664 569`, `5 761 454 / 5 761 445`; every numerator as
+> above), with all near-ties re-adjudicated at 60 dps (`0` reclassified) and
+> `π(10⁹) = 50 847 534` from an independent segmented sieve. **FFM §4's table and adjudication
+> paragraph are corrected in place, and card `L15`'s `216 805` and `50 847 503` are corrected in
+> the tree.** The dispute is closed: four recounts, one document.
+
 Two riders that travel with the figure: it is **range-dependent** (`57.88 %` at `10⁹`) and must
 never be quoted without its bound; and it remains **uninformative about P6′** in any of its
 readings.
@@ -590,6 +637,13 @@ readings.
   Proposition 4 disproves** (§3.2). The correct statement: P6′-min is the one Theorem 2 needs and
   the one whose margin does not decay; **it is not weaker than P6′-gov, it is incomparable to it**;
   and P6′-rec must be listed alongside because Proposition 3 needs it.
+
+*(Round-3: **both MAJORs are applied in place** — `reconciliation.md` §5. R2-M2: FFM §7.4's C-a′
+header now reads "Dusart-only **analytics**; the finite branch consumes card `L6` (L2_weak,
+unopened) and an in-run gap sieve to `10⁸`", and §13's defensible sentence is requalified. R2-M3:
+the "weakest / easier" prose is struck in FFM §3.3, §5 and §5.2, and card `L15`'s obligation list
+now carries **both** `P6′-min` and `P6′-gov`, with `P6′-rec` beside them. All seven MINORs are also
+dispositioned — see `reconciliation.md` §5's table.)*
 
 ### 5.6 What round 2 already landed upstream, and three new defects found by this leg
 
@@ -611,16 +665,20 @@ here rather than silently fixed, because that is the lesson round 2 is trying to
 **Three new defects, all small, all found by this leg's own recomputation or tree-check.** None
 touches `F`; none touches any theorem's conclusion. They go on §7's checklist.
 
-1. **FFM §7.4 prints `e^{−0.0017569} = 0.99824467…`;** the true value is `0.9982446424…`, wrong in
+1. **FFM §7.4 prints `e^{−0.0017569} = 0.99824467…`;** ✅ *Corrected in place 2026-07-27, and
+   independently re-verified at 40 dps by the round-3 leg.* The true value is `0.9982446424…`, wrong in
    the last displayed digit by `2.8·10⁻⁸`. The round-2 skeptic reports `0.9982446424` in its own
    table and did not flag the discrepancy with the document it was checking. Theorem C-b′'s
    headline `0.998244` is unaffected.
-2. **The amended card `L15` carries the disputed denominator.** It states `T_{n+1} < T_n` at
+2. **The amended card `L15` carries the disputed denominator.** ✅ *Corrected in the tree
+   2026-07-27.* It stated `T_{n+1} < T_n` at
    *"121 238 of **216 805** steps with `n ≥ 10` (55.9203 %)"* — FFM's count, which §5.4 adjudicates
    as one too low against three independent recomputations. The amendment landed the *new* number
    into the *canonical* card, which raises the cost of R2-M1 from "a disputed line in a proof
    attempt" to "a wrong denominator in the concept card downstream legs read first."
-3. **A transposition in the same card:** *"0 exceptions in `50 847 503` pairs, `p < 10⁹`"*. FFM's
+3. **A transposition in the same card:** ✅ *Corrected in the tree 2026-07-27 (both occurrences,
+   and relabelled "indices"; the same transposition is corrected in FFM §9 items 5 and 7).*
+   It read *"0 exceptions in `50 847 503` pairs, `p < 10⁹`"*. FFM's
    own figure is `50 847 533`, which is the right one — `π(10⁹) = 50 847 534`, hence `50 847 533`
    consecutive steps.
 
@@ -707,7 +765,7 @@ paper-side work must be redone against round 2, not patched.
 
 | # | Action | Why |
 |---|---|---|
-| 1 | **A single reconciliation leg — not another fan-out.** Its whole job list: adopt §5.1's designation (keep Theorem C-b′, retire C(b\*) to a remark); amend UVR's tier labels to L0 and write the edition ⚠ into any document that keeps a preprint-only row; correct FFM §4's denominators **and card `L15`'s freshly-amended `216 805`** to §5.4's `216 806`, and `L15`'s `50 847 503` to `50 847 533` (§5.6); strike the "unconditional" label on Theorem C-a′ (R2-M2) and the "weakest of the three" prose (R2-M3); amend `notebook-{0,1,2}` and `proof-attempt-0.md`, which round 2 never touched — the mis-scoped P6′ inferences, the reversed `T_{m(n)}` row and `notebook-1`'s `p*(C)` endpoint are all still printed there; fix FFM §7.4's printed expansion of `e^{−0.0017569}` (§5.6); relabel FFM's P6′-pair "census of pairs" as a census of indices (R2-m2); make the four round-2 artifacts cite each other. **Card `L15` and card `T1` do not need rewriting — round 2 already amended them (§5.6); check the tree, not the reports.** Then re-run the skeptic. | This is the only path to a clean gate. **None of it is research.** All of it is what a `write-paper` leg would otherwise have to guess at. Both the round-2 skeptic and this synthesis reach this conclusion independently. |
+| 1 | ✅ **DONE 2026-07-27 — the single reconciliation leg ran** (`task-20260727-264e`, artifact **`attack/reconciliation.md`**), and it was not a fan-out. Checklist status, item by item: §5.1's designation **adopted** (C-b′ kept, C(b\*) retired to a remark) ✅; UVR's tier labels amended to L0 and the edition ⚠ written into the document that consumes the preprint-only row ✅; FFM §4's denominators **and** card `L15`'s `216 805` corrected to `216 806`, and `L15`'s `50 847 503` to `50 847 533` ✅ (with a fourth independent recount, §5.4); the "unconditional" label on C-a′ struck and requalified (R2-M2) ✅; the "weakest of the three" prose struck and card `L15`'s obligation list restored to both `min` and `gov` (R2-M3) ✅; FFM §7.4's printed `e^{−0.0017569}` fixed ✅; the P6′-pair "census of pairs" relabelled a census of indices, with the true pair count recorded (R2-m2) ✅; the four round-2 artifacts now carry a common cross-reference banner and cite each other ✅; R2-m1, m3, m4, m6, m7 also dispositioned ✅. **`notebook-{0,1,2}` and `proof-attempt-0.md` were deliberately NOT amended** — the round-3 leg names that boundary in `reconciliation.md` §5 (they are round-1 defects, not seams; widening scope would reproduce the fan-out) and it remains open work. **Then re-run the skeptic** — that is `reconciliation.md` §8 item 1 and is **not done**. | This was the only path to a clean gate. **None of it was research.** Both the round-2 skeptic and this synthesis reached this conclusion independently, and the round-3 leg executed it. |
 | 2 | Run a citation audit on the **round-2** corpus, Granville first, card `L6` second | Axler is now open; Granville is the load-bearing citation of the refutation-side argument and sits at preprint pagination; `L6` is load-bearing in two theorems and unopened (R2-M2) |
 | 3 | Rewrite `paper/paper.tex` **against round 2**, not patch it | It is a round-1 artifact stating a tier that is now wrong and constants that are now superseded; the existing citation and editorial gates both failed on it |
 | 4 | Attack the residual window (§4.3) as a short-interval prime-count problem | The one genuinely-open analytic node either round isolated exactly; the criterion is `1 + 2/L`, stated in closed form |
@@ -817,6 +875,16 @@ those rest on the FFM leg and, for W2, on the round-2 skeptic's independent repr
 | `attack-round-2/lean-probe-report.md`, `unproved.md` | lean-probe | `task-20260726-8ba0` |
 | `attack-round-2/faults.md` + `skeptic-round2-checks/` | skeptic | `task-20260726-7211` |
 | `attack/evidence-verdict.md` (round-2 rewrite) | evidence-gate | `task-20260726-a94b` |
+
+**Round 3 — the reconciliation leg this document's §7 item 1 asked for.**
+
+| Artifact | Leg | Molecule |
+|---|---|---|
+| `attack/reconciliation.md` + `attack/reconcile_recount.py` / `.out.txt` | reconcile | `task-20260727-264e` |
+
+Its five decisions are landed in the tree and are binding on §5 above. It opened no source, wrote no
+Lean, re-ran no gate, and cleared nothing — by design. `F` remains **OPEN**; the gate remains
+**BLOCKED**; the next step is a skeptic re-run against the amended tree.
 | `lean/Firoozbakht/Barrier.lean` (new, `sorry`-free) | lean-probe | `task-20260726-8ba0` |
 
 **Round 1 — pinned, read, never re-run; cited above only where round 2 left it standing.** Under
@@ -830,6 +898,11 @@ document supersedes.
 (editorial gate, round 1, REWRITE), `paper/paper.tex` (round-1 paper, stale as of round 2).
 
 ---
+
+*Round-3 addendum folded 2026-07-27 by leg `reconcile`, molecule `task-20260727-264e`: §5's
+adjudications are now landed in the tree, §7 item 1 is discharged, and the outstanding work is
+enumerated in `attack/reconciliation.md` §7–§8. Nothing in §0–§4 changed — no verdict about `F`, no
+constant except the retirement of `0.99565`, and no gate status.*
 
 *Artifact of leg `synthesize`, molecule `task-20260726-7d7d`, run `germ-20260725-791a7c45`,
 re-attack loop `reattack-20260726-57d1`, **round 2**. Supersedes the round-1 `synthesis.md` in

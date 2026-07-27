@@ -15,6 +15,20 @@ reopened. (ii) Two rows added in the new §2.8 — `carneiro2019fourier` (L1) an
 `proof-attempt__1` made and never merged, and on which the round-1 citation audit consequently
 returned BLOCKED. Both new rows carry a standing re-audit obligation; see the head of §2.8.)* Every
 row has a BibTeX entry in §8 and a locator table or locator statement in §2.
+
+> ✅ **Round-3 reconciliation record — `task-20260727-264e`, 2026-07-27, decision 2 + 3.**
+> `attack/re-attack/attack-round-2/faults.md` **R2-B2** reported the `axler2014newbounds`
+> promotion as *"reported as landed and did not land"*. **That finding is STALE and the tier is
+> settled: `axler2014newbounds` is L0.** The reconciliation leg verified it in the tracked tree,
+> not from any report — §2's row carries the promotion note, the three MD5s, the
+> edition-numbering table and the ⚠ preprint-only-row rule; §6 gap 3 reads *"CLOSED
+> 2026-07-26"*; card `T1-effective-pi-bounds.md` carries the same. The skeptic's line numbers
+> resolve only in a worktree branched before commit `61689d0`. **No ledger row is reopened by this
+> leg and no tier changes here** — what this leg landed is the propagation of the L0 tier into
+> the one round-2 artifact that still carried `L2_strong, NOT OPENED`
+> (`attack-round-2/proof-attempt-unconditional-verified-range.md`, amended in place). The corpus
+> now carries **one** answer for this source at **every** site. See `attack/reconciliation.md`
+> §2–§3.
 Seven source PDFs were fetched and read in full; their MD5s are recorded per row.
 
 ---
@@ -454,6 +468,16 @@ be upgraded before the citation gate.
   citation. The `(2.1,0,0,0)/6 690 557` row is present in **both** editions and is strictly
   stronger; use it. *(This is what round 2's Theorem C-b′ does — see
   `attack-round-2/proof-attempt-first-failure-maximality.md` §7.)*
+- **⚠ This rule is now load-bearing on a designation, 2026-07-27.** Round 2 produced two
+  incompatible repairs of the same theorem off these two rows. The round-3 reconciliation leg
+  designated **Theorem C-b′** (`p_m ≤ 0.998244·p_{n₀}`, the
+  `(2.1,0,0,0)/6 690 557` row) as the corpus's single repaired Theorem C(b), **precisely because of
+  this rule**, and retired **Theorem C(b\*)** (`p_m ≤ 0.99565·p_{n₀}`, the
+  preprint-only `(1,0,0,0)/1 772 201` row) to a remark in
+  `attack-round-2/proof-attempt-unconditional-verified-range.md` §3.5. Round 1's `0.99553` and
+  round 2's `0.99565` are **retired**; the live constant is **`0.998244`**. Any leg that
+  reintroduces the `1 772 201` row must carry the edition flag with it. See
+  `attack/reconciliation.md` §1.
 - **Evidence (retained):** `kourbatov2015bounds` quotes these in the proofs of its Theorems 1, 3, 4
   and 5, and its §7 Corrigendum cites Axler's own corrigendum. The quoted statements now match what
   was read.

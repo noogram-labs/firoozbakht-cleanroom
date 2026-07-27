@@ -6,6 +6,32 @@
 **Round-1 input read in full:** `attack/lean-probe-report.md` (279 lines, molecule
 `task-20260725-9975`).
 
+> ### 🔗 Round-3 reconciliation banner — read this before quoting anything below
+>
+> A **reconciliation leg** (`task-20260727-264e`, 2026-07-27, round 3) owned the seams between the
+> four round-2 artifacts. Its decisions are recorded in **`attack/reconciliation.md`** and are
+> **binding on this document**, which has been amended in place where they touch it. The four
+> round-2 artifacts, and where each stands after reconciliation:
+>
+> | artifact | role | status after round 3 |
+> |---|---|---|
+> | `proof-attempt-first-failure-maximality.md` (FFM) | P6′ predicates, Theorem C-a′/C-b′ | **carries the designated Theorem C-b′**; §4 denominators corrected, §5 gov/min ordering corrected, C-a′ header corrected |
+> | `proof-attempt-unconditional-verified-range.md` (UVR) | Lemma H, (A-high\*), Theorem 2, the unconditional range | **Theorem C(b\*) retired to a remark**; Axler tier corrected L2_strong → **L0** |
+> | `proof-attempt-RH-conditional-bound.md` (RH) | the RH route, five theorems | unchanged; its §10 sieve count `216 815` is the **correct** one and corroborates decision 4 |
+> | `lean-probe-report.md` | the kernel leg + the barrier | clean; §4's slack table annotated (constants restored) |
+>
+> **The five decisions in one line each.** (1) The corpus's single repaired Theorem C(b) is
+> **Theorem C-b′**, `p_m ≤ 0.998244·p_{n₀}`, off the Axler row `(2.1,0,0,0)/6 690 557` present in
+> **both** editions; C(b\*) and the constants `0.99553`/`0.99565` are retired. (2)
+> `axler2014newbounds` is **L0**, everywhere, with a standing ⚠ that the `(1,0,0,0)/1 772 201` row
+> is **preprint-only**. (3) The ledger amendment **had already landed**; R2-B2's "never made" is
+> stale, verified against the tree. (4) The `55.92 %` denominators are `216 806` (`n ≥ 10`) and
+> `216 815` (all `n`) — a fourth independent recount, against FFM's original table and against both
+> prior skeptics. (5) R2-M2, R2-M3, R2-m1, R2-m2 and R2-m4 are applied in place.
+>
+> **`F` remains OPEN.** Nothing in round 3 moves it; reconciliation removes ambiguity, not
+> obstruction.
+
 ---
 
 ## 0. Headline — the verdict, stated once
@@ -166,7 +192,23 @@ asserted (`sympy`, exact primes; needed slack `p_n^{1/n} - 1`):
 
 So BHP's slack overtakes what is needed from `n = 245` on, and RH's from `n = 3`
 on — both are insufficient exactly where it matters (all large `n`), and the
-tables' "no" is a statement about the tail, not about every index. The same run
+tables' "no" is a statement about the tail, not about every index.
+
+> ⚠ **AMENDED 2026-07-27 (round-3 reconciliation, decision 5; `faults.md` R2-m4).**
+> **Both slack columns above drop the constant of the bound they score, and the two
+> crossover indices are therefore properties of a *chosen* constant, not measurements
+> of the theorems.** BHP is `g_n ≪ p^{0.525}` with an **unspecified** implied constant
+> `C`; the column `p^{−0.475}` is the `C = 1` case. CMS is `g_n ≤ (22/25)√p log p`; the
+> column `log p/√p` drops the `22/25` that the same row names. Read the two crossovers
+> as **illustrations at `C = 1` (BHP) and `C = 1` (CMS)**, not as the crossovers of the
+> published bounds. **The conclusion of the table is unaffected and does not depend on
+> any constant** — it is driven by the *exponent*, and that is a theorem, not a
+> measurement: `proof-attempt-RH-conditional-bound.md` **Theorem B** refutes every
+> envelope `C·p^θ(log p)^A` with `θ > 0` for **every** `C > 0`, and **Theorem C** refutes
+> every envelope `C√p log p` for **every** `C > 0`, with the critical constant
+> `2/e = 0.7357588823…` given in closed form. §7 below presents these crossovers as the
+> repair of an asserted claim; with the constants restored, what §7 delivers is the
+> *exponent* argument, and that is the load-bearing one. The same run
 confirms `T_n ≈ (log p_n)²` to within ~10% across `n = 10 … 10⁵`
 (`n = 10⁵`: `T = 182.98`, `(log p)² = 198.18`).
 

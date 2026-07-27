@@ -95,15 +95,15 @@ round 2's:
 
 | Check | Result | Source |
 |---|---|---|
-| `lake build` exit code | **0** (2208 jobs) | report §1, line 34–36 |
-| build warnings | **1** — `Statement.lean:185`, the declared open target | report §1 line 46 |
-| `lake env lean audit.lean` / `audit_exhaustive.lean` exit code | **0 / 0** | report §1 lines 37–41, 47–48 |
-| declarations scanned (exhaustive) | **63** (round 1 had 60; +3 barrier theorems) | report §1 line 49 |
-| `sorryAx` dependents | **exactly 1**: `Firoozbakht.firoozbakht` — the conjecture itself | report §1 line 50 |
-| live `sorry` tokens in `.lean` sources | **1** — `Statement.lean:186` | report §1 line 51 |
-| `native_decide` / `axiom` / `@[implemented_by]` / `unsafe` | **none** (grep-clean, only docstring mentions) | report §1 line 52 |
-| fidelity anchor (`Statement.lean`) byte-identical before/after | **yes**, SHA-256 matches | report §1 lines 59–69 |
-| independently re-run by round-2 skeptic (not merely read) | **yes** | round-2 `faults.md` §1 |
+| `lake build` exit code | **0** (2208 jobs) | report §1, lines 58–62 |
+| build warnings | **1** — `Statement.lean:185`, the declared open target | report §1 lines 61, 72 |
+| `lake env lean audit.lean` / `audit_exhaustive.lean` exit code | **0 / 0** | report §1 lines 63–64, 73–74 |
+| declarations scanned (exhaustive) | **63** (round 1 had 60; +3 barrier theorems) | report §1 line 75 |
+| `sorryAx` dependents | **exactly 1**: `Firoozbakht.firoozbakht` — the conjecture itself | report §1 lines 66, 76 |
+| live `sorry` tokens in `.lean` sources | **1** — `Statement.lean:186` | report §1 line 77 |
+| `native_decide` / `axiom` / `@[implemented_by]` / `unsafe` | **none** (grep-clean, only docstring mentions) | report §1 line 78 |
+| fidelity anchor (`Statement.lean`) byte-identical before/after | **yes**, SHA-256 matches | report lines 90–96 (§2), 233 (§5) |
+| independently re-run by round-2 skeptic (not merely read) | **yes**, incl. matching SHA-256 | round-2 `faults.md` §1 |
 
 **Reading.** The build is green and the axiom/`sorry` surface is grep-clean of
 everything except the one declared open target (`Firoozbakht.firoozbakht`). Round 2's

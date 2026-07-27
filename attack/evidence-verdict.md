@@ -1,65 +1,54 @@
 # Evidence gate (pre-synthesis) — verdict
 
-**Molecule:** `task-20260727-30dc` (leg `evidence-gate`, crew role: editor) — **ROUND 3**
+**Molecule:** `task-20260727-2fee` (leg `evidence-gate`, crew role: editor) — **ROUND 3, re-verdicted
+against the fresh post-reconciliation skeptic audit**
 **Run:** `germ-20260725-791a7c45` · **Re-attack loop:** `reattack-20260726-57d1` (rounds 1–2) ·
-**Reconciliation leg:** `task-20260727-264e` (round 3, `attack/reconciliation.md`)
+**Reconciliation leg:** `task-20260727-264e` (round 3, `attack/reconciliation.md`) ·
+**Skeptic re-audit leg:** `task-20260727-5096` (round 3, `attack/faults.md`)
 **Date:** 2026-07-27
 **Conjecture under attack (`F`):** `p_{n+1}^{1/(n+1)} < p_n^{1/n}` for all `n ≥ 1`.
 
-This is a fail-closed gate on evidence that **already exists** in this run. It does not
-audit citations (that happens later, at citation-gate, once write-paper exists) and it
-does not itself judge the conjecture. Every leg below is checked against a source
-artifact on disk; nothing here is assumed.
+This is a fail-closed gate on evidence that **already exists** in this run. It does not audit
+citations (that happens later, at citation-gate, once `write-paper` exists) and it does not itself
+judge the conjecture. Every leg below is checked against a source artifact on disk; nothing here is
+assumed.
 
-**This document supersedes the round-2 `evidence-verdict.md` of the same name in
-place.** Round 2 read `attack/re-attack/reattack-verdict.json` directly and named round 2
-as the live re-attack round (`rounds_target=2`, `rounds_run=2`, `exit_reason:
-rounds-exhausted`). Since then, a **reconciliation leg** (`task-20260727-264e`, round 3,
-`attack/reconciliation.md`) ran — not another proof-attempt fan-out, but the single
-seam-owning leg round 2's own skeptic asked for — and amended the round-2 artifacts in
-place. Per this molecule's own (0) LOOP-leg instruction: `reattack-verdict.json` is read
-first and still names round 2 as `final_round`; the reconciliation leg does not create a
-`round: 3` entry inside that JSON (it is not a re-attack-loop round), so this gate reads
-round 2's artifacts **as amended by round 3's reconciliation**, per
-`attack/re-attack/rounds.md`'s own "Round 3" addendum, which records exactly this
-resolution order. **What changed since round 2: the three round-2 BLOCKERs (R2-B1,
-R2-B2, R2-B3) are each discharged *as seams* by the reconciliation leg — one repaired
-theorem designated, one bibliographic tier settled, one already-landed ledger amendment
-verified against the tree rather than re-applied. What did not change: no skeptic leg has
-re-run against the amended tree, `faults.md` itself still lists a non-empty BLOCKER set
-verbatim, and the reconciliation leg says explicitly, twice, that it has no standing to
-clear the gate. The conjecture `F` is still OPEN, and the gate verdict is still
-BLOCKED.**
+**This document supersedes the prior `evidence-verdict.md` (dated the same day, molecule
+`task-20260727-30dc`) in place.** That prior version was itself correct as of its own writing: it
+named the missing step precisely — *"a fresh skeptic run against the amended tree"* — and blocked on
+its absence. **That missing step has since run.** `attack/faults.md` (molecule `task-20260727-5096`,
+leg `skeptic`, round 3) is exactly the audit the prior verdict called for: it re-checked every
+round-2 finding against the reconciled tree by re-deriving numbers itself, not by reading reports,
+and it explicitly supersedes both `attack/faults-round-1.md` and
+`attack/re-attack/attack-round-2/faults.md` (both preserved, not deleted, both banner-stamped as
+superseded). **What changed since the prior verdict: the SKEPTIC leg is no longer stale — it is a
+live, fresh audit — and it closed 12 of round 2's 13 findings (all 3 BLOCKERs, all 3 MAJORs, all 7
+MINORs) by independent re-derivation. What did not change: the artifact of record for the SKEPTIC leg
+still has a non-empty BLOCKER set — 2 new findings (S3-B1, S3-B2), of a different species than
+round 2's, both cross-artifact seam failures rather than mathematical errors. The conjecture `F` is
+still OPEN, and the gate verdict is still BLOCKED.**
 
 ---
 
 ## VERDICT: **BLOCKED**
 
-**Failing leg: SKEPTIC (round 2, not re-run since reconciliation).**
-`attack/re-attack/attack-round-2/faults.md` §0 still reads, verbatim, in the tracked
-tree: *"The BLOCKER set is non-empty. Round 2 is NOT clean"* — 3 BLOCKERs. The
-reconciliation leg amended the artifacts the BLOCKERs point at and recorded a
-disposition for each (§1–§3 of `attack/reconciliation.md`), but it explicitly declined to
-rewrite `faults.md`'s own verdict table (`attack/reconciliation.md` §6: *"the red-team
-report is not rewritten; its findings' dispositions live here and in the amended
-artifacts"*), and it explicitly declined to claim gate authority (`attack/
-reconciliation.md` §7: *"Still BLOCKED, and this leg has no standing to clear it … That
-is not the same as a clean skeptic run … The honest next step is item 1 of §8: re-run
-the skeptic against the amended tree"*). Per the gate rule, the artifact of record for
-the SKEPTIC leg (`faults.md`) has not reached a zero-BLOCKER state, and the leg that
-could certify otherwise (a fresh skeptic pass) has not run. One failing applicable leg is
-sufficient to block, regardless of the other three legs.
+**Failing leg: SKEPTIC (round 3, `attack/faults.md`, fresh — not stale).**
+`attack/faults.md` §0 states, as of the live commit: *"The BLOCKER set is non-empty. Round 3 is NOT
+clean, and the evidence gate stays BLOCKED"* — 2 BLOCKERs (S3-B1, S3-B2). Unlike the prior verdict,
+this is not a stale artifact being read past its shelf life: this skeptic leg audited the
+reconciliation leg (`attack/reconciliation.md`, `task-20260727-264e`) directly, re-executed the Lean
+gates itself rather than reading a report, and re-derived every disputed number from source
+statements with its own scripts (`attack/skeptic-round3-checks/s3_recount.py`,
+`…/s3_constants.py`). One failing applicable leg is sufficient to block, regardless of the other two.
 
-**The conjecture `F` remains OPEN.** Nothing in this evidence base, before or after
-reconciliation, proves or refutes it, and every artifact read below says so explicitly of
-itself.
+**The conjecture `F` remains OPEN.** Nothing in this evidence base, across three rounds, proves or
+refutes it, and every artifact read below says so explicitly of itself.
 
 ---
 
 ## 0. LOOP leg — which round is live
 
-Source: `attack/re-attack/reattack-verdict.json` (this molecule's own worktree copy, read
-directly — not a mirror).
+Source: `attack/re-attack/reattack-verdict.json`, read first, directly (not a mirror).
 
 ```json
 "verdict": "BLOCKED",
@@ -69,161 +58,164 @@ directly — not a mirror).
 "final_round": { "round": 2, "kernel": "UNPROVABLE_IN_BUDGET", "skeptic": "blockers" }
 ```
 
-The file is present and well-formed — the first fail-closed check passes.
-`final_round.artifacts` still names round 2's sources (`attack-round-2/faults.md`,
-`attack-round-2/lean-probe-report.md`, the three `attack-round-2/proof-attempt-*.md`
-files); the JSON has not been and should not be edited by a reconciliation leg — it is
-the re-attack loop's own terminal record, and the loop exited before reconciliation
-existed. **The live round for this gate is round 2, read as amended by round 3's
-reconciliation** — confirmed by `attack/re-attack/rounds.md`'s own "Round 3" section
-(added 2026-07-27), which states the reconciliation leg "ran outside this loop's
-`rounds = 2` cap" and records the same three-BLOCKER disposition read in §2 below.
-Round 1's `faults.md` / `lean-probe-report.md` (top-level `attack/`) remain superseded
-inputs, not authoritative for this verdict.
+The file is present and well-formed — the first fail-closed check passes. Its `final_round` still
+names round 2's own artifacts (`attack-round-2/faults.md`, `attack-round-2/lean-probe-report.md`,
+three proof attempts); the JSON is the re-attack loop's own terminal record and is correctly
+unedited by anything downstream of it. Per this molecule's brief, at rounds beyond what the loop's
+own JSON tracked, the live artifacts are named by the task-level resumption, not by re-opening the
+JSON: **this galaxy ran the loop's two rounds, then a reconciliation leg
+(`task-20260727-264e`, `attack/reconciliation.md`) that the round-2 skeptic itself asked for, then a
+fresh post-reconciliation skeptic re-audit (`task-20260727-5096`, `attack/faults.md`), which
+supersedes round 2's `faults.md` in place** (banner in both `attack/faults.md` and
+`attack/re-attack/attack-round-2/faults.md` records the supersession explicitly). This gate reads the
+round-3 skeptic's artifact as the current SKEPTIC leg, and the round-3 reconciliation as the current
+state of the theorem/ledger artifacts it repaired.
 
 ---
 
-## 1. KERNEL leg — `attack/re-attack/attack-round-2/lean-probe-report.md`
+## 1. KERNEL leg — re-executed by the round-3 skeptic, not merely read
 
-`formal_backend = 'lean'` (not `'none'`) — the DEGRADED carve-out does not apply; this
-leg must PASS outright or the leg is failing. **Unchanged by reconciliation** — the
-reconciliation leg's own declared write perimeter states *"no Lean written or re-run by
-this leg"* (`attack/reconciliation.md` header) and *"it did not re-run the Lean gates
-… the kernel leg's status is reported at the exit codes the round-2 skeptic
-re-executed, and is labelled as second-hand"* (§0). So this leg's evidence is exactly
-round 2's:
+`formal_backend = 'lean'` (not `'none'`) — the DEGRADED carve-out does not apply; this leg must PASS
+outright or the leg is failing. Source: `attack/faults.md` §1, which states the checks were
+independently re-run, not read from `attack/lean-probe-report.md` or
+`attack/re-attack/attack-round-2/lean-probe-report.md`:
 
 | Check | Result | Source |
 |---|---|---|
-| `lake build` exit code | **0** (2208 jobs) | report §1, lines 58–62 |
-| build warnings | **1** — `Statement.lean:185`, the declared open target | report §1 lines 61, 72 |
-| `lake env lean audit.lean` / `audit_exhaustive.lean` exit code | **0 / 0** | report §1 lines 63–64, 73–74 |
-| declarations scanned (exhaustive) | **63** (round 1 had 60; +3 barrier theorems) | report §1 line 75 |
-| `sorryAx` dependents | **exactly 1**: `Firoozbakht.firoozbakht` — the conjecture itself | report §1 lines 66, 76 |
-| live `sorry` tokens in `.lean` sources | **1** — `Statement.lean:186` | report §1 line 77 |
-| `native_decide` / `axiom` / `@[implemented_by]` / `unsafe` | **none** (grep-clean, only docstring mentions) | report §1 line 78 |
-| fidelity anchor (`Statement.lean`) byte-identical before/after | **yes**, SHA-256 matches | report lines 90–96 (§2), 233 (§5) |
-| independently re-run by round-2 skeptic (not merely read) | **yes**, incl. matching SHA-256 | round-2 `faults.md` §1 |
+| `lake exe cache get` | exit 0 | `faults.md` §1 |
+| `lake build` exit code | **0** (2208 jobs, "Build completed successfully") | `faults.md` §1 |
+| `lake env lean audit_exhaustive.lean` exit code | **0** | `faults.md` §1 |
+| declarations scanned (exhaustive) | **63** | `faults.md` §1 |
+| `sorryAx` dependents | **exactly 1**: `Firoozbakht.firoozbakht` — the conjecture itself | `faults.md` §1 |
+| fidelity anchor (`Statement.lean`) SHA-256 | recorded (`6528868823c0637dd182c914e2ef43a7455f851335cafaba6cee934802e004c1`) | `faults.md` §1 |
 
-**Reading.** The build is green and the axiom/`sorry` surface is grep-clean of
-everything except the one declared open target (`Firoozbakht.firoozbakht`). Round 2's
-`Barrier.lean` proves Bertrand's postulate insufficient for `F` at every `n ≥ 2` — a
-machine-checked negative-capability result, not a step toward a proof.
+**Reading.** The build is green and the axiom/`sorry` surface is grep-clean of everything except the
+one declared open target (`Firoozbakht.firoozbakht`), consistent with `attack/lean-probe-report.md`'s
+original headline (*"four of the five `sorry`s are discharged; the fifth is the conjecture itself"*)
+and with round 2's own re-run. The round-3 reconciliation leg wrote no Lean and re-ran none
+(`attack/reconciliation.md` header: *"no Lean written or re-run by this leg"*) — the round-3 skeptic
+is the first leg since round 2 to touch the toolchain directly, and it reproduces the same result.
 
-**KERNEL leg: PASS**, unchanged since round 2. `kernel: UNPROVABLE_IN_BUDGET` in
-`reattack-verdict.json` is consistent with this reading — PASS-of-the-gate-check is not
-the same claim as PROVED.
+**KERNEL leg: PASS.**
 
 ---
 
-## 2. SKEPTIC leg — `attack/re-attack/attack-round-2/faults.md`, read with `attack/reconciliation.md`
+## 2. SKEPTIC leg — `attack/faults.md` (round 3, fresh audit of the reconciliation)
 
-Artifact exists, now carrying a round-3 reconciliation banner (`faults.md` header) but
-**its own §0 verdict table is unchanged and unstruck**:
+Artifact exists, is dated 2026-07-27, audits `attack/reconciliation.md` directly, and states its own
+verdict first:
 
 | Severity | Count | Findings |
-|---|---|---|
-| **BLOCKER** | **3** | R2-B1, R2-B2, R2-B3 |
-| MAJOR | 3 | R2-M1, R2-M2, R2-M3 |
-| MINOR | 7 | R2-m1 … R2-m7 |
+|---|---:|---|
+| **BLOCKER** | **2** | S3-B1, S3-B2 |
+| MAJOR | 2 | S3-M1, S3-M2 |
+| MINOR | 5 | S3-m1 … S3-m5 |
 
-`faults.md` §0 still reads, verbatim: *"The BLOCKER set is non-empty. Round 2 is NOT
-clean."* This is the artifact of record for the SKEPTIC leg, and it has not been zeroed.
+**What closed (12 of round 2's 13 findings), each verified by the round-3 skeptic against the tree,
+not against either prior report:**
+- **R2-B1** (two incompatible repairs of one theorem) — **CLOSED**. Theorem C-b′ is designated
+  (`✅ DESIGNATED`), Theorem C(b*) retired (`⛔ RETIRED`), no concept card carries a Theorem C
+  constant at all (grep-verified: zero hits), and the round-3 skeptic independently re-derived the
+  designated theorem's constants from its statement — all match to the stated precision.
+- **R2-B2** (ledger amendment claimed never made) — **CLOSED**. `source-ledger.md:426` carries tier
+  `L0` with the three-document fetch table; `git log` places the promotion at `61689d0` (07-26
+  19:22), merged `4526b27` (19:26) — before round 2's `faults.md` was even committed (20:46, on a
+  pre-merge branch), which is why the stale line numbers appeared stale.
+- **R2-B3** (repair resting on a preprint-only Axler row) — **CLOSED** by retirement, with the
+  underlying `π(x)` bound independently re-verified (0 failures below `10⁸`).
+- **R2-M1** (55.92% denominators) — **CLOSED**. Recounted from the raw statement with a fresh script
+  (`s3_recount.py`); the round-3 skeptic agrees with the reconciliation's figure, not with either
+  prior skeptic's.
+- **R2-M3**, all seven MINORs — **CLOSED**, each independently re-derived (28 maximal-gap records
+  below `2·10⁸`, census-counts-indices wording, the `2.4·10⁻⁸` margin, the lean-probe slack-table
+  annotation, the write-perimeter question, the `p^{−0.83}` local-exponent correction, the `10³`
+  per-decade entry).
 
-**What the reconciliation leg (`attack/reconciliation.md`, molecule `task-20260727-264e`)
-did to each BLOCKER, read directly from that document (not from a summary):**
+**What did not close — the 2 new BLOCKERs, of a different species than round 2's (cross-artifact
+seam failures, not mathematical errors):**
 
-- **R2-B1 — designated, not adjudicated by a skeptic.** §1: `Theorem C-b′`
-  (`p_m ≤ 0.998244·p_{n₀}`, Axler row `(2.1,0,0,0)/6 690 557`, present in both editions)
-  is named the corpus's single repaired Theorem C(b); `Theorem C(b*)` (`0.99565`, row
-  `(1,0,0,0)/1 772 201`, preprint-only) is retired to a remark. Both theorems remain
-  independently verified mathematically correct by the round-2 skeptic; the choice
-  between them is documentary, made by a reconciler, not re-adjudicated by a fresh
-  skeptic pass.
-- **R2-B2 — limb 1 found stale, limb 2 closed.** §3: the claim that the ledger
-  amendment "was never made" is **false against the committed tree** — the
-  reconciliation leg found `source-ledger.md`'s Axler row already at tier **L0** (landed
-  commit `61689d0`), and the skeptic's cited line numbers resolve only in a
-  pre-merge worktree. What had genuinely not landed — propagation of the L0 tier into
-  the sibling document (`proof-attempt-unconditional-verified-range.md`) — is what §2
-  of the reconciliation leg lands.
-- **R2-B3 — closed by retirement.** §1: the theorem consuming the edition-fragile
-  `1 772 201` row is retired; the edition warning is now written into the document that
-  had consumed it and into card `T1`.
+- **S3-B1** — decision 2 of the reconciliation states `axler2014newbounds` is tier L0 *"at every site
+  in the corpus"*; **six sites still assert L2_strong / unopened** (five concept cards —
+  `L2-threshold-asymptotics.md`, `L3-necessary-condition.md`, `L4-sufficient-condition.md`,
+  `D3-pi-and-count-index-identity.md`, `INDEX.md` — plus the round-2
+  `proof-attempt-RH-conditional-bound.md`, which the reconciliation's own §6 table calls *"banner
+  only — nothing … needed correcting"*, which the tree contradicts: two of its flag blocks gate a
+  live numeral on the stale tier). `R2-B2`'s limb 2 (tier propagation) is therefore **not** actually
+  closed — only propagated to one sibling document out of seven.
+- **S3-B2** — the reconciliation's own *"what is still open"* section (§6–§8) makes four claims about
+  the tree that `git log` and the tracked files contradict: (a) it says `paper/paper.tex` still needs
+  rewriting against round 2 — it was rewritten on 2026-07-26 (`d33dfe0`); (b) it says `paper.tex`
+  still asserts Axler unopened — it asserts the opposite, retrospectively, at four sites; (c) it
+  claims `0.99553` is still live in the paper — it appears once, already labelled superseded; (d) it
+  claims **no citation audit has run on the round-2 corpus** — `attack/verification-report.md` is
+  exactly that audit (round 2, commit `51756c5`, **verdict PASS**), committed 11 minutes after the
+  paper rewrite. This is the same species of error the reconciliation leg exists to prevent
+  (unverified claims about tree state), and it has already propagated into `attack/synthesis.md`
+  (§0, §7, §8, §9), which now republishes the false "no round-2 audit exists" claim as the corpus's
+  headline gate status — a false statement about a **file** has become a false statement about a
+  **gate**, in the document a `write-paper` leg reads first.
 
-**Why this does not zero the SKEPTIC leg for this gate.** The reconciliation leg is
-explicit, in its own words, that this is not the same act as a skeptic clearing its
-findings: *"That is not the same as a clean skeptic run. Clearing a skeptic finding is a
-skeptic's job; a reconciler who marked its own work clean would be committing the exact
-error `faults.md` §7 diagnoses. The honest next step is item 1 of §8: re-run the skeptic
-against the amended tree"* (`attack/reconciliation.md` §7). No such re-run exists on
-disk as of this molecule. `faults.md`'s own BLOCKER table is unedited by design
-(reconciliation §6: *"the red-team report is not rewritten"*), so the artifact this gate
-is instructed to check — *"the live round's faults.md exists and has zero residual
-BLOCKERs"* — still reads 3, not 0.
+**Why the SKEPTIC leg still fails.** Zero residual BLOCKERs is the bar the brief sets. This is a
+fresh, independently-re-derived audit — not a stale one being read past its currency, as the prior
+verdict correctly declined to accept — and it still finds 2. The findings are narrower than round 2's
+three (both are cross-artifact propagation/accuracy failures, not open mathematical disputes; the
+underlying theorems, ledger tier decision, and citation audit are all independently confirmed
+correct by this same skeptic pass), but "narrower" is not "zero."
 
-Three MAJORs (R2-M1, R2-M2, R2-M3) are likewise **applied in the amended artifacts** by
-the reconciliation leg but not re-certified by a skeptic pass; they do not change the
-BLOCKER count either way.
-
-**SKEPTIC leg: FAIL.** Zero residual BLOCKERs is the bar. `faults.md` reads 3, and no
-fresh skeptic run has re-read the amended tree and reported otherwise — the
-reconciliation leg itself names this exact gap and declines to fill it.
+**SKEPTIC leg: FAIL.**
 
 ---
 
 ## 3. CORPUS leg — `attack/coverage-report.md`
 
-Artifact present (249 lines), backend `lean`, non-empty and specific. **Untouched by
-round 3** — the reconciliation leg's file-by-file edit table (`attack/reconciliation.md`
-§6) does not list `attack/coverage-report.md`, and nothing in `attack/reconciliation.md`
-flags it as stale or contradicted:
+Artifact present (249 lines), backend `lean`, non-empty and specific. Untouched by round 3 — neither
+`attack/reconciliation.md`'s edit table nor `attack/faults.md` flags it as stale or contradicted:
 
-- 27 adversarial statements (all false/ill-formed by construction) run through
-  `lake env lean` against the same toolchain as the anchor. 27/27 behaved as specified.
+- 27 adversarial statements (all false/ill-formed by construction) run through `lake env lean`
+  against the same toolchain as the anchor. 27/27 behaved as specified (20 refuted, 3 rejected, 3
+  accepted-but-unsound caught by axiom audit, 1 undetected — named as the report's own main finding).
 - Verification pass: `corpus/verify_corpus.py`, 109/109 green.
 - Coverage against the brief's categories itemized across 8 rows; gaps stated plainly.
 
-**CORPUS leg: PASS** — unchanged since round 2.
+**CORPUS leg: PASS.**
 
 ---
 
 ## 4. Verdict logic applied
 
-| Leg | Round 2 (superseded) | Round 3 (live, this document) |
+| Leg | Prior verdict (superseded) | This verdict (round 3, live) |
 |---|---|---|
-| LOOP (round resolution) | round 2 is live (`rounds_run=2` of `rounds_target=2`) | still round 2's artifacts, now read **as amended** by the round-3 reconciliation leg (`task-20260727-264e`), per `rounds.md`'s own "Round 3" section |
-| KERNEL | PASS | **PASS**, unchanged — no Lean written or re-run by the reconciliation leg |
-| SKEPTIC | FAIL — 3 BLOCKERs (R2-B1, R2-B2, R2-B3) | **FAIL** — same 3 BLOCKERs, each *discharged as a seam* by reconciliation but **not re-certified by a skeptic pass**; `faults.md`'s own verdict table is still unstruck at 3 |
+| LOOP (round resolution) | round 2's artifacts, read as amended by reconciliation | round 2's artifacts, as amended by reconciliation **and** re-audited fresh by round-3 skeptic |
+| KERNEL | PASS (second-hand, unre-run since round 2) | **PASS** — re-executed directly by the round-3 skeptic, same result |
+| SKEPTIC | FAIL — stale round-2 `faults.md` never re-run against the amended tree | **FAIL** — fresh round-3 `faults.md` now exists and *is* the re-run the prior verdict called for; it closes 12/13 round-2 findings but opens 2 new BLOCKERs of a different species |
 | CORPUS | PASS | **PASS**, unchanged, not touched by round 3 |
 
-Rule: *PASS only if all applicable legs pass (DEGRADED if the kernel leg is honestly
-degraded and the rest pass), else BLOCKED with the failing leg named.* KERNEL is not
-degraded and passes outright; SKEPTIC fails, for a narrower reason than round 2's (the
-BLOCKERs have documented, agreed-on repairs) but fails nonetheless, because the leg with
-standing to certify "zero residual BLOCKERs" — a skeptic pass against the amended tree —
-has not run.
+Rule: *PASS only if all applicable legs pass (DEGRADED if the kernel leg is honestly degraded and the
+rest pass), else BLOCKED with the failing leg named.* KERNEL is not degraded and passes outright;
+CORPUS passes unchanged; SKEPTIC fails — not for the prior reason (staleness), but because the fresh
+audit itself surfaced 2 residual BLOCKERs.
 
-**⇒ VERDICT: BLOCKED. Failing leg: SKEPTIC — `faults.md` still lists 3 BLOCKERs
-verbatim; the round-3 reconciliation leg (`attack/reconciliation.md`) discharged each as
-a cross-artifact seam and said so precisely, but also said precisely that this is not a
-gate clearance and that a fresh skeptic run is the missing step. Conjecture `F` remains
-OPEN — neither this gate, nor the reconciliation leg, nor any leg either reads, claims
+**⇒ VERDICT: BLOCKED. Failing leg: SKEPTIC — `attack/faults.md` (round 3) lists 2 BLOCKERs (S3-B1:
+an Axler citation-tier promotion propagated to only 1 of 7 sites that need it; S3-B2: the
+reconciliation leg's own "what is still open" section makes four false claims about tree state,
+already republished as gate status in `attack/synthesis.md`). Conjecture `F` remains OPEN — neither
+this gate, nor the reconciliation leg, nor the skeptic re-audit, nor any leg either reads, claims
 otherwise.**
 
-Downstream `synthesize` / `write-paper` legs must not treat this run's corpus as
-seal-ready. The single remaining action that would flip this leg is named by the
-reconciliation leg itself (`attack/reconciliation.md` §8, item 1): **re-run the skeptic
-against the amended tree**, feeding it `attack/reconciliation.md` so it audits the five
-decisions, not just the arithmetic. That leg has not been funded by this molecule.
+Downstream `synthesize` / `write-paper` legs must not treat this run's corpus as seal-ready, and
+`attack/synthesis.md` in particular carries a now-identified false claim (S3-B2, item (d) above) that
+should not propagate further. The repairs are named precisely by `attack/faults.md` itself (§2, each
+BLOCKER's own "Repair" subsection): propagate the L0 tier to the six named sites, and correct the
+four tree-state claims in `reconciliation.md` §6–§8 and `synthesis.md` §0/§7/§8/§9 against `git log`.
+Neither repair touches the conjecture or any theorem's mathematics.
 
 ---
 
-*Artifact of leg `evidence-gate`, molecule `task-20260727-30dc`, run
-`germ-20260725-791a7c45`, re-attack loop `reattack-20260726-57d1`, reconciliation leg
-`task-20260727-264e`. Sources read: `attack/re-attack/reattack-verdict.json`,
-`attack/re-attack/attack-round-2/faults.md`, `attack/re-attack/attack-round-2/
-lean-probe-report.md`, `attack/coverage-report.md`, `attack/reconciliation.md`,
-`attack/re-attack/rounds.md`. No number in this document was invented; every figure
-traces to the cited source file and section. This document supersedes the round-2
-`evidence-verdict.md` of the same name in place.*
+*Artifact of leg `evidence-gate`, molecule `task-20260727-2fee`, run `germ-20260725-791a7c45`,
+re-attack loop `reattack-20260726-57d1`, reconciliation leg `task-20260727-264e`, skeptic re-audit
+leg `task-20260727-5096`. Sources read: `attack/re-attack/reattack-verdict.json`,
+`attack/faults.md`, `attack/reconciliation.md`, `attack/coverage-report.md`,
+`attack/re-attack/attack-round-2/faults.md` (superseded, read for the disposition table only). No
+number in this document was invented; every figure traces to the cited source file and section. This
+document supersedes the prior `evidence-verdict.md` (molecule `task-20260727-30dc`) of the same name
+in place.*

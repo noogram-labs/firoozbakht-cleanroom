@@ -157,7 +157,7 @@ propagated into `attack/synthesis.md` §0 (l. 50), §7 (l. 728–731, 744), §8 
 | the claim | the tree |
 |---|---|
 | *"`paper/paper.tex` … a round-1 artifact that §7 says must be **rewritten** against round 2"* (§6, §8 item 4) | `paper.tex` **was** rewritten against round 2 on 2026-07-26 — commit `d33dfe0` *"write-paper round 2: rewrite paper.tex against round 2, superseding round 1"*, plus `1637cf3`. It is 2460 lines, treats Axler as **read at the locator in both editions** (l. 83, 196–199, `haz:axler`), carries `0.998244` as the theorem it keeps, and **already retires `0.99565`** in Rem. `rem:retired` for the preprint-only-row reason — i.e. it reached decision 1 independently, a day early |
-| *"It is … asserting a tier that is now wrong (**«Axler … not opened»**)"* (§8 item 4) | No such assertion exists in `paper.tex`. Grep returns zero hits; the paper's Caveat `haz:axler` records the promotion and the two editorial hazards |
+| *"It is … asserting a tier that is now wrong (**«Axler … not opened»**)"* (§8 item 4) | `paper.tex` asserts the opposite. Its four occurrences of *"unopened"* near Axler are all retrospective — l. 198 *"the unopened source of the first round; **it is now opened**, read at the locator in both editions"*, l. 1378 *"the Axler branch **rested** on an unopened source in round 1"*, l. 2279 describing the seam itself — and Caveat `haz:axler` records the promotion plus the two editorial hazards. No site asserts a live unopened tier |
 | *"and constants that are now superseded — including `0.99553`"* (§8 item 4) | `0.99553` appears **once**, in Rem. `rem:C-compare`'s round-1-vs-round-2 column, correctly labelled *"(from a lemma that did not support it)"* |
 | *"**No citation audit has been run on the round-2 corpus at all** — the only one on disk is a round-1, paper-side audit that itself returned **BLOCKED**"* (§7 item 3, §8 item 2) | `attack/verification-report.md` is the **round-2** audit (`cite-20260726-d5a8`, 2026-07-26, commit `51756c5`), **verdict PASS**: 91 `\cite` instances, 22 citekeys, 59 locator pairs, zero L3, audited against the *amended* ledger including the §2.8 rows the reconciliation says carry only a *"standing re-audit obligation"*. It also carries the Granville pagination caveat explicitly. Separately, `attack/editorial-verdict.md` is the **round-2** gate (`review-20260726-7d55`, REWRITE on the 2460-line paper), which `synthesis.md` l. 909 calls *"round 1"* |
 
@@ -169,7 +169,13 @@ propagated into `attack/synthesis.md` §0 (l. 50), §7 (l. 728–731, 744), §8 
    marks the change of standard. The leg's §9 self-verification claims *"every string this document
    claims to have edited (`grep` after each edit)"* — that discipline was applied to what it wrote
    and not to what it declined to write.
-2. **It has already propagated.** The round-3 synthesis (`4753437`, 15:09, after the reconciliation
+2. **It has already propagated — and it did not start here.** `paper/paper.tex` §`sec:defects`
+   l. 2351–2353 says *"The citation audit for this paper has **not** been run … the round-1 audit
+   … returned BLOCKED and the downstream editorial gate consequently returned REWRITE; **no round-2
+   audit exists**."* That was true when the paper was committed (`d33dfe0`, 21:45) and **false
+   eleven minutes later** (`51756c5`, 21:56) — an honest snapshot that nobody refreshed, and the
+   likely origin of the claim. What the reconciliation did was carry a snapshot forward as a tree
+   check, without running one. The round-3 synthesis (`4753437`, 15:09, after the reconciliation
    merged at 14:49) now states as the corpus's headline gate status: *"The citation audit has **not**
    been run on this corpus … The only audit on disk is round-1, paper-side, and it returned
    **BLOCKED**"* and *"`paper/paper.tex` is a **round-1** artifact."* A false statement about the
@@ -207,7 +213,7 @@ sentence. `reconciliation.md` §5 reports R2-M2 *"Does not stand. Applied."* Two
 - `proof-attempt-first-failure-maximality.md:173` — *"| **(M1)** restricted to `p_m ≤ 0.94970·p_{n₀}` | **PROVED** unconditionally, Dusart only (§7.4, Thm C-a′) |"*
 - `…:751` (§7.4's own **"Reading of Theorem C, round 2"**, the paragraph written to be quoted) — *"`g_{n₀}` exceeds every gap between primes below `0.94970·p_{n₀}` — **unconditionally, on Dusart alone**"*
 
-Neither names card `L6`, and l. 751 sits **eighty lines below** the corrected header that says the
+Neither names card `L6`, and l. 751 sits **a hundred lines below** the corrected header that says the
 label is false — so the document now asserts both readings, and the quotable one is the wrong one.
 §13's corrected sentence shows the honest form and is the model: *"on Dusart's L0 analytics, given
 the published `2⁶⁴` verification height (card `L6`, L2_weak, unopened) and a finite in-run gap

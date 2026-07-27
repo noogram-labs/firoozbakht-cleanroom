@@ -172,3 +172,60 @@ that disclose well — that turns the gate into a popularity contest — the fix
 word: something like "the artifact is correct about a real failure elsewhere," scored differently
 from "the artifact is wrong." Two verdicts is enough for a system that only ever fails one way; it
 is not enough for one that can fail *and* be honest about it, or fail and hide it.
+
+---
+
+## 2026-07-27 — round 3: the doctor caught everyone's cold but its own
+
+**Principle inscribed: a step built specifically to catch "you described a file without checking
+it" is itself a step that describes files — and unless something checks the checker the same
+unforgiving way, it will make its own signature mistake, in public, and nobody will notice, because
+nobody thought to suspect the doctor of carrying the cold.**
+
+Round 2 ended with a name for its own disease: nobody owned the seams between parallel fixes, so
+the same crooked shelf got mended twice, differently, by two roommates who never spoke (chronicle
+above, 2026-07-26). Round 3's answer was to hire a seam-owner: a reconciliation leg
+(`task-20260727-264e`), whose entire job was to stop anyone from describing the state of a file
+from memory instead of reading it. It did that job well — it closed real contradictions, reversed
+a wrong denominator, corrected a stale ledger tier. Then, in its own closing section, it typed four
+sentences about what was "still open" in the tree — from memory, not from `git log` — and got all
+four wrong. The round-3 skeptic (`task-20260727-5096`) caught it and named the shape precisely:
+*"a leg's claim about the state of a file is not evidence about the state of that file"* — which is
+the reconciliation leg's own founding lesson, now failed by the leg that exists to teach it.
+
+It did not stop there. The synthesis fold (`task-20260727-4709`) read the reconciliation and
+republished its four wrong sentences as settled fact. The paper (`edit-20260727-ace7`) wrote a
+section — §9.5 — whose entire purpose was to report the citation audit's *current* state, so that
+this exact error could never happen to a reader. The citation gate then ran, passed, and
+superseded the very report §9.5 was quoting — and §9.5 went stale within minutes of being written,
+for the third round running. Then the citation gate itself (`cite-20260727-df58`), auditing 22
+citations, wrote "21/21 citekeys: OK, no citekey lacks a ledger row" — and had, in its own table,
+checked 21. Four different legs, four different documents, one identical mistake: stating a
+*negative* — "nothing is missing," "nothing is still open," "no citekey lacks a row" — without
+first counting. Every one of the hard mathematical claims this round touched was independently
+re-derived and held up (nine constants, a Lean kernel rebuilt from a cold cache, a sieve to a
+billion). Every one of the easy countable claims — how many files say a fact, how many citekeys a
+table checked — was asserted from memory and was wrong. Picture a school where the hardest exam
+questions all get double-checked with a calculator and the attendance sheet gets marked by
+guessing who was probably there: the guess is wrong exactly when it matters, because nobody thought
+counting heads needed a calculator too.
+
+**How to apply:** when you add a verification step whose purpose is "catch claims made without
+checking," budget for the fact that the step's own prose is also a claim, made by a leg, under the
+same time pressure as everyone else's. Do not exempt the checker from the rule it enforces. And
+more generally: treat every *negative* assertion about a countable artifact — "nothing is
+unresolved," "every X has a Y," "no Z lacks a row" — as a claim that costs one `grep -c` to verify,
+where every wrong instance of it costs a full downstream round to undo. The fix is not another
+reconciliation pass on top of this one; it is a rule that a leg may not assert a negative fact about
+an artifact it has not just counted. Four consecutive rounds warned about exactly this and the
+warning did not suppress it once — which means the fix belongs in what a leg is required to run
+before it types the sentence, not in adding a fifth leg to check the fourth.
+
+**What changed since round 2 (this chronicle's own bookkeeping):** round 2's chronicle entries
+(above) describe a corpus whose failures were still reachable by "add a reconciliation stage" and
+"re-derive instead of matching." Round 3 built exactly that reconciliation stage — and the failure
+mode did not go away, it moved one level up, into the reconciliation stage itself and everything
+downstream of it. The conjecture `F` is unchanged: still open, still numerically robust, still
+incompatible with the standard heuristic. What moved is where the corpus's actual risk lives —
+from "is the math right" (repeatedly confirmed, all three rounds) to "did anyone count before
+claiming nothing was missing" (failed, all three rounds, escalating in scope each time).
